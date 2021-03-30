@@ -7,28 +7,59 @@
 
 static ddi_4 _igen_dd_op_mm256_add_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
-    int j;
-    int i;
 
-    for (j = 0; j <= 3; ++j) {
-        i = j * 64;
-        dst.f[i / 64] = _ia_add_dd(a.f[i / 64], b.f[i / 64]);
-    }
+//    dst.f[0] = _vec_add_dd(a.f[0], b.f[0]);
+//    dst.f[1] = _vec_add_dd(a.f[1], b.f[1]);
+//    dst.f[2] = _vec_add_dd(a.f[2], b.f[2]);
+//    dst.f[3] = _vec_add_dd(a.f[3], b.f[3]);
 
     return dst;
 }
 
 static ddi_4 _igen_dd_op_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
-    int j;
-    int i;
-
-    for (j = 0; j <= 3; ++j) {
-        i = j * 64;
-        dst.f[i / 64] = _ia_mul_dd(a.f[i / 64], b.f[i / 64]);
-    }
+//    int j;
+//    int i;
+//
+//    for (j = 0; j <= 3; ++j) {
+//        i = j * 64;
+//        dst.f[i / 64] = _ia_mul_dd(a.f[i / 64], b.f[i / 64]);
+//    }
 
     return dst;
+}
+
+ddi_4 _igen_dd_fb_mm256_permute_pd(ddi_4 _a, int imm8) {
+    vec256d a;
+    a.v = _a;
+    vec256d dst;
+
+//    if (((imm8 >> 0) & 1) == 0) {
+//        dst.f[0] = a.f[0];
+//    }
+//    if (((imm8 >> 0) & 1) == 1) {
+//        dst.f[0] = a.f[1];
+//    }
+//    if (((imm8 >> 1) & 1) == 0) {
+//        dst.f[1] = a.f[0];
+//    }
+//    if (((imm8 >> 1) & 1) == 1) {
+//        dst.f[1] = a.f[1];
+//    }
+//    if (((imm8 >> 2) & 1) == 0) {
+//        dst.f[2] = a.f[2];
+//    }
+//    if (((imm8 >> 2) & 1) == 1) {
+//        dst.f[2] = a.f[3];
+//    }
+//    if (((imm8 >> 3) & 1) == 0) {
+//        dst.f[3] = a.f[2];
+//    }
+//    if (((imm8 >> 3) & 1) == 1) {
+//        dst.f[3] = a.f[3];
+//    }
+
+    return dst.v;
 }
 
 static ddi_4 _igen_dd_op_mm256_fmadd_pd(ddi_4 a, ddi_4 b, ddi_4 c) {
@@ -64,13 +95,13 @@ static ddi_4 _igen_dd_op_mm256_div_pd(ddi_4 a, ddi_4 b) {
 
 static ddi_4 _igen_dd_op_mm256_sub_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
-    int j;
-    int i;
-
-    for (j = 0; j <= 3; ++j) {
-        i = j * 64;
-        dst.f[i / 64] = _ia_sub_dd(a.f[i / 64], b.f[i / 64]);
-    }
+//    int j;
+//    int i;
+//
+//    for (j = 0; j <= 3; ++j) {
+//        i = j * 64;
+//        dst.f[i / 64] = _ia_sub_dd(a.f[i / 64], b.f[i / 64]);
+//    }
 
     return dst;
 }

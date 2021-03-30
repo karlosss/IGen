@@ -4,3 +4,5 @@ _results
 build/
 CMakeFiles/
 bin/
+cmake_install.cmake
+Makefile
