@@ -6,6 +6,7 @@ set(IGEN_COMMON          ../../common)
 set(MPREAL               ../../third-party/mpreal)
 if (NOT DEFINED IGEN_VEC)
     set(IGEN_VEC "YES")   # Use IGen with vectorized output by default
+#    set(IGEN_VEC "NO")
 endif()
 
 # ================================================================================
@@ -16,8 +17,9 @@ set(CONFIG_COMPILER "GNU")           # GNU, Clang or Intel
 set(CONFIG_DEBUG "OFF")              # ON or OFF
 set(CONFIG_GENERATE_ASSEMBLY "OFF")  # ON or OFF
 set(CMAKE_VERBOSE_MAKEFILE "OFF")    # ON or OFF
-set(CONFIG_FLAGS "-O3 -march=native -frounding-math")
-set(CONFIG_LIBRARIES mpfi mpfr yalaa prim m gaol gdtoa crlibm)    # Used libraries, e.g. crlibm, mpfr
+set(CONFIG_FLAGS "-O3 -march=skylake -frounding-math")
+#set(CONFIG_LIBRARIES mpfi mpfr yalaa prim m gaol gdtoa crlibm)    # Used libraries, e.g. crlibm, mpfr
+set(CONFIG_LIBRARIES mpfi mpfr m crlibm)    # Used libraries, e.g. crlibm, mpfr
 
 # ================================================================================
 # Include directories, set source files and user definitions
@@ -82,23 +84,23 @@ set(SOURCE_FILES
         spiral_source/AVX_DFT256.cpp
 
         # Libraries
-        libraries/DFT16_boost.cpp
-        libraries/DFT32_boost.cpp
-        libraries/DFT64_boost.cpp
-        libraries/DFT128_boost.cpp
-        libraries/DFT256_boost.cpp
-
-        libraries/DFT16_filib.cpp
-        libraries/DFT32_filib.cpp
-        libraries/DFT64_filib.cpp
-        libraries/DFT128_filib.cpp
-        libraries/DFT256_filib.cpp
-
-        libraries/DFT16_gaol.cpp
-        libraries/DFT32_gaol.cpp
-        libraries/DFT64_gaol.cpp
-        libraries/DFT128_gaol.cpp
-        libraries/DFT256_gaol.cpp
+#        libraries/DFT16_boost.cpp
+#        libraries/DFT32_boost.cpp
+#        libraries/DFT64_boost.cpp
+#        libraries/DFT128_boost.cpp
+#        libraries/DFT256_boost.cpp
+#
+#        libraries/DFT16_filib.cpp
+#        libraries/DFT32_filib.cpp
+#        libraries/DFT64_filib.cpp
+#        libraries/DFT128_filib.cpp
+#        libraries/DFT256_filib.cpp
+#
+#        libraries/DFT16_gaol.cpp
+#        libraries/DFT32_gaol.cpp
+#        libraries/DFT64_gaol.cpp
+#        libraries/DFT128_gaol.cpp
+#        libraries/DFT256_gaol.cpp
 
 #        libraries/DFT16_yalaa.cpp
 #        libraries/DFT32_yalaa.cpp
