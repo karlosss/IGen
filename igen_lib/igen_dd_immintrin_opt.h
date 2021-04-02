@@ -1,5 +1,7 @@
 #pragma once
 
+#include <immintrin.h>
+
 #include "igen_immintrin.h"
 #include "igen_dd_immintrin_types.h"
 #include "igen_dd_immintrin_internal.h"
@@ -93,8 +95,8 @@ static ddi_4 _igen_dd_op_mm256_hadd_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dst.f[0] = _ia_add_dd(a.f[1], a.f[0]);
-    dst.f[1] = _ia_add_dd(b.f[1], b.f[0]);
     dst.f[2] = _ia_add_dd(a.f[3], a.f[2]);
+    dst.f[1] = _ia_add_dd(b.f[1], b.f[0]);
     dst.f[3] = _ia_add_dd(b.f[3], b.f[2]);
 
     return dst;
@@ -181,18 +183,25 @@ static ddi_2 _igen_dd_op_mm256_castpd256_pd128(ddi_4 a) {
 static ddi_4 _igen_dd_op_mm256_shuffle_pd(ddi_4 a, ddi_4 b, int imm8) {
     ddi_4 dst;
     dst.f[0] = (imm8 & 1) == 0 ? a.f[0] : a.f[1];
-    dst.f[1] = (imm8 & 2) == 0 ? b.f[0] : b.f[1];
     dst.f[2] = (imm8 & 4) == 0 ? a.f[2] : a.f[3];
+    dst.f[1] = (imm8 & 2) == 0 ? b.f[0] : b.f[1];
     dst.f[3] = (imm8 & 8) == 0 ? b.f[2] : b.f[3];
     return dst;
 }
 
 static ddi_4 _igen_dd_op_mm256_loadu_pd(const dd_I *mem_addr) {
     ddi_4 dst;
-    dst.f[0] = *(mem_addr);
-    dst.f[1] = *(mem_addr + 1);
-    dst.f[2] = *(mem_addr + 2);
-    dst.f[3] = *(mem_addr + 3);
+
+    dd_I a1 = _mm256_load_pd((const double*) mem_addr);
+    dd_I a2 = _mm256_load_pd((const double*) (mem_addr+1));
+    dd_I a3 = _mm256_load_pd((const double*) (mem_addr+2));
+    dd_I a4 = _mm256_load_pd((const double*) (mem_addr+3));
+
+    _mm256_store_pd((double*) dst.f, a1);
+    _mm256_store_pd((double*) (dst.f+1), a2);
+    _mm256_store_pd((double*) (dst.f+2), a3);
+    _mm256_store_pd((double*) (dst.f+3), a4);
+
     return dst;
 }
 
@@ -201,31 +210,42 @@ static ddi_4 _igen_dd_op_mm256_load_pd(const dd_I *mem_addr) {
 }
 
 static void _igen_dd_op_mm256_storeu_pd(dd_I *mem_addr, ddi_4 a) {
-    *(mem_addr) = a.f[0];
-    *(mem_addr + 1) = a.f[1];
-    *(mem_addr + 2) = a.f[2];
-    *(mem_addr + 3) = a.f[3];
+    dd_I a1 = _mm256_load_pd((const double*) a.f);
+    dd_I a2 = _mm256_load_pd((const double*) (a.f+1));
+    dd_I a3 = _mm256_load_pd((const double*) (a.f+2));
+    dd_I a4 = _mm256_load_pd((const double*) (a.f+3));
+
+    _mm256_store_pd((double*) mem_addr, a1);
+    _mm256_store_pd((double*) (mem_addr+1), a2);
+    _mm256_store_pd((double*) (mem_addr+2), a3);
+    _mm256_store_pd((double*) (mem_addr+3), a4);
 }
 
 static ddi_4 _igen_dd_op_mm256_broadcast_sd(const dd_I *mem_addr) {
     ddi_4 dst;
 
-    dd_I val = *mem_addr;
+    dd_I val = _mm256_load_pd( (const double*) mem_addr );
 
-    dst.f[0] = val;
-    dst.f[1] = val;
-    dst.f[2] = val;
-    dst.f[3] = val;
+    _mm256_store_pd( (double*) dst.f, val);
+    _mm256_store_pd( (double*) (dst.f+1), val);
+    _mm256_store_pd( (double*) (dst.f+2), val);
+    _mm256_store_pd( (double*) (dst.f+3), val);
+
     return dst;
 }
 
 static ddi_4 _igen_dd_op_mm256_unpackhi_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
-    dst.f[0] = a.f[1];
-    dst.f[1] = b.f[1];
-    dst.f[2] = a.f[3];
-    dst.f[3] = b.f[3];
+    dd_I a1 = _mm256_load_pd( (const double*) (a.f+1) );
+    dd_I a2 = _mm256_load_pd( (const double*) (a.f+3) );
+    dd_I b1 = _mm256_load_pd( (const double*) (b.f+1) );
+    dd_I b2 = _mm256_load_pd( (const double*) (b.f+3) );
+
+    _mm256_store_pd( (double*) dst.f, a1);
+    _mm256_store_pd( (double*) (dst.f+2), a2);
+    _mm256_store_pd( (double*) (dst.f+1), b1);
+    _mm256_store_pd( (double*) (dst.f+3), b2);
 
     return dst;
 }
@@ -233,10 +253,15 @@ static ddi_4 _igen_dd_op_mm256_unpackhi_pd(ddi_4 a, ddi_4 b) {
 static ddi_4 _igen_dd_op_mm256_unpacklo_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
-    dst.f[0] = a.f[0];
-    dst.f[1] = b.f[0];
-    dst.f[2] = a.f[2];
-    dst.f[3] = b.f[2];
+    dd_I a1 = _mm256_load_pd( (const double*) a.f );
+    dd_I a2 = _mm256_load_pd( (const double*) (a.f+2) );
+    dd_I b1 = _mm256_load_pd( (const double*) b.f );
+    dd_I b2 = _mm256_load_pd( (const double*) (b.f+2) );
+
+    _mm256_store_pd( (double*) dst.f, a1);
+    _mm256_store_pd( (double*) (dst.f+2), a2);
+    _mm256_store_pd( (double*) (dst.f+1), b1);
+    _mm256_store_pd( (double*) (dst.f+3), b2);
 
     return dst;
 }
