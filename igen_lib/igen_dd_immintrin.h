@@ -810,6 +810,18 @@
 ///
 #undef  _igen_dd_mm256_add_pd
 #define _igen_dd_mm256_add_pd              _igen_dd_op_mm256_add_pd
+#undef  _igen_dd_mm256_sub_pd
+#define _igen_dd_mm256_sub_pd              _igen_dd_op_mm256_sub_pd
+#undef  _igen_dd_mm256_permute2f128_pd
+#define _igen_dd_mm256_permute2f128_pd     _igen_dd_op_mm256_permute2f128_pd
+#undef  _igen_dd_mm256_unpacklo_pd
+#define _igen_dd_mm256_unpacklo_pd         _igen_dd_op_mm256_unpacklo_pd
+#undef  _igen_dd_mm256_unpackhi_pd
+#define _igen_dd_mm256_unpackhi_pd         _igen_dd_op_mm256_unpackhi_pd
+#undef  _igen_dd_mm256_mul_pd
+#define _igen_dd_mm256_mul_pd              _igen_dd_op_mm256_mul_pd
+#undef  _igen_dd_mm256_set_pd
+#define _igen_dd_mm256_set_pd              _igen_dd_op_mm256_set_pd
 #undef  _igen_dd_mm256_castpd128_pd256
 #define _igen_dd_mm256_castpd128_pd256     _igen_dd_op_mm256_castpd128_pd256
 #undef  _igen_dd_mm256_castpd256_pd128

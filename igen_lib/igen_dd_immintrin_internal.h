@@ -87,18 +87,26 @@ typedef union {
 /* Bitwise logical operations */
 static i256 _ia_and_u32(i256 a, i256 b){
     fprintf(stderr, "Error: vecBitsAccess_s not supported yet\n");
+    i256 x;
+    return x;
 }
 
 static i256 _ia_and_u64(i256 a, i256 b){
     fprintf(stderr, "Error: vecBitsAccess_s not supported yet\n");
+    i256 x;
+    return x;
 }
 
 static i256 _ia_or_u32(i256 a, i256 b) {
     fprintf(stderr, "Error: vecBitsAccess_s not supported yet\n");
+    i256 x;
+    return x;
 }
 
 static i256 _ia_or_u64(i256 a, i256 b) {
     fprintf(stderr, "Error: Math function not supported yet\n");
+    i256 x;
+    return x;
 }
 
 static i256 _ia_create_mask(u64 a) {
@@ -157,10 +165,12 @@ static u32 vecBitAccess_i(u32 * vec, u32 bit) {
 
 static u32 vecBitAccess_s(i256* vec, u32 bit) {
     fprintf(stderr, "Error: not supported yet\n");
+    return 0;
 }
 
 static u32 vecBitAccess_d(i256* vec, u32 bit) {
     fprintf(stderr, "Error: not supported yet\n");
+    return 0;
 }
 
 static u32 vecBitsAccess_i(u32* vec, u32 upBit, u32 loBit) {
@@ -309,7 +319,7 @@ static void SELECT4_ddi(dd_I* dst, dd_I* src1, dd_I* src2, int control) {
      *    RETURN tmp[127:0]
      *  }
      */
-    switch (control & 0x3u) {
+    switch (control & 3) {
         case 0:
             dst[0] = src1[0];
             dst[1] = src1[1];
@@ -328,7 +338,7 @@ static void SELECT4_ddi(dd_I* dst, dd_I* src1, dd_I* src2, int control) {
             break;
     }
 
-    if ((control >> 3) & 0x1u) {
+    if ((control >> 3) & 1) {
         dst[0] = zero_ddi;
         dst[1] = zero_ddi;
     }
