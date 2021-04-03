@@ -127,10 +127,10 @@ static ddi_4 _igen_dd_op_mm256_sub_pd(ddi_4 a, ddi_4 b) {
 static ddi_4 _igen_dd_op_mm256_set_pd(dd_I e3, dd_I e2, dd_I e1, dd_I e0) {
     ddi_4 dst;
 
-    dst.f[0] = e0;
-    dst.f[1] = e1;
-    dst.f[2] = e2;
-    dst.f[3] = e3;
+    _mm256_store_pd((double*) dst.f, e0);
+    _mm256_store_pd((double*) (dst.f+1), e1);
+    _mm256_store_pd((double*) (dst.f+2), e2);
+    _mm256_store_pd((double*) (dst.f+3), e3);
 
     return dst;
 }
@@ -138,10 +138,10 @@ static ddi_4 _igen_dd_op_mm256_set_pd(dd_I e3, dd_I e2, dd_I e1, dd_I e0) {
 static ddi_4 _igen_dd_op_mm256_set1_pd(dd_I a) {
     ddi_4 dst;
 
-    dst.f[0] = a;
-    dst.f[1] = a;
-    dst.f[2] = a;
-    dst.f[3] = a;
+    _mm256_store_pd((double*) dst.f, a);
+    _mm256_store_pd((double*) (dst.f+1), a);
+    _mm256_store_pd((double*) (dst.f+2), a);
+    _mm256_store_pd((double*) (dst.f+3), a);
 
     return dst;
 }
