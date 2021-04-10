@@ -11,20 +11,12 @@ using namespace std;
 
 double* X;
 dd_I* Y;
+std::vector<fn_t> functions;
 
 #define OK     "\033[1;32mOK\033[0m"
 #define FAIL   "\033[1;31mFAIL\033[0m"
 
-struct fn_t {
-    void (*base_fn)(double*);
-    void (*fn)(dd_I*);
-    string name;
-    int ops;
-};
-
-vector<fn_t> functions;
-
-void add_function(void (*base_fn)(double*), void (*fn)(dd_I*), const string & name, int ops ) {
+void add_function(void (*base_fn)(double*, double*), void (*fn)(dd_I*, dd_I*), const string & name, int ops ) {
     fn_t f;
     f.base_fn = base_fn;
     f.fn = fn;
@@ -62,8 +54,8 @@ void verify() {
         memcpy(x, X, LEN*sizeof(double));
         memcpy(y, Y, LEN*sizeof(dd_I));
 
-        functions[i].base_fn(x);
-        functions[i].fn(y);
+        functions[i].base_fn(X, x);
+        functions[i].fn(Y, y);
 
         bool fail = false;
         for(int j = 0; j < LEN; ++j){
@@ -76,5 +68,7 @@ void verify() {
             }
         }
         cout << (fail ? FAIL : OK) << endl;
+        free(x);
+        free(y);
     }
 }
