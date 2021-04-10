@@ -826,3 +826,5 @@
 #define _igen_dd_mm256_castpd128_pd256     _igen_dd_op_mm256_castpd128_pd256
 #undef  _igen_dd_mm256_castpd256_pd128
 #define _igen_dd_mm256_castpd256_pd128     _igen_dd_op_mm256_castpd256_pd128
+#undef  _igen_dd_mm256_blend_pd
+#define _igen_dd_mm256_blend_pd            _igen_dd_op_mm256_blend_pd
