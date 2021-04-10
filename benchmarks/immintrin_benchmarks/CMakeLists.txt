@@ -41,6 +41,7 @@ include_directories(
 set(SOURCE_FILES
         main.cpp
         common.h
+        init.cpp
         verify.cpp
         benchmark.cpp
         random_range.cpp
