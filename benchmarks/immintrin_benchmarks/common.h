@@ -11,6 +11,7 @@ extern dd_I* Y;
 
 void verify();
 void benchmark();
+void init();
 
 struct fn_t {
     void (*base_fn)(double*, double*);
