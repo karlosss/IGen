@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include <vector>
 
 #include "igen_dd_lib.h"
 
@@ -9,3 +11,12 @@ extern dd_I* Y;
 
 void verify();
 void benchmark();
+
+struct fn_t {
+    void (*base_fn)(double*, double*);
+    void (*fn)(dd_I*, dd_I*);
+    std::string name;
+    int ops;
+};
+
+extern std::vector<fn_t> functions;
