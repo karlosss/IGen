@@ -28,6 +28,10 @@ void add_function(void (*base_fn)(double*, double*),
 
 
 void register_functions() {
+    add_function(mm256_loadu_pd_base , mm256_loadu_pd_verify, mm256_loadu_pd_benchmark, "mm256_loadu_pd" , 16);
+    add_function(mm256_load_pd_base , mm256_load_pd_verify, mm256_load_pd_benchmark, "mm256_load_pd" , 16);
+    add_function(mm256_storeu_pd_base , mm256_storeu_pd_verify, mm256_storeu_pd_benchmark, "mm256_storeu_pd" , 16);
+    add_function(mm256_store_pd_base , mm256_store_pd_verify, mm256_store_pd_benchmark, "mm256_store_pd" , 16);
     add_function(mm256_blend_pd_base , mm256_blend_pd_verify, mm256_blend_pd_benchmark, "mm256_blend_pd" , 16);
 }
 
