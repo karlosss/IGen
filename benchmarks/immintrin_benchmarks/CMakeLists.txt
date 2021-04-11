@@ -46,6 +46,11 @@ set(SOURCE_FILES
         benchmark.cpp
         random_range.cpp
 
+        benchmarks/mm256_loadu_pd.cpp
+        benchmarks/mm256_load_pd.cpp
+        benchmarks/mm256_storeu_pd.cpp
+        benchmarks/mm256_store_pd.cpp
+
         benchmarks/mm256_blend_pd.cpp
 
         # IGen files
