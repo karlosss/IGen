@@ -12,10 +12,15 @@ dd_I* Y;
 std::vector<fn_t> functions;
 
 
-void add_function(void (*base_fn)(double*, double*), void (*fn)(dd_I*, dd_I*), const string & name, int ops ) {
+void add_function(void (*base_fn)(double*, double*),
+                  void (*verify_fn)(dd_I*, dd_I*),
+                  void (*benchmark_fn)(dd_I*, dd_I*),
+                  const string & name,
+                  int ops ) {
     fn_t f;
     f.base_fn = base_fn;
-    f.fn = fn;
+    f.verify_fn = verify_fn;
+    f.benchmark_fn = benchmark_fn;
     f.name = name;
     f.ops = ops;
     functions.push_back(f);
@@ -23,7 +28,7 @@ void add_function(void (*base_fn)(double*, double*), void (*fn)(dd_I*, dd_I*), c
 
 
 void register_functions() {
-    add_function(mm256_blend_pd_base , mm256_blend_pd, "mm256_blend_pd" , 200);
+    add_function(mm256_blend_pd_base , mm256_blend_pd_verify, mm256_blend_pd_benchmark, "mm256_blend_pd" , 16);
 }
 
 
