@@ -22,7 +22,7 @@ void verify() {
         memcpy(y, Y, LEN*sizeof(dd_I));
 
         functions[i].base_fn(X, x);
-        functions[i].fn(Y, y);
+        functions[i].verify_fn(Y, y);
 
         bool fail = false;
         for(int j = 0; j < LEN; ++j){

@@ -21,7 +21,7 @@ double benchFun(const fn_t & fn, dd_I* in, dd_I* out) {
         num_runs = num_runs * multiplier;
         start = start_tsc();
         for (int i = 0; i < num_runs; i++) {
-            fn.fn(in, out);
+            fn.benchmark_fn(in, out);
         }
         end = stop_tsc(start);
         cycles = (double)end;
@@ -34,7 +34,7 @@ double benchFun(const fn_t & fn, dd_I* in, dd_I* out) {
     for (size_t j = 0; j < REP; j++) {
         start = start_tsc();
         for (int i = 0; i < num_runs; ++i) {
-            fn.fn(in, out);
+            fn.benchmark_fn(in, out);
         }
         end = stop_tsc(start);
 

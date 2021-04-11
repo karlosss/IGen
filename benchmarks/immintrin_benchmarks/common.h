@@ -15,7 +15,8 @@ void init();
 
 struct fn_t {
     void (*base_fn)(double*, double*);
-    void (*fn)(dd_I*, dd_I*);
+    void (*verify_fn)(dd_I*, dd_I*);
+    void (*benchmark_fn)(dd_I*, dd_I*);
     std::string name;
     int ops;
 };
