@@ -43,19 +43,14 @@ set(SOURCE_FILES
         common.h
         init.cpp
         verify.cpp
-        benchmark.cpp
+#        benchmark.cpp
         random_range.cpp
-
-        benchmarks/mm256_loadu_pd.cpp
-        benchmarks/mm256_load_pd.cpp
-        benchmarks/mm256_storeu_pd.cpp
-        benchmarks/mm256_store_pd.cpp
 
         benchmarks/mm256_blend_pd.cpp
 
         # IGen files
         ${IGEN_COMMON}/util.cpp
-        ${IGEN_LIB}/igen_dd_immintrin_fallback.c
+        ${IGEN_LIB}/igen_dd_immintrin_fallback.h
         ${IGEN_LIB}/igen_immintrin_fallback.c
         )
 

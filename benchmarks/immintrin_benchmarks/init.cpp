@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unordered_map>
 
 #include "random_range.cpp"
 #include "common.h"
@@ -6,42 +7,42 @@
 
 using namespace std;
 
+dd_I in[LEN];
+dd_I out[LEN];
 
-double* X;
-dd_I* Y;
-std::vector<fn_t> functions;
+unordered_map<string, vector<fn_t>> functions;
 
 
-void add_function(void (*base_fn)(double*, double*),
-                  void (*verify_fn)(dd_I*, dd_I*),
-                  void (*benchmark_fn)(dd_I*, dd_I*),
-                  const string & name,
-                  int ops ) {
-    fn_t f;
-    f.base_fn = base_fn;
-    f.verify_fn = verify_fn;
-    f.benchmark_fn = benchmark_fn;
-    f.name = name;
-    f.ops = ops;
-    functions.push_back(f);
+void add_function(const string & base_name, const string & name,
+                  void (*verify_fn)(), void (*latency_fn)(), void (*gap_fn)(),
+                  int ops) {
+    fn_t fn;
+    fn.verify_fn = verify_fn;
+    fn.latency_fn = latency_fn;
+    fn.gap_fn = gap_fn;
+    fn.ops = ops;
+
+    if(functions.find(base_name) != functions.end()){
+        functions[base_name].push_back(fn);
+    }
+    else{
+        functions[base_name] = {fn};
+    }
 }
 
 
 void register_functions() {
-    add_function(mm256_loadu_pd_base , mm256_loadu_pd_verify, mm256_loadu_pd_benchmark, "mm256_loadu_pd" , 16);
-    add_function(mm256_load_pd_base , mm256_load_pd_verify, mm256_load_pd_benchmark, "mm256_load_pd" , 16);
-    add_function(mm256_storeu_pd_base , mm256_storeu_pd_verify, mm256_storeu_pd_benchmark, "mm256_storeu_pd" , 16);
-    add_function(mm256_store_pd_base , mm256_store_pd_verify, mm256_store_pd_benchmark, "mm256_store_pd" , 16);
-    add_function(mm256_blend_pd_base , mm256_blend_pd_verify, mm256_blend_pd_benchmark, "mm256_blend_pd" , 16);
+    // first one is the baseline function that is used to verify against
+    add_function("mm256_blend_pd", "base", mm256_blend_pd_fb_verify, nullptr, nullptr, 16);
+    add_function("mm256_blend_pd", "opt", mm256_blend_pd_opt_verify, nullptr, nullptr, 16);
 }
 
 
 void init() {
-    X = (double *) aligned_alloc(32, LEN * sizeof(double));
-    Y = (dd_I *) aligned_alloc(32, LEN * sizeof(dd_I));
     for (int i = 0; i < LEN; ++i) {
-        X[i] = getRandomDouble(10, 20);
-        Y[i] = _ia_set_dd(-X[i], 0, X[i], 0);
+        double dbl = getRandomDouble(10, 20);
+        in[i] = _ia_set_epsilon_dd(dbl, 0);
+        out[i] = in[i];
     }
 
     register_functions();
