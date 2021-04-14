@@ -1075,7 +1075,7 @@ static dd_I _igen_dd_fb_mm_cvtss_f32(ddi_4 _a) {
     return dst;
 }
 
-__m64 _igen_dd_fb_mm_cvtps_pi32(ddi_4 _a) {
+static __m64 _igen_dd_fb_mm_cvtps_pi32(ddi_4 _a) {
     vec128s a;
     a.v = _a;
     vec64i dst;
@@ -1091,7 +1091,7 @@ __m64 _igen_dd_fb_mm_cvtps_pi32(ddi_4 _a) {
     return _ret;
 }
 
-__m64 _igen_dd_fb_mm_cvt_ps2pi(ddi_4 _a) {
+static __m64 _igen_dd_fb_mm_cvt_ps2pi(ddi_4 _a) {
     vec128s a;
     a.v = _a;
     vec64i dst;
@@ -1140,7 +1140,7 @@ static long _igen_dd_fb_mm_cvttss_si64(ddi_4 _a) {
     return _ret;
 }
 
-__m64 _igen_dd_fb_mm_cvttps_pi32(ddi_4 _a) {
+static __m64 _igen_dd_fb_mm_cvttps_pi32(ddi_4 _a) {
     vec128s a;
     a.v = _a;
     vec64i dst;
@@ -1156,7 +1156,7 @@ __m64 _igen_dd_fb_mm_cvttps_pi32(ddi_4 _a) {
     return _ret;
 }
 
-__m64 _igen_dd_fb_mm_cvtt_ps2pi(ddi_4 _a) {
+static __m64 _igen_dd_fb_mm_cvtt_ps2pi(ddi_4 _a) {
     vec128s a;
     a.v = _a;
     vec64i dst;
@@ -1172,7 +1172,7 @@ __m64 _igen_dd_fb_mm_cvtt_ps2pi(ddi_4 _a) {
     return _ret;
 }
 
-__m64 _igen_dd_fb_mm_cvtps_pi16(ddi_4 _a) {
+static __m64 _igen_dd_fb_mm_cvtps_pi16(ddi_4 _a) {
     vec128s a;
     a.v = _a;
     vec64i dst;
@@ -1190,7 +1190,7 @@ __m64 _igen_dd_fb_mm_cvtps_pi16(ddi_4 _a) {
     return _ret;
 }
 
-__m64 _igen_dd_fb_mm_cvtps_pi8(ddi_4 _a) {
+static __m64 _igen_dd_fb_mm_cvtps_pi8(ddi_4 _a) {
     vec128s a;
     a.v = _a;
     vec64i dst;
@@ -2406,7 +2406,7 @@ static ddi_2 _igen_dd_fb_mm_cvtps_pd(ddi_4 _a) {
     return dst.v;
 }
 
-__m128i _igen_dd_fb_mm_cvtpd_epi32(ddi_2 _a) {
+static __m128i _igen_dd_fb_mm_cvtpd_epi32(ddi_2 _a) {
     vec128d a;
     a.v = _a;
     vec128i dst;
@@ -2494,7 +2494,7 @@ static ddi_2 _igen_dd_fb_mm_cvtss_sd(ddi_2 _a, ddi_4 _b) {
     return dst.v;
 }
 
-__m128i _igen_dd_fb_mm_cvttpd_epi32(ddi_2 _a) {
+static __m128i _igen_dd_fb_mm_cvttpd_epi32(ddi_2 _a) {
     vec128d a;
     a.v = _a;
     vec128i dst;
@@ -2545,7 +2545,7 @@ static long _igen_dd_fb_mm_cvttsd_si64x(ddi_2 _a) {
     return _ret;
 }
 
-__m128i _igen_dd_fb_mm_cvtps_epi32(ddi_4 _a) {
+static __m128i _igen_dd_fb_mm_cvtps_epi32(ddi_4 _a) {
     vec128s a;
     a.v = _a;
     vec128i dst;
@@ -2561,7 +2561,7 @@ __m128i _igen_dd_fb_mm_cvtps_epi32(ddi_4 _a) {
     return _ret;
 }
 
-__m128i _igen_dd_fb_mm_cvttps_epi32(ddi_4 _a) {
+static __m128i _igen_dd_fb_mm_cvttps_epi32(ddi_4 _a) {
     vec128s a;
     a.v = _a;
     vec128i dst;
@@ -2577,7 +2577,7 @@ __m128i _igen_dd_fb_mm_cvttps_epi32(ddi_4 _a) {
     return _ret;
 }
 
-__m64 _igen_dd_fb_mm_cvtpd_pi32(ddi_2 _a) {
+static __m64 _igen_dd_fb_mm_cvtpd_pi32(ddi_2 _a) {
     vec128d a;
     a.v = _a;
     vec64i dst;
@@ -2595,7 +2595,7 @@ __m64 _igen_dd_fb_mm_cvtpd_pi32(ddi_2 _a) {
     return _ret;
 }
 
-__m64 _igen_dd_fb_mm_cvttpd_pi32(ddi_2 _a) {
+static __m64 _igen_dd_fb_mm_cvttpd_pi32(ddi_2 _a) {
     vec128d a;
     a.v = _a;
     vec64i dst;
@@ -2884,7 +2884,7 @@ static ddi_4 _igen_dd_fb_mm_castpd_ps(ddi_2 _a) {
     return dst.v;
 }
 
-__m128i _igen_dd_fb_mm_castpd_si128(ddi_2 _a) {
+static __m128i _igen_dd_fb_mm_castpd_si128(ddi_2 _a) {
     vec128d a;
     a.v = _a;
     vec128i dst;
@@ -2902,7 +2902,7 @@ static ddi_2 _igen_dd_fb_mm_castps_pd(ddi_4 _a) {
     return dst.v;
 }
 
-__m128i _igen_dd_fb_mm_castps_si128(ddi_4 _a) {
+static __m128i _igen_dd_fb_mm_castps_si128(ddi_4 _a) {
     vec128s a;
     a.v = _a;
     vec128i dst;
@@ -2935,7 +2935,7 @@ static dd_I _igen_dd_fb_cvtsh_ss(__mmask16 a) {
     return dst;
 }
 
-__mmask16 _igen_dd_fb_cvtss_sh(dd_I a, int rounding) {
+static __mmask16 _igen_dd_fb_cvtss_sh(dd_I a, int rounding) {
     __mmask16 dst;
 
     dst = Convert_FP32_To_FP16_s(a);
@@ -2961,7 +2961,7 @@ static ddi_4 _igen_dd_fb_mm_cvtph_ps(__m128i _a) {
     return dst.v;
 }
 
-__m128i _igen_dd_fb_mm_cvtps_ph(ddi_4 _a, int rounding) {
+static __m128i _igen_dd_fb_mm_cvtps_ph(ddi_4 _a, int rounding) {
     vec128s a;
     a.v = _a;
     vec128i dst;
@@ -4815,7 +4815,7 @@ static ddi_4 _igen_dd_fb_mm256_cvtpd_ps(ddi_4 _a) {
     return dst.v;
 }
 
-__m256i _igen_dd_fb_mm256_cvtps_epi32(ddi_8 _a) {
+static __m256i _igen_dd_fb_mm256_cvtps_epi32(ddi_8 _a) {
     vec256s a;
     a.v = _a;
     vec256i dst;
@@ -4849,7 +4849,7 @@ static ddi_4 _igen_dd_fb_mm256_cvtps_pd(ddi_4 _a) {
     return dst.v;
 }
 
-__m128i _igen_dd_fb_mm256_cvttpd_epi32(ddi_4 _a) {
+static __m128i _igen_dd_fb_mm256_cvttpd_epi32(ddi_4 _a) {
     vec256d a;
     a.v = _a;
     vec128i dst;
@@ -4868,7 +4868,7 @@ __m128i _igen_dd_fb_mm256_cvttpd_epi32(ddi_4 _a) {
     return _ret;
 }
 
-__m128i _igen_dd_fb_mm256_cvtpd_epi32(ddi_4 _a) {
+static __m128i _igen_dd_fb_mm256_cvtpd_epi32(ddi_4 _a) {
     vec256d a;
     a.v = _a;
     vec128i dst;
@@ -4887,7 +4887,7 @@ __m128i _igen_dd_fb_mm256_cvtpd_epi32(ddi_4 _a) {
     return _ret;
 }
 
-__m256i _igen_dd_fb_mm256_cvttps_epi32(ddi_8 _a) {
+static __m256i _igen_dd_fb_mm256_cvttps_epi32(ddi_8 _a) {
     vec256s a;
     a.v = _a;
     vec256i dst;
@@ -5891,7 +5891,7 @@ static ddi_4 _igen_dd_fb_mm256_set_pd(dd_I e3, dd_I e2, dd_I e1, dd_I e0) {
     return dst.v;
 }
 
-ddi_8 _igen_dd_fb_mm256_set_ps(dd_I e7, dd_I e6, dd_I e5, dd_I e4, dd_I e3, dd_I e2,
+static ddi_8 _igen_dd_fb_mm256_set_ps(dd_I e7, dd_I e6, dd_I e5, dd_I e4, dd_I e3, dd_I e2,
                           dd_I e1, dd_I e0) {
     vec256s dst;
 
@@ -5918,7 +5918,7 @@ static ddi_4 _igen_dd_fb_mm256_setr_pd(dd_I e3, dd_I e2, dd_I e1, dd_I e0) {
     return dst.v;
 }
 
-ddi_8 _igen_dd_fb_mm256_setr_ps(dd_I e7, dd_I e6, dd_I e5, dd_I e4, dd_I e3, dd_I e2,
+static ddi_8 _igen_dd_fb_mm256_setr_ps(dd_I e7, dd_I e6, dd_I e5, dd_I e4, dd_I e3, dd_I e2,
                            dd_I e1, dd_I e0) {
     vec256s dst;
 
@@ -5976,7 +5976,7 @@ static ddi_4 _igen_dd_fb_mm256_castps_pd(ddi_8 _a) {
     return dst.v;
 }
 
-__m256i _igen_dd_fb_mm256_castps_si256(ddi_8 _a) {
+static __m256i _igen_dd_fb_mm256_castps_si256(ddi_8 _a) {
     vec256s a;
     a.v = _a;
     vec256i dst;
@@ -5986,7 +5986,7 @@ __m256i _igen_dd_fb_mm256_castps_si256(ddi_8 _a) {
     return _ret;
 }
 
-__m256i _igen_dd_fb_mm256_castpd_si256(ddi_4 _a) {
+static __m256i _igen_dd_fb_mm256_castpd_si256(ddi_4 _a) {
     vec256d a;
     a.v = _a;
     vec256i dst;
@@ -6326,7 +6326,7 @@ static ddi_8 _igen_dd_fb_mm256_broadcastss_ps(ddi_4 _a) {
     return dst.v;
 }
 
-ddi_2 _igen_dd_fb_mm_i32gather_pd(const dd_I *base_addr, __m128i _vindex,
+static ddi_2 _igen_dd_fb_mm_i32gather_pd(const dd_I *base_addr, __m128i _vindex,
                              int scale) {
     vec128i vindex;
     vindex.v = _vindex;
@@ -6346,7 +6346,7 @@ ddi_2 _igen_dd_fb_mm_i32gather_pd(const dd_I *base_addr, __m128i _vindex,
     return dst.v;
 }
 
-ddi_4 _igen_dd_fb_mm256_i32gather_pd(const dd_I *base_addr, __m128i _vindex,
+static ddi_4 _igen_dd_fb_mm256_i32gather_pd(const dd_I *base_addr, __m128i _vindex,
                                 int scale) {
     vec128i vindex;
     vindex.v = _vindex;
@@ -6366,7 +6366,7 @@ ddi_4 _igen_dd_fb_mm256_i32gather_pd(const dd_I *base_addr, __m128i _vindex,
     return dst.v;
 }
 
-ddi_4 _igen_dd_fb_mm_i32gather_ps(const dd_I *base_addr, __m128i _vindex,
+static ddi_4 _igen_dd_fb_mm_i32gather_ps(const dd_I *base_addr, __m128i _vindex,
                              int scale) {
     vec128i vindex;
     vindex.v = _vindex;
@@ -6386,7 +6386,7 @@ ddi_4 _igen_dd_fb_mm_i32gather_ps(const dd_I *base_addr, __m128i _vindex,
     return dst.v;
 }
 
-ddi_8 _igen_dd_fb_mm256_i32gather_ps(const dd_I *base_addr, __m256i _vindex,
+static ddi_8 _igen_dd_fb_mm256_i32gather_ps(const dd_I *base_addr, __m256i _vindex,
                                 int scale) {
     vec256i vindex;
     vindex.v = _vindex;
@@ -6404,7 +6404,7 @@ ddi_8 _igen_dd_fb_mm256_i32gather_ps(const dd_I *base_addr, __m256i _vindex,
     return dst.v;
 }
 
-ddi_2 _igen_dd_fb_mm_i64gather_pd(const dd_I *base_addr, __m128i _vindex,
+static ddi_2 _igen_dd_fb_mm_i64gather_pd(const dd_I *base_addr, __m128i _vindex,
                              int scale) {
     vec128i vindex;
     vindex.v = _vindex;
@@ -6425,7 +6425,7 @@ ddi_2 _igen_dd_fb_mm_i64gather_pd(const dd_I *base_addr, __m128i _vindex,
     return dst.v;
 }
 
-ddi_4 _igen_dd_fb_mm256_i64gather_pd(const dd_I *base_addr, __m256i _vindex,
+static ddi_4 _igen_dd_fb_mm256_i64gather_pd(const dd_I *base_addr, __m256i _vindex,
                                 int scale) {
     vec256i vindex;
     vindex.v = _vindex;
@@ -6446,7 +6446,7 @@ ddi_4 _igen_dd_fb_mm256_i64gather_pd(const dd_I *base_addr, __m256i _vindex,
     return dst.v;
 }
 
-ddi_4 _igen_dd_fb_mm_i64gather_ps(const dd_I *base_addr, __m128i _vindex,
+static ddi_4 _igen_dd_fb_mm_i64gather_ps(const dd_I *base_addr, __m128i _vindex,
                              int scale) {
     vec128i vindex;
     vindex.v = _vindex;
@@ -6469,7 +6469,7 @@ ddi_4 _igen_dd_fb_mm_i64gather_ps(const dd_I *base_addr, __m128i _vindex,
     return dst.v;
 }
 
-ddi_4 _igen_dd_fb_mm256_i64gather_ps(const dd_I *base_addr, __m256i _vindex,
+static ddi_4 _igen_dd_fb_mm256_i64gather_ps(const dd_I *base_addr, __m256i _vindex,
                                 int scale) {
     vec256i vindex;
     vindex.v = _vindex;
@@ -6490,7 +6490,7 @@ ddi_4 _igen_dd_fb_mm256_i64gather_ps(const dd_I *base_addr, __m256i _vindex,
     return dst.v;
 }
 
-ddi_2 _igen_dd_fb_mm_mask_i32gather_pd(ddi_2 _src, const dd_I *base_addr,
+static ddi_2 _igen_dd_fb_mm_mask_i32gather_pd(ddi_2 _src, const dd_I *base_addr,
                                   __m128i _vindex, ddi_2 _mask, int scale) {
     vec128d src;
     src.v = _src;
@@ -6520,7 +6520,7 @@ ddi_2 _igen_dd_fb_mm_mask_i32gather_pd(ddi_2 _src, const dd_I *base_addr,
     return dst.v;
 }
 
-ddi_4 _igen_dd_fb_mm256_mask_i32gather_pd(ddi_4 _src, const dd_I *base_addr,
+static ddi_4 _igen_dd_fb_mm256_mask_i32gather_pd(ddi_4 _src, const dd_I *base_addr,
                                      __m128i _vindex, ddi_4 _mask, int scale) {
     vec256d src;
     src.v = _src;
@@ -6550,7 +6550,7 @@ ddi_4 _igen_dd_fb_mm256_mask_i32gather_pd(ddi_4 _src, const dd_I *base_addr,
     return dst.v;
 }
 
-ddi_4 _igen_dd_fb_mm_mask_i32gather_ps(ddi_4 _src, const dd_I *base_addr,
+static ddi_4 _igen_dd_fb_mm_mask_i32gather_ps(ddi_4 _src, const dd_I *base_addr,
                                   __m128i _vindex, ddi_4 _mask, int scale) {
     vec128s src;
     src.v = _src;
@@ -6578,7 +6578,7 @@ ddi_4 _igen_dd_fb_mm_mask_i32gather_ps(ddi_4 _src, const dd_I *base_addr,
     return dst.v;
 }
 
-ddi_8 _igen_dd_fb_mm256_mask_i32gather_ps(ddi_8 _src, const dd_I *base_addr,
+static ddi_8 _igen_dd_fb_mm256_mask_i32gather_ps(ddi_8 _src, const dd_I *base_addr,
                                      __m256i _vindex, ddi_8 _mask, int scale) {
     vec256s src;
     src.v = _src;
@@ -6606,7 +6606,7 @@ ddi_8 _igen_dd_fb_mm256_mask_i32gather_ps(ddi_8 _src, const dd_I *base_addr,
     return dst.v;
 }
 
-ddi_2 _igen_dd_fb_mm_mask_i64gather_pd(ddi_2 _src, const dd_I *base_addr,
+static ddi_2 _igen_dd_fb_mm_mask_i64gather_pd(ddi_2 _src, const dd_I *base_addr,
                                   __m128i _vindex, ddi_2 _mask, int scale) {
     vec128d src;
     src.v = _src;
@@ -6636,7 +6636,7 @@ ddi_2 _igen_dd_fb_mm_mask_i64gather_pd(ddi_2 _src, const dd_I *base_addr,
     return dst.v;
 }
 
-ddi_4 _igen_dd_fb_mm256_mask_i64gather_pd(ddi_4 _src, const dd_I *base_addr,
+static ddi_4 _igen_dd_fb_mm256_mask_i64gather_pd(ddi_4 _src, const dd_I *base_addr,
                                      __m256i _vindex, ddi_4 _mask, int scale) {
     vec256d src;
     src.v = _src;
@@ -6666,7 +6666,7 @@ ddi_4 _igen_dd_fb_mm256_mask_i64gather_pd(ddi_4 _src, const dd_I *base_addr,
     return dst.v;
 }
 
-ddi_4 _igen_dd_fb_mm_mask_i64gather_ps(ddi_4 _src, const dd_I *base_addr,
+static ddi_4 _igen_dd_fb_mm_mask_i64gather_ps(ddi_4 _src, const dd_I *base_addr,
                                   __m128i _vindex, ddi_4 _mask, int scale) {
     vec128s src;
     src.v = _src;
@@ -6701,7 +6701,7 @@ ddi_4 _igen_dd_fb_mm_mask_i64gather_ps(ddi_4 _src, const dd_I *base_addr,
     return dst.v;
 }
 
-ddi_4 _igen_dd_fb_mm256_mask_i64gather_ps(ddi_4 _src, const dd_I *base_addr,
+static ddi_4 _igen_dd_fb_mm256_mask_i64gather_ps(ddi_4 _src, const dd_I *base_addr,
                                      __m256i _vindex, ddi_4 _mask, int scale) {
     vec128s src;
     src.v = _src;
@@ -10170,7 +10170,7 @@ static ddi_8 _igen_dd_fb_mm256_cvtph_ps(__m128i _a) {
     return dst.v;
 }
 
-__m128i _igen_dd_fb_mm256_cvtps_ph(ddi_8 _a, int rounding) {
+static __m128i _igen_dd_fb_mm256_cvtps_ph(ddi_8 _a, int rounding) {
     fprintf(stderr, "Error: Intrinsic not supported\n");
 }
 
@@ -10498,7 +10498,7 @@ static ddi_8 _igen_dd_fb_mm512_atan2_pd(ddi_8 _a, ddi_8 _b) {
     return dst.v;
 }
 
-ddi_8 _igen_dd_fb_mm512_mask_atan2_pd(ddi_8 _src, __mmask8 k, ddi_8 _a,
+static ddi_8 _igen_dd_fb_mm512_mask_atan2_pd(ddi_8 _src, __mmask8 k, ddi_8 _a,
                                  ddi_8 _b) {
     vec512d src;
     src.v = _src;
@@ -10541,7 +10541,7 @@ static ddi_16 _igen_dd_fb_mm512_atan2_ps(ddi_16 _a, ddi_16 _b) {
     return dst.v;
 }
 
-ddi_16 _igen_dd_fb_mm512_mask_atan2_ps(ddi_16 _src, __mmask16 k, ddi_16 _a,
+static ddi_16 _igen_dd_fb_mm512_mask_atan2_ps(ddi_16 _src, __mmask16 k, ddi_16 _a,
                                   ddi_16 _b) {
     vec512s src;
     src.v = _src;
@@ -11922,7 +11922,7 @@ static ddi_8 _igen_dd_fb_mm512_hypot_pd(ddi_8 _a, ddi_8 _b) {
     return dst.v;
 }
 
-ddi_8 _igen_dd_fb_mm512_mask_hypot_pd(ddi_8 _src, __mmask8 k, ddi_8 _a,
+static ddi_8 _igen_dd_fb_mm512_mask_hypot_pd(ddi_8 _src, __mmask8 k, ddi_8 _a,
                                  ddi_8 _b) {
     vec512d src;
     src.v = _src;
@@ -11969,7 +11969,7 @@ static ddi_16 _igen_dd_fb_mm512_hypot_ps(ddi_16 _a, ddi_16 _b) {
     return dst.v;
 }
 
-ddi_16 _igen_dd_fb_mm512_mask_hypot_ps(ddi_16 _src, __mmask16 k, ddi_16 _a,
+static ddi_16 _igen_dd_fb_mm512_mask_hypot_ps(ddi_16 _src, __mmask16 k, ddi_16 _a,
                                   ddi_16 _b) {
     vec512s src;
     src.v = _src;
@@ -12529,7 +12529,7 @@ static ddi_16 _igen_dd_fb_mm512_pow_ps(ddi_16 _a, ddi_16 _b) {
     return dst.v;
 }
 
-ddi_16 _igen_dd_fb_mm512_mask_pow_ps(ddi_16 _src, __mmask16 k, ddi_16 _a,
+static ddi_16 _igen_dd_fb_mm512_mask_pow_ps(ddi_16 _src, __mmask16 k, ddi_16 _a,
                                 ddi_16 _b) {
     vec512s src;
     src.v = _src;
@@ -13257,7 +13257,7 @@ static ddi_8 _igen_dd_fb_mm512_sincos_pd(ddi_8 *_cos_res, ddi_8 _a) {
     return dst.v;
 }
 
-ddi_8 _igen_dd_fb_mm512_mask_sincos_pd(ddi_8 *_cos_res, ddi_8 _sin_src,
+static ddi_8 _igen_dd_fb_mm512_mask_sincos_pd(ddi_8 *_cos_res, ddi_8 _sin_src,
                                   ddi_8 _cos_src, __mmask8 k, ddi_8 _a) {
     vec512d *cos_res = (vec512d *)_cos_res;
     vec512d sin_src;
@@ -13299,7 +13299,7 @@ static ddi_16 _igen_dd_fb_mm512_sincos_ps(ddi_16 *_cos_res, ddi_16 _a) {
     return dst.v;
 }
 
-ddi_16 _igen_dd_fb_mm512_mask_sincos_ps(ddi_16 *_cos_res, ddi_16 _sin_src,
+static ddi_16 _igen_dd_fb_mm512_mask_sincos_ps(ddi_16 *_cos_res, ddi_16 _sin_src,
                                    ddi_16 _cos_src, __mmask16 k, ddi_16 _a) {
     vec512s *cos_res = (vec512s *)_cos_res;
     vec512s sin_src;
