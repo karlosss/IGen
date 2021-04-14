@@ -1,8 +1,8 @@
 #include <iostream>
 #include <cstring>
 
-#include "igen_dd_lib.h"
 #include "common.h"
+#include "test_include.h"
 
 using namespace std;
 
@@ -11,37 +11,67 @@ using namespace std;
 
 
 void verify() {
-    dd_I in_backup[LEN]; // original input
-    dd_I out_backup[LEN]; // original output
-    dd_I base_out[LEN]; // output of base function
+    ddi_4* in_backup_ddi4 = (ddi_4*) aligned_alloc(32, LEN*sizeof(ddi_4)); // original input
+    ddi_4* out_backup_ddi4 = (ddi_4*) aligned_alloc(32, LEN*sizeof(ddi_4)); // original output
+    ddi_4* base_out_ddi4 = (ddi_4*) aligned_alloc(32, LEN*sizeof(ddi_4)); // output of base function
+
+    dd_I* in_backup_ddi = (dd_I*) aligned_alloc(32, LEN*sizeof(dd_I));
+    dd_I* out_backup_ddi = (dd_I*) aligned_alloc(32, LEN*sizeof(dd_I));
+    dd_I* base_out_ddi = (dd_I*) aligned_alloc(32, LEN*sizeof(dd_I));
 
     for(auto it = functions.begin(); it != functions.end(); ++it){
         cout << "Verify " << it->first << endl;
 
-        memcpy(in_backup, in, LEN*sizeof(dd_I));
-        memcpy(out_backup, out, LEN*sizeof(dd_I));
+        // restore from backup so that the base function has clean data to operate
+        memcpy(in_backup_ddi4, in_ddi4, LEN*sizeof(ddi_4));
+        memcpy(out_backup_ddi4, out_ddi4, LEN*sizeof(ddi_4));
+        memcpy(in_backup_ddi, in_ddi, LEN*sizeof(dd_I));
+        memcpy(out_backup_ddi, out_ddi, LEN*sizeof(dd_I));
 
         // run base function
         fesetround(FE_UPWARD);
         it->second[0].verify_fn();
         fesetround(FE_TONEAREST);
 
-        memcpy(base_out, out, LEN*sizeof(dd_I));
+        // store the outputs of the base function as those will be used for comparison
+        memcpy(base_out_ddi4, out_ddi4, LEN*sizeof(ddi_4));
+        memcpy(base_out_ddi, out_ddi, LEN*sizeof(dd_I));
 
         // verify optimized functions against base function
         for(int i = 1; i < it->second.size(); ++i){
-            memcpy(in, in_backup, LEN*sizeof(dd_I));
-            memcpy(out, out_backup, LEN*sizeof(dd_I));
+            // restore from backup so that the function has clean data to operate
+            memcpy(in_ddi4, in_backup_ddi4, LEN*sizeof(ddi_4));
+            memcpy(out_ddi4, out_backup_ddi4, LEN*sizeof(ddi_4));
+            memcpy(in_ddi, in_backup_ddi, LEN*sizeof(dd_I));
+            memcpy(out_ddi, out_backup_ddi, LEN*sizeof(dd_I));
 
             fesetround(FE_UPWARD);
             it->second[i].verify_fn();
             fesetround(FE_TONEAREST);
 
-            // compare results
+            // compare results (base out vs. out)
             bool fail = false;
             for(int j = 0; j < LEN; ++j){
-                u_ddi base = {.v = base_out[j]};
-                u_ddi tested = {.v = out[j]};
+                // ddi4
+                for(int k = 0; k < 4; ++k){
+                    u_ddi base = {.v = base_out_ddi4[j].f[k]};
+                    u_ddi tested = {.v = out_ddi4[j].f[k]};
+                    fesetround(FE_UPWARD);
+                    double base_lo = base.lh + base.ll;
+                    double base_hi = base.uh + base.ul;
+                    double tested_lo = tested.lh + tested.ll;
+                    double tested_hi = tested.uh + tested.ul;
+                    fesetround(FE_TONEAREST);
+                    // check if tested interval is included in the base interval
+                    if(base_lo > tested_lo || base_hi < tested_hi){
+                        fail = true;
+                        break;
+                    }
+                }
+
+                // ddi
+                u_ddi base = {.v = base_out_ddi[j]};
+                u_ddi tested = {.v = out_ddi[j]};
                 fesetround(FE_UPWARD);
                 double base_lo = base.lh + base.ll;
                 double base_hi = base.uh + base.ul;
@@ -53,12 +83,24 @@ void verify() {
                     fail = true;
                     break;
                 }
+
+                if(fail) break;
             }
             cout << "    " << it->second[i].name << "... ";
             cout << (fail ? FAIL : OK) << endl;
         }
     }
 
-    memcpy(in, in_backup, LEN*sizeof(dd_I));
-    memcpy(out, out_backup, LEN*sizeof(dd_I));
+    // restore from backups so that we exit the verification with clean data
+    memcpy(in_ddi4, in_backup_ddi4, LEN*sizeof(ddi_4));
+    memcpy(out_ddi4, out_backup_ddi4, LEN*sizeof(ddi_4));
+    memcpy(in_ddi, in_backup_ddi, LEN*sizeof(dd_I));
+    memcpy(out_ddi, out_backup_ddi, LEN*sizeof(dd_I));
+
+    free(in_backup_ddi4);
+    free(out_backup_ddi4);
+    free(base_out_ddi4);
+    free(in_backup_ddi);
+    free(out_backup_ddi);
+    free(base_out_ddi);
 }
