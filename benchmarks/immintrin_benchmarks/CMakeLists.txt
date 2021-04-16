@@ -47,6 +47,7 @@ set(SOURCE_FILES
         random_range.cpp
 
         benchmarks/mm256_blend_pd.cpp
+        benchmarks/mm256_add_pd.cpp
 
         # IGen files
         ${IGEN_COMMON}/util.cpp
