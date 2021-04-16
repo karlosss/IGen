@@ -52,6 +52,7 @@ set(SOURCE_FILES
         ${IGEN_COMMON}/util.cpp
         ${IGEN_LIB}/igen_dd_immintrin_fallback.h
         ${IGEN_LIB}/igen_immintrin_fallback.c
+        ${IGEN_LIB}/igen_dd_immintrin_opt.c
         )
 
 # ================================================================================
