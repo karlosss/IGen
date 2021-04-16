@@ -41,8 +41,11 @@ void add_function(const string & base_name, const string & name,
 
 void register_functions() {
     // first one is the baseline function that is used to verify against
-    add_function("mm256_blend_pd", "base", mm256_blend_pd_fb_verify, mm256_blend_pd_fb_lat, mm256_blend_pd_fb_gap, 16, 12);
-    add_function("mm256_blend_pd", "opt", mm256_blend_pd_opt_verify, mm256_blend_pd_opt_lat, mm256_blend_pd_opt_gap, 16, 12);
+//    add_function("mm256_blend_pd", "base", mm256_blend_pd_fb_verify, mm256_blend_pd_fb_lat, mm256_blend_pd_fb_gap, 16, 12);
+//    add_function("mm256_blend_pd", "opt", mm256_blend_pd_opt_verify, mm256_blend_pd_opt_lat, mm256_blend_pd_opt_gap, 16, 12);
+
+    add_function("mm256_add_pd", "base", mm256_add_pd_fb_verify, mm256_add_pd_fb_lat, mm256_add_pd_fb_gap, 16, 12);
+    add_function("mm256_add_pd", "opt", mm256_add_pd_opt_verify, mm256_add_pd_opt_lat, mm256_add_pd_opt_gap, 16, 12);
 }
 
 
