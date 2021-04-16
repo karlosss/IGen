@@ -201,22 +201,22 @@ void mm256_blend_pd_fb_gap() {
 
 void mm256_blend_pd_opt_lat() {
     for(int i = 0; i < BENCHMARK_ITER; ++i){
-        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi41, int0_150);
-        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi42, int0_151);
-        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi41, int0_152);
-        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi42, int0_153);
-        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi41, int0_154);
-        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi42, int0_155);
-        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi41, int0_156);
-        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi42, int0_157);
-        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi41, int0_158);
-        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi42, int0_159);
-        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi41, int0_1510);
-        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi42, int0_1511);
-        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi41, int0_1512);
-        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi42, int0_1513);
-        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi41, int0_1514);
-        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi42, int0_1515);
+        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi41, (int0_150+i)%16);
+        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi42, (int0_151+i)%16);
+        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi41, (int0_152+i)%16);
+        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi42, (int0_153+i)%16);
+        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi41, (int0_154+i)%16);
+        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi42, (int0_155+i)%16);
+        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi41, (int0_156+i)%16);
+        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi42, (int0_157+i)%16);
+        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi41, (int0_158+i)%16);
+        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi42, (int0_159+i)%16);
+        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi41, (int0_1510+i)%16);
+        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi42, (int0_1511+i)%16);
+        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi41, (int0_1512+i)%16);
+        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi42, (int0_1513+i)%16);
+        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi41, (int0_1514+i)%16);
+        ddi40 = _igen_dd_op_mm256_blend_pd(ddi40, ddi42, (int0_1515+i)%16);
     }
     out_ddi4[0] = ddi40;
 }
@@ -224,20 +224,20 @@ void mm256_blend_pd_opt_lat() {
 
 void mm256_blend_pd_opt_gap() {
     for(int i = 0; i < BENCHMARK_ITER; ++i){
-        ddi41 = _igen_dd_op_mm256_blend_pd(ddi41, ddi40, int0_150);
-        ddi42 = _igen_dd_op_mm256_blend_pd(ddi42, ddi40, int0_151);
-        ddi43 = _igen_dd_op_mm256_blend_pd(ddi43, ddi40, int0_152);
-        ddi44 = _igen_dd_op_mm256_blend_pd(ddi44, ddi40, int0_153);
+        ddi41 = _igen_dd_op_mm256_blend_pd(ddi41, ddi40, (int0_150+i)%16);
+        ddi42 = _igen_dd_op_mm256_blend_pd(ddi42, ddi40, (int0_151+i)%16);
+        ddi43 = _igen_dd_op_mm256_blend_pd(ddi43, ddi40, (int0_152+i)%16);
+        ddi44 = _igen_dd_op_mm256_blend_pd(ddi44, ddi40, (int0_153+i)%16);
 
-        ddi45 = _igen_dd_op_mm256_blend_pd(ddi45, ddi40, int0_154);
-        ddi46 = _igen_dd_op_mm256_blend_pd(ddi46, ddi40, int0_155);
-        ddi47 = _igen_dd_op_mm256_blend_pd(ddi47, ddi40, int0_156);
-        ddi48 = _igen_dd_op_mm256_blend_pd(ddi48, ddi40, int0_157);
+        ddi45 = _igen_dd_op_mm256_blend_pd(ddi45, ddi40, (int0_154+i)%16);
+        ddi46 = _igen_dd_op_mm256_blend_pd(ddi46, ddi40, (int0_155+i)%16);
+        ddi47 = _igen_dd_op_mm256_blend_pd(ddi47, ddi40, (int0_156+i)%16);
+        ddi48 = _igen_dd_op_mm256_blend_pd(ddi48, ddi40, (int0_157+i)%16);
 
-        ddi49 = _igen_dd_op_mm256_blend_pd(ddi49, ddi40, int0_158);
-        ddi410 = _igen_dd_op_mm256_blend_pd(ddi410, ddi40, int0_159);
-        ddi411 = _igen_dd_op_mm256_blend_pd(ddi411, ddi40, int0_1510);
-        ddi412 = _igen_dd_op_mm256_blend_pd(ddi412, ddi40, int0_1511);
+        ddi49 = _igen_dd_op_mm256_blend_pd(ddi49, ddi40, (int0_158+i)%16);
+        ddi410 = _igen_dd_op_mm256_blend_pd(ddi410, ddi40, (int0_159+i)%16);
+        ddi411 = _igen_dd_op_mm256_blend_pd(ddi411, ddi40, (int0_1510+i)%16);
+        ddi412 = _igen_dd_op_mm256_blend_pd(ddi412, ddi40, (int0_1511+i)%16);
     }
 
     out_ddi4[1] = ddi41;
