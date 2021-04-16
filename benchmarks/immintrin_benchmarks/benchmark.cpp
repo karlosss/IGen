@@ -10,6 +10,7 @@ using namespace std;
 
 ddi_4 ddi40, ddi41, ddi42, ddi43, ddi44, ddi45, ddi46, ddi47, ddi48, ddi49, ddi410, ddi411, ddi412, ddi413, ddi414, ddi415;
 dd_I ddi0, ddi1, ddi2, ddi3, ddi4, ddi5, ddi6, ddi7, ddi8, ddi9, ddi10, ddi11, ddi12, ddi13, ddi14, ddi15;
+int int0_150, int0_151, int0_152, int0_153, int0_154, int0_155, int0_156, int0_157, int0_158, int0_159, int0_1510, int0_1511, int0_1512, int0_1513, int0_1514, int0_1515;
 
 void set_globals() {
     ddi40 = in_ddi4[0];
@@ -45,6 +46,23 @@ void set_globals() {
     ddi13 = in_ddi[13];
     ddi14 = in_ddi[14];
     ddi15 = in_ddi[15];
+
+    int0_150 = in_int0_15[0];
+    int0_151 = in_int0_15[1];
+    int0_152 = in_int0_15[2];
+    int0_153 = in_int0_15[3];
+    int0_154 = in_int0_15[4];
+    int0_155 = in_int0_15[5];
+    int0_156 = in_int0_15[6];
+    int0_157 = in_int0_15[7];
+    int0_158 = in_int0_15[8];
+    int0_159 = in_int0_15[9];
+    int0_1510 = in_int0_15[10];
+    int0_1511 = in_int0_15[11];
+    int0_1512 = in_int0_15[12];
+    int0_1513 = in_int0_15[13];
+    int0_1514 = in_int0_15[14];
+    int0_1515 = in_int0_15[15];
 }
 
 double benchFun(void (*fn)()) {

@@ -49,3 +49,8 @@ static void initRandomSeed() {
 static void restartRandomGenSeed() {
     gen.seed(seed);
 }
+
+static int getRandomInt(int from, int to) {
+    std::uniform_int_distribution<int> distribution(from, to);
+    return distribution(gen);
+}
