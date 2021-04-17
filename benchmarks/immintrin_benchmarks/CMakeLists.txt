@@ -48,8 +48,6 @@ set(SOURCE_FILES
         benchmark_macros.h
         register.h
 
-        benchmarks/mm256_mul_pd.h
-
         # IGen files
         ${IGEN_COMMON}/util.cpp
         ${IGEN_LIB}/igen_dd_immintrin_fallback.h

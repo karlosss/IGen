@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common.h"
-#include "benchmarks/mm256_mul_pd.h"
 
 static void add_function(const string & base_name, const string & name,
                          void (*verify_fn)(), void (*latency_fn)(), void (*gap_fn)(),
