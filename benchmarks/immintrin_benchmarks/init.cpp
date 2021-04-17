@@ -3,7 +3,7 @@
 
 #include "random_range.cpp"
 #include "common.h"
-#include "test_include.h"
+#include "register.h"
 
 using namespace std;
 
@@ -17,36 +17,6 @@ dd_I* in_ddi = (dd_I*) aligned_alloc(32, LEN*sizeof(dd_I));
 dd_I* out_ddi = (dd_I*) aligned_alloc(32, LEN*sizeof(dd_I));
 int* in_int0_15 = (int*) aligned_alloc(32, LEN*sizeof(int));
 int* out_int0_15 = (int*) aligned_alloc(32, LEN*sizeof(int));
-
-
-void add_function(const string & base_name, const string & name,
-                  void (*verify_fn)(), void (*latency_fn)(), void (*gap_fn)(),
-                  int latency_ops, int gap_ops) {
-    fn_t fn;
-    fn.verify_fn = verify_fn;
-    fn.latency_fn = latency_fn;
-    fn.gap_fn = gap_fn;
-    fn.name = name;
-    fn.latency_ops = latency_ops;
-    fn.gap_ops = gap_ops;
-
-    if(functions.find(base_name) != functions.end()){
-        functions[base_name].push_back(fn);
-    }
-    else{
-        functions[base_name] = {fn};
-    }
-}
-
-
-void register_functions() {
-    // first one is the baseline function that is used to verify against
-//    add_function("mm256_blend_pd", "base", mm256_blend_pd_fb_verify, mm256_blend_pd_fb_lat, mm256_blend_pd_fb_gap, 16, 12);
-//    add_function("mm256_blend_pd", "opt", mm256_blend_pd_opt_verify, mm256_blend_pd_opt_lat, mm256_blend_pd_opt_gap, 16, 12);
-
-    add_function("mm256_add_pd", "base", mm256_add_pd_fb_verify, mm256_add_pd_fb_lat, mm256_add_pd_fb_gap, 16, 12);
-    add_function("mm256_add_pd", "opt", mm256_add_pd_opt_verify, mm256_add_pd_opt_lat, mm256_add_pd_opt_gap, 16, 12);
-}
 
 
 void init() {

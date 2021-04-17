@@ -45,9 +45,10 @@ set(SOURCE_FILES
         verify.cpp
         benchmark.cpp
         random_range.cpp
+        benchmark_macros.h
+        register.h
 
-        benchmarks/mm256_blend_pd.cpp
-        benchmarks/mm256_add_pd.cpp
+        benchmarks/mm256_mul_pd.h
 
         # IGen files
         ${IGEN_COMMON}/util.cpp
