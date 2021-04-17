@@ -2,7 +2,7 @@
 #include <cstring>
 
 #include "common.h"
-#include "test_include.h"
+#include "benchmark_macros.h"
 
 using namespace std;
 

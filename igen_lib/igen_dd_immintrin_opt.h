@@ -216,6 +216,15 @@ static void _igen_dd_op_mm256_stream_pd(dd_I *mem_addr, ddi_4 _a) {
 // ================ ARITHMETIC ======================
 
 static ddi_4 _igen_dd_op_mm256_add_pd(ddi_4 a, ddi_4 b) {
+//    ddi_4 dst;
+//
+//    dst.f[0] = _ia_add_dd(a.f[0], b.f[0]);
+//    dst.f[1] = _ia_add_dd(a.f[1], b.f[1]);
+//    dst.f[2] = _ia_add_dd(a.f[2], b.f[2]);
+//    dst.f[3] = _ia_add_dd(a.f[3], b.f[3]);
+//
+//
+//    return dst;
     ddi_4 dst;
 
 #ifdef ROUND_TO_NEAREST
@@ -399,7 +408,17 @@ static ddi_4 _igen_dd_op_mm256_hsub_pd(ddi_4 _a, ddi_4 _b) {
     return dst.v;
 }
 
-static ddi_4 _igen_dd_op_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_forloop_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+    ddi_4 dst;
+
+    for(int i = 0; i < 4; ++i) {
+        dst.f[i] = _ia_mul_dd(a.f[i], b.f[i]);
+    }
+
+    return dst;
+}
+
+static ddi_4 _igen_dd_inlined_loop_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dst.f[0] = _ia_mul_dd(a.f[0], b.f[0]);
@@ -409,6 +428,8 @@ static ddi_4 _igen_dd_op_mm256_mul_pd(ddi_4 a, ddi_4 b) {
 
     return dst;
 }
+
+#define _igen_dd_op_mm256_mul_pd _igen_dd_inlined_loop_mm256_mul_pd
 
 static ddi_4 _igen_dd_op_mm256_div_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;

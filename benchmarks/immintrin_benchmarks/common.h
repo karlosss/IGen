@@ -5,6 +5,7 @@
 
 #include "igen_dd_lib.h"
 #include "igen_dd_immintrin_types.h"
+#include "igen_dd_immintrin.h"
 
 #define LEN 1024
 #define BENCHMARK_ITER 5000

@@ -1,4 +1,4 @@
-#include "../test_include.h"
+#include "../benchmark_macros.h"
 #include "../common.h"
 
 using namespace std;
