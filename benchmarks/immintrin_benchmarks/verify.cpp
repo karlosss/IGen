@@ -72,7 +72,7 @@ void verify() {
                     double tested_hi = tested.uh + tested.ul;
                     fesetround(FE_TONEAREST);
                     // check if tested interval is included in the base interval
-                    if(base_lo > tested_lo || base_hi < tested_hi){
+                    if(base_lo != tested_lo || base_hi != tested_hi){
                         fail = true;
                         break;
                     }
@@ -88,7 +88,7 @@ void verify() {
                 double tested_hi = tested.uh + tested.ul;
                 fesetround(FE_TONEAREST);
                 // check if tested interval is included in the base interval
-                if(base_lo > tested_lo || base_hi < tested_hi){
+                if(base_lo != tested_lo || base_hi != tested_hi){
                     fail = true;
                 }
 
