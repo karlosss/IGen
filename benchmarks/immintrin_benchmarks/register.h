@@ -27,11 +27,11 @@ static void register_functions() {
     ADD_FUNC(mm256_mul_pd, inlined_loop, 16, 12)
     ADD_FUNC(mm256_mul_pd, one_inlined_fn, 16, 12)
 
-//    ADD_FUNC(mm256_blend_pd, fb, 16, 12)
-//    ADD_FUNC(mm256_blend_pd, op, 16, 12)
-//
-//    ADD_FUNC(mm256_add_pd, fb, 16, 12)
-//    ADD_FUNC(mm256_add_pd, forloop, 16, 12)
-//    ADD_FUNC(mm256_add_pd, inlined_loop, 16, 12)
-//    ADD_FUNC(mm256_add_pd, op, 16, 12)
+    ADD_FUNC(mm256_blend_pd, fb, 16, 12)
+    ADD_FUNC(mm256_blend_pd, op, 16, 12)
+
+    ADD_FUNC(mm256_add_pd, fb, 16, 12)
+    ADD_FUNC(mm256_add_pd, forloop, 16, 12)
+    ADD_FUNC(mm256_add_pd, inlined_loop, 16, 12)
+    ADD_FUNC(mm256_add_pd, op, 16, 12)
 }
