@@ -24,22 +24,24 @@ int* out_bool = (int*) aligned_alloc(32, LEN*sizeof(int));
 
 
 void init() {
+    initRandomSeed();
+
     // initialize all in- and out- arrays here
     for (int i = 0; i < LEN; ++i) {
         // ddi4
         for(int j = 0; j < 4; ++j){
-            in_ddi4[i].f[j] = _ia_set_epsilon_dd(getRandomDouble(10, 20), 0);
+            in_ddi4[i].f[j] = getRandomDDI();
         }
         out_ddi4[i] = in_ddi4[i];
 
         // ddi2
         for(int j = 0; j < 2; ++j){
-            in_ddi2[i].f[j] = _ia_set_epsilon_dd(getRandomDouble(10, 20), 0);
+            in_ddi2[i].f[j] = getRandomDDI();
         }
         out_ddi2[i] = in_ddi2[i];
 
         // ddi
-        in_ddi[i] = _ia_set_epsilon_dd(getRandomDouble(10, 20), 0);
+        in_ddi[i] = getRandomDDI();
         out_ddi[i] = in_ddi[i];
 
         // int0_15
