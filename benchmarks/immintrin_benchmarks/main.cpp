@@ -6,6 +6,7 @@ int main(int argc, char** argv){
 
     init();
     verify();
+    if(argc == 2 && string(argv[1]) == "--no-benchmark") return 0;
     benchmark();
     return 0;
 }
