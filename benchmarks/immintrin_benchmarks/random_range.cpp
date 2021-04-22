@@ -1,6 +1,10 @@
 #pragma once
 #include <random>
 #include <cmath>
+#include <cfenv>
+#include <igen_dd_types.h>
+#include <cfloat>
+#include <igen_dd_lib.h>
 
 static unsigned int seed;
 static std::default_random_engine gen;
@@ -53,4 +57,25 @@ static void restartRandomGenSeed() {
 static int getRandomInt(int from, int to) {
     std::uniform_int_distribution<int> distribution(from, to);
     return distribution(gen);
+}
+
+
+static dd_I getRandomDDI() {
+    int rm = fegetround();
+
+    double a = getRandomDouble(-3, 8, 50);
+    double b = getRandomDouble(0, 0, 0);
+
+    fesetround(FE_DOWNWARD);
+    double s_lo  = a * b;
+    double t_lo  = a * b - s_lo;
+
+    fesetround(FE_UPWARD);
+    double s_up  = a * b;
+    double t_up  = (a * b - s_up) + DBL_MIN;
+
+    dd_I c = _ia_set_dd(-s_lo, -t_lo, s_up, t_up);
+
+    fesetround(rm);
+    return c;
 }
