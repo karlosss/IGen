@@ -620,12 +620,12 @@ inline static ddi_4 _igen_dd_one_inlined_fn_op_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     dd_I af0 = a.f[0];
     dd_I bf0 = b.f[0];
 
-    dd_I _b = _mm256_permute4x64_pd(bf0, 0b01001110);
+    dd_I _b = -_mm256_permute4x64_pd(bf0, 0b01001110);
 
     dd_v  ah = _mm256_unpacklo_pd(af0, af0);
     dd_v  al = _mm256_unpackhi_pd(af0, af0);
-    dd_v  bh = _mm256_unpacklo_pd(bf0, -_b);
-    dd_v  bl = _mm256_unpackhi_pd(bf0, -_b);
+    dd_v  bh = _mm256_unpacklo_pd(bf0, _b);
+    dd_v  bl = _mm256_unpackhi_pd(bf0, _b);
 
 #ifdef ROUND_TO_NEAREST
     int _fround = fegetround();
@@ -659,24 +659,21 @@ inline static ddi_4 _igen_dd_one_inlined_fn_op_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     __m256d _r_up_1 = _mm256_unpacklo_pd(s_4, t_4);
     __m256d _r_up_2 = _mm256_unpackhi_pd(s_4, t_4);
 
-    dd_v  bh_2 = _mm256_unpacklo_pd(-bf0, _b);
-    dd_v  bl_2 = _mm256_unpackhi_pd(-bf0, _b);
-
 #ifdef ROUND_TO_NEAREST
     int _fround = fegetround();
     fesetround(FE_TONEAREST);
 #endif
 
-    dd_v s_5  = ah * bh_2;
-    dd_v t_5  = _mm256_fmsub_pd(ah, bh_2, s_5);
+    dd_v s_5  = ah * (-bh);
+    dd_v t_5  = _mm256_fmsub_pd(ah, -bh, s_5);
 
 #ifdef ROUND_TO_NEAREST
     fesetround(_fround);
 #endif
 
-    dd_v  tl0_2 = al * bl_2;
-    dd_v  tl1_2 = _mm256_fmadd_pd(ah, bl_2, tl0_2);
-    dd_v  cl2_2 = _mm256_fmadd_pd(al, bh_2, tl1_2);
+    dd_v  tl0_2 = al * (-bl);
+    dd_v  tl1_2 = _mm256_fmadd_pd(ah, -bl, tl0_2);
+    dd_v  cl2_2 = _mm256_fmadd_pd(al, -bh, tl1_2);
     dd_v  cl3_2 = t_5 + cl2_2;
 
 #ifdef ROUND_TO_NEAREST
