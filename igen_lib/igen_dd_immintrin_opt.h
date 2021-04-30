@@ -721,16 +721,7 @@ inline static ddi_4 _igen_dd_one_inlined_fn_op_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     dd_I c1 = _mm256_permute2f128_pd(r_lo, r_up, 0b00100000);
     dd_I c2 = _mm256_permute2f128_pd(r_lo, r_up, 0b00110001);
 
-    dd_v mask1_9 = _mm256_cmp_pd(c1, c2, _CMP_GE_OQ);
-    dd_v mask2_9 = _mm256_cmp_pd(c1, c2, _CMP_LE_OQ);
-
-    mask1_9 = _mm256_unpacklo_pd(mask1_9, mask1_9);
-    mask2_9 = _mm256_unpacklo_pd(mask2_9, mask2_9);
-
-    dd_v _a_9 = _mm256_blendv_pd(minf, c1, mask1_9);
-    dd_v _b_9 = _mm256_blendv_pd(minf, c2, mask2_9);
-
-    dst.f[0] = _mm256_max_pd(_a_9, _b_9);
+    dst.f[0] = _mm256_max_pd(c1, c2);
 
     dst.f[1] = _ia_mul_dd(a.f[1], b.f[1]);
     dst.f[2] = _ia_mul_dd(a.f[2], b.f[2]);
