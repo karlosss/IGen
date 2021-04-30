@@ -730,6 +730,140 @@ inline static ddi_4 _igen_dd_one_inlined_fn_op_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     return dst;
 }
 
+inline static ddi_4 _igen_dd_transposed_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+    ddi_4 dst;
+
+    __m256d af0 = a.f[0];
+    __m256d af1 = a.f[1];
+    __m256d af2 = a.f[2];
+    __m256d af3 = a.f[3];
+
+    __m256d bf0 = b.f[0];
+    __m256d bf1 = b.f[1];
+    __m256d bf2 = b.f[2];
+    __m256d bf3 = b.f[3];
+
+    __m256d tmpa0 = _mm256_shuffle_pd(af0, af1, 0x0);
+    __m256d tmpa1 = _mm256_shuffle_pd(af0, af1, 0xF);
+    __m256d tmpa2 = _mm256_shuffle_pd(af2, af3, 0x0);
+    __m256d tmpa3 = _mm256_shuffle_pd(af2, af3, 0xF);
+
+    __m256d tmpb0 = _mm256_shuffle_pd(bf0, bf1, 0x0);
+    __m256d tmpb1 = _mm256_shuffle_pd(bf0, bf1, 0xF);
+    __m256d tmpb2 = _mm256_shuffle_pd(bf2, bf3, 0x0);
+    __m256d tmpb3 = _mm256_shuffle_pd(bf2, bf3, 0xF);
+
+    __m256d a_0 = _mm256_permute2f128_pd(tmpa0, tmpa2, 0x20);
+    __m256d a_1 = _mm256_permute2f128_pd(tmpa1, tmpa3, 0x20);
+    __m256d a_2 = _mm256_permute2f128_pd(tmpa0, tmpa2, 0x31);
+    __m256d a_3 = _mm256_permute2f128_pd(tmpa1, tmpa3, 0x31);
+
+    __m256d b_0 = _mm256_permute2f128_pd(tmpb0, tmpb2, 0x20);
+    __m256d b_1 = _mm256_permute2f128_pd(tmpb1, tmpb3, 0x20);
+    __m256d b_2 = _mm256_permute2f128_pd(tmpb0, tmpb2, 0x31);
+    __m256d b_3 = _mm256_permute2f128_pd(tmpb1, tmpb3, 0x31);
+
+    // ===================================================================
+
+    __m256d neg_b_0 = -b_0;
+    __m256d neg_b_1 = -b_1;
+    __m256d neg_b_2 = -b_2;
+    __m256d neg_b_3 = -b_3;
+
+    __m256d s_3_0 = a_0 * b_0;
+    __m256d s_3_1 = a_0 * neg_b_2;
+    __m256d s_3_2 = a_2 * b_2;
+    __m256d s_3_3 = a_2 * neg_b_0;
+
+    __m256d t_3_0 = _mm256_fmsub_pd(a_0, b_0, s_3_0);
+    __m256d t_3_1 = _mm256_fmsub_pd(a_0, neg_b_2, s_3_1);
+    __m256d t_3_2 = _mm256_fmsub_pd(a_2, b_2, s_3_2);
+    __m256d t_3_3 = _mm256_fmsub_pd(a_2, neg_b_0, s_3_3);
+
+    __m256d tl0_0 = a_1 * b_1;
+    __m256d tl0_1 = a_1 * neg_b_3;
+    __m256d tl0_2 = a_3 * b_3;
+    __m256d tl0_3 = a_3 * neg_b_1;
+
+    __m256d tl1_0 = _mm256_fmadd_pd(a_0, b_1, tl0_0);
+    __m256d tl1_1 = _mm256_fmadd_pd(a_0, neg_b_3, tl0_1);
+    __m256d tl1_2 = _mm256_fmadd_pd(a_2, b_3, tl0_2);
+    __m256d tl1_3 = _mm256_fmadd_pd(a_2, neg_b_1, tl0_3);
+
+    __m256d cl2_0 = _mm256_fmadd_pd(a_1, b_0, tl1_0);
+    __m256d cl2_1 = _mm256_fmadd_pd(a_1, neg_b_2, tl1_1);
+    __m256d cl2_2 = _mm256_fmadd_pd(a_3, b_2, tl1_2);
+    __m256d cl2_3 = _mm256_fmadd_pd(a_3, neg_b_0, tl1_3);
+
+    __m256d cl3_0 = t_3_0 + cl2_0;
+    __m256d cl3_1 = t_3_1 + cl2_1;
+    __m256d cl3_2 = t_3_2 + cl2_2;
+    __m256d cl3_3 = t_3_3 + cl2_3;
+
+    __m256d s_4_0 = s_3_0 + cl3_0;
+    __m256d s_4_1 = s_3_1 + cl3_1;
+    __m256d s_4_2 = s_3_2 + cl3_2;
+    __m256d s_4_3 = s_3_3 + cl3_3;
+
+    __m256d z_4_0 = s_4_0 - s_3_0;
+    __m256d z_4_1 = s_4_1 - s_3_1;
+    __m256d z_4_2 = s_4_2 - s_3_2;
+    __m256d z_4_3 = s_4_3 - s_3_3;
+
+    __m256d t_4_0 = cl3_0 - z_4_0;
+    __m256d t_4_1 = cl3_1 - z_4_1;
+    __m256d t_4_2 = cl3_2 - z_4_2;
+    __m256d t_4_3 = cl3_3 - z_4_3;
+
+    __m256d s_5_0 = a_0 * neg_b_0;
+    __m256d s_5_1 = a_0 * b_2;
+    __m256d s_5_2 = a_2 * neg_b_2;
+    __m256d s_5_3 = a_2 * b_0;
+
+    __m256d t_5_0 = _mm256_fmsub_pd(a_0, neg_b_0, s_5_0);
+    __m256d t_5_1 = _mm256_fmsub_pd(a_0, b_2, s_5_1);
+    __m256d t_5_2 = _mm256_fmsub_pd(a_2, neg_b_2, s_5_2);
+    __m256d t_5_3 = _mm256_fmsub_pd(a_2, b_0, s_5_3);
+
+    __m256d tl0_2_0 = a_1 * neg_b_1;
+    __m256d tl0_2_1 = a_1 * b_3;
+    __m256d tl0_2_2 = a_3 * neg_b_3;
+    __m256d tl0_2_3 = a_3 * b_1;
+
+    __m256d tl1_2_0 = _mm256_fmadd_pd(a_0, neg_b_1, tl0_2_0);
+    __m256d tl1_2_1 = _mm256_fmadd_pd(a_0, b_3, tl0_2_1);
+    __m256d tl1_2_2 = _mm256_fmadd_pd(a_2, neg_b_3, tl0_2_2);
+    __m256d tl1_2_3 = _mm256_fmadd_pd(a_2, b_1, tl0_2_3);
+
+    __m256d cl2_2_0 = _mm256_fmadd_pd(a_1, neg_b_0, tl1_2_0);
+    __m256d cl2_2_1 = _mm256_fmadd_pd(a_1, b_2, tl1_2_1);
+    __m256d cl2_2_2 = _mm256_fmadd_pd(a_3, neg_b_2, tl1_2_2);
+    __m256d cl2_2_3 = _mm256_fmadd_pd(a_3, b_0, tl1_2_3);
+
+    __m256d cl3_2_0 = t_5_0 + cl2_2_0;
+    __m256d cl3_2_1 = t_5_1 + cl2_2_1;
+    __m256d cl3_2_2 = t_5_2 + cl2_2_2;
+    __m256d cl3_2_3 = t_5_3 + cl2_2_3;
+
+    __m256d s_6_0 = s_5_0 + cl3_2_0;
+    __m256d s_6_1 = s_5_1 + cl3_2_1;
+    __m256d s_6_2 = s_5_2 + cl3_2_2;
+    __m256d s_6_3 = s_5_3 + cl3_2_3;
+
+    __m256d z_6_0 = s_6_0 - s_5_0;
+    __m256d z_6_1 = s_6_1 - s_5_1;
+    __m256d z_6_2 = s_6_2 - s_5_2;
+    __m256d z_6_3 = s_6_3 - s_5_3;
+
+    __m256d t_6_0 = cl3_2_0 - z_6_0;
+    __m256d t_6_1 = cl3_2_1 - z_6_1;
+    __m256d t_6_2 = cl3_2_2 - z_6_2;
+    __m256d t_6_3 = cl3_2_3 - z_6_3;
+
+
+
+}
+
 #define _igen_dd_op_mm256_mul_pd _igen_dd_inlined_loop_mm256_mul_pd
 
 inline static ddi_4 _igen_dd_no_loop_mm256_div_pd(ddi_4 a, ddi_4 b) {
