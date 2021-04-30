@@ -15,6 +15,7 @@ BENCHMARK(mm256_mul_pd, forloop)
 BENCHMARK(mm256_mul_pd, inlined_loop)
 BENCHMARK(mm256_mul_pd, one_inlined_fn)
 BENCHMARK(mm256_mul_pd, one_inlined_fn_op)
+BENCHMARK(mm256_mul_pd, transposed)
 
 BENCHMARK(mm256_blend_pd, fb)
 BENCHMARK(mm256_blend_pd, op)
@@ -44,23 +45,24 @@ static void register_functions() {
     ADD_FUNC(mm256_mul_pd, inlined_loop, 16, 12)
     ADD_FUNC(mm256_mul_pd, one_inlined_fn, 16, 12)
     ADD_FUNC(mm256_mul_pd, one_inlined_fn_op, 16, 12)
+    ADD_FUNC(mm256_mul_pd, transposed, 16, 12)
 
 //    ADD_FUNC(mm256_add_pd, fb, 16, 12)
 //    ADD_FUNC(mm256_add_pd, forloop, 16, 12)
 //    ADD_FUNC(mm256_add_pd, inlined_loop, 16, 12)
 //    ADD_FUNC(mm256_add_pd, op, 16, 12)
-    ADD_FUNC(mm256_blend_pd, fb, 16, 12)
-    ADD_FUNC(mm256_blend_pd, op, 16, 12)
-
-    ADD_FUNC(mm256_unpackhi_pd, fb, 16, 12)
-    ADD_FUNC(mm256_unpackhi_pd, op, 16, 12)
-
-    ADD_FUNC(mm256_insertf128_pd, fb, 16, 12)
-    ADD_FUNC(mm256_insertf128_pd, op, 16, 12)
-
-    ADD_FUNC(mm256_extractf128_pd, fb, 16, 12)
-    ADD_FUNC(mm256_extractf128_pd, op, 16, 12)
-
-    ADD_FUNC(mm256_shuffle_pd, fb, 16, 12)
-    ADD_FUNC(mm256_shuffle_pd, op, 16, 12)
+//    ADD_FUNC(mm256_blend_pd, fb, 16, 12)
+//    ADD_FUNC(mm256_blend_pd, op, 16, 12)
+//
+//    ADD_FUNC(mm256_unpackhi_pd, fb, 16, 12)
+//    ADD_FUNC(mm256_unpackhi_pd, op, 16, 12)
+//
+//    ADD_FUNC(mm256_insertf128_pd, fb, 16, 12)
+//    ADD_FUNC(mm256_insertf128_pd, op, 16, 12)
+//
+//    ADD_FUNC(mm256_extractf128_pd, fb, 16, 12)
+//    ADD_FUNC(mm256_extractf128_pd, op, 16, 12)
+//
+//    ADD_FUNC(mm256_shuffle_pd, fb, 16, 12)
+//    ADD_FUNC(mm256_shuffle_pd, op, 16, 12)
 }
