@@ -1,0 +1,20 @@
+- write a placeholder instead of each expression {[<HERBIE-xy>]} where xy is the chronological number of the expression,
+and write the actual expression into a file which herbie can process
+- run herbie on the file
+- use sed (or python) to insert the optimized expressions - the placeholder should be syntactically incorrect in C++ to avoid conflicts
+
+- what to optimize?
+    - global vars? - maybe could be left as a way the user can tell "i don't want to reorganize this"
+    - arrays? - might go wrong with aliasing
+    - function calls? - side effect problem, might get reordered
+
+- support:
+    - expressions
+    - if/then/else
+    - for, while, dowhile
+    - multiple functions in one file
+    - optimize parameters of function calls (might be an expression)
+
+- maybe support:
+    - multiple input .cpp files
+    - a = b = 5
