@@ -5,6 +5,7 @@
 #include "tsc_x86.h"
 
 #include "benchmarks/mm256_mul_pd.h"
+#include "benchmarks/mm256_add_pd.h"
 
 ddi_4 ddi40, ddi41, ddi42, ddi43, ddi44, ddi45, ddi46, ddi47, ddi48, ddi49, ddi410, ddi411, ddi412, ddi413, ddi414, ddi415;
 ddi_2 ddi20, ddi21, ddi22, ddi23, ddi24, ddi25, ddi26, ddi27, ddi28, ddi29, ddi210, ddi211, ddi212, ddi213, ddi214, ddi215;
@@ -99,6 +100,13 @@ void set_globals() {
     bool15 = in_bool[15];
 }
 
+BENCHMARK(mm256_add_pd, fb)
+BENCHMARK(mm256_add_pd, forloop)
+BENCHMARK(mm256_add_pd, inlined_loop)
+BENCHMARK(mm256_add_pd, one_inlined_fn)
+BENCHMARK(mm256_add_pd, interleaved)
+BENCHMARK(mm256_add_pd, no_unused_vals)
+
 BENCHMARK(mm256_mul_pd, fb)
 BENCHMARK(mm256_mul_pd, inlined_loop)
 BENCHMARK(mm256_mul_pd, one_inlined_fn)
@@ -109,6 +117,13 @@ BENCHMARK(mm256_mul_pd, transposed)
 
 void benchmark() {
     cout << "Running benchmarks." << endl;
+
+    ADD_FUNC(mm256_add_pd, fb, fb, 16, 12);
+    ADD_FUNC(mm256_add_pd, forloop, fb, 16, 12);
+    ADD_FUNC(mm256_add_pd, inlined_loop, fb, 16, 12);
+    ADD_FUNC(mm256_add_pd, one_inlined_fn, fb, 16, 12);
+    ADD_FUNC(mm256_add_pd, interleaved, fb, 16, 12);
+    ADD_FUNC(mm256_add_pd, no_unused_vals, fb, 16, 12);
 
     ADD_FUNC(mm256_mul_pd, fb, fb, 16, 12);
     ADD_FUNC(mm256_mul_pd, inlined_loop, fb, 16, 12);
