@@ -1,6 +1,6 @@
 #pragma once
 
-inline static ddi_4 _igen_dd_inlined_loop_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_inlined_loop_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dst.f[0] = _ia_mul_dd(a.f[0], b.f[0]);
@@ -11,7 +11,7 @@ inline static ddi_4 _igen_dd_inlined_loop_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     return dst;
 }
 
-inline static dd_v mul(dd_I af0, dd_I bf0) {
+static dd_v mul(dd_I af0, dd_I bf0) {
     dd_I _b = _mm256_permute4x64_pd(bf0, 0b01001110);
 
     dd_v  ah = _mm256_unpacklo_pd(af0, af0);
@@ -173,7 +173,7 @@ inline static dd_v mul(dd_I af0, dd_I bf0) {
     return c_9;
 }
 
-inline static ddi_4 _igen_dd_mul_fn_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_mul_fn_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dst.f[0] = mul(a.f[0], b.f[0]);
@@ -184,7 +184,7 @@ inline static ddi_4 _igen_dd_mul_fn_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     return dst;
 }
 
-inline static ddi_4 _igen_dd_one_inlined_fn_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_one_inlined_fn_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dd_I af0 = a.f[0];
@@ -359,7 +359,7 @@ inline static ddi_4 _igen_dd_one_inlined_fn_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     return dst;
 }
 
-inline static ddi_4 _igen_dd_no_interleave_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_no_interleave_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dd_I af0_0_ = a.f[0];
@@ -824,7 +824,7 @@ inline static ddi_4 _igen_dd_no_interleave_mm256_mul_pd(ddi_4 a, ddi_4 b) {
 }
 
 
-inline static ddi_4 _igen_dd_interleaved_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_interleaved_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dd_I af0_0 = a.f[0];
@@ -1129,7 +1129,7 @@ inline static ddi_4 _igen_dd_interleaved_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     return dst;
 }
 
-inline static ddi_4 _igen_dd_transposed_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_transposed_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     __m256d af0 = a.f[0];
