@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 
 static ddi_4 _igen_dd_inlined_loop_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
@@ -1337,6 +1338,149 @@ static ddi_4 _igen_dd_transposed_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     dst.f[1] = finres_1;
     dst.f[2] = finres_2;
     dst.f[3] = finres_3;
+
+    return dst;
+}
+
+typedef struct {
+    double h;
+    double l;
+} dd;
+
+static bool dd_gt(dd a, dd b) {
+    if(a.h > b.h) return true;
+    if(a.h < b.h) return false;
+    return a.l > b.l;
+}
+
+static bool dd_gt_0(dd a) {
+    if(a.h > 0) return true;
+    if(a.h < 0) return false;
+    return a.l > 0;
+}
+
+static dd dd_mult(dd a, dd b) {
+    double ch = a.h * b.h;
+    double cl1 = fma(a.h, b.h, -ch);
+    double tl0 = a.l * b.l;
+    double tl1 = fma(a.h, b.l, tl0);
+    double cl2 = fma(a.l, b.h, tl1);
+    double cl3 = cl1 + cl2;
+
+    double s = ch + cl3;
+    double z = s - ch;
+    double t = cl3 - z;
+    return (dd) {.h = s, .l = t};
+}
+
+static dd minus(dd a) {
+    return (dd) {.h = -a.h, .l = -a.l};
+}
+
+static ddi_4 _igen_dd_case_distinction_no_simd_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+    ddi_4 dst;
+
+    u_ddi a0 = {.v = a.f[0]};
+    u_ddi b0 = {.v = b.f[0]};
+
+    dd a0l = {.h = a0.lh, .l = a0.ll};
+    dd a0u = {.h = a0.uh, .l = a0.ul};
+    dd b0l = {.h = b0.lh, .l = b0.ll};
+    dd b0u = {.h = b0.uh, .l = b0.ul};
+
+    dd r0l;
+    dd r0u;
+
+    if(dd_gt_0(a0l)) {
+        if(dd_gt_0(a0u)) {
+            if(dd_gt_0(b0l)) {
+                if(dd_gt_0(b0u)) {
+                    dd t1, t2;
+                    t1 = dd_mult(a0l, b0u);
+                    t2 = dd_mult(a0u, b0l);
+                    r0l = (dd_gt(t1, t2)) ? t1 : t2;
+                    t1 = dd_mult(a0l, b0l);
+                    t2 = dd_mult(a0u, b0u);
+                    r0u = (dd_gt(t1, t2)) ? t1 : t2;
+                }
+                else {
+                    r0l = dd_mult(a0u, b0l);
+                    r0u = dd_mult(a0l, b0l);
+                }
+            }
+            else {
+                if(dd_gt_0(b0u)) {
+                    r0l = dd_mult(a0l, b0u);
+                    r0u = dd_mult(a0u, b0u);
+                }
+                else {
+                    r0l = {.h = 0, .l = 0};
+                    r0u = {.h = 0, .l = 0};
+                }
+            }
+        }
+        else {
+            if(dd_gt_0(b0l)) {
+                if(dd_gt_0(b0u)) {
+                    r0l = dd_mult(a0l, b0u);
+                    r0u = dd_mult(a0l, b0l);
+                }
+                else {
+                    r0l = minus(dd_mult(a0u, b0u));
+                    r0u = dd_mult(a0l, b0l);
+                }
+            }
+            else {
+                if(dd_gt_0(b0u)) {
+                    r0l = dd_mult(a0l, b0u);
+                    r0u = minus(dd_mult(a0u, b0l));
+                }
+                else {
+                    r0l = {.h = 0, .l = 0};
+                    r0u = {.h = 0, .l = 0};
+                }
+            }
+        }
+    }
+    else {
+        if(dd_gt_0(a0u)) {
+            if(dd_gt_0(b0l)) {
+                if(dd_gt_0(b0u)) {
+                    r0l = dd_mult(a0u, b0l);
+                    r0u = dd_mult(a0u, b0u);
+                }
+                else {
+                    r0l = dd_mult(a0u, b0l);
+                    r0u = minus(dd_mult(a0l, b0u));
+                }
+            }
+            else {
+                if(dd_gt_0(b0u)) {
+                    r0l = minus(dd_mult(a0l, b0l));
+                    r0u = dd_mult(a0u, b0u);
+                }
+                else {
+                    r0l = {.h = 0, .l = 0};
+                    r0u = {.h = 0, .l = 0};
+                }
+            }
+        }
+        else {
+            r0l = {.h = 0, .l = 0};
+            r0u = {.h = 0, .l = 0};
+        }
+    }
+
+    u_ddi r0;
+    r0.ll = r0l.l;
+    r0.lh = r0l.h;
+    r0.ul = r0u.l;
+    r0.uh = r0u.h;
+
+    dst.f[0] = r0.v;
+    dst.f[1] = _ia_mul_dd(a.f[1], b.f[1]);
+    dst.f[2] = _ia_mul_dd(a.f[2], b.f[2]);
+    dst.f[3] = _ia_mul_dd(a.f[3], b.f[3]);
 
     return dst;
 }
