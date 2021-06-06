@@ -1,0 +1,5 @@
+;; seed: 218504199
+
+(FPCore () :herbie-status ex-start :herbie-time 731.422607421875 :herbie-error-input ((256 0) (8000 0)) :herbie-error-output ((256 0) (8000 0)) :name "(+ 42 69 123 345)" :precision binary64 (+ (+ (+ 42.0 69.0) 123.0) 345.0))
+(FPCore (a b) :herbie-status ex-start :herbie-time 2721.957763671875 :herbie-error-input ((256 0.011764705882352941) (8000 0.013501687710963871)) :herbie-error-output ((256 0.011764705882352941) (8000 0.013501687710963871)) :name "(+ 1.0 (+ 2.5 (+ b (+ a b))))" :precision binary64 (+ 1.0 (+ 2.5 (+ b (+ b a)))))
+(FPCore (x0 x1) :herbie-status ex-start :herbie-time 3494.00341796875 :herbie-error-input ((256 0.10980392156862745) (8000 0.12997530008025648)) :herbie-error-output ((256 0.10980392156862745) (8000 0.12997530008025648)) :name "(+ (+ (+ (+ 3 1.5) 2.4) x0) x1)" :precision binary64 (+ (+ (+ (+ 3.0 1.5) 2.4) x0) x1))

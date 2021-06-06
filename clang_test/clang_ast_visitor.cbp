@@ -70,7 +70,28 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/main.cpp">
+		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/ast_consumer.h">
+			<Option target="clang_ast_visitor"/>
+		</Unit>
+		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/ast_visitor.h">
+			<Option target="clang_ast_visitor"/>
+		</Unit>
+		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/clang.cpp">
+			<Option target="clang_ast_visitor"/>
+		</Unit>
+		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/clang.h">
+			<Option target="clang_ast_visitor"/>
+		</Unit>
+		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/frontend_action.h">
+			<Option target="clang_ast_visitor"/>
+		</Unit>
+		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/test.cpp">
+			<Option target="clang_ast_visitor"/>
+		</Unit>
+		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/utils.cpp">
+			<Option target="clang_ast_visitor"/>
+		</Unit>
+		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/utils.h">
 			<Option target="clang_ast_visitor"/>
 		</Unit>
 		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/CMakeLists.txt">

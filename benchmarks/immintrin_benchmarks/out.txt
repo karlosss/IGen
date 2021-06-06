@@ -1,0 +1,1004 @@
+=======================================
+26 26
+1 functions registered.
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_mul_pd
+    fb latency: 253.565 cycles
+    fb gap: 248.046 cycles
+=======================================
+26 27
+1 functions registered.
+Verify mm256_mul_pd
+    inlined_loop... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    fb latency: 253.64 cycles
+    fb gap: 247.951 cycles
+    inlined_loop latency: 142.271 cycles
+    inlined_loop gap: 142.006 cycles
+=======================================
+26 28
+1 functions registered.
+Verify mm256_mul_pd
+    one_inlined_fn... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    fb latency: 253.327 cycles
+    fb gap: 247.64 cycles
+    one_inlined_fn latency: 147.307 cycles
+    one_inlined_fn gap: 121.417 cycles
+=======================================
+26 29
+1 functions registered.
+Verify mm256_mul_pd
+    no_interleave... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    fb latency: 253.535 cycles
+    fb gap: 247.553 cycles
+    no_interleave latency: 214.93 cycles
+    no_interleave gap: 201.25 cycles
+=======================================
+26 30
+1 functions registered.
+Verify mm256_mul_pd
+    mul_fn... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    fb latency: 253.299 cycles
+    fb gap: 247.837 cycles
+    mul_fn latency: 123.315 cycles
+    mul_fn gap: 125.548 cycles
+=======================================
+26 31
+1 functions registered.
+Verify mm256_mul_pd
+    interleaved... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    fb latency: 253.363 cycles
+    fb gap: 247.724 cycles
+    interleaved latency: 173.153 cycles
+    interleaved gap: 163.924 cycles
+=======================================
+26 32
+1 functions registered.
+Verify mm256_mul_pd
+    transposed... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    fb latency: 253.463 cycles
+    fb gap: 247.928 cycles
+    transposed latency: 85.5923 cycles
+    transposed gap: 75.2617 cycles
+=======================================
+26 33
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    fb latency: 159.855 cycles
+    fb gap: 154.081 cycles
+Benchmark mm256_mul_pd
+    fb latency: 253.793 cycles
+    fb gap: 247.725 cycles
+=======================================
+26 34
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    forloop latency: 55.4399 cycles
+    forloop gap: 39.4003 cycles
+Benchmark mm256_mul_pd
+    fb latency: 253.392 cycles
+    fb gap: 248.274 cycles
+=======================================
+26 35
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    inlined_loop latency: 55.0699 cycles
+    inlined_loop gap: 39.4058 cycles
+Benchmark mm256_mul_pd
+    fb latency: 253.352 cycles
+    fb gap: 247.628 cycles
+=======================================
+26 36
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    one_inlined_fn latency: 55.0042 cycles
+    one_inlined_fn gap: 39.3876 cycles
+Benchmark mm256_mul_pd
+    fb latency: 253.302 cycles
+    fb gap: 247.629 cycles
+=======================================
+26 37
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    interleaved latency: 54.0495 cycles
+    interleaved gap: 34.3908 cycles
+Benchmark mm256_mul_pd
+    fb latency: 253.381 cycles
+    fb gap: 247.706 cycles
+=======================================
+26 38
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    no_unused_vals latency: 57.3342 cycles
+    no_unused_vals gap: 24.2394 cycles
+Benchmark mm256_mul_pd
+    fb latency: 253.309 cycles
+    fb gap: 247.809 cycles
+=======================================
+27 27
+1 functions registered.
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_mul_pd
+    inlined_loop latency: 142.273 cycles
+    inlined_loop gap: 141.456 cycles
+=======================================
+27 28
+1 functions registered.
+Verify mm256_mul_pd
+    one_inlined_fn... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    inlined_loop latency: 142.269 cycles
+    inlined_loop gap: 141.446 cycles
+    one_inlined_fn latency: 147.858 cycles
+    one_inlined_fn gap: 120.443 cycles
+=======================================
+27 29
+1 functions registered.
+Verify mm256_mul_pd
+    no_interleave... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    inlined_loop latency: 143.441 cycles
+    inlined_loop gap: 142.001 cycles
+    no_interleave latency: 215.078 cycles
+    no_interleave gap: 201.655 cycles
+=======================================
+27 30
+1 functions registered.
+Verify mm256_mul_pd
+    mul_fn... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    inlined_loop latency: 142.322 cycles
+    inlined_loop gap: 142.004 cycles
+    mul_fn latency: 122.766 cycles
+    mul_fn gap: 119.059 cycles
+=======================================
+27 31
+1 functions registered.
+Verify mm256_mul_pd
+    interleaved... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    inlined_loop latency: 142.292 cycles
+    inlined_loop gap: 141.531 cycles
+    interleaved latency: 173.164 cycles
+    interleaved gap: 163.127 cycles
+=======================================
+27 32
+1 functions registered.
+Verify mm256_mul_pd
+    transposed... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    inlined_loop latency: 142.271 cycles
+    inlined_loop gap: 141.945 cycles
+    transposed latency: 85.5823 cycles
+    transposed gap: 75.4248 cycles
+=======================================
+27 33
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    fb latency: 159.938 cycles
+    fb gap: 154.176 cycles
+Benchmark mm256_mul_pd
+    inlined_loop latency: 142.313 cycles
+    inlined_loop gap: 141.961 cycles
+=======================================
+27 34
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    forloop latency: 55.4327 cycles
+    forloop gap: 39.4006 cycles
+Benchmark mm256_mul_pd
+    inlined_loop latency: 143.034 cycles
+    inlined_loop gap: 142.032 cycles
+=======================================
+27 35
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    inlined_loop latency: 55.0051 cycles
+    inlined_loop gap: 39.4741 cycles
+Benchmark mm256_mul_pd
+    inlined_loop latency: 142.233 cycles
+    inlined_loop gap: 141.514 cycles
+=======================================
+27 36
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    one_inlined_fn latency: 55.0043 cycles
+    one_inlined_fn gap: 39.4028 cycles
+Benchmark mm256_mul_pd
+    inlined_loop latency: 142.279 cycles
+    inlined_loop gap: 142.125 cycles
+=======================================
+27 37
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    interleaved latency: 54.0619 cycles
+    interleaved gap: 34.3775 cycles
+Benchmark mm256_mul_pd
+    inlined_loop latency: 142.267 cycles
+    inlined_loop gap: 141.929 cycles
+=======================================
+27 38
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    no_unused_vals latency: 57.3302 cycles
+    no_unused_vals gap: 24.2405 cycles
+Benchmark mm256_mul_pd
+    inlined_loop latency: 142.302 cycles
+    inlined_loop gap: 142.054 cycles
+=======================================
+28 28
+1 functions registered.
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_mul_pd
+    one_inlined_fn latency: 142.139 cycles
+    one_inlined_fn gap: 121.193 cycles
+=======================================
+28 29
+1 functions registered.
+Verify mm256_mul_pd
+    no_interleave... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    one_inlined_fn latency: 144.178 cycles
+    one_inlined_fn gap: 122.136 cycles
+    no_interleave latency: 215.11 cycles
+    no_interleave gap: 201.448 cycles
+=======================================
+28 30
+1 functions registered.
+Verify mm256_mul_pd
+    mul_fn... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    one_inlined_fn latency: 124.195 cycles
+    one_inlined_fn gap: 121.09 cycles
+    mul_fn latency: 122.945 cycles
+    mul_fn gap: 120.827 cycles
+=======================================
+28 31
+1 functions registered.
+Verify mm256_mul_pd
+    interleaved... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    one_inlined_fn latency: 144.291 cycles
+    one_inlined_fn gap: 122.246 cycles
+    interleaved latency: 173.224 cycles
+    interleaved gap: 163.744 cycles
+=======================================
+28 32
+1 functions registered.
+Verify mm256_mul_pd
+    transposed... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    one_inlined_fn latency: 144.193 cycles
+    one_inlined_fn gap: 122.234 cycles
+    transposed latency: 85.5879 cycles
+    transposed gap: 75.4643 cycles
+=======================================
+28 33
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    fb latency: 159.906 cycles
+    fb gap: 153.996 cycles
+Benchmark mm256_mul_pd
+    one_inlined_fn latency: 147.797 cycles
+    one_inlined_fn gap: 122.245 cycles
+=======================================
+28 34
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    forloop latency: 55.3735 cycles
+    forloop gap: 39.4643 cycles
+Benchmark mm256_mul_pd
+    one_inlined_fn latency: 303.111 cycles
+    one_inlined_fn gap: 122.272 cycles
+=======================================
+28 35
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    inlined_loop latency: 55.005 cycles
+    inlined_loop gap: 39.4656 cycles
+Benchmark mm256_mul_pd
+    one_inlined_fn latency: 145.159 cycles
+    one_inlined_fn gap: 122.584 cycles
+=======================================
+28 36
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    one_inlined_fn latency: 55.005 cycles
+    one_inlined_fn gap: 39.4756 cycles
+Benchmark mm256_mul_pd
+    one_inlined_fn latency: 145.193 cycles
+    one_inlined_fn gap: 122.486 cycles
+=======================================
+28 37
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    interleaved latency: 54.0626 cycles
+    interleaved gap: 34.3915 cycles
+Benchmark mm256_mul_pd
+    one_inlined_fn latency: 145.014 cycles
+    one_inlined_fn gap: 122.481 cycles
+=======================================
+28 38
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    no_unused_vals latency: 57.388 cycles
+    no_unused_vals gap: 24.2541 cycles
+Benchmark mm256_mul_pd
+    one_inlined_fn latency: 145.418 cycles
+    one_inlined_fn gap: 122.278 cycles
+=======================================
+29 29
+1 functions registered.
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_mul_pd
+    no_interleave latency: 215.058 cycles
+    no_interleave gap: 201.45 cycles
+=======================================
+29 30
+1 functions registered.
+Verify mm256_mul_pd
+    mul_fn... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    no_interleave latency: 215.06 cycles
+    no_interleave gap: 201.454 cycles
+    mul_fn latency: 123.036 cycles
+    mul_fn gap: 120.247 cycles
+=======================================
+29 31
+1 functions registered.
+Verify mm256_mul_pd
+    interleaved... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    no_interleave latency: 215.021 cycles
+    no_interleave gap: 201.742 cycles
+    interleaved latency: 173.158 cycles
+    interleaved gap: 163.313 cycles
+=======================================
+29 32
+1 functions registered.
+Verify mm256_mul_pd
+    transposed... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    no_interleave latency: 215.035 cycles
+    no_interleave gap: 201.594 cycles
+    transposed latency: 85.6483 cycles
+    transposed gap: 75.3798 cycles
+=======================================
+29 33
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    fb latency: 159.853 cycles
+    fb gap: 154.009 cycles
+Benchmark mm256_mul_pd
+    no_interleave latency: 215.051 cycles
+    no_interleave gap: 202.576 cycles
+=======================================
+29 34
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    forloop latency: 55.3775 cycles
+    forloop gap: 39.3911 cycles
+Benchmark mm256_mul_pd
+    no_interleave latency: 215.047 cycles
+    no_interleave gap: 201.658 cycles
+=======================================
+29 35
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    inlined_loop latency: 55.063 cycles
+    inlined_loop gap: 39.3807 cycles
+Benchmark mm256_mul_pd
+    no_interleave latency: 215.105 cycles
+    no_interleave gap: 202.995 cycles
+=======================================
+29 36
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    one_inlined_fn latency: 55.0705 cycles
+    one_inlined_fn gap: 39.3911 cycles
+Benchmark mm256_mul_pd
+    no_interleave latency: 215.025 cycles
+    no_interleave gap: 201.892 cycles
+=======================================
+29 37
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    interleaved latency: 54.1088 cycles
+    interleaved gap: 34.3931 cycles
+Benchmark mm256_mul_pd
+    no_interleave latency: 215.178 cycles
+    no_interleave gap: 201.607 cycles
+=======================================
+29 38
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    no_unused_vals latency: 57.3355 cycles
+    no_unused_vals gap: 24.2553 cycles
+Benchmark mm256_mul_pd
+    no_interleave latency: 215.189 cycles
+    no_interleave gap: 201.625 cycles
+=======================================
+30 30
+1 functions registered.
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_mul_pd
+    mul_fn latency: 123.642 cycles
+    mul_fn gap: 120.316 cycles
+=======================================
+30 31
+1 functions registered.
+Verify mm256_mul_pd
+    interleaved... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    mul_fn latency: 123.752 cycles
+    mul_fn gap: 119.919 cycles
+    interleaved latency: 173.617 cycles
+    interleaved gap: 163.074 cycles
+=======================================
+30 32
+1 functions registered.
+Verify mm256_mul_pd
+    transposed... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    mul_fn latency: 122.822 cycles
+    mul_fn gap: 125.725 cycles
+    transposed latency: 85.6346 cycles
+    transposed gap: 75.3309 cycles
+=======================================
+30 33
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    fb latency: 159.87 cycles
+    fb gap: 153.943 cycles
+Benchmark mm256_mul_pd
+    mul_fn latency: 123.158 cycles
+    mul_fn gap: 120.42 cycles
+=======================================
+30 34
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    forloop latency: 55.4301 cycles
+    forloop gap: 39.3917 cycles
+Benchmark mm256_mul_pd
+    mul_fn latency: 123.134 cycles
+    mul_fn gap: 120.421 cycles
+=======================================
+30 35
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    inlined_loop latency: 55.0043 cycles
+    inlined_loop gap: 39.4008 cycles
+Benchmark mm256_mul_pd
+    mul_fn latency: 122.792 cycles
+    mul_fn gap: 121.307 cycles
+=======================================
+30 36
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    one_inlined_fn latency: 55.0569 cycles
+    one_inlined_fn gap: 39.3967 cycles
+Benchmark mm256_mul_pd
+    mul_fn latency: 122.811 cycles
+    mul_fn gap: 121.358 cycles
+=======================================
+30 37
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    interleaved latency: 54.0663 cycles
+    interleaved gap: 34.3819 cycles
+Benchmark mm256_mul_pd
+    mul_fn latency: 122.88 cycles
+    mul_fn gap: 121.316 cycles
+=======================================
+30 38
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    no_unused_vals latency: 57.3916 cycles
+    no_unused_vals gap: 24.2432 cycles
+Benchmark mm256_mul_pd
+    mul_fn latency: 123.706 cycles
+    mul_fn gap: 123.191 cycles
+=======================================
+31 31
+1 functions registered.
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_mul_pd
+    interleaved latency: 173.192 cycles
+    interleaved gap: 164.518 cycles
+=======================================
+31 32
+1 functions registered.
+Verify mm256_mul_pd
+    transposed... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_mul_pd
+    interleaved latency: 174.383 cycles
+    interleaved gap: 163.042 cycles
+    transposed latency: 85.5807 cycles
+    transposed gap: 75.3928 cycles
+=======================================
+31 33
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    fb latency: 159.846 cycles
+    fb gap: 154.001 cycles
+Benchmark mm256_mul_pd
+    interleaved latency: 173.225 cycles
+    interleaved gap: 163.113 cycles
+=======================================
+31 34
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    forloop latency: 55.3771 cycles
+    forloop gap: 39.4026 cycles
+Benchmark mm256_mul_pd
+    interleaved latency: 173.165 cycles
+    interleaved gap: 163.131 cycles
+=======================================
+31 35
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    inlined_loop latency: 55.0756 cycles
+    inlined_loop gap: 39.3953 cycles
+Benchmark mm256_mul_pd
+    interleaved latency: 174.034 cycles
+    interleaved gap: 163.276 cycles
+=======================================
+31 36
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    one_inlined_fn latency: 55.0654 cycles
+    one_inlined_fn gap: 39.3947 cycles
+Benchmark mm256_mul_pd
+    interleaved latency: 173.206 cycles
+    interleaved gap: 163.096 cycles
+=======================================
+31 37
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    interleaved latency: 54.0981 cycles
+    interleaved gap: 34.4625 cycles
+Benchmark mm256_mul_pd
+    interleaved latency: 181.27 cycles
+    interleaved gap: 163.629 cycles
+=======================================
+31 38
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    no_unused_vals latency: 57.3819 cycles
+    no_unused_vals gap: 24.2599 cycles
+Benchmark mm256_mul_pd
+    interleaved latency: 173.206 cycles
+    interleaved gap: 166.973 cycles
+=======================================
+32 32
+1 functions registered.
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_mul_pd
+    transposed latency: 85.6459 cycles
+    transposed gap: 75.3933 cycles
+=======================================
+32 33
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    fb latency: 159.877 cycles
+    fb gap: 153.972 cycles
+Benchmark mm256_mul_pd
+    transposed latency: 85.5947 cycles
+    transposed gap: 75.312 cycles
+=======================================
+32 34
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    forloop latency: 55.4286 cycles
+    forloop gap: 39.3822 cycles
+Benchmark mm256_mul_pd
+    transposed latency: 85.6321 cycles
+    transposed gap: 75.3729 cycles
+=======================================
+32 35
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    inlined_loop latency: 55.0604 cycles
+    inlined_loop gap: 39.4027 cycles
+Benchmark mm256_mul_pd
+    transposed latency: 85.6546 cycles
+    transposed gap: 75.4589 cycles
+=======================================
+32 36
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    one_inlined_fn latency: 55.0051 cycles
+    one_inlined_fn gap: 39.4033 cycles
+Benchmark mm256_mul_pd
+    transposed latency: 85.5897 cycles
+    transposed gap: 75.5665 cycles
+=======================================
+32 37
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    interleaved latency: 54.0646 cycles
+    interleaved gap: 34.3788 cycles
+Benchmark mm256_mul_pd
+    transposed latency: 85.6512 cycles
+    transposed gap: 75.4638 cycles
+=======================================
+32 38
+2 functions registered.
+Verify mm256_add_pd
+Verify mm256_mul_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    no_unused_vals latency: 57.3294 cycles
+    no_unused_vals gap: 24.2408 cycles
+Benchmark mm256_mul_pd
+    transposed latency: 85.6537 cycles
+    transposed gap: 75.3215 cycles
+=======================================
+33 33
+1 functions registered.
+Verify mm256_add_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    fb latency: 159.849 cycles
+    fb gap: 153.976 cycles
+=======================================
+33 34
+1 functions registered.
+Verify mm256_add_pd
+    forloop... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_add_pd
+    fb latency: 159.946 cycles
+    fb gap: 153.999 cycles
+    forloop latency: 55.3678 cycles
+    forloop gap: 39.3943 cycles
+=======================================
+33 35
+1 functions registered.
+Verify mm256_add_pd
+    inlined_loop... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_add_pd
+    fb latency: 159.994 cycles
+    fb gap: 153.978 cycles
+    inlined_loop latency: 55.059 cycles
+    inlined_loop gap: 39.3866 cycles
+=======================================
+33 36
+1 functions registered.
+Verify mm256_add_pd
+    one_inlined_fn... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_add_pd
+    fb latency: 159.889 cycles
+    fb gap: 153.985 cycles
+    one_inlined_fn latency: 55.011 cycles
+    one_inlined_fn gap: 39.472 cycles
+=======================================
+33 37
+1 functions registered.
+Verify mm256_add_pd
+    interleaved... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_add_pd
+    fb latency: 159.875 cycles
+    fb gap: 153.867 cycles
+    interleaved latency: 54.1468 cycles
+    interleaved gap: 34.3797 cycles
+=======================================
+33 38
+1 functions registered.
+Verify mm256_add_pd
+    no_unused_vals... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_add_pd
+    fb latency: 159.904 cycles
+    fb gap: 154.055 cycles
+    no_unused_vals latency: 57.3875 cycles
+    no_unused_vals gap: 24.2392 cycles
+=======================================
+34 34
+1 functions registered.
+Verify mm256_add_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    forloop latency: 55.3771 cycles
+    forloop gap: 39.4838 cycles
+=======================================
+34 35
+1 functions registered.
+Verify mm256_add_pd
+    inlined_loop... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_add_pd
+    forloop latency: 55.4253 cycles
+    forloop gap: 39.3932 cycles
+    inlined_loop latency: 55.01 cycles
+    inlined_loop gap: 39.4841 cycles
+=======================================
+34 36
+1 functions registered.
+Verify mm256_add_pd
+    one_inlined_fn... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_add_pd
+    forloop latency: 55.3755 cycles
+    forloop gap: 39.4714 cycles
+    one_inlined_fn latency: 55.01 cycles
+    one_inlined_fn gap: 39.3995 cycles
+=======================================
+34 37
+1 functions registered.
+Verify mm256_add_pd
+    interleaved... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_add_pd
+    forloop latency: 55.4466 cycles
+    forloop gap: 39.3957 cycles
+    interleaved latency: 54.0464 cycles
+    interleaved gap: 34.3915 cycles
+=======================================
+34 38
+1 functions registered.
+Verify mm256_add_pd
+    no_unused_vals... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_add_pd
+    forloop latency: 55.3775 cycles
+    forloop gap: 39.4053 cycles
+    no_unused_vals latency: 57.3365 cycles
+    no_unused_vals gap: 24.2366 cycles
+=======================================
+35 35
+1 functions registered.
+Verify mm256_add_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    inlined_loop latency: 55.0654 cycles
+    inlined_loop gap: 39.3907 cycles
+=======================================
+35 36
+1 functions registered.
+Verify mm256_add_pd
+    one_inlined_fn... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_add_pd
+    inlined_loop latency: 55.0054 cycles
+    inlined_loop gap: 39.3942 cycles
+    one_inlined_fn latency: 55.0575 cycles
+    one_inlined_fn gap: 39.4101 cycles
+=======================================
+35 37
+1 functions registered.
+Verify mm256_add_pd
+    interleaved... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_add_pd
+    inlined_loop latency: 55.0054 cycles
+    inlined_loop gap: 39.3863 cycles
+    interleaved latency: 54.1007 cycles
+    interleaved gap: 34.3847 cycles
+=======================================
+35 38
+1 functions registered.
+Verify mm256_add_pd
+    no_unused_vals... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_add_pd
+    inlined_loop latency: 55.0054 cycles
+    inlined_loop gap: 39.4057 cycles
+    no_unused_vals latency: 57.3797 cycles
+    no_unused_vals gap: 24.2254 cycles
+=======================================
+36 36
+1 functions registered.
+Verify mm256_add_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    one_inlined_fn latency: 55.0057 cycles
+    one_inlined_fn gap: 39.4646 cycles
+=======================================
+36 37
+1 functions registered.
+Verify mm256_add_pd
+    interleaved... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_add_pd
+    one_inlined_fn latency: 55.0582 cycles
+    one_inlined_fn gap: 39.3865 cycles
+    interleaved latency: 54.0625 cycles
+    interleaved gap: 34.3895 cycles
+=======================================
+36 38
+1 functions registered.
+Verify mm256_add_pd
+    no_unused_vals... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_add_pd
+    one_inlined_fn latency: 55.0583 cycles
+    one_inlined_fn gap: 39.4064 cycles
+    no_unused_vals latency: 57.4114 cycles
+    no_unused_vals gap: 24.2555 cycles
+=======================================
+37 37
+1 functions registered.
+Verify mm256_add_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    interleaved latency: 54.102 cycles
+    interleaved gap: 34.4632 cycles
+=======================================
+37 38
+1 functions registered.
+Verify mm256_add_pd
+    no_unused_vals... [1;32mOK[0m
+Running benchmarks.
+Benchmark mm256_add_pd
+    interleaved latency: 54.0954 cycles
+    interleaved gap: 34.3984 cycles
+    no_unused_vals latency: 57.3355 cycles
+    no_unused_vals gap: 24.2458 cycles
+=======================================
+38 38
+1 functions registered.
+Verify mm256_add_pd
+Running benchmarks.
+Benchmark mm256_add_pd
+    no_unused_vals latency: 57.3355 cycles
+    no_unused_vals gap: 24.2423 cycles

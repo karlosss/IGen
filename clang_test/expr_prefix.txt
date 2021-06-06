@@ -1,0 +1,2 @@
+(FPCore () :precision binary64 (+ 42 69))
+(FPCore (x0) :precision binary64 (+ (+ (+ (+ 1 2.5) x0) 5) x0))

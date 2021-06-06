@@ -1,0 +1,4 @@
+;; seed: 696516339
+
+(FPCore () :herbie-status ex-start :herbie-time 535.0 :herbie-error-input ((256 0) (8000 0)) :herbie-error-output ((256 0) (8000 0)) :name "(+ 42 69)" :precision binary64 (+ 42.0 69.0))
+(FPCore (x0) :herbie-status ex-start :herbie-time 1358.85546875 :herbie-error-input ((256 0.0196078431372549) (8000 0.012251531441430178)) :herbie-error-output ((256 0) (8000 0)) :name "(+ (+ (+ (+ 1 2.5) x0) 5) x0)" :precision binary64 (+ 8.5 (+ x0 x0)))
