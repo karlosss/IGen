@@ -1,21 +1,20 @@
 #pragma once
 
+#include <unordered_map>
+
 #include "clang.h"
 
 
 struct VarInfo{
     VarDecl* declaration;
-    Expr* assigned_value;
-    Stmt* assign_stmt;
-    vector<DeclRefExpr*> usages;
+    // value - assign statement
+    unordered_map<Expr*, Stmt*> possible_values;
 
-    VarInfo(VarDecl* declaration, Stmt* assign_stmt, Expr* assigned_value) {
+    VarInfo(VarDecl* declaration) {
         this->declaration = declaration;
-        this->assigned_value = assigned_value;
-        this->assign_stmt = assign_stmt;
     }
 
-    bool should_inline() {
-        return usages.size() == 1;
+    void add_possible_value(Expr* value, Stmt* assign_stmt) {
+        possible_values[value] = assign_stmt;
     }
 };

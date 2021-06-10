@@ -36,8 +36,8 @@ public:
         for (DeclGroupRef::iterator i = DG.begin(), e = DG.end(); i != e; i++) {
             Decl *D = *i;
             visitor->TraverseDecl(D); // recursively visit each AST node in Decl "D"
-            auto* d = dyn_cast<FunctionDecl>(D);
-            visitor->TraverseFuncEnd(d);
+//            auto* d = dyn_cast<FunctionDecl>(D);
+//            visitor->TraverseFuncEnd(d);
         }
         return true;
     }
