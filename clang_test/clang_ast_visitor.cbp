@@ -70,6 +70,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/ast.h">
+			<Option target="clang_ast_visitor"/>
+		</Unit>
 		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/ast_consumer.h">
 			<Option target="clang_ast_visitor"/>
 		</Unit>
@@ -86,6 +89,12 @@
 			<Option target="clang_ast_visitor"/>
 		</Unit>
 		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/frontend_action.h">
+			<Option target="clang_ast_visitor"/>
+		</Unit>
+		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/no_segfault_visitor.h">
+			<Option target="clang_ast_visitor"/>
+		</Unit>
+		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/split_decl_and_def_visitor.h">
 			<Option target="clang_ast_visitor"/>
 		</Unit>
 		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/test.cpp">

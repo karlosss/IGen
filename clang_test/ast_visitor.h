@@ -151,9 +151,9 @@ private:
                 }
             }
             // add all from the entry
-            block_info[bb].values_at_exit
+//            block_info[bb].values_at_exit
             // update those that occured within the block
-            ...
+//            ...
 
             // push all successors
 
@@ -180,33 +180,29 @@ private:
 public:
     explicit ExampleVisitor(CompilerInstance *CI)
             : astContext(&(CI->getASTContext())) // initialize private members
-    {
-        Utils::init(astContext);
-        rewriter.setSourceMgr(astContext->getSourceManager(),
-                              astContext->getLangOpts());
-    }
+    { }
 
     virtual bool VisitFunctionDecl(FunctionDecl *func) {
-        // dirty trick to make rewriter not segfault on no other edits
-        rewriter.ReplaceText(func->getNameInfo().getSourceRange(), func->getNameInfo().getSourceRange());
+        cerr << Utils::dump_to_string(func->getBody()) << "\n";
 
-        cerr << "Traversing function " << func->getNameAsString() << "\n";
-
-        if(!func->hasBody()) {
-            cerr << "Function " << func->getNameAsString() << " has no body!\n";
-            throw;
-        }
-
-        auto cfg = CFG::buildCFG(func, func->getBody(), astContext, CFG::BuildOptions());
-        cfg->dump(LangOptions(), true);
-        CFGBlock* entry = &(cfg->getEntry());
-        _traverse_cfg(entry);
-
+        return true;
+//        cerr << "Traversing function " << func->getNameAsString() << "\n";
+//
+//        if(!func->hasBody()) {
+//            cerr << "Function " << func->getNameAsString() << " has no body!\n";
+//            throw;
+//        }
+//
+//        auto cfg = CFG::buildCFG(func, func->getBody(), astContext, CFG::BuildOptions());
+//        cfg->dump(LangOptions(), true);
+//        CFGBlock* entry = &(cfg->getEntry());
+////        _traverse_cfg(entry);
+//
         return true;
     }
 
     virtual bool VisitStmt(Stmt* stmt) {
-        stmt->dump();
+//        Utils::replace_stmt(stmt, nullptr);
         return true;
     }
 };

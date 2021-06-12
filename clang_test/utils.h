@@ -1,38 +1,21 @@
 #pragma once
 
-#include <unordered_set>
+#include <iostream>
 #include <unordered_map>
+#include <unordered_set>
 
-#include "clang/Driver/Options.h"
-#include "clang/AST/ASTContext.h"
-#include "clang/AST/ParentMapContext.h"
-#include "clang/AST/ASTConsumer.h"
-#include "clang/AST/RecursiveASTVisitor.h"
-#include "clang/Frontend/ASTConsumers.h"
-#include "clang/Frontend/FrontendActions.h"
-#include "clang/Frontend/CompilerInstance.h"
-#include "clang/Tooling/CommonOptionsParser.h"
-#include "clang/Tooling/Tooling.h"
-#include "clang/Rewrite/Core/Rewriter.h"
-
-using namespace clang;
-using namespace llvm;
-using namespace std;
-using namespace clang::tooling;
+#include "clang.h"
 
 class Utils{
 public:
     static void init(ASTContext* ast_context) {
-        Utils::_ast_context = ast_context;
+        Utils::ast_context = ast_context;
     }
     static VarDecl* get_variable_declaration(Expr* expr);
-    static Expr* get_parent(Expr* expr);
-    static ImplicitCastExpr* get_parent_of_var_usage(DeclRefExpr* var_usage);
-    static BinaryOperator* get_assign_expr(Expr* expr);
     static string dump_to_string(Stmt* stmt);
-private:
-    static ASTContext* _ast_context;
 
+    static ASTContext* ast_context;
+private:
     static Expr* _get_assign_expr(Expr* expr);
 };
 

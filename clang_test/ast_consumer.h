@@ -1,5 +1,4 @@
-#ifndef CLANG_AST_VISITOR_AST_CONSUMER_H
-#define CLANG_AST_VISITOR_AST_CONSUMER_H
+#pragma once
 
 #include "clang/Driver/Options.h"
 #include "clang/AST/ASTContext.h"
@@ -14,6 +13,9 @@
 #include "clang/Rewrite/Core/Rewriter.h"
 
 #include "ast_visitor.h"
+#include "split_decl_and_def_visitor.h"
+#include "no_segfault_visitor.h"
+#include "utils.h"
 
 using namespace clang;
 using namespace llvm;
@@ -22,25 +24,35 @@ using namespace clang::tooling;
 
 class ExampleASTConsumer : public ASTConsumer {
 private:
-    ExampleVisitor *visitor; // doesn't have to be private
+    ExampleVisitor *visitor;
+    SplitDeclAndDefVisitor *split_decl_and_def_visitor;
+    NoSegfaultVisitor *no_segfault_visitor;
 
 public:
     // override the constructor in order to pass CI
     explicit ExampleASTConsumer(CompilerInstance *CI)
-            : visitor(new ExampleVisitor(CI)) // initialize the visitor
-    { }
+            : visitor(new ExampleVisitor(CI)),
+            split_decl_and_def_visitor(new SplitDeclAndDefVisitor(CI)),
+            no_segfault_visitor(new NoSegfaultVisitor(CI))
+    {
+        Utils::init(&(CI->getASTContext()));
+        rewriter.setSourceMgr(CI->getASTContext().getSourceManager(), CI->getASTContext().getLangOpts());
+    }
 
     // override this to call our ExampleVisitor on each top-level Decl
     virtual bool HandleTopLevelDecl(DeclGroupRef DG) {
         // a DeclGroupRef may have multiple Decls, so we iterate through each one
         for (DeclGroupRef::iterator i = DG.begin(), e = DG.end(); i != e; i++) {
             Decl *D = *i;
-            visitor->TraverseDecl(D); // recursively visit each AST node in Decl "D"
+            no_segfault_visitor->TraverseDecl(D);
+            split_decl_and_def_visitor->TraverseDecl(D);
+            D->getBody()->dump();
+            cerr << Utils::dump_to_string(D->getBody()) << "\n";
+//            visitor->TraverseDecl(D);
+
 //            auto* d = dyn_cast<FunctionDecl>(D);
-//            visitor->TraverseFuncEnd(d);
+//            d->getBody()->dump();
         }
         return true;
     }
 };
-
-#endif //CLANG_AST_VISITOR_AST_CONSUMER_H
