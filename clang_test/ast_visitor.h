@@ -52,7 +52,9 @@ private:
 
     void _traverse_cfg(CFGBlock* entry) {
         unordered_map<CFGBlock*, BlockInfo> block_info;
+        // possible values (pointers to assignments) of a variable usage
         unordered_map<DeclRefExpr*, unordered_set<BinaryOperator*>> possible_values;
+        // set of variable usages which an assignment can influence
         unordered_map<BinaryOperator*, unordered_set<DeclRefExpr*>> reach;
 
         queue<CFGBlock*> q;
@@ -74,16 +76,20 @@ private:
                 cerr << "Analyzing statement: " << Utils::dump_to_string(stmt) << "\n";
                 auto usages = _find_usages_in_stmt(stmt);
                 for(auto* usage : usages) {
+                    // for each variable usage in the statement, determine which values it can hold
+                    // (either those from block entry, or the one which was assigned in the block)
                     auto* var_decl = Utils::get_variable_declaration(usage);
                     possible_values[usage] = assigned_values[var_decl];
                     for(auto* item : possible_values[usage]) {
+                        // also update the reach of the respective assignment to the just-found usage
                         reach[item].insert(usage);
                     }
                 }
                 if(Utils::is_assign_stmt(stmt)) {
-                    // if the statement is an assignment, update the assigned value
+                    // in case the value is (re)assigned in the block, clear all potential previous values, as it
+                    // now has only the assigned one
                     auto* bop = dyn_cast<BinaryOperator>(stmt);
-                    assigned_values[Utils::get_variable_declaration(bop->getLHS())].clear(); // only one option now - the assigned
+                    assigned_values[Utils::get_variable_declaration(bop->getLHS())].clear();
                     assigned_values[Utils::get_variable_declaration(bop->getLHS())].insert(bop);
                 }
             }
@@ -108,6 +114,7 @@ private:
                     }
                     else {
                         auto & possible_values_for_var_at_entry = block_info[successor].possible_values_at_entry[x.first];
+                        // if we add any new possible values, we also need to reprocess the block
                         for(auto* val : x.second) {
                             if(!contains(possible_values_for_var_at_entry, val)) {
                                 possible_values_for_var_at_entry.insert(val);
@@ -133,7 +140,7 @@ private:
             }
         }
 
-        _inline_expressions(possible_values, reach, UINT_MAX);
+        _inline_expressions(possible_values, reach, 1);
     }
 
     void _inline_expressions(const unordered_map<DeclRefExpr*, unordered_set<BinaryOperator*>> & possible_values,
@@ -141,6 +148,7 @@ private:
                              unsigned int inline_policy) {
         unordered_set<DeclRefExpr*> can_be_inlined;
         for(auto & x : possible_values) {
+            // only those with an unambiguous value can be inlined
             if(x.second.size() == 1) {
                 can_be_inlined.insert(x.first);
             }
@@ -148,7 +156,9 @@ private:
 
         for(auto & x : reach) {
             if(x.second.size() <= inline_policy) {
+                // iterate over all usages provided there is fewer of them than the inline policy says
                 for(auto & y : x.second) {
+                    // if the usage can be inlined, inline it
                     if(contains(can_be_inlined, y)){
                         ast->replace_stmt(y, x.first->getRHS());
                     }
