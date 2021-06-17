@@ -8,10 +8,12 @@
 #include "clang.h"
 #include "basic_block.h"
 #include "utils.h"
+#include "ast.h"
 
 class ExampleVisitor : public RecursiveASTVisitor<ExampleVisitor> {
 private:
     ASTContext *astContext;
+    AST* ast;
 
     unordered_set<DeclRefExpr*> _find_usages_in_stmt(Stmt* stmt) {
         unordered_set<DeclRefExpr*> usages;
@@ -27,73 +29,17 @@ private:
             __find_usages_in_stmt(bop->getRHS(), usages);
         }
 
-        else if(auto *cast = dyn_cast<ImplicitCastExpr>(stmt)) {
-            __find_usages_in_stmt(cast->getSubExpr(), usages);
+        else if(auto *implicit_cast_expr = dyn_cast<ImplicitCastExpr>(stmt)) {
+            __find_usages_in_stmt(implicit_cast_expr->getSubExpr(), usages);
         }
 
-        else if(auto *decl_expr = dyn_cast<DeclRefExpr>(stmt)){
-            usages.insert(decl_expr);
+        else if(auto *decl_ref_expr = dyn_cast<DeclRefExpr>(stmt)){
+            usages.insert(decl_ref_expr);
         }
 
-        else if(auto *decl_stmt = dyn_cast<DeclStmt>(stmt)) {
-            for(auto & decl : decl_stmt->decls()) {
-                if(auto* var_decl = dyn_cast<VarDecl>(decl)) {
-                    if(var_decl->hasInit()) {
-                        __find_usages_in_stmt(var_decl->getInit(), usages);
-                    }
-                }
-            }
+        else {
+            // empty
         }
-    }
-
-    bool _is_assign_stmt(Stmt* stmt) {
-        if(auto *bop = dyn_cast<BinaryOperator>(stmt)) {
-            if(bop->isAssignmentOp()) {
-                return true;
-            }
-        }
-
-        else if(auto *decl_stmt = dyn_cast<DeclStmt>(stmt)) {
-            for(auto & decl : decl_stmt->decls()) {
-                if(auto* var_decl = dyn_cast<VarDecl>(decl)) {
-                    if(var_decl->hasInit()) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    VarAssignInfo* _get_assign_info(Stmt* stmt) {
-        if(!_is_assign_stmt(stmt)){
-            cerr << "Not an assign statement!\n";
-            stmt->dump();
-            throw;
-        }
-
-        VarAssignInfo* info = new VarAssignInfo();
-
-        if(auto *bop = dyn_cast<BinaryOperator>(stmt)) {
-            info->assign_stmt = bop;
-            info->value = bop->getRHS();
-            auto* var = dyn_cast<DeclRefExpr>(bop->getLHS())->getDecl();
-            info->var = dyn_cast<VarDecl>(var);
-        }
-
-        else if(auto *decl_stmt = dyn_cast<DeclStmt>(stmt)) {
-            for(auto & decl : decl_stmt->decls()) {
-                if(auto* var_decl = dyn_cast<VarDecl>(decl)) {
-                    if(var_decl->hasInit()) {
-                        info->assign_stmt = decl_stmt;
-                        info->value = var_decl->getInit();
-                        info->var = var_decl;
-                    }
-                }
-            }
-        }
-
-        return info;
     }
 
     vector<Stmt*> _get_statements(CFGBlock* bb) {
@@ -104,75 +50,109 @@ private:
         return out;
     }
 
-    VarDecl* _get_decl(DeclRefExpr* x) {
-        return dyn_cast<VarDecl>(x->getDecl());
-    }
-
     void _traverse_cfg(CFGBlock* entry) {
-        auto block_info = unordered_map<CFGBlock*, BlockInfo>();
-        auto var_access = unordered_map<DeclRefExpr*, VarAccessInfo>();
-        auto block_var_assign = unordered_map<VarDecl*, VarAssignInfo*>();
-
+        unordered_map<CFGBlock*, BlockInfo> block_info;
+        unordered_map<DeclRefExpr*, unordered_set<BinaryOperator*>> possible_values;
+        unordered_map<BinaryOperator*, unordered_set<DeclRefExpr*>> reach;
 
         queue<CFGBlock*> q;
         q.push(entry);
+        block_info[entry] = BlockInfo();
 
         while(!q.empty()) {
             auto* bb = q.front();
             q.pop();
 
-            if(!contains(block_info, bb)) {
-                block_info[bb] = {};
-            }
+            auto bb_statements = _get_statements(bb);
 
-            block_var_assign.clear();
+            cerr << "Analyzing block " << bb->BlockID << "\n";
 
-            auto statements = _get_statements(bb);
-            for(auto & stmt : statements) {
-                // first analyze variable usages in statements (rhs of assignments)
+            // get the initial variable values from block entry
+            auto assigned_values = block_info[bb].possible_values_at_entry;
+
+            for(auto* stmt : bb_statements) {
+                cerr << "Analyzing statement: " << Utils::dump_to_string(stmt) << "\n";
                 auto usages = _find_usages_in_stmt(stmt);
-                for(auto & usage : usages) {
-                    // if the variable was assigned before in the same block, use the value
-                    if(contains(block_var_assign, _get_decl(usage))) {
-                        auto* possible_values = new unordered_set<VarAssignInfo*>();
-                        possible_values->insert(block_var_assign[_get_decl(usage)]);
-                        var_access[usage].possible_values = possible_values;
+                for(auto* usage : usages) {
+                    auto* var_decl = Utils::get_variable_declaration(usage);
+                    possible_values[usage] = assigned_values[var_decl];
+                    for(auto* item : possible_values[usage]) {
+                        reach[item].insert(usage);
                     }
-                    // otherwise use the value at entry
-                    else {
-                        var_access[usage].possible_values = block_info[bb].values_at_entry[_get_decl(usage)];
-                    }
-                    // (one of those two cases must always happen, otherwise the variable would be undefined)
                 }
-                // then analyze if a new variable is assigned in the statement and if so, process it
-                if(_is_assign_stmt(stmt)) {
-                    auto info = _get_assign_info(stmt);
-                    block_var_assign[info->var] = info;
+                if(Utils::is_assign_stmt(stmt)) {
+                    // if the statement is an assignment, update the assigned value
+                    auto* bop = dyn_cast<BinaryOperator>(stmt);
+                    assigned_values[Utils::get_variable_declaration(bop->getLHS())].clear(); // only one option now - the assigned
+                    assigned_values[Utils::get_variable_declaration(bop->getLHS())].insert(bop);
                 }
             }
-            // add all from the entry
-//            block_info[bb].values_at_exit
-            // update those that occured within the block
-//            ...
+            // remember values at exit and use them as entry values for successors
+            block_info[bb].possible_values_at_exit = assigned_values;
 
-            // push all successors
+            // merge the entry values with all successors and process those where necessary
+            for(auto succ : bb->succs()) {
+                auto successor = &*succ;
+                bool push = false;
 
+                if(!contains(block_info, successor)) {
+                    // the successor has not been seen yet
+                    block_info[succ] = BlockInfo();
+                    push = true;
+                }
+                for(auto & x : block_info[bb].possible_values_at_exit) {
+                    if(!contains(block_info[successor].possible_values_at_entry, x.first)) {
+                        // in the successor, there is no value for the variable
+                        block_info[successor].possible_values_at_entry[x.first] = x.second;
+                        push = true;
+                    }
+                    else {
+                        auto & possible_values_for_var_at_entry = block_info[successor].possible_values_at_entry[x.first];
+                        for(auto* val : x.second) {
+                            if(!contains(possible_values_for_var_at_entry, val)) {
+                                possible_values_for_var_at_entry.insert(val);
+                                push = true;
+                            }
+                        }
+                    }
+                }
+                if(push) q.push(successor);
+            }
         }
 
-        // analyze entry block for statements
-        for(auto & succ : entry->succs()) {
-            auto statements = _get_statements(succ);
-            for(auto & stmt : statements) {
-                auto usages_in_stmt = _find_usages_in_stmt(stmt);
-                cerr << "usages in stmt " << Utils::dump_to_string(stmt) << ":\n";
-                for(auto usage : usages_in_stmt) {
-                    usage->dump();
-                    usage->getDecl()->dump();
+        for(auto & x : possible_values) {
+            cerr << "Values for " << x.first << ":\n";
+            for(auto* y : x.second) {
+                cerr << "    " << Utils::dump_to_string(y) << "\n";
+            }
+        }
+        for(auto & x : reach) {
+            cerr << "Reach of " << Utils::dump_to_string(x.first) << ":\n";
+            for(auto* y : x.second) {
+                cerr << "    " << y << "\n";
+            }
+        }
+
+        _inline_expressions(possible_values, reach, UINT_MAX);
+    }
+
+    void _inline_expressions(const unordered_map<DeclRefExpr*, unordered_set<BinaryOperator*>> & possible_values,
+                             const unordered_map<BinaryOperator*, unordered_set<DeclRefExpr*>> & reach,
+                             unsigned int inline_policy) {
+        unordered_set<DeclRefExpr*> can_be_inlined;
+        for(auto & x : possible_values) {
+            if(x.second.size() == 1) {
+                can_be_inlined.insert(x.first);
+            }
+        }
+
+        for(auto & x : reach) {
+            if(x.second.size() <= inline_policy) {
+                for(auto & y : x.second) {
+                    if(contains(can_be_inlined, y)){
+                        ast->replace_stmt(y, x.first->getRHS());
+                    }
                 }
-                cerr << "\n\n";
-//            if(auto* decl_ref_expr = dyn_cast<DeclRefExpr>(stmt)) {
-//                decl_ref_expr->dump();
-//            }
             }
         }
     }
@@ -182,27 +162,22 @@ public:
             : astContext(&(CI->getASTContext())) // initialize private members
     { }
 
-    virtual bool VisitFunctionDecl(FunctionDecl *func) {
-        cerr << Utils::dump_to_string(func->getBody()) << "\n";
+    virtual bool VisitFunctionDecl(FunctionDecl *function_decl) {
+        cerr << "Traversing function " << function_decl->getNameAsString() << "\n";
 
-        return true;
-//        cerr << "Traversing function " << func->getNameAsString() << "\n";
-//
-//        if(!func->hasBody()) {
-//            cerr << "Function " << func->getNameAsString() << " has no body!\n";
-//            throw;
-//        }
-//
-//        auto cfg = CFG::buildCFG(func, func->getBody(), astContext, CFG::BuildOptions());
-//        cfg->dump(LangOptions(), true);
-//        CFGBlock* entry = &(cfg->getEntry());
-////        _traverse_cfg(entry);
-//
-        return true;
-    }
+        ast = new AST(function_decl);
 
-    virtual bool VisitStmt(Stmt* stmt) {
-//        Utils::replace_stmt(stmt, nullptr);
+        if(!function_decl->hasBody()) {
+            cerr << "Function " << function_decl->getNameAsString() << " has no body!\n";
+            throw;
+        }
+
+        auto cfg = CFG::buildCFG(function_decl, function_decl->getBody(), astContext, CFG::BuildOptions());
+        cfg->dump(LangOptions(), true);
+        CFGBlock* entry = &(cfg->getEntry());
+        function_decl->getBody()->dump();
+        _traverse_cfg(entry);
+
         return true;
     }
 };

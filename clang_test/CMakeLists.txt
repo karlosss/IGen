@@ -31,7 +31,7 @@ include_directories(
         ${CLANG_INCLUDE_PATH}
 )
 
-set(SOURCE_FILES test.cpp utils.h utils.cpp clang.cpp clang.h ast_consumer.h ast_visitor.h frontend_action.h basic_block.h split_decl_and_def_visitor.h no_segfault_visitor.h ast.h)
+set(SOURCE_FILES test.cpp utils.h utils.cpp clang.cpp clang.h ast_consumer.h ast_visitor.h frontend_action.h basic_block.h split_decl_and_def_visitor.h no_segfault_visitor.h ast.h var_info.cpp)
 #set(SOURCE_FILES main.cpp)
 
 # ================================================================================

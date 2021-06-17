@@ -106,6 +106,12 @@
 		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/utils.h">
 			<Option target="clang_ast_visitor"/>
 		</Unit>
+		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/var_info.cpp">
+			<Option target="clang_ast_visitor"/>
+		</Unit>
+		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/var_info.h">
+			<Option target="clang_ast_visitor"/>
+		</Unit>
 		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

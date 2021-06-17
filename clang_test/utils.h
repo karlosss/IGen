@@ -12,11 +12,12 @@ public:
         Utils::ast_context = ast_context;
     }
     static VarDecl* get_variable_declaration(Expr* expr);
+    static bool is_assign_stmt(Stmt* stmt);
     static string dump_to_string(Stmt* stmt);
 
+    static CompoundStmt* create_compound_stmt(const vector<Stmt*> & statements, SourceLocation begin_loc, SourceLocation end_loc);
+
     static ASTContext* ast_context;
-private:
-    static Expr* _get_assign_expr(Expr* expr);
 };
 
 template<class K, class V>

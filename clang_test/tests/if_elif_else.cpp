@@ -8,7 +8,7 @@ int main() {
         a = 10;
     }
     else {
-        a = 5;
+        a = 6;
     }
     b = a;
     return 0;

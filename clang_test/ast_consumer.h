@@ -44,14 +44,10 @@ public:
         // a DeclGroupRef may have multiple Decls, so we iterate through each one
         for (DeclGroupRef::iterator i = DG.begin(), e = DG.end(); i != e; i++) {
             Decl *D = *i;
-            no_segfault_visitor->TraverseDecl(D);
             split_decl_and_def_visitor->TraverseDecl(D);
-            D->getBody()->dump();
-            cerr << Utils::dump_to_string(D->getBody()) << "\n";
-//            visitor->TraverseDecl(D);
-
-//            auto* d = dyn_cast<FunctionDecl>(D);
-//            d->getBody()->dump();
+            rewriter.ReplaceText(D->getBody()->getSourceRange(), Utils::dump_to_string(D->getBody()));
+            visitor->TraverseDecl(D);
+            rewriter.ReplaceText(D->getBody()->getSourceRange(), Utils::dump_to_string(D->getBody()));
         }
         return true;
     }

@@ -201,6 +201,30 @@ utils.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/clang_ast_visitor.dir/build.make CMakeFiles/clang_ast_visitor.dir/utils.cpp.s
 .PHONY : utils.cpp.s
 
+var_info.o: var_info.cpp.o
+.PHONY : var_info.o
+
+# target to build an object file
+var_info.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clang_ast_visitor.dir/build.make CMakeFiles/clang_ast_visitor.dir/var_info.cpp.o
+.PHONY : var_info.cpp.o
+
+var_info.i: var_info.cpp.i
+.PHONY : var_info.i
+
+# target to preprocess a source file
+var_info.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clang_ast_visitor.dir/build.make CMakeFiles/clang_ast_visitor.dir/var_info.cpp.i
+.PHONY : var_info.cpp.i
+
+var_info.s: var_info.cpp.s
+.PHONY : var_info.s
+
+# target to generate assembly for a file
+var_info.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clang_ast_visitor.dir/build.make CMakeFiles/clang_ast_visitor.dir/var_info.cpp.s
+.PHONY : var_info.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -219,6 +243,9 @@ help:
 	@echo "... utils.o"
 	@echo "... utils.i"
 	@echo "... utils.s"
+	@echo "... var_info.o"
+	@echo "... var_info.i"
+	@echo "... var_info.s"
 .PHONY : help
 
 

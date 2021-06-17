@@ -41,18 +41,41 @@ public:
             }
         }
 
-//        else if(auto* if_stmt = dyn_cast<IfStmt>(stmt)) {
-//            _parent_map[if_stmt->getThen()] = if_stmt;
-//            walk(if_stmt->getThen());
-//            if(if_stmt->hasElseStorage()) {
-//                _parent_map[if_stmt->getElse()] = if_stmt;
-//                walk(if_stmt->getElse());
-//            }
-//        }
+        else if(auto* if_stmt = dyn_cast<IfStmt>(stmt)) {
+            _parent_map[if_stmt->getCond()] = if_stmt;
+            walk(if_stmt->getCond());
+            _parent_map[if_stmt->getThen()] = if_stmt;
+            walk(if_stmt->getThen());
+            if(if_stmt->hasElseStorage()) {
+                _parent_map[if_stmt->getElse()] = if_stmt;
+                walk(if_stmt->getElse());
+            }
+        }
+
+        else if(auto* for_stmt = dyn_cast<ForStmt>(stmt)) {
+            _parent_map[for_stmt->getBody()] = for_stmt;
+            walk(for_stmt->getBody());
+        }
+
+        else if(auto* while_stmt = dyn_cast<WhileStmt>(stmt)) {
+            _parent_map[while_stmt->getBody()] = while_stmt;
+            walk(while_stmt->getBody());
+        }
 
         else if(auto* implicit_cast_expr = dyn_cast<ImplicitCastExpr>(stmt)) {
             _parent_map[implicit_cast_expr->getSubExpr()] = implicit_cast_expr;
             walk(implicit_cast_expr->getSubExpr());
+        }
+
+        else if(auto* binary_operator = dyn_cast<BinaryOperator>(stmt)) {
+            _parent_map[binary_operator->getLHS()] = binary_operator;
+            walk(binary_operator->getLHS());
+            _parent_map[binary_operator->getRHS()] = binary_operator;
+            walk(binary_operator->getRHS());
+        }
+
+        else {
+            cerr << stmt->getStmtClassName() << "\n";
         }
     }
 
@@ -88,9 +111,7 @@ public:
                     new_statements.push_back(s);
                 }
             }
-            auto* new_compound_stmt = CompoundStmt::Create(*Utils::ast_context,
-                                                           ArrayRef<Stmt*>(new_statements),
-                                                           compound_stmt->getBeginLoc(), compound_stmt->getEndLoc());
+            auto* new_compound_stmt = Utils::create_compound_stmt(new_statements, compound_stmt->getBeginLoc(), compound_stmt->getEndLoc());
             for(auto & s : new_compound_stmt->children()) {
                 _parent_map[s] = new_compound_stmt;
             }
@@ -118,6 +139,25 @@ public:
             _parent_map[new_] = implicit_cast_expr;
         }
 
+        else if(auto* if_stmt = dyn_cast<IfStmt>(parent)) {
+            _parent_map.erase(old);
+            if(old == if_stmt->getThen()) {
+                if_stmt->setThen(new_);
+                _parent_map[new_] = if_stmt;
+            }
+            else if(old == if_stmt->getCond()) {
+                if_stmt->setCond(dyn_cast<Expr>(new_));
+                _parent_map[new_] = if_stmt;
+            }
+            else if(if_stmt->hasElseStorage() && old == if_stmt->getElse()) {
+                if_stmt->setElse(new_);
+                _parent_map[new_] = if_stmt;
+            }
+            else {
+                throw;
+            }
+        }
+
         else {
             cerr << "Unable to handle " << parent->getStmtClassName() << " as parent class!\n";
             throw;
@@ -136,10 +176,7 @@ public:
                     new_statements.push_back(s);
                 }
             }
-            auto* new_compound_stmt = CompoundStmt::Create(*Utils::ast_context,
-                                                           ArrayRef<Stmt*>(new_statements),
-                                                           compound_stmt->getBeginLoc(), compound_stmt->getEndLoc());
-
+            auto* new_compound_stmt = Utils::create_compound_stmt(new_statements, compound_stmt->getBeginLoc(), compound_stmt->getEndLoc());
             replace_stmt(compound_stmt, new_compound_stmt);
 
         }
@@ -162,6 +199,19 @@ public:
             implicit_cast_expr->setSubExpr(nullptr);
         }
 
+        else if(auto* if_stmt = dyn_cast<IfStmt>(parent)) {
+            _parent_map.erase(to_remove);
+            if(to_remove == if_stmt->getThen()) {
+                if_stmt->setThen(nullptr);
+            }
+            else if(if_stmt->hasElseStorage() && to_remove == if_stmt->getElse()) {
+                if_stmt->setElse(nullptr);
+            }
+            else {
+                throw;
+            }
+        }
+
         else {
             cerr << "Unable to handle " << parent->getStmtClassName() << " as parent class!\n";
             throw;
@@ -179,9 +229,7 @@ public:
                     new_statements.push_back(to_insert);
                 }
             }
-            auto* new_compound_stmt = CompoundStmt::Create(*Utils::ast_context,
-                                                           ArrayRef<Stmt*>(new_statements),
-                                                           compound_stmt->getBeginLoc(), compound_stmt->getEndLoc());
+            auto* new_compound_stmt = Utils::create_compound_stmt(new_statements, compound_stmt->getBeginLoc(), compound_stmt->getEndLoc());
 
             replace_stmt(compound_stmt, new_compound_stmt);
         }
@@ -201,9 +249,7 @@ public:
                 }
                 new_statements.push_back(s);
             }
-            auto* new_compound_stmt = CompoundStmt::Create(*Utils::ast_context,
-                                                           ArrayRef<Stmt*>(new_statements),
-                                                           compound_stmt->getBeginLoc(), compound_stmt->getEndLoc());
+            auto* new_compound_stmt = Utils::create_compound_stmt(new_statements, compound_stmt->getBeginLoc(), compound_stmt->getEndLoc());
 
             replace_stmt(compound_stmt, new_compound_stmt);
         }
