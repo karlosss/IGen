@@ -67,13 +67,10 @@ private:
 
             auto bb_statements = _get_statements(bb);
 
-            cerr << "Analyzing block " << bb->BlockID << "\n";
-
             // get the initial variable values from block entry
             auto assigned_values = block_info[bb].possible_values_at_entry;
 
             for(auto* stmt : bb_statements) {
-                cerr << "Analyzing statement: " << Utils::dump_to_string(stmt) << "\n";
                 auto usages = _find_usages_in_stmt(stmt);
                 for(auto* usage : usages) {
                     // for each variable usage in the statement, determine which values it can hold
@@ -127,20 +124,20 @@ private:
             }
         }
 
-        for(auto & x : possible_values) {
-            cerr << "Values for " << x.first << ":\n";
-            for(auto* y : x.second) {
-                cerr << "    " << Utils::dump_to_string(y) << "\n";
-            }
-        }
-        for(auto & x : reach) {
-            cerr << "Reach of " << Utils::dump_to_string(x.first) << ":\n";
-            for(auto* y : x.second) {
-                cerr << "    " << y << "\n";
-            }
-        }
+//        for(auto & x : possible_values) {
+//            cerr << "Values for " << x.first << ":\n";
+//            for(auto* y : x.second) {
+//                cerr << "    " << Utils::dump_to_string(y) << "\n";
+//            }
+//        }
+//        for(auto & x : reach) {
+//            cerr << "Reach of " << Utils::dump_to_string(x.first) << ":\n";
+//            for(auto* y : x.second) {
+//                cerr << "    " << y << "\n";
+//            }
+//        }
 
-        _inline_expressions(possible_values, reach, 1);
+        _inline_expressions(possible_values, reach, -1);
     }
 
     void _inline_expressions(const unordered_map<DeclRefExpr*, unordered_set<BinaryOperator*>> & possible_values,
@@ -156,12 +153,20 @@ private:
 
         for(auto & x : reach) {
             if(x.second.size() <= inline_policy) {
+                bool assign_used = false;
                 // iterate over all usages provided there is fewer of them than the inline policy says
                 for(auto & y : x.second) {
-                    // if the usage can be inlined, inline it
                     if(contains(can_be_inlined, y)){
+                        // if the usage can be inlined, inline it
                         ast->replace_stmt(y, x.first->getRHS());
                     }
+                    else {
+                        // otherwise, the usage is important and cannot be removed after inlining
+                        assign_used = true;
+                    }
+                }
+                if(!assign_used) {
+                    ast->remove_stmt(x.first);
                 }
             }
         }
@@ -183,9 +188,9 @@ public:
         }
 
         auto cfg = CFG::buildCFG(function_decl, function_decl->getBody(), astContext, CFG::BuildOptions());
-        cfg->dump(LangOptions(), true);
+//        cfg->dump(LangOptions(), true);
         CFGBlock* entry = &(cfg->getEntry());
-        function_decl->getBody()->dump();
+//        function_decl->getBody()->dump();
         _traverse_cfg(entry);
 
         return true;

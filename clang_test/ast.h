@@ -75,7 +75,7 @@ public:
         }
 
         else {
-            cerr << stmt->getStmtClassName() << "\n";
+//            cerr << stmt->getStmtClassName() << "\n";
         }
     }
 
