@@ -91,6 +91,9 @@
 		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/frontend_action.h">
 			<Option target="clang_ast_visitor"/>
 		</Unit>
+		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/herbie_visitor.h">
+			<Option target="clang_ast_visitor"/>
+		</Unit>
 		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/no_segfault_visitor.h">
 			<Option target="clang_ast_visitor"/>
 		</Unit>

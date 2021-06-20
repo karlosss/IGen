@@ -28,4 +28,3 @@ string Utils::dump_to_string(Stmt* stmt) {
 CompoundStmt* Utils::create_compound_stmt(const vector<Stmt*> & statements, SourceLocation begin_loc, SourceLocation end_loc) {
     return CompoundStmt::Create(*ast_context, ArrayRef<Stmt*>(statements), begin_loc, end_loc);
 }
-

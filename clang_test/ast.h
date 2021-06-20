@@ -133,6 +133,21 @@ public:
             }
         }
 
+        else if(auto* bop = dyn_cast<BinaryOperator>(parent)) {
+            _parent_map.erase(old);
+            if(old == bop->getLHS()) {
+                bop->setLHS(dyn_cast<Expr>(new_));
+                _parent_map[new_] = bop;
+            }
+            else if(old == bop->getRHS()) {
+                bop->setRHS(dyn_cast<Expr>(new_));
+                _parent_map[new_] = bop;
+            }
+            else {
+                throw;
+            }
+        }
+
         else if(auto* implicit_cast_expr = dyn_cast<ImplicitCastExpr>(parent)) {
             _parent_map.erase(old);
             implicit_cast_expr->setSubExpr(dyn_cast<Expr>(new_));
@@ -197,6 +212,19 @@ public:
         else if(auto* implicit_cast_expr = dyn_cast<ImplicitCastExpr>(parent)) {
             _parent_map.erase(to_remove);
             implicit_cast_expr->setSubExpr(nullptr);
+        }
+
+        else if(auto* bop = dyn_cast<BinaryOperator>(parent)) {
+            _parent_map.erase(to_remove);
+            if(to_remove == bop->getLHS()) {
+                bop->setLHS(nullptr);
+            }
+            else if(to_remove == bop->getRHS()) {
+                bop->setRHS(nullptr);
+            }
+            else{
+                throw;
+            }
         }
 
         else if(auto* if_stmt = dyn_cast<IfStmt>(parent)) {

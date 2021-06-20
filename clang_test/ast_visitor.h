@@ -137,7 +137,7 @@ private:
 //            }
 //        }
 
-        _inline_expressions(possible_values, reach, -1);
+        _inline_expressions(possible_values, reach, 1);
     }
 
     void _inline_expressions(const unordered_map<DeclRefExpr*, unordered_set<BinaryOperator*>> & possible_values,

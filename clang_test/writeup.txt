@@ -18,3 +18,16 @@ and write the actual expression into a file which herbie can process
 - maybe support:
     - multiple input .cpp files // out of the box
     - a = b = 5 // throw error
+
+
+a = some_expression
+
+a = a ? b : c
+
+double a;
+if(...)
+a =
+else if (...)
+a = ...
+else
+a = ...

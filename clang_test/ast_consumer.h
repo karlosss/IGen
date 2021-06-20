@@ -16,6 +16,7 @@
 #include "split_decl_and_def_visitor.h"
 #include "no_segfault_visitor.h"
 #include "utils.h"
+#include "herbie_visitor.h"
 
 using namespace clang;
 using namespace llvm;
@@ -26,14 +27,13 @@ class ExampleASTConsumer : public ASTConsumer {
 private:
     ExampleVisitor *visitor;
     SplitDeclAndDefVisitor *split_decl_and_def_visitor;
-    NoSegfaultVisitor *no_segfault_visitor;
-
+    HerbieVisitor *herbie_visitor;
 public:
     // override the constructor in order to pass CI
     explicit ExampleASTConsumer(CompilerInstance *CI)
             : visitor(new ExampleVisitor(CI)),
             split_decl_and_def_visitor(new SplitDeclAndDefVisitor(CI)),
-            no_segfault_visitor(new NoSegfaultVisitor(CI))
+            herbie_visitor(new HerbieVisitor(CI))
     {
         Utils::init(&(CI->getASTContext()));
         rewriter.setSourceMgr(CI->getASTContext().getSourceManager(), CI->getASTContext().getLangOpts());
@@ -47,6 +47,8 @@ public:
             split_decl_and_def_visitor->TraverseDecl(D);
             rewriter.ReplaceText(D->getBody()->getSourceRange(), Utils::dump_to_string(D->getBody()));
             visitor->TraverseDecl(D);
+            rewriter.ReplaceText(D->getBody()->getSourceRange(), Utils::dump_to_string(D->getBody()));
+            herbie_visitor->TraverseDecl(D);
             rewriter.ReplaceText(D->getBody()->getSourceRange(), Utils::dump_to_string(D->getBody()));
         }
         return true;
