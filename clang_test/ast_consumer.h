@@ -48,6 +48,8 @@ public:
             rewriter.ReplaceText(D->getBody()->getSourceRange(), Utils::dump_to_string(D->getBody()));
             visitor->TraverseDecl(D);
             rewriter.ReplaceText(D->getBody()->getSourceRange(), Utils::dump_to_string(D->getBody()));
+            cerr << "Before herbie:\n";
+            cerr << Utils::dump_to_string(D->getBody()) << "\n";
             herbie_visitor->TraverseDecl(D);
             rewriter.ReplaceText(D->getBody()->getSourceRange(), Utils::dump_to_string(D->getBody()));
         }

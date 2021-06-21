@@ -24,7 +24,17 @@ public:
     void walk(Stmt* stmt) {
         if(!stmt) return;
 
-        if(auto* compound_stmt = dyn_cast<CompoundStmt>(stmt)) {
+        if(auto* integer_literal = dyn_cast<IntegerLiteral>(stmt)) {
+            // terminal node
+        }
+        else if(auto* floating_literal = dyn_cast<FloatingLiteral>(stmt)) {
+            // terminal node
+        }
+        else if(auto* decl_ref_expr = dyn_cast<DeclRefExpr>(stmt)) {
+            // terminal node
+        }
+
+        else if(auto* compound_stmt = dyn_cast<CompoundStmt>(stmt)) {
             for(auto* s : compound_stmt->children()) {
                 _parent_map[s] = compound_stmt;
                 walk(s);
@@ -67,6 +77,11 @@ public:
             walk(implicit_cast_expr->getSubExpr());
         }
 
+        else if(auto* paren_expr = dyn_cast<ParenExpr>(stmt)) {
+            _parent_map[paren_expr->getSubExpr()] = paren_expr;
+            walk(paren_expr->getSubExpr());
+        }
+
         else if(auto* binary_operator = dyn_cast<BinaryOperator>(stmt)) {
             _parent_map[binary_operator->getLHS()] = binary_operator;
             walk(binary_operator->getLHS());
@@ -74,8 +89,25 @@ public:
             walk(binary_operator->getRHS());
         }
 
+        else if(auto* unary_operator = dyn_cast<UnaryOperator>(stmt)) {
+            _parent_map[unary_operator->getSubExpr()] = unary_operator;
+            walk(unary_operator->getSubExpr());
+        }
+
+        else if(auto* return_stmt = dyn_cast<ReturnStmt>(stmt)) {
+            _parent_map[return_stmt->getRetValue()] = return_stmt;
+            walk(return_stmt->getRetValue());
+        }
+
+        else if(auto* call_expr = dyn_cast<CallExpr>(stmt)) {
+            for(auto* x : call_expr->arguments()) {
+                _parent_map[x] = call_expr;
+                walk(x);
+            }
+        }
+
         else {
-//            cerr << stmt->getStmtClassName() << "\n";
+            cerr << "<AST> Don't know how to walk " << stmt->getStmtClassName() << "\n";
         }
     }
 
@@ -173,8 +205,26 @@ public:
             }
         }
 
+        else if(auto* return_stmt = dyn_cast<ReturnStmt>(parent)) {
+            _parent_map.erase(old);
+            return_stmt->setRetValue(dyn_cast<Expr>(new_));
+            _parent_map[new_] = return_stmt;
+        }
+
+        else if(auto* call_expr = dyn_cast<CallExpr>(parent)) {
+            _parent_map.erase(old);
+            Expr** args = call_expr->getArgs();
+            for(unsigned int i = 0; i < call_expr->getNumArgs(); ++i) {
+                if(args[i] == old) {
+                    call_expr->setArg(i, dyn_cast<Expr>(new_));
+                    _parent_map[new_] = call_expr;
+                    break;
+                }
+            }
+        }
+
         else {
-            cerr << "Unable to handle " << parent->getStmtClassName() << " as parent class!\n";
+            cerr << "<AST> Don't know how to replace an expression with " << parent->getStmtClassName() << " as parent class\n";
             throw;
         }
     }
@@ -241,7 +291,7 @@ public:
         }
 
         else {
-            cerr << "Unable to handle " << parent->getStmtClassName() << " as parent class!\n";
+            cerr << "<AST> Don't know how to remove an expression with " << parent->getStmtClassName() << " as parent class\n";
             throw;
         }
 
@@ -262,7 +312,7 @@ public:
             replace_stmt(compound_stmt, new_compound_stmt);
         }
         else {
-            cerr << "Can only insert into CompoundStmt!\n";
+            cerr << "<AST> Can only insert into CompoundStmt\n";
             throw;
         }
     }
@@ -282,7 +332,7 @@ public:
             replace_stmt(compound_stmt, new_compound_stmt);
         }
         else {
-            cerr << "Can only insert into CompoundStmt!\n";
+            cerr << "<AST> Can only insert into CompoundStmt\n";
             throw;
         }
     }

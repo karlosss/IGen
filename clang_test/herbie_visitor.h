@@ -16,7 +16,7 @@ private:
     ASTContext *astContext;
     AST* ast;
 
-    unordered_set<Stmt*> _arith_exprs;
+    unordered_set<Expr*> _arith_exprs;
 
     void _find_arithmetic_exprs(Stmt* stmt) {
         if(!stmt) return;
@@ -33,7 +33,7 @@ private:
 
         else if(auto* implicit_cast_expr = dyn_cast<ImplicitCastExpr>(stmt)) {
             _find_arithmetic_exprs(implicit_cast_expr->getSubExpr());
-            if(contains(_arith_exprs, (Stmt*) implicit_cast_expr->getSubExpr())) {
+            if(contains(_arith_exprs, implicit_cast_expr->getSubExpr())) {
                 _arith_exprs.erase(implicit_cast_expr->getSubExpr());
                 _arith_exprs.insert(implicit_cast_expr);
             }
@@ -44,12 +44,19 @@ private:
             }
             _find_arithmetic_exprs(bop->getRHS());
             if((bop->isAdditiveOp() || bop->isMultiplicativeOp()) &&
-                contains(_arith_exprs, (Stmt*) bop->getLHS()) &&
-                contains(_arith_exprs, (Stmt*) bop->getRHS())
+                contains(_arith_exprs, bop->getLHS()) &&
+                contains(_arith_exprs, bop->getRHS())
             ) {
                 _arith_exprs.erase(bop->getRHS());
                 _arith_exprs.erase(bop->getLHS());
                 _arith_exprs.insert(bop);
+            }
+        }
+        else if(auto* uop = dyn_cast<UnaryOperator>(stmt)) {
+            _find_arithmetic_exprs(uop->getSubExpr());
+            if(contains(_arith_exprs, uop->getSubExpr())) {
+                _arith_exprs.erase(uop->getSubExpr());
+                _arith_exprs.insert(uop);
             }
         }
 
@@ -71,6 +78,24 @@ private:
         else if(auto* while_stmt = dyn_cast<WhileStmt>(stmt)) {
             _find_arithmetic_exprs(while_stmt->getBody());
         }
+        else if(auto* decl_stmt = dyn_cast<DeclStmt>(stmt)) {
+            // do nothing - declarations and initializations are split into two statements
+        }
+        else if(auto* paren_expr = dyn_cast<ParenExpr>(stmt)) {
+            _find_arithmetic_exprs(paren_expr->getSubExpr());
+            if(contains(_arith_exprs, paren_expr->getSubExpr())) {
+                _arith_exprs.erase(paren_expr->getSubExpr());
+                _arith_exprs.insert(paren_expr);
+            }
+        }
+        else if(auto* return_stmt = dyn_cast<ReturnStmt>(stmt)) {
+            _find_arithmetic_exprs(return_stmt->getRetValue());
+        }
+        else if(auto* call_expr = dyn_cast<CallExpr>(stmt)) {
+            for(auto* child : call_expr->arguments()) {
+                _find_arithmetic_exprs(child);
+            }
+        }
         else {
             cerr << "<HerbieVisitor> unknown statement type: " << stmt->getStmtClassName() << "\n";
         }
@@ -83,18 +108,20 @@ public:
 
     virtual bool VisitFunctionDecl(FunctionDecl* function_decl) {
         ast = new AST(function_decl);
+        _arith_exprs.clear();
         _find_arithmetic_exprs(function_decl->getBody());
 
         // replace arithmetic expressions with placeholders
         ofstream herbie;
-        herbie.open("herbie.txt", ios_base::app);
-        int i = 1;
-        for(auto* stmt : _arith_exprs) {
-            cerr << "Replacing " << Utils::dump_to_string(stmt) << "\n";
-            herbie << Utils::dump_to_string(stmt) << "\n";
+        herbie.open("herbie_vals.txt", ios_base::app);
 
-            auto* placeholder = clang::StringLiteral::Create(*astContext, "<{[HERBIE-" + to_string(i) + "]}>", clang::StringLiteral::StringKind::Ascii, false, QualType(), stmt->getBeginLoc());
-            ast->replace_stmt(stmt, placeholder);
+        static int i = 1;
+        for(auto* expr : _arith_exprs) {
+            if(!expr->getType()->isFloatingType()) continue; // ignore non-floating expressions
+
+            herbie << Utils::dump_to_string(expr) << "\n";
+            auto* placeholder = clang::StringLiteral::Create(*astContext, "<{[HERBIE-" + to_string(i) + "]}>", clang::StringLiteral::StringKind::Ascii, false, QualType(), expr->getBeginLoc());
+            ast->replace_stmt(expr, placeholder);
             i++;
         }
         herbie.close();

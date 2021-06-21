@@ -29,6 +29,10 @@ private:
             __find_usages_in_stmt(bop->getRHS(), usages);
         }
 
+        else if(auto *uop = dyn_cast<UnaryOperator>(stmt)) {
+            __find_usages_in_stmt(uop->getSubExpr(), usages);
+        }
+
         else if(auto *implicit_cast_expr = dyn_cast<ImplicitCastExpr>(stmt)) {
             __find_usages_in_stmt(implicit_cast_expr->getSubExpr(), usages);
         }
@@ -37,8 +41,40 @@ private:
             usages.insert(decl_ref_expr);
         }
 
+        else if(auto* integer_literal = dyn_cast<IntegerLiteral>(stmt)) {
+            // terminal node without usages
+        }
+
+        else if(auto* floating_literal = dyn_cast<FloatingLiteral>(stmt)) {
+            // terminal node without usages
+        }
+
+        else if(auto* decl_stmt = dyn_cast<DeclStmt>(stmt)) {
+            // no usages, as declaration and initialization are split to two statements
+        }
+
+        else if(auto* paren_expr = dyn_cast<ParenExpr>(stmt)) {
+            __find_usages_in_stmt(paren_expr->getSubExpr(), usages);
+        }
+
+        else if(auto* call_expr = dyn_cast<CallExpr>(stmt)) {
+            for(auto* x : call_expr->arguments()) {
+                __find_usages_in_stmt(x, usages);
+            }
+        }
+
+        else if(auto* compound_stmt = dyn_cast<CompoundStmt>(stmt)) {
+            for(auto* x : compound_stmt->children()) {
+                __find_usages_in_stmt(x, usages);
+            }
+        }
+
+        else if(auto* return_stmt = dyn_cast<ReturnStmt>(stmt)) {
+            __find_usages_in_stmt(return_stmt->getRetValue(), usages);
+        }
+
         else {
-            // empty
+            cerr << "<InlineVisitor> Don't know how to find usages in " << stmt->getStmtClassName() << "\n";
         }
     }
 
@@ -158,7 +194,13 @@ private:
                 for(auto & y : x.second) {
                     if(contains(can_be_inlined, y)){
                         // if the usage can be inlined, inline it
-                        ast->replace_stmt(y, x.first->getRHS());
+                        // wrap the usage in brackets so that operator priority is not a problem
+                        // operator new is protected, so we need to hack it like this
+                        ParenExpr paren_expr(y->getBeginLoc(), y->getEndLoc(), x.first->getRHS());
+                        paren_expr.setSubExpr(x.first->getRHS());
+                        ParenExpr* heap_paren_expr = (ParenExpr*) malloc(sizeof(ParenExpr));
+                        memcpy(heap_paren_expr, &paren_expr, sizeof(ParenExpr));
+                        ast->replace_stmt(y, heap_paren_expr);
                     }
                     else {
                         // otherwise, the usage is important and cannot be removed after inlining
@@ -188,9 +230,7 @@ public:
         }
 
         auto cfg = CFG::buildCFG(function_decl, function_decl->getBody(), astContext, CFG::BuildOptions());
-//        cfg->dump(LangOptions(), true);
         CFGBlock* entry = &(cfg->getEntry());
-//        function_decl->getBody()->dump();
         _traverse_cfg(entry);
 
         return true;
