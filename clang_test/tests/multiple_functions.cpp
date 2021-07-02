@@ -11,9 +11,9 @@ double solve_minus(double a, double b, double c) {
 }
 
 int main() {
-    double a = 10;
-    double b = 20;
-    double c = 30;
+    double a = 10000000000000.;
+    double b = 10000000000000000.;
+    double c = 10000000000000000000.;
     double res1 = solve_plus(a, b, c);
     double res2 = solve_minus(a, b, c);
     return 0;

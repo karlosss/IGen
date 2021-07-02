@@ -122,6 +122,7 @@ private:
                     // in case the value is (re)assigned in the block, clear all potential previous values, as it
                     // now has only the assigned one
                     auto* bop = dyn_cast<BinaryOperator>(stmt);
+                    if(!dyn_cast<DeclRefExpr>(bop->getLHS())) continue; // only handle assignments of local variables
                     assigned_values[Utils::get_variable_declaration(bop->getLHS())].clear();
                     assigned_values[Utils::get_variable_declaration(bop->getLHS())].insert(bop);
                 }
@@ -173,7 +174,7 @@ private:
 //            }
 //        }
 
-        _inline_expressions(possible_values, reach, 1);
+        _inline_expressions(possible_values, reach, UINT_MAX);
     }
 
     void _inline_expressions(const unordered_map<DeclRefExpr*, unordered_set<BinaryOperator*>> & possible_values,

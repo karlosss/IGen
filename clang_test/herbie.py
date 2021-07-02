@@ -2,14 +2,58 @@ import os
 import sys
 import pyparsing
 import subprocess
+import math
 from pathlib import Path
 
 sys.setrecursionlimit(5000)
 pyparsing.ParserElement.enablePackrat()
 
+HERBIE_OPTS = "--seed 1980931543 --disable generate:taylor"
+
+
+def optimize_expr(expr):
+    if expr[0] == "pow":
+        if isinstance(expr[1], list) and expr[1][0] == "sqrt" and isinstance(expr[2], str) and expr[2] == "2.0":
+            return expr[1][1]
+        elif isinstance(expr[1], list) and expr[1][0] == "cbrt" and isinstance(expr[2], str) and expr[2] == "3.0":
+            return expr[1][1]
+        elif isinstance(expr[2], str) and expr[2] == "0.5":
+            return ["sqrt", expr[1]]
+
+    elif expr[0] == "sqrt":
+        if isinstance(expr[1], list) and expr[1][0] == "pow" and isinstance(expr[1][2], str) and expr[1][2] == "2.0":
+            return expr[1][1]
+
+    elif expr[0] == "cbrt":
+        if isinstance(expr[1], list) and expr[1][0] == "pow" and isinstance(expr[1][2], str) and expr[1][2] == "3.0":
+            return expr[1][1]
+
+    elif expr[0] == "exp":
+        if isinstance(expr[1], list) and expr[1][0] == "log":
+            return expr[1][1]
+
+    elif expr[0] == "log":
+        if isinstance(expr[1], list) and expr[1][0] == "exp":
+            return expr[1][1]
+
+    else:
+        raise NotImplementedError("Cannot optimize {}".format(expr[0]))
+    return expr
+
+
+def expr_to_str(expr):
+    if isinstance(expr, str):
+        return expr
+    res = "("
+    for item in expr:
+        res += expr_to_str(item)
+    res += ")"
+    return res
+
 
 def infix_to_prefix(input_string):
     print("<infix_to_prefix> " + input_string[:-1])
+
     class Handler:
         def __init__(self, tokens):
             self.tokens = tokens[0]
@@ -44,24 +88,24 @@ def infix_to_prefix(input_string):
         def prefix(self):
             return "({} {})".format(self.tokens[0], self.tokens[1].prefix())
 
-    real = pyparsing.pyparsing_common.real
+    real = pyparsing.pyparsing_common.sci_real
     integer = pyparsing.pyparsing_common.integer
     number = real | integer
     number.setParseAction(NumberHandler)
 
-    variable = pyparsing.Combine(pyparsing.Word(pyparsing.alphas) + pyparsing.Optional(pyparsing.Word(pyparsing.alphanums)))
+    variable = pyparsing.Combine(pyparsing.Word(pyparsing.alphas) + pyparsing.Optional(pyparsing.Word(pyparsing.alphanums))) | pyparsing.Combine("*((" + pyparsing.CharsNotIn(")") + "))") | pyparsing.Combine("*(" + pyparsing.CharsNotIn(")") + ")")
     variable.setParseAction(VariableHandler)
 
     operand = number | variable
 
     plus_minus = pyparsing.oneOf("+ -")
-    unary_plus_minus = pyparsing.oneOf("+ -")
+    unary_plus_minus_sqrt = pyparsing.oneOf("+ - sqrt")
     times_divide = pyparsing.oneOf("* /")
 
     expr = pyparsing.infixNotation(
         operand,
         [
-            (unary_plus_minus, 1, pyparsing.opAssoc.RIGHT, UnaryOperatorHandler),
+            (unary_plus_minus_sqrt, 1, pyparsing.opAssoc.RIGHT, UnaryOperatorHandler),
             (times_divide, 2, pyparsing.opAssoc.LEFT, BinaryOperatorHandler),
             (plus_minus, 2, pyparsing.opAssoc.LEFT, BinaryOperatorHandler),
         ]
@@ -75,8 +119,8 @@ def infix_to_prefix(input_string):
 def prefix_to_infix(input_string, variable_map):
     print("<prefix_to_infix> " + input_string, variable_map)
 
-    func_name = pyparsing.oneOf("+ - / *")
-    real = pyparsing.pyparsing_common.real
+    func_name = pyparsing.oneOf("+ - / * sqrt cbrt pow log exp if < > <= >= == != not and or")
+    real = pyparsing.pyparsing_common.sci_real
     integer = pyparsing.pyparsing_common.integer
     variable = pyparsing.Combine("x" + pyparsing.Word(pyparsing.nums))
     terminal = pyparsing.Combine(pyparsing.Optional("-") + (real | integer | variable))
@@ -93,11 +137,32 @@ def prefix_to_infix(input_string, variable_map):
             if isinstance(root, str) and root.startswith("x"):
                 return variable_map[root]
             return root
-        if len(root) == 3:
-            return "({}) {} ({})".format(build_infix(root[1]), root[0], build_infix(root[2]))
         elif len(root) == 2:
-            return "{} ({})".format(build_infix(root[0]), build_infix(root[1]))
+            if root[0] == "not":
+                return ["!", build_infix(root[1])]
+            elif root[0] in ("sqrt", "cbrt", "exp", "log"):
+                return optimize_expr([build_infix(root[0]), build_infix(root[1])])
+            return [build_infix(root[0]), build_infix(root[1])]
+        if len(root) == 3:
+            if root[0] in ("*", "-", "/", "+", "<", ">", "<=", ">=", "==", "!="):
+                return [build_infix(root[1]), root[0], build_infix(root[2])]
+            elif root[0] == "pow":
+                return optimize_expr(["pow", build_infix(root[1]), build_infix(root[2])])
+            elif root[0] == "or":
+                return [build_infix(root[1]), "||", build_infix(root[2])]
+            elif root[0] == "and":
+                return [build_infix(root[1]), "&&", build_infix(root[2])]
+            else:
+                print(root)
+                raise
+        elif len(root) == 4:
+            if root[0] == "if":
+                return [build_infix(root[1]), "?", build_infix(root[2]), ":", build_infix(root[3])]
+            else:
+                print(root)
+                raise
         else:
+            print(root)
             raise
 
     res = expression.parseString(input_string)
@@ -105,14 +170,17 @@ def prefix_to_infix(input_string, variable_map):
         if res[0] in variable_map:
             return variable_map[res[0]]
         return res[0]
-    return build_infix(res[0].asList())
+    expr = build_infix(res[0].asList())
+    return expr_to_str(expr)
 
 
 variable_maps = []
 
 print("running {}".format(sys.argv[1:]))
 p = subprocess.Popen(sys.argv[1:], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-p.communicate()
+stdout, stderr = p.communicate()
+print(stdout.decode("utf8"))
+print(stderr.decode("utf8"))
 
 with open("herbie_vals.txt") as inp:
     with open("herbie_vals_prefix.txt", "w") as out:
@@ -121,7 +189,7 @@ with open("herbie_vals.txt") as inp:
             variable_maps.append(reverse_var_map)
             out.write("(FPCore ({}) :precision binary64 {})\n".format(" ".join(var_map.values()), res))
 
-os.system("herbie improve herbie_vals_prefix.txt herbie_vals_out_prefix.txt")
+os.system("herbie improve {} herbie_vals_prefix.txt herbie_vals_out_prefix.txt".format(HERBIE_OPTS))
 
 i = 0
 herbie_ir = open("herbie_ir.txt").read()
@@ -132,13 +200,14 @@ with open("herbie_vals_out_prefix.txt") as herbie_raw:
             continue
         line = line.split(":precision binary64")[1][:-2].strip()
         infix_line = prefix_to_infix(line, variable_maps[i])
+        print("resulting line: {}".format(infix_line))
         herbie_ir = herbie_ir.replace("\"<{[HERBIE-"+ str(i+1) +"]}>\"", infix_line)
         i += 1
 
 with open(os.path.join(sys.argv[2]), "w") as f:
     f.write(herbie_ir)
 
-os.remove("herbie_ir.txt")
-os.remove("herbie_vals.txt")
-os.remove("herbie_vals_out_prefix.txt")
-os.remove("herbie_vals_prefix.txt")
+# os.remove("herbie_ir.txt")
+# os.remove("herbie_vals.txt")
+# os.remove("herbie_vals_out_prefix.txt")
+# os.remove("herbie_vals_prefix.txt")

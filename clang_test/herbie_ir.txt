@@ -1,0 +1,28 @@
+double artcomp1(double x) {
+    return "<{[HERBIE-1]}>";
+}
+
+
+double artcomp2(double x, double y) {
+    return "<{[HERBIE-2]}>";
+}
+
+
+int main() {
+    double res1;
+    res1 = artcomp1("<{[HERBIE-10]}>");
+    double res2;
+    res2 = artcomp1("<{[HERBIE-9]}>");
+    double res3;
+    res3 = artcomp1("<{[HERBIE-8]}>");
+    double res4;
+    res4 = artcomp1("<{[HERBIE-6]}>");
+    double res5;
+    res5 = artcomp1("<{[HERBIE-5]}>");
+    double res6;
+    res6 = artcomp1("<{[HERBIE-4]}>");
+    double res;
+    res = artcomp2("<{[HERBIE-7]}>", "<{[HERBIE-3]}>");
+    return 0;
+}
+

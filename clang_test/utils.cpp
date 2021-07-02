@@ -8,6 +8,7 @@ VarDecl* Utils::get_variable_declaration(Expr* expr) {
             return var_decl;
         }
     }
+    cerr << expr->getStmtClassName() << "\n";
     throw;
 }
 

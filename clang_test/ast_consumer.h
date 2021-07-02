@@ -42,9 +42,12 @@ public:
     // override this to call our ExampleVisitor on each top-level Decl
     virtual bool HandleTopLevelDecl(DeclGroupRef DG) {
         // a DeclGroupRef may have multiple Decls, so we iterate through each one
+        auto fid = rewriter.getSourceMgr().getMainFileID();
+        rewriter.getEditBuffer(fid).write(outs());
         for (DeclGroupRef::iterator i = DG.begin(), e = DG.end(); i != e; i++) {
             Decl *D = *i;
             split_decl_and_def_visitor->TraverseDecl(D);
+            D->dump();
             rewriter.ReplaceText(D->getBody()->getSourceRange(), Utils::dump_to_string(D->getBody()));
             visitor->TraverseDecl(D);
             rewriter.ReplaceText(D->getBody()->getSourceRange(), Utils::dump_to_string(D->getBody()));

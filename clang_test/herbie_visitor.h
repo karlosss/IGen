@@ -92,8 +92,18 @@ private:
             _find_arithmetic_exprs(return_stmt->getRetValue());
         }
         else if(auto* call_expr = dyn_cast<CallExpr>(stmt)) {
-            for(auto* child : call_expr->arguments()) {
-                _find_arithmetic_exprs(child);
+            const auto & func_name = call_expr->getDirectCallee()->getNameAsString();
+            if(func_name == "sqrt") {
+                _find_arithmetic_exprs(call_expr->getArg(0));
+                if(contains(_arith_exprs, call_expr->getArg(0))) {
+                    _arith_exprs.erase(call_expr->getArg(0));
+                    _arith_exprs.insert(call_expr);
+                }
+            }
+            else {
+                for(auto* child : call_expr->arguments()) {
+                    _find_arithmetic_exprs(child);
+                }
             }
         }
         else {

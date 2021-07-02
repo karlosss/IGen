@@ -1,3 +1,937 @@
-;; seed: 2079431859
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 -2.7129355287385352e-142) (/ (- (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) x0) (* x1 2.0)) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 1239185125)...
+  1/3	[   9.340s]   30→19	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.399s]    0→ 0	100000000
+  3/3	[   0.397s]    0→ 0	100000
 
-(FPCore () :herbie-status ex-start :herbie-time 1117.25537109375 :herbie-error-input ((256 0) (8000 0)) :herbie-error-output ((256 0) (8000 0)) :name "(+ (+ (+ (+ (+ (+ 1 2.5) 42) 69) 5) 42) 69)" :precision binary64 (+ (+ (+ 1.0 2.5) 5.0) (* (+ 42.0 69.0) 2.0)))
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+Traceback (most recent call last):
+  File "/home/karlosss/CLionProjects/IGen/clang_test/../bin/igen.py", line 393, in <module>
+    run_herbie(args)
+  File "/home/karlosss/CLionProjects/IGen/clang_test/../bin/igen.py", line 284, in run_herbie
+    igen_out, igen_messages = run_command(cmd)
+  File "/home/karlosss/CLionProjects/IGen/clang_test/../bin/igen.py", line 81, in run_command
+    out, err = p.communicate()
+  File "/usr/lib/python3.9/subprocess.py", line 1134, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+  File "/usr/lib/python3.9/subprocess.py", line 1979, in _communicate
+    ready = selector.select(timeout)
+  File "/usr/lib/python3.9/selectors.py", line 416, in select
+    fd_event_list = self._selector.poll(timeout)
+KeyboardInterrupt
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 1.081918412572737e-246) (- (/ (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) (* x1 2.0)) (/ x0 (* x1 2.0))) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 553725721)...
+  1/3	[   9.323s]   31→19	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.392s]    0→ 0	100000000
+  3/3	[   0.390s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 1.4938959254129941e-139) (- (/ (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) (* x1 2.0)) (/ x0 (* x1 2.0))) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 438885740)...
+  1/3	[  10.084s]   30→19	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.546s]    0→ 0	100000000
+  3/3	[   0.443s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 4.648801605454496e-201) (- (/ (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) (* x1 2.0)) (/ x0 (* x1 2.0))) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 1517713893)...
+  1/3	[   9.328s]   29→18	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.392s]    0→ 0	100000000
+  3/3	[   0.392s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 6.143318323992036e-252) (- (/ (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) (* x1 2.0)) (/ x0 (* x1 2.0))) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 530060253)...
+  1/3	[   8.515s]   30→18	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.391s]    0→ 0	100000000
+  3/3	[   0.391s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 7.02695825642481e-148) (/ (- (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) x0) (* x1 2.0)) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 1031212097)...
+  1/3	[   8.536s]   30→18	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.396s]    0→ 0	100000000
+  3/3	[   0.395s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 -9.211566101041196e-174) (* (/ 1.0 x1) (/ (- (sqrt (- (* x0 x0) (* (* x1 4.0) 100.0))) x0) 2.0)) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* x1 4.0) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 155280691)...
+  1/3	[  10.657s]   29→18	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.407s]    0→ 0	100000000
+  3/3	[   0.596s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 3.727944696134229e-201) (/ (- (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) x0) (* x1 2.0)) (/ (/ (- (* (* 4.0 x1) 100.0)) (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) (* x1 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 1387145947)...
+  1/3	[  15.543s]   30→20	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.815s]    0→ 0	100000000
+  3/3	[   0.571s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 4.855968219184242e-175) (- (/ (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) (* x1 2.0)) (/ x0 (* x1 2.0))) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 235853525)...
+  1/3	[  10.408s]   30→18	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.439s]    0→ 0	100000000
+  3/3	[   0.392s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 9.177355292107466e-103) (- (/ (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) (* x1 2.0)) (/ x0 (* x1 2.0))) (/ (/ (- (* (* 4.0 x1) 100.0)) (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) (* x1 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 1143035293)...
+  1/3	[  11.643s]   30→20	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.403s]    0→ 0	100000000
+  3/3	[   0.403s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 -1.699245207317359e-132) (* (/ 1.0 x1) (/ (- (sqrt (- (* x0 x0) (* (* x1 4.0) 100.0))) x0) 2.0)) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* x1 4.0) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 1518139571)...
+  1/3	[  12.068s]   30→19	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.398s]    0→ 0	100000000
+  3/3	[   0.549s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 2.4707293770920138e-192) (- (/ (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) (* x1 2.0)) (/ x0 (* x1 2.0))) (/ (/ (- (* (* 4.0 x1) 100.0)) (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) (* x1 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 1607859611)...
+  1/3	[  15.071s]   30→20	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.387s]    0→ 0	100000000
+  3/3	[   0.402s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 -1.2260591426458908e-260) (/ 1.0 (/ x1 (/ (- (sqrt (- (* x0 x0) (* (* x1 4.0) 100.0))) x0) 2.0))) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* x1 4.0) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 907556109)...
+  1/3	[   9.573s]   30→19	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.395s]    0→ 0	100000000
+  3/3	[   0.420s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 -6.680333985250088e-156) (/ (- (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) x0) (* x1 2.0)) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 439933218)...
+  1/3	[   8.609s]   31→19	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.400s]    0→ 0	100000000
+  3/3	[   0.403s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 -8.219181934613626e-115) (- (/ (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) (* x1 2.0)) (/ x0 (* x1 2.0))) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 1882770019)...
+  1/3	[   8.367s]   30→18	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.396s]    0→ 0	100000000
+  3/3	[   0.392s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 -6.502730555841397e-271) (/ (- (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) x0) (* x1 2.0)) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 1113156762)...
+  1/3	[   9.792s]   30→18	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.396s]    0→ 0	100000000
+  3/3	[   0.401s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 -6.486865725333687e-242) (- (/ (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) (* x1 2.0)) (/ x0 (* x1 2.0))) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 1850053768)...
+  1/3	[   8.278s]   30→18	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.389s]    0→ 0	100000000
+  3/3	[   0.398s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 3.58102001391312e-245) (- (/ (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) (* x1 2.0)) (/ x0 (* x1 2.0))) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 730694069)...
+  1/3	[   8.062s]   30→18	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.404s]    0→ 0	100000000
+  3/3	[   0.389s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 -5.517036976756003e-148) (- (/ (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) (* x1 2.0)) (/ x0 (* x1 2.0))) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 795539973)...
+  1/3	[   8.015s]   30→18	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.379s]    0→ 0	100000000
+  3/3	[   0.378s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 6.937594741283506e-155) (/ (- (pow (- (* x0 x0) (* (* 4.0 x1) 100.0)) 0.5) x0) (* x1 2.0)) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+ Starting Herbie on 3 problems (seed: 1057419491)...
+  1/3	[   8.193s]   30→18	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.389s]    0→ 0	100000000
+  3/3	[   0.387s]    0→ 0	100000
+Traceback (most recent call last):
+  File "/home/karlosss/CLionProjects/IGen/clang_test/herbie.py", line 107, in build_infix
+    raise NotImplementedError("power to a non-integral number is not supported.")
+NotImplementedError: power to a non-integral number is not supported.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/karlosss/CLionProjects/IGen/clang_test/herbie.py", line 166, in <module>
+    infix_line = prefix_to_infix(line, variable_maps[i])
+  File "/home/karlosss/CLionProjects/IGen/clang_test/herbie.py", line 140, in prefix_to_infix
+    return build_infix(res[0].asList())
+  File "/home/karlosss/CLionProjects/IGen/clang_test/herbie.py", line 128, in build_infix
+    return "(({}) ? ({}) : ({}))".format(build_infix(root[1]), build_infix(root[2]), build_infix(root[3]))
+  File "/home/karlosss/CLionProjects/IGen/clang_test/herbie.py", line 102, in build_infix
+    return "({}) {} ({})".format(build_infix(root[1]), root[0], build_infix(root[2]))
+  File "/home/karlosss/CLionProjects/IGen/clang_test/herbie.py", line 102, in build_infix
+    return "({}) {} ({})".format(build_infix(root[1]), root[0], build_infix(root[2]))
+  File "/home/karlosss/CLionProjects/IGen/clang_test/herbie.py", line 109, in build_infix
+    raise NotImplementedError("power to a non-integral number is not supported.")
+NotImplementedError: power to a non-integral number is not supported.
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 -3.026826974471053e-239) (/ (- (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) x0) (* x1 2.0)) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 1423569783)...
+  1/3	[   8.155s]   29→18	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.405s]    0→ 0	100000000
+  3/3	[   0.423s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 4.46911053858194e-229) (- (/ (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) (* x1 2.0)) (/ x0 (* x1 2.0))) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 1269563624)...
+  1/3	[   8.507s]   31→19	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.384s]    0→ 0	100000000
+  3/3	[   0.389s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 -6.0596165333055086e-155) (/ (- (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) x0) (* x1 2.0)) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 1883440112)...
+  1/3	[   8.457s]   30→18	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.393s]    0→ 0	100000000
+  3/3	[   0.392s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 -6.949868655733273e-184) (- (/ (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) (* x1 2.0)) (/ x0 (* x1 2.0))) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 249777035)...
+  1/3	[   8.099s]   30→18	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.388s]    0→ 0	100000000
+  3/3	[   0.389s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 2.680585308003852e-196) (/ (- (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) x0) (* x1 2.0)) (/ (/ (- (* (* 4.0 x1) 100.0)) (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) (* x1 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 1249805063)...
+  1/3	[  10.366s]   30→20	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.398s]    0→ 0	100000000
+  3/3	[   0.395s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 -1.7210483144249022e-211) (/ (- (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) x0) (* x1 2.0)) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 1714714072)...
+  1/3	[   8.511s]   30→18	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.400s]    0→ 0	100000000
+  3/3	[   0.400s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 -2.547213530802609e-183) (/ 1.0 (/ x1 (/ (- (sqrt (- (* x0 x0) (* (* x1 4.0) 100.0))) x0) 2.0))) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* x1 4.0) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 1723907664)...
+  1/3	[   9.699s]   30→18	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.386s]    0→ 0	100000000
+  3/3	[   0.390s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 7.76736856331107e-136) (- (/ (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) (* x1 2.0)) (/ x0 (* x1 2.0))) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 431121014)...
+  1/3	[   8.287s]   30→19	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.411s]    0→ 0	100000000
+  3/3	[   0.394s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 -5.779035341136049e-185) (- (/ (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) (* x1 2.0)) (/ x0 (* x1 2.0))) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 1111011482)...
+  1/3	[   8.183s]   30→18	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.392s]    0→ 0	100000000
+  3/3	[   0.396s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 -4.79061615358706e-77) (/ (- (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) x0) (* x1 2.0)) (* (- 4.0) (/ (/ 100.0 (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 273312683)...
+  1/3	[   9.115s]   30→19	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.392s]    0→ 0	100000000
+  3/3	[   0.396s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+running ['/home/karlosss/CLionProjects/IGen/clang_test/clang_ast_visitor', 'tests/__prep.c', '--', '-I/home/karlosss/CLionProjects/IGen/third-party/llvm-project-11.0.1/install/lib/clang/11.0.1/include', '-I/home/karlosss/CLionProjects/IGen/igen_lib']
+<infix_to_prefix> (-b + sqrt(b * b - 4 * a * (100))) / (2 * a)
+<infix_to_prefix> 100000000
+<infix_to_prefix> 100000
+<prefix_to_infix> (if (<= x0 2.0587515499878908e-139) (/ (- (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))) x0) (* x1 2.0)) (/ (/ (- (* (* 4.0 x1) 100.0)) (+ x0 (sqrt (- (* x0 x0) (* (* 4.0 x1) 100.0))))) (* x1 2.0))) {'x0': 'b', 'x1': 'a'}
+<prefix_to_infix> 100000000.0 {}
+<prefix_to_infix> 100000.0 {}
+ Starting Herbie on 3 problems (seed: 645840892)...
+  1/3	[  10.936s]   30→20	(/ (+ (- x0) (sqrt (- (* x0 x0) (* (* 4 x1) 100)))) (* 2 x1))
+  2/3	[   0.403s]    0→ 0	100000000
+  3/3	[   0.423s]    0→ 0	100000
+
+Starting IGen tool:
+	Running IGen
+	Replacing header files
+Running clang-format
+Done IGen
+Starting preprocessor:
+	Wrapping #include's
+	Calling clang preprocessor
+	Restoring header files after preprocessing
+	Done preprocessing
+	Running clang-tidy to fix braces around if statements if needed
+Starting reduction analysis:
+	Generating IR
+	Calling polly on IR
+Starting Herbie tool:
+	Running Herbie
+Traceback (most recent call last):
+  File "/home/karlosss/CLionProjects/IGen/clang_test/../bin/igen.py", line 393, in <module>
+    run_herbie(args)
+  File "/home/karlosss/CLionProjects/IGen/clang_test/../bin/igen.py", line 284, in run_herbie
+    igen_out, igen_messages = run_command(cmd)
+  File "/home/karlosss/CLionProjects/IGen/clang_test/../bin/igen.py", line 81, in run_command
+    out, err = p.communicate()
+  File "/usr/lib/python3.9/subprocess.py", line 1134, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+  File "/usr/lib/python3.9/subprocess.py", line 1979, in _communicate
+    ready = selector.select(timeout)
+  File "/usr/lib/python3.9/selectors.py", line 416, in select
+    fd_event_list = self._selector.poll(timeout)
+KeyboardInterrupt
