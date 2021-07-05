@@ -1,5 +1,4 @@
-int main() {
-    double x = 3;
+double f(double x) {
     double res = x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x;
-    return 0;
+    return res;
 }

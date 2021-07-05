@@ -29,6 +29,8 @@ clang_bin_path     = os.path.join(project_path, 'third-party/llvm-project-11.0.1
 
 # Binaries
 igen_bin           = os.path.join(project_path, 'bin/igen')
+herbie_bin         = os.path.join(project_path, 'clang_test/clang_ast_visitor')
+herbie_script      = os.path.join(project_path, 'clang_test/herbie.py')
 clang_bin          = os.path.join(clang_bin_path, 'clang')
 opt_bin            = os.path.join(clang_bin_path, 'opt')
 tidy_bin           = os.path.join(clang_bin_path, 'clang-tidy')
@@ -261,6 +263,28 @@ def run_reduction_analysis(args):
     fredu.close()
 
 
+def run_herbie(args):
+    print('Starting Herbie tool:')
+    print('\tRunning Herbie')
+    if os.path.dirname(args.input_file) == '':
+        prep_file = './' + prep_file_name
+        redu_file = './' + polly_redu_file_name
+    else:
+        prep_file = os.path.dirname(args.input_file) + '/' + prep_file_name
+        redu_file = os.path.dirname(args.input_file) + '/' + polly_redu_file_name
+
+    # Construct and run command
+    cmd = ["python", herbie_script, herbie_bin, prep_file, '--', '-I' + clang_include_path, '-I' + igen_lib_path]
+    if args.includes is not None:
+        for i in args.includes:
+            cmd += ['-I' + i]
+    if args.defines is not None:
+        for i in args.defines:
+            cmd += ['-D' + i]
+    igen_out, igen_messages = run_command(cmd)
+    print(igen_out, igen_messages)
+
+
 def run_igen(args):
     print('Starting IGen tool:')
     print('\tRunning IGen')
@@ -281,7 +305,7 @@ def run_igen(args):
             cmd += ['-D' + i]
     cmd += ['-lib=' + args.interval_lib, '-tmode=' + args.tmode, redu_file]
     igen_out, igen_messages = run_command(cmd)
-    os.remove(prep_file)
+    # os.remove(prep_file)
 
     print('\tReplacing header files')
     # igen_out = re.sub(rex_math_h, igen_math_h, igen_out)
@@ -324,6 +348,9 @@ def parse_arguments():
     parser.add_argument('-E', dest='only_preprocessor',
                         action='store_true', default=False,
                         help='Run only preprocessor phase')
+    parser.add_argument('-R', dest='dont_run_herbie',
+                        action='store_true', default=False,
+                        help='Do not run Herbie')
     parser.add_argument('-V', dest='verbose',
                         action='store_true', default=False,
                         help='Print verbose information')
@@ -339,7 +366,7 @@ def parse_arguments():
         input_path = os.path.dirname(args.input_file)
         if input_path == '':
             input_path = '.'
-        args.output_file = input_path + '/igen_' + input_file_name
+        args.output_file = input_path + '/igen_' + ("herbie_" if not args.dont_run_herbie else "") + input_file_name
 
     if debug:
         print(args.input_file)
@@ -351,6 +378,7 @@ def parse_arguments():
         print(args.with_comments)
         print(args.prep_headers)
         print(args.only_preprocessor)
+        print(args.dont_run_herbie)
 
     return args
 
@@ -361,6 +389,8 @@ if __name__ == "__main__":
     if not args.only_preprocessor:
         run_clang_tidy(args)
         run_reduction_analysis(args)
+        if not args.dont_run_herbie:
+            run_herbie(args)
         run_igen(args)
         run_clang_format(args)
 
