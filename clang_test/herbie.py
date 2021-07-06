@@ -8,7 +8,7 @@ from pathlib import Path
 sys.setrecursionlimit(5000)
 pyparsing.ParserElement.enablePackrat()
 
-HERBIE_OPTS = "--disable generate:taylor"
+HERBIE_OPTS = "--seed 434743881 --disable generate:taylor"
 
 
 def l(x):
@@ -23,6 +23,8 @@ def optimize_expr(expr):
             return expr[1][0][1]
         elif isinstance(expr[1][0], list) and expr[1][0][0] == "cbrt" and isinstance(expr[1][2], str) and expr[1][2] == "3.0":
             return expr[1][0][1]
+        elif isinstance(expr[1][0], list) and expr[1][0][0] == "cbrt" and isinstance(expr[1][2], str) and expr[1][2].endswith(".0") and float(expr[1][2])/3 == float(expr[1][2])//3:
+            return ["pow", [expr[1][0][1], ",", str(float(expr[1][2])//3)]]
         elif isinstance(expr[1][2], str) and expr[1][2] == "0.5":
             return ["sqrt", l(expr[1][0])]
         elif isinstance(expr[1][2], list) or (isinstance(expr[1][2], str) and "." in expr[1][2] and not expr[1][2].endswith(".0")):

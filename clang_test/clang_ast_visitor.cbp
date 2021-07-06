@@ -103,6 +103,12 @@
 		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/test.cpp">
 			<Option target="clang_ast_visitor"/>
 		</Unit>
+		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/tests/artcomp2.cpp">
+			<Option target="clang_ast_visitor"/>
+		</Unit>
+		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/tests/igen_err.cpp">
+			<Option target="clang_ast_visitor"/>
+		</Unit>
 		<Unit filename="/home/karlosss/CLionProjects/IGen/clang_test/utils.cpp">
 			<Option target="clang_ast_visitor"/>
 		</Unit>

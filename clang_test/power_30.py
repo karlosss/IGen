@@ -1,41 +1,23 @@
 import os
-import sys
-import random
-import subprocess
+from common import *
 
-if len(sys.argv) > 1 and sys.argv[1] == "-c":
-    os.system("bash prepare_template.sh tests/{}.cpp".format(os.path.basename(__file__)[:-3]))
+if sys.argv[1] == "-c":
+    compile(os.path.basename(__file__)[:-3])
 
-digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-
-
-def random_double(wl, wu, dp):
-    res = str(random.randint(wl, wu))
-    res += "."
-    for _ in range(dp):
-        res += random.choice(digits)
-    return res
-
-
-def random_sci_double(wl, wu, dp, el, eu):
-    res = str(random.randint(wl, wu))
-    res += "."
-    for _ in range(dp):
-        res += random.choice(digits)
-    res += "e" + str(random.randint(el, eu))
-    return res
-
-
-def run_process(args, type, with_herbie=True):
-    p = subprocess.Popen(["/tmp/igen_{}{}".format("herbie_" if with_herbie else "", type)] + args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = p.communicate()
-    print(stdout.decode("utf8"), end="")
-
+accuracy_herbie = []
+runtime_herbie = []
+accuracy_no_herbie = []
+runtime_no_herbie = []
 
 for i in range(100):
     x = random_double(-10, 10, 3)
     args = [x, x]
-    run_process(args, "accuracy")
-    run_process(args, "accuracy", False)
-    run_process(args, "runtime")
-    run_process(args, "runtime", False)
+    accuracy_herbie.append(float(run_process(args, "accuracy").split(" ")[-1][:-1]))
+    accuracy_no_herbie.append(float(run_process(args, "accuracy", False).split(" ")[-1][:-1]))
+    runtime_herbie.append(int(run_process(args, "runtime")))
+    runtime_no_herbie.append(int(run_process(args, "runtime", False)))
+
+print("acc herbie:\tmin {:<10} max {:<10} avg {:<10} med {}".format(min(accuracy_herbie), max(accuracy_herbie), avg(accuracy_herbie), med(accuracy_herbie)))
+print("acc no herbie:\tmin {:<10} max {:<10} avg {:<10} med {}".format(min(accuracy_no_herbie), max(accuracy_no_herbie), avg(accuracy_no_herbie), med(accuracy_no_herbie)))
+print("run herbie:\tmin {:<10} max {:<10} avg {:<10} med {}".format(min(runtime_herbie), max(runtime_herbie), avg(runtime_herbie), med(runtime_herbie)))
+print("run no herbie:\tmin {:<10} max {:<10} avg {:<10} med {}".format(min(runtime_no_herbie), max(runtime_no_herbie), avg(runtime_no_herbie), med(runtime_no_herbie)))
