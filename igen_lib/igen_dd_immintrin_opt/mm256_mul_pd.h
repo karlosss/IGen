@@ -1133,37 +1133,16 @@ static inline ddi_4 _igen_dd_interleaved_mm256_mul_pd(ddi_4 a, ddi_4 b) {
 static inline ddi_4 _igen_dd_transposed_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
-    __m256d af0 = a.f[0];
-    __m256d af1 = a.f[1];
-    __m256d af2 = a.f[2];
-    __m256d af3 = a.f[3];
-
-    __m256d bf0 = b.f[0];
-    __m256d bf1 = b.f[1];
-    __m256d bf2 = b.f[2];
-    __m256d bf3 = b.f[3];
-
-    __m256d tmpa0 = _mm256_shuffle_pd(af0, af1, 0x0);
-    __m256d tmpa1 = _mm256_shuffle_pd(af0, af1, 0xF);
-    __m256d tmpa2 = _mm256_shuffle_pd(af2, af3, 0x0);
-    __m256d tmpa3 = _mm256_shuffle_pd(af2, af3, 0xF);
-
-    __m256d tmpb0 = _mm256_shuffle_pd(bf0, bf1, 0x0);
-    __m256d tmpb1 = _mm256_shuffle_pd(bf0, bf1, 0xF);
-    __m256d tmpb2 = _mm256_shuffle_pd(bf2, bf3, 0x0);
-    __m256d tmpb3 = _mm256_shuffle_pd(bf2, bf3, 0xF);
-
-    __m256d a_0 = _mm256_permute2f128_pd(tmpa0, tmpa2, 0x20);
-    __m256d a_1 = _mm256_permute2f128_pd(tmpa1, tmpa3, 0x20);
-    __m256d a_2 = _mm256_permute2f128_pd(tmpa0, tmpa2, 0x31);
-    __m256d a_3 = _mm256_permute2f128_pd(tmpa1, tmpa3, 0x31);
-
-    __m256d b_0 = _mm256_permute2f128_pd(tmpb0, tmpb2, 0x20);
-    __m256d b_1 = _mm256_permute2f128_pd(tmpb1, tmpb3, 0x20);
-    __m256d b_2 = _mm256_permute2f128_pd(tmpb0, tmpb2, 0x31);
-    __m256d b_3 = _mm256_permute2f128_pd(tmpb1, tmpb3, 0x31);
-
-    // ===================================================================
+    ddi_4 trans_a = _vec_transpose(a);
+    ddi_4 trans_b = _vec_transpose(b);
+    __m256d a_0 = trans_a.f[0];
+    __m256d a_1 = trans_a.f[1];
+    __m256d a_2 = trans_a.f[2];
+    __m256d a_3 = trans_a.f[3];
+    __m256d b_0 = trans_b.f[0];
+    __m256d b_1 = trans_b.f[1];
+    __m256d b_2 = trans_b.f[2];
+    __m256d b_3 = trans_b.f[3];
 
     __m256d neg_b_0 = -b_0;
     __m256d neg_b_1 = -b_1;
@@ -1322,23 +1301,7 @@ static inline ddi_4 _igen_dd_transposed_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     __m256d res_2 = _mm256_max_pd(a9_2, b9_2);
     __m256d res_3 = _mm256_max_pd(a9_3, b9_3);
 
-    // =================================================================
-
-    __m256d tmpres0 = _mm256_shuffle_pd(res_0, res_1, 0x0);
-    __m256d tmpres1 = _mm256_shuffle_pd(res_0, res_1, 0xF);
-    __m256d tmpres2 = _mm256_shuffle_pd(res_2, res_3, 0x0);
-    __m256d tmpres3 = _mm256_shuffle_pd(res_2, res_3, 0xF);
-
-    __m256d finres_0 = _mm256_permute2f128_pd(tmpres0, tmpres2, 0x20);
-    __m256d finres_1 = _mm256_permute2f128_pd(tmpres1, tmpres3, 0x20);
-    __m256d finres_2 = _mm256_permute2f128_pd(tmpres0, tmpres2, 0x31);
-    __m256d finres_3 = _mm256_permute2f128_pd(tmpres1, tmpres3, 0x31);
-
-    dst.f[0] = finres_0;
-    dst.f[1] = finres_1;
-    dst.f[2] = finres_2;
-    dst.f[3] = finres_3;
-
+    dst = _vec_transpose(res_0, res_1, res_2, res_3);
     return dst;
 }
 
