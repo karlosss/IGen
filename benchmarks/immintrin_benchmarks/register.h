@@ -27,6 +27,7 @@ BENCHMARK(mm256_add_pd, no_unused_vals)
 
 BENCHMARK(mm256_div_pd, fb)
 BENCHMARK(mm256_div_pd, inline_fn)
+BENCHMARK(mm256_div_pd, transposed)
 
 static void register_functions() {
     // first one is the baseline function that is used to verify against
@@ -51,4 +52,5 @@ static void register_functions() {
 
     ADD_FUNC(mm256_div_pd, fb, 16, 12)
     ADD_FUNC(mm256_div_pd, inline_fn, 16, 12)
+    ADD_FUNC(mm256_div_pd, transposed, 16, 12)
 }

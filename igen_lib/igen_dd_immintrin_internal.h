@@ -684,3 +684,49 @@ static inline dd_I _error_dd (dd_I a) {
 #define TRUNCATE_s           _error_dd
 #define NearbyInt_s          _error_dd
 #define RoundToNearestEven_s _error_dd
+
+
+static inline ddi_4 _vec_transpose(ddi_4 a) {
+    ddi_4 dst;
+
+    __m256d af0 = a.f[0];
+    __m256d af1 = a.f[1];
+    __m256d af2 = a.f[2];
+    __m256d af3 = a.f[3];
+
+    __m256d tmpa0 = _mm256_shuffle_pd(af0, af1, 0x0);
+    __m256d tmpa1 = _mm256_shuffle_pd(af0, af1, 0xF);
+    __m256d tmpa2 = _mm256_shuffle_pd(af2, af3, 0x0);
+    __m256d tmpa3 = _mm256_shuffle_pd(af2, af3, 0xF);
+
+    __m256d a_lh = _mm256_permute2f128_pd(tmpa0, tmpa2, 0x20);
+    __m256d a_ll = _mm256_permute2f128_pd(tmpa1, tmpa3, 0x20);
+    __m256d a_uh = _mm256_permute2f128_pd(tmpa0, tmpa2, 0x31);
+    __m256d a_ul = _mm256_permute2f128_pd(tmpa1, tmpa3, 0x31);
+
+    dst.f[0] = a_lh;
+    dst.f[1] = a_ll;
+    dst.f[2] = a_uh;
+    dst.f[3] = a_ul;
+    return dst;
+}
+
+static inline ddi_4 _vec_transpose(__m256d a, __m256d b, __m256d c, __m256d d) {
+    ddi_4 dst;
+
+    __m256d tmpa0 = _mm256_shuffle_pd(a, b, 0x0);
+    __m256d tmpa1 = _mm256_shuffle_pd(a, b, 0xF);
+    __m256d tmpa2 = _mm256_shuffle_pd(c, d, 0x0);
+    __m256d tmpa3 = _mm256_shuffle_pd(c, d, 0xF);
+
+    __m256d a_lh = _mm256_permute2f128_pd(tmpa0, tmpa2, 0x20);
+    __m256d a_ll = _mm256_permute2f128_pd(tmpa1, tmpa3, 0x20);
+    __m256d a_uh = _mm256_permute2f128_pd(tmpa0, tmpa2, 0x31);
+    __m256d a_ul = _mm256_permute2f128_pd(tmpa1, tmpa3, 0x31);
+
+    dst.f[0] = a_lh;
+    dst.f[1] = a_ll;
+    dst.f[2] = a_uh;
+    dst.f[3] = a_ul;
+    return dst;
+}
