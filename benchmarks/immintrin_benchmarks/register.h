@@ -35,13 +35,13 @@ static void register_functions() {
 //    ADD_FUNC(mm256_sub_pd, fb, 2, 2)
 //    ADD_FUNC(mm256_sub_pd, permute_no_unused_vals, 2, 2)
 //
-//    ADD_FUNC(mm256_mul_pd, fb, 16, 12)
+    ADD_FUNC(mm256_mul_pd, fb, 16, 12)
 //    ADD_FUNC(mm256_mul_pd, inlined_loop, 16, 12)
 //    ADD_FUNC(mm256_mul_pd, one_inlined_fn, 16, 12)
 //    ADD_FUNC(mm256_mul_pd, no_interleave, 16, 12)
 //    ADD_FUNC(mm256_mul_pd, mul_fn, 16, 12)
 //    ADD_FUNC(mm256_mul_pd, interleaved, 16, 12)
-//    ADD_FUNC(mm256_mul_pd, transposed, 16, 12)
+    ADD_FUNC(mm256_mul_pd, transposed, 16, 12)
 //
 //    ADD_FUNC(mm256_add_pd, fb, 16, 12)
 //    ADD_FUNC(mm256_add_pd, forloop, 16, 12)

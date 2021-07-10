@@ -1130,20 +1130,7 @@ static inline ddi_4 _igen_dd_interleaved_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     return dst;
 }
 
-static inline ddi_4 _igen_dd_transposed_mm256_mul_pd(ddi_4 a, ddi_4 b) {
-    ddi_4 dst;
-
-    ddi_4 trans_a = _vec_transpose(a);
-    ddi_4 trans_b = _vec_transpose(b);
-    __m256d a_0 = trans_a.f[0];
-    __m256d a_1 = trans_a.f[1];
-    __m256d a_2 = trans_a.f[2];
-    __m256d a_3 = trans_a.f[3];
-    __m256d b_0 = trans_b.f[0];
-    __m256d b_1 = trans_b.f[1];
-    __m256d b_2 = trans_b.f[2];
-    __m256d b_3 = trans_b.f[3];
-
+static inline ddi_4 _transposed_mul(dd_I a_0, dd_I a_1, dd_I a_2, dd_I a_3, dd_I b_0, dd_I b_1, dd_I b_2, dd_I b_3) {
     __m256d neg_b_0 = -b_0;
     __m256d neg_b_1 = -b_1;
     __m256d neg_b_2 = -b_2;
@@ -1301,7 +1288,25 @@ static inline ddi_4 _igen_dd_transposed_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     __m256d res_2 = _mm256_max_pd(a9_2, b9_2);
     __m256d res_3 = _mm256_max_pd(a9_3, b9_3);
 
-    dst = _vec_transpose(res_0, res_1, res_2, res_3);
+    return (ddi_4) {.f = {res_0, res_1, res_2, res_3}};
+}
+
+static inline ddi_4 _igen_dd_transposed_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+    ddi_4 dst;
+
+    ddi_4 trans_a = _vec_transpose(a);
+    ddi_4 trans_b = _vec_transpose(b);
+    __m256d a_0 = trans_a.f[0];
+    __m256d a_1 = trans_a.f[1];
+    __m256d a_2 = trans_a.f[2];
+    __m256d a_3 = trans_a.f[3];
+    __m256d b_0 = trans_b.f[0];
+    __m256d b_1 = trans_b.f[1];
+    __m256d b_2 = trans_b.f[2];
+    __m256d b_3 = trans_b.f[3];
+
+    ddi_4 res = _transposed_mul(a_0, a_1, a_2, a_3, b_0, b_1, b_2, b_3);
+    dst = _vec_transpose(res);
     return dst;
 }
 
