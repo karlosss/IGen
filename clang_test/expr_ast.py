@@ -1,4 +1,9 @@
 class ASTNode:
+    def __init__(self):
+        self.parent = None
+        for child in self.children:
+            child.parent = self
+
     def to_infix(self):
         return self._to_infix(parenthesized=False)
 
@@ -12,6 +17,8 @@ class ASTNode:
 class ConstNode(ASTNode):
     def __init__(self, val):
         self.val = val
+        self.children = []
+        super().__init__()
 
     def _to_infix(self, parenthesized=True):
         return str(self.val)
@@ -23,6 +30,8 @@ class ConstNode(ASTNode):
 class VarNode(ASTNode):
     def __init__(self, name):
         self.name = name
+        self.children = []
+        super().__init__()
 
     def _to_infix(self, parenthesized=True):
         return self.name
@@ -38,16 +47,18 @@ class OperatorNode(ASTNode):
 
 class BinaryOperatorNode(OperatorNode):
     def __init__(self, lhs, rhs):
-        self.lhs = lhs
-        self.rhs = rhs
+        self.children = [lhs, rhs]
+        super().__init__()
 
     def to_prefix(self):
-        return "({} {} {})".format(self.operator_name, self.lhs.to_prefix(), self.rhs.to_prefix())
+        return "({} {} {})".format(self.operator_name, self.children[0].to_prefix(), self.children[1].to_prefix())
 
     def _to_infix(self, parenthesized=True):
-        res = "{} {} {}".format(self.lhs._to_infix(parenthesized=self.lhs.priority < self.priority if hasattr(self.lhs, "priority") else True),
+        res = "{} {} {}".format(self.children[0]._to_infix(
+            parenthesized=self.children[0].priority < self.priority if hasattr(self.children[0], "priority") else True),
                                 self.operator_name,
-                                self.rhs._to_infix(parenthesized=self.rhs.priority < self.priority if hasattr(self.rhs, "priority") else True))
+                                self.children[1]._to_infix(
+            parenthesized=self.children[1].priority < self.priority if hasattr(self.children[1], "priority") else True))
         return "({})".format(res) if parenthesized else res
 
 
@@ -113,14 +124,16 @@ class DivNode(BinaryOperatorNode):
 
 class UnaryOperatorNode(OperatorNode):
     def __init__(self, op):
-        self.op = op
+        self.children = [op]
+        super().__init__()
 
     def to_prefix(self):
-        return "({} {})".format(self.operator_name, self.op.to_prefix())
+        return "({} {})".format(self.operator_name, self.children[0].to_prefix())
 
     def _to_infix(self, parenthesized=True):
         res = "{}{}".format(self.operator_name,
-                            self.op._to_infix(parenthesized=self.op.priority < self.priority if hasattr(self.op, "priority") else True))
+                            self.children[0]._to_infix(
+            parenthesized=self.children[0].priority < self.priority if hasattr(self.children[0], "priority") else True))
         return "({})".format(res) if parenthesized else res
 
 
@@ -138,17 +151,16 @@ class TernaryOperatorNode(OperatorNode):
     priority = 99  # max priority to never wrap in additional parentheses
 
     def __init__(self, cond, if_true, if_false):
-        self.cond = cond
-        self.if_true = if_true
-        self.if_false = if_false
+        self.children = [cond, if_true, if_false]
+        super().__init__()
 
     def to_prefix(self):
         raise AssertionError("Unable to convert ternary operator to prefix form")
 
     def _to_infix(self, parenthesized=True):
-        return "({} ? {} : {})".format(self.cond._to_infix(parenthesized=False),
-                                       self.if_true._to_infix(parenthesized=False),
-                                       self.if_false._to_infix(parenthesized=False),
+        return "({} ? {} : {})".format(self.children[0]._to_infix(parenthesized=False),
+                                       self.children[1]._to_infix(parenthesized=False),
+                                       self.children[2]._to_infix(parenthesized=False),
                                        )
 
 
@@ -159,13 +171,14 @@ class FunctionNode(ASTNode):
     def __init__(self, *args):
         if len(args) != self.arity:
             raise ValueError("{}: expected {} arguments, {} provided".format(self.fn_name, self.arity, len(args)))
-        self.args = args
+        self.children = args
+        super().__init__()
 
     def to_prefix(self):
-        return "({} {})".format(self.fn_name, " ".join([x.to_prefix() for x in self.args]))
+        return "({} {})".format(self.fn_name, " ".join([x.to_prefix() for x in self.children]))
 
     def _to_infix(self, parenthesized=True):
-        return "{}({})".format(self.fn_name, ", ".join([x._to_infix(parenthesized=False) for x in self.args]))
+        return "{}({})".format(self.fn_name, ", ".join([x._to_infix(parenthesized=False) for x in self.children]))
 
 
 class PowNode(FunctionNode):
