@@ -94,7 +94,7 @@ def infix_to_ast(input_string):
         ]
     )
 
-    return (expr.parseString(input_string)[0].ast(),
+    return (AST(expr.parseString(input_string)[0].ast()),
             _VariableHandler.variable_map,
             _VariableHandler.reverse_variable_map)
 
@@ -178,5 +178,11 @@ def prefix_to_ast(input_string, variable_map):
 
     res = expression.parseString(input_string)
     if isinstance(res[0], str):
-        return _build_ast_from_prefix(res[0], variable_map)
-    return _build_ast_from_prefix(res[0].asList(), variable_map)
+        return AST(_build_ast_from_prefix(res[0], variable_map))
+    return AST(_build_ast_from_prefix(res[0].asList(), variable_map))
+
+
+x, _, _ = infix_to_ast("2 + sqrt(1+2+3+4) + 5")
+from ast_opt import eval_const
+x = eval_const(x)
+print(x.to_infix())
