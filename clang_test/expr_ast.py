@@ -1,4 +1,4 @@
-from math import prod
+from decimal_arith import add, sub, mul, div, sqrt, cbrt, pow, InexactResult
 
 
 class AST:
@@ -6,7 +6,7 @@ class AST:
         self.root = root
 
     def to_infix(self):
-        return self.root.to_infix()
+        return self.root.to_infix(par=False)
 
     def to_prefix(self):
         return self.root.to_prefix()
@@ -23,33 +23,14 @@ class ASTNode:
         self.id = None
         self.parent = None
 
-    def to_infix(self):
-        return self._to_infix(parenthesized=False)
-
-    def _to_infix(self, parenthesized=True):
+    def to_infix(self, par=True):
         raise NotImplementedError
 
     def to_prefix(self):
         raise NotImplementedError
 
-    def replace_child(self, i, child):
-        self.children[i] = child
-        child.parent = self
-
-    def insert_child(self, child, pos=None):
-        if pos:
-            self.children.insert(pos, child)
-        else:
-            self.children.append(child)
-
-    def remove_child(self, pos):
-        self.children.pop(pos)
-
     def is_root(self):
         return self.parent is None
-
-    def is_leaf(self):
-        return len(self.children) == 0
 
     def replace(self, node):
         if self.is_root():
@@ -65,7 +46,7 @@ class ConstNode(ASTNode):
         self.val = val
         self.children = []
 
-    def _to_infix(self, parenthesized=True):
+    def to_infix(self, par=True):
         return str(self.val)
 
     def to_prefix(self):
@@ -78,7 +59,7 @@ class VarNode(ASTNode):
         self.name = name
         self.children = []
 
-    def _to_infix(self, parenthesized=True):
+    def to_infix(self, par=True):
         return self.name
 
     def to_prefix(self):
@@ -87,10 +68,12 @@ class VarNode(ASTNode):
 
 class OperatorNode(ASTNode):
     operator_name = None
-    priority = None
 
 
 class BinaryOperatorNode(OperatorNode):
+    priority = None
+    associative = None
+
     def __init__(self, lhs, rhs):
         super().__init__()
         self.children = [lhs, rhs]
@@ -102,95 +85,146 @@ class BinaryOperatorNode(OperatorNode):
     def to_prefix(self):
         return "({} {} {})".format(self.operator_name, self.children[0].to_prefix(), self.children[1].to_prefix())
 
-    def _to_infix(self, parenthesized=True):
-        res = "{} {} {}".format(self.children[0]._to_infix(
-            parenthesized=self.children[0].priority < self.priority if hasattr(self.children[0], "priority") else True),
+    def to_infix(self, par=True):
+        lhs_par = self.children[0].priority < self.priority if hasattr(self.children[0], "priority") else True
+        if hasattr(self.children[1], "priority"):
+            rhs_par = self.children[1].priority < self.priority or (
+                    self.children[1].priority == self.priority and not self.associative)
+        else:
+            rhs_par = True
+
+        res = "{} {} {}".format(self.children[0].to_infix(par=lhs_par),
                                 self.operator_name,
-                                self.children[1]._to_infix(
-            parenthesized=self.children[1].priority < self.priority if hasattr(self.children[1], "priority") else True))
-        return "({})".format(res) if parenthesized else res
+                                self.children[1].to_infix(par=rhs_par))
+        return res if not par else "({})".format(res)
 
 
 class AndNode(BinaryOperatorNode):
     operator_name = "&&"
-    priority = 1
+    priority = 2
+    associative = True
+
+    def to_infix(self, par=True):
+        lhs_par = self.children[0].priority < self.priority if hasattr(self.children[0], "priority") else True
+        if hasattr(self.children[1], "priority"):
+            rhs_par = self.children[1].priority < self.priority or (
+                    self.children[1].priority == self.priority and not self.associative)
+        else:
+            rhs_par = True
+
+        if isinstance(self.children[0], OrNode):
+            lhs_par = True
+        if isinstance(self.children[1], OrNode):
+            rhs_par = True
+
+        res = "{} {} {}".format(self.children[0].to_infix(par=lhs_par),
+                                self.operator_name,
+                                self.children[1].to_infix(par=rhs_par))
+        return res if not par else "({})".format(res)
+
 
 
 class OrNode(BinaryOperatorNode):
     operator_name = "||"
-    priority = 1
+    priority = 2
+    associative = True
+
+    def to_infix(self, par=True):
+        lhs_par = self.children[0].priority < self.priority if hasattr(self.children[0], "priority") else True
+        if hasattr(self.children[1], "priority"):
+            rhs_par = self.children[1].priority < self.priority or (
+                    self.children[1].priority == self.priority and not self.associative)
+        else:
+            rhs_par = True
+
+        if isinstance(self.children[0], AndNode):
+            lhs_par = True
+        if isinstance(self.children[1], AndNode):
+            rhs_par = True
+
+        res = "{} {} {}".format(self.children[0].to_infix(par=lhs_par),
+                                self.operator_name,
+                                self.children[1].to_infix(par=rhs_par))
+        return res if not par else "({})".format(res)
 
 
 class EqNode(BinaryOperatorNode):
     operator_name = "=="
-    priority = 2
+    priority = 3
 
 
 class NotEqNode(BinaryOperatorNode):
     operator_name = "!="
-    priority = 2
+    priority = 3
 
 
 class GtNode(BinaryOperatorNode):
     operator_name = ">"
-    priority = 2
+    priority = 3
 
 
 class LtNode(BinaryOperatorNode):
     operator_name = "<"
-    priority = 2
+    priority = 3
 
 
 class GtOrEqNode(BinaryOperatorNode):
     operator_name = ">="
-    priority = 2
+    priority = 3
 
 
 class LtOrEqNode(BinaryOperatorNode):
     operator_name = "<="
-    priority = 2
+    priority = 3
 
 
 class PlusNode(EvalConstMixin, BinaryOperatorNode):
     operator_name = "+"
-    priority = 3
+    priority = 4
+    associative = True
 
     def eval_const(self):
-        if all([isinstance(c, ConstNode) for c in self.children]):
-            return sum([c.val for c in self.children])
+        if isinstance(self.children[0], ConstNode) and isinstance(self.children[1], ConstNode):
+            return add(self.children[0].val, self.children[1].val)
         else:
             return None
 
 
 class MinusNode(EvalConstMixin, BinaryOperatorNode):
     operator_name = "-"
-    priority = 3
+    priority = 4
+    associative = False
 
     def eval_const(self):
-        if all([isinstance(c, ConstNode) for c in self.children]):
-            return self.children[0] - self.children[1]
+        if isinstance(self.children[0], ConstNode) and isinstance(self.children[1], ConstNode):
+            return sub(self.children[0].val, self.children[1].val)
         else:
             return None
 
 
 class MulNode(EvalConstMixin, BinaryOperatorNode):
     operator_name = "*"
-    priority = 4
+    priority = 5
+    associative = True
 
     def eval_const(self):
-        if all([isinstance(c, ConstNode) for c in self.children]):
-            return prod([c.val for c in self.children])
+        if isinstance(self.children[0], ConstNode) and isinstance(self.children[1], ConstNode):
+            return mul(self.children[0].val, self.children[1].val)
         else:
             return None
 
 
 class DivNode(EvalConstMixin, BinaryOperatorNode):
     operator_name = "/"
-    priority = 4
+    priority = 5
+    associative = False
 
     def eval_const(self):
-        if all([isinstance(c, ConstNode) for c in self.children]):
-            return self.children[0] / self.children[1]
+        if isinstance(self.children[0], ConstNode) and isinstance(self.children[1], ConstNode):
+            try:
+                return div(self.children[0].val, self.children[1].val)
+            except InexactResult:
+                return None
         else:
             return None
 
@@ -205,26 +239,28 @@ class UnaryOperatorNode(OperatorNode):
     def to_prefix(self):
         return "({} {})".format(self.operator_name, self.children[0].to_prefix())
 
-    def _to_infix(self, parenthesized=True):
-        res = "{}{}".format(self.operator_name,
-                            self.children[0]._to_infix(
-            parenthesized=self.children[0].priority < self.priority if hasattr(self.children[0], "priority") else True))
-        return "({})".format(res) if parenthesized else res
-
 
 class NotNode(UnaryOperatorNode):
     operator_name = "!"
-    priority = 5
+
+    def to_infix(self, par=True):
+        return "{}{}".format(self.operator_name, self.children[0].to_infix(par=True))
 
 
-class UnaryMinusNode(UnaryOperatorNode):
+class UnaryMinusNode(EvalConstMixin, UnaryOperatorNode):
     operator_name = "-"
-    priority = -99  # always parenthesize
+
+    def to_infix(self, par=True):
+        return "({}{})".format(self.operator_name, self.children[0].to_infix(par=True))
+
+    def eval_const(self):
+        if isinstance(self.children[0], ConstNode):
+            return ConstNode(-self.children[0].val)
+        else:
+            return None
 
 
 class TernaryOperatorNode(OperatorNode):
-    priority = 99  # max priority to never wrap in additional parentheses
-
     def __init__(self, cond, if_true, if_false):
         super().__init__()
         self.children = [cond, if_true, if_false]
@@ -238,10 +274,10 @@ class TernaryOperatorNode(OperatorNode):
     def to_prefix(self):
         raise AssertionError("Unable to convert ternary operator to prefix form")
 
-    def _to_infix(self, parenthesized=True):
-        return "({} ? {} : {})".format(self.children[0]._to_infix(parenthesized=False),
-                                       self.children[1]._to_infix(parenthesized=False),
-                                       self.children[2]._to_infix(parenthesized=False),
+    def to_infix(self, par=True):
+        return "({} ? {} : {})".format(self.children[0].to_infix(par=False),
+                                       self.children[1].to_infix(par=False),
+                                       self.children[2].to_infix(par=False),
                                        )
 
 
@@ -264,23 +300,50 @@ class FunctionNode(ASTNode):
     def to_prefix(self):
         return "({} {})".format(self.fn_name, " ".join([x.to_prefix() for x in self.children]))
 
-    def _to_infix(self, parenthesized=True):
-        return "{}({})".format(self.fn_name, ", ".join([x._to_infix(parenthesized=False) for x in self.children]))
+    def to_infix(self, par=True):
+        return "{}({})".format(self.fn_name, ", ".join([x.to_infix(par=False) for x in self.children]))
 
 
-class PowNode(FunctionNode):
+class PowNode(EvalConstMixin, FunctionNode):
     fn_name = "pow"
     arity = 2
 
+    def eval_const(self):
+        if isinstance(self.children[0], ConstNode) and isinstance(self.children[1], ConstNode):
+            try:
+                return pow(self.children[0].val, self.children[1].val)
+            except (InexactResult, AssertionError):
+                return None
+        else:
+            return None
 
-class SqrtNode(FunctionNode):
+
+class SqrtNode(EvalConstMixin, FunctionNode):
     fn_name = "sqrt"
     arity = 1
 
+    def eval_const(self):
+        if isinstance(self.children[0], ConstNode):
+            try:
+                return sqrt(self.children[0].val)
+            except (InexactResult, AssertionError):
+                return None
+        else:
+            return None
 
-class CbrtNode(FunctionNode):
+
+class CbrtNode(EvalConstMixin, FunctionNode):
     fn_name = "cbrt"
     arity = 1
+
+    def eval_const(self):
+        if isinstance(self.children[0], ConstNode):
+            try:
+                return cbrt(self.children[0].val)
+            except (InexactResult, AssertionError):
+                return None
+        else:
+            return None
 
 
 class ExpNode(FunctionNode):
