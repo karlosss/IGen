@@ -9,7 +9,7 @@ from ast_opt import simplify
 sys.setrecursionlimit(5000)
 pyparsing.ParserElement.enablePackrat()
 
-HERBIE_OPTS = "--seed 367622149 --disable generate:taylor"
+HERBIE_OPTS = "--seed 1794361768 --disable generate:taylor"
 
 variable_maps = []
 
