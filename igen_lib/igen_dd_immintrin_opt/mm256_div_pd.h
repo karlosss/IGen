@@ -92,7 +92,6 @@ static inline ddi_4 _igen_dd_transposed_mm256_div_pd(ddi_4 a, ddi_4 b) {
     __m256d b_3 = trans_b.f[3];
 
     dd_I inf = _ia_set_dd(INFINITY, -0.0, INFINITY, 0.0);
-    __m256d inf_t = _mm256_set1_pd(INFINITY);
     __m256d zero_t = _mm256_setzero_pd();
     __m256d neg_one_t = _mm256_set1_pd(-1.0);
     __m256d neg_zero_t = _mm256_set1_pd(-0.0);
@@ -225,7 +224,6 @@ static inline ddi_4 _igen_dd_transposed_avx_cond_mm256_div_pd(ddi_4 a, ddi_4 b) 
     __m256d b_2 = trans_b.f[2];
     __m256d b_3 = trans_b.f[3];
 
-    dd_I inf = _ia_set_dd(INFINITY, -0.0, INFINITY, 0.0);
     __m256d inf_t = _mm256_set1_pd(INFINITY);
     __m256d zero_t = _mm256_setzero_pd();
     __m256d neg_one_t = _mm256_set1_pd(-1.0);
