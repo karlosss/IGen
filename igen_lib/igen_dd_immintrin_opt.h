@@ -383,12 +383,7 @@ static inline ddi_4 _igen_dd_op_mm256_round_pd(ddi_4 _a, int rounding) {
     return dst.v;
 }
 
-static inline ddi_4 _igen_dd_op_mm256_fmadd_pd(ddi_4 a, ddi_4 b, ddi_4 c) {
-    ddi_4 dst;
-    ddi_4 t1 = _igen_dd_op_mm256_mul_pd(a, b);
-    dst = _igen_dd_one_inlined_fn_mm256_add_pd(t1, c);
-    return dst;
-}
+#include "igen_dd_immintrin_opt/mm256_fmadd_pd.h"
 
 static inline ddi_4 _igen_dd_op_mm256_fmsub_pd(ddi_4 _a, ddi_4 _b, ddi_4 _c) {
     vec256d a;
