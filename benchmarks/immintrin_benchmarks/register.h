@@ -49,7 +49,7 @@ static void register_functions() {
 //    ADD_FUNC(mm256_mul_pd, mul_fn, 16, 12)
 //    ADD_FUNC(mm256_mul_pd, interleaved, 16, 12)
 //    ADD_FUNC(mm256_mul_pd, transposed, 16, 12)
-
+//
 //    ADD_FUNC(mm256_add_pd, fb, 16, 12)
 //    ADD_FUNC(mm256_add_pd, forloop, 16, 12)
 //    ADD_FUNC(mm256_add_pd, inlined_loop, 16, 12)
@@ -57,13 +57,13 @@ static void register_functions() {
 //    ADD_FUNC(mm256_add_pd, interleaved, 16, 12)
 //    ADD_FUNC(mm256_add_pd, no_unused_vals, 16, 12)
 //    ADD_FUNC(mm256_add_pd, transposed, 16, 12)
+//
+//    ADD_FUNC(mm256_div_pd, fb, 16, 12)
+//    ADD_FUNC(mm256_div_pd, inline_fn, 16, 12)
+//    ADD_FUNC(mm256_div_pd, transposed, 16, 12)
+//    ADD_FUNC(mm256_div_pd, transposed_avx_cond, 16, 12)
 
-    ADD_FUNC(mm256_div_pd, fb, 16, 12)
-    ADD_FUNC(mm256_div_pd, inline_fn, 16, 12)
-    ADD_FUNC(mm256_div_pd, transposed, 16, 12)
-    ADD_FUNC(mm256_div_pd, transposed_avx_cond, 16, 12)
-
-//    ADD_FUNC(mm256_fmadd_pd, fb, 16, 12)
-//    ADD_FUNC(mm256_fmadd_pd, sep, 16, 12)
-//    ADD_FUNC(mm256_fmadd_pd, op, 16, 12)
+    ADD_FUNC(mm256_fmadd_pd, fb, 16, 12)
+    ADD_FUNC(mm256_fmadd_pd, sep, 16, 12)
+    ADD_FUNC(mm256_fmadd_pd, op, 16, 12)
 }
