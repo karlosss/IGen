@@ -93,20 +93,6 @@
         for(int i = 0; i < BENCHMARK_ITER; ++i){ \
             ddi40 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi40, ddi41, ddi42); \
             ddi40 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi40, ddi43, ddi44); \
-            ddi40 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi40, ddi41, ddi42); \
-            ddi40 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi40, ddi43, ddi44); \
-            ddi40 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi40, ddi41, ddi42); \
-            ddi40 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi40, ddi43, ddi44); \
-            ddi40 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi40, ddi41, ddi42); \
-            ddi40 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi40, ddi43, ddi44); \
-            ddi40 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi40, ddi41, ddi42); \
-            ddi40 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi40, ddi43, ddi44); \
-            ddi40 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi40, ddi41, ddi42); \
-            ddi40 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi40, ddi43, ddi44); \
-            ddi40 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi40, ddi41, ddi42); \
-            ddi40 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi40, ddi43, ddi44); \
-            ddi40 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi40, ddi41, ddi42); \
-            ddi40 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi40, ddi43, ddi44); \
         } \
         out_ddi4[0] = ddi40; \
     }
@@ -116,30 +102,8 @@
         for(int i = 0; i < BENCHMARK_ITER; ++i){ \
             ddi42 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi42, ddi41, ddi40); \
             ddi43 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi43, ddi41, ddi40); \
-            ddi44 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi44, ddi41, ddi40); \
-            ddi45 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi45, ddi41, ddi40); \
-            \
-            ddi46 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi46, ddi41, ddi40); \
-            ddi47 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi47, ddi41, ddi40); \
-            ddi48 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi48, ddi41, ddi40); \
-            ddi49 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi49, ddi41, ddi40); \
-            \
-            ddi410 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi410, ddi41, ddi40); \
-            ddi411 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi411, ddi41, ddi40); \
-            ddi412 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi412, ddi41, ddi40); \
-            ddi413 = _igen_dd_ ## NAME ## _mm256_fmadd_pd(ddi413, ddi41, ddi40); \
             } \
         \
         out_ddi4[2] = ddi42; \
         out_ddi4[3] = ddi43; \
-        out_ddi4[4] = ddi44; \
-        out_ddi4[5] = ddi45; \
-        out_ddi4[6] = ddi46; \
-        out_ddi4[7] = ddi47; \
-        out_ddi4[8] = ddi48; \
-        out_ddi4[9] = ddi49; \
-        out_ddi4[10] = ddi410; \
-        out_ddi4[11] = ddi411; \
-        out_ddi4[12] = ddi412; \
-        out_ddi4[13] = ddi413; \
     }
