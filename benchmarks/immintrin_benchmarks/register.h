@@ -58,8 +58,8 @@ static void register_functions() {
 //    ADD_FUNC(mm256_add_pd, no_unused_vals, 16, 12)
 //    ADD_FUNC(mm256_add_pd, transposed, 16, 12)
 //
-//    ADD_FUNC(mm256_div_pd, fb, 16, 12)
-//    ADD_FUNC(mm256_div_pd, inline_fn, 16, 12)
+    ADD_FUNC(mm256_div_pd, fb, 16, 12)
+    ADD_FUNC(mm256_div_pd, inline_fn, 16, 12)
 //    ADD_FUNC(mm256_div_pd, transposed, 16, 12)
 //    ADD_FUNC(mm256_div_pd, transposed_avx_cond, 16, 12)
 
@@ -67,3 +67,24 @@ static void register_functions() {
     ADD_FUNC(mm256_fmadd_pd, sep, 16, 12)
     ADD_FUNC(mm256_fmadd_pd, op, 16, 12)
 }
+
+
+//2 functions registered.
+//Verify mm256_fmadd_pd
+//sep... OK
+//op... OK
+//Verify mm256_div_pd
+//inline_fn... OK
+//Running benchmarks.
+//Benchmark mm256_fmadd_pd
+//fb latency: 394.381 cycles
+//        fb gap: 388.657 cycles
+//        sep latency: 227.043 cycles
+//        sep gap: 221.115 cycles
+//        op latency: 152.809 cycles
+//        op gap: 185.91 cycles
+//        Benchmark mm256_div_pd
+//        fb latency: 771.333 cycles
+//        fb gap: 309.706 cycles
+//        inline_fn latency: 632.899 cycles
+//        inline_fn gap: 176.976 cycles
