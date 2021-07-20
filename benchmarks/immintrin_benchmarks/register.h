@@ -67,3 +67,17 @@ static void register_functions() {
     ADD_FUNC(mm256_fmadd_pd, sep, 16, 12)
     ADD_FUNC(mm256_fmadd_pd, op, 16, 12)
 }
+
+
+//1 functions registered.
+//Verify mm256_fmadd_pd
+//sep... OK
+//op... OK
+//Running benchmarks.
+//Benchmark mm256_fmadd_pd
+//fb latency: 387.225 cycles
+//        fb gap: 381.41 cycles
+//        sep latency: 168.349 cycles
+//        sep gap: 196.111 cycles
+//        op latency: 152.413 cycles
+//        op gap: 101.623 cycles
