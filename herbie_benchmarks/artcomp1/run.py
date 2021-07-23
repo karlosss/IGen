@@ -2,7 +2,7 @@ import sys
 sys.path.append("..")
 from common import *
 
-init()
+benchmark(lambda: random_sci_interval(-10, 10, 3, -50, 50))
 
 # accuracy_herbie = []
 # runtime_herbie = []

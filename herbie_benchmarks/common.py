@@ -5,6 +5,8 @@ import math
 import argparse
 import re
 
+DEFAULT_ITERS = 100
+
 
 def init():
     args = parse_arguments()
@@ -14,6 +16,26 @@ def init():
         create_template_sources(args.seed)
     if args.recompile_code:
         compile_template_sources(args.seed)
+    return args
+
+
+def benchmark(*param_fns, iters=None):
+    args = init()
+    iters = iters or DEFAULT_ITERS
+
+    acc_no_herbie = []
+    acc_herbie = []
+    run_no_herbie = []
+    run_herbie = []
+
+    for i in range(iters):
+        par = [x for fn in param_fns for x in fn()]
+        acc_no_herbie.append(float(_run_command(["bin/accuracy", *par])[:-1].split(" ")[-1]))
+        acc_herbie.append(float(_run_command(["bin/accuracy_{}".format(args.seed), *par])[:-1].split(" ")[-1]))
+        run_no_herbie.append(int(_run_command(["bin/runtime", *par])[:-1]))
+        run_herbie.append(int(_run_command(["bin/runtime_{}".format(args.seed), *par])[:-1]))
+
+    print(acc_herbie, acc_no_herbie, run_herbie, run_no_herbie)
 
 
 def parse_arguments():
@@ -45,10 +67,23 @@ def parse_arguments():
         print("Seed not set, choosing a random one: {}".format(args.seed))
         args.recompile_igen = True
 
+    if not os.path.exists("bin/{}.cpp".format(args.seed)) or not os.path.exists("bin/no_herbie.cpp"):
+        args.recompile_igen = True
+
     if args.recompile_igen:
         args.recompile_templates = True
 
+    if not os.path.exists("bin/accuracy_{}.cpp".format(args.seed)) or \
+            not os.path.exists("bin/runtime_{}.cpp".format(args.seed)) or \
+            not os.path.exists("bin/accuracy.cpp") or not os.path.exists("bin/runtime.cpp"):
+        args.recompile_templates = True
+
     if args.recompile_templates:
+        args.recompile_code = True
+
+    if not os.path.exists("bin/accuracy_{}".format(args.seed)) or \
+            not os.path.exists("bin/runtime_{}".format(args.seed)) or \
+            not os.path.exists("bin/accuracy") or not os.path.exists("bin/runtime"):
         args.recompile_code = True
 
     return args
@@ -98,7 +133,7 @@ def create_template_sources(seed):
     call_args = ""
     for i in range(_get_num_args(_get_fn_decl(herbie_fn))):
         interval_bounds += "double x{i}up = std::stod(std::string(argv[{a1}]));\n" \
-                           "double x{i}lo = neg(std::string(argv[{a}]));\n".format(i=i, a1=2*i-1, a=2*i)
+                           "double x{i}lo = neg(std::string(argv[{a}]));\n".format(i=i, a1=2*i+1, a=2*i+2)
         f64i_decls += "f64_I x{i} = _ia_set_f64(x{i}lo, x{i}up);\n".format(i=i)
         call_args += ", x{i}".format(i=i)
     funcall = "f(" + call_args[2:] + ");\n"
@@ -158,11 +193,12 @@ def random_sci_interval(wl, wu, dp, el, eu, width=0):
 
 
 def _run_command(cmd):
-    print("Running command: {}".format(" ".join(cmd)))
+    # print("Running command: {}".format(" ".join(cmd)))
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = p.communicate()
     if stderr:
         print(stderr.decode("utf8"))
+    return stdout.decode("utf8")
 
 
 def avg(l):
