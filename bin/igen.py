@@ -1,3 +1,4 @@
+import random
 import re
 import subprocess
 import os
@@ -29,8 +30,8 @@ clang_bin_path     = os.path.join(project_path, 'third-party/llvm-project-11.0.1
 
 # Binaries
 igen_bin           = os.path.join(project_path, 'bin/igen')
-herbie_bin         = os.path.join(project_path, 'clang_test/clang_ast_visitor')
-herbie_script      = os.path.join(project_path, 'clang_test/herbie.py')
+herbie_bin         = os.path.join(project_path, 'herbie_compiler/herbie_compiler')
+herbie_script      = os.path.join(project_path, 'herbie_runner/herbie.py')
 clang_bin          = os.path.join(clang_bin_path, 'clang')
 opt_bin            = os.path.join(clang_bin_path, 'opt')
 tidy_bin           = os.path.join(clang_bin_path, 'clang-tidy')
@@ -274,7 +275,7 @@ def run_herbie(args):
         redu_file = os.path.dirname(args.input_file) + '/' + polly_redu_file_name
 
     # Construct and run command
-    cmd = ["python", herbie_script, herbie_bin, prep_file, '--', '-I' + clang_include_path, '-I' + igen_lib_path]
+    cmd = ["python", herbie_script, args.seed, herbie_bin, prep_file, '--', '-I' + clang_include_path, '-I' + igen_lib_path]
     if args.includes is not None:
         for i in args.includes:
             cmd += ['-I' + i]
@@ -282,7 +283,8 @@ def run_herbie(args):
         for i in args.defines:
             cmd += ['-D' + i]
     igen_out, igen_messages = run_command(cmd)
-    print(igen_out, igen_messages)
+    if args.verbose:
+        print(igen_out, igen_messages)
 
 
 def run_igen(args):
@@ -305,7 +307,7 @@ def run_igen(args):
             cmd += ['-D' + i]
     cmd += ['-lib=' + args.interval_lib, '-tmode=' + args.tmode, redu_file]
     igen_out, igen_messages = run_command(cmd)
-    # os.remove(prep_file)
+    os.remove(prep_file)
 
     print('\tReplacing header files')
     # igen_out = re.sub(rex_math_h, igen_math_h, igen_out)
@@ -351,6 +353,7 @@ def parse_arguments():
     parser.add_argument('-R', dest='dont_run_herbie',
                         action='store_true', default=False,
                         help='Do not run Herbie')
+    parser.add_argument("-s", dest='seed', required=False, help="Herbie seed")
     parser.add_argument('-V', dest='verbose',
                         action='store_true', default=False,
                         help='Print verbose information')
@@ -359,6 +362,9 @@ def parse_arguments():
 
     if not os.path.exists(args.input_file):
         sys.exit('Error: Input file not found')
+
+    if args.seed is None:
+        args.seed = random.randint(1, 2**31-1)
 
     # set default output file in case it is not specified
     if args.output_file is None:
@@ -379,6 +385,7 @@ def parse_arguments():
         print(args.prep_headers)
         print(args.only_preprocessor)
         print(args.dont_run_herbie)
+        print(args.seed)
 
     return args
 

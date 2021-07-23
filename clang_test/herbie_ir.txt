@@ -1,6 +1,0 @@
-double f(double a, double b, double c) {
-    double D;
-    double res;
-    return "<{[HERBIE-1]}>";
-}
-
