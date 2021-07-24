@@ -98,6 +98,7 @@ double neg(const std::string & s) {
 
 int main(int argc, char** argv) {
     fesetround(FE_UPWARD);
+    std::cout.precision(20);
 
     BOUNDS_DECL
     F64I_DECL
@@ -106,6 +107,7 @@ int main(int argc, char** argv) {
     for(int i = 1; i < argc; ++i) {
         std::cout << argv[i] << " ";
     }
+    std::cout << -res.lo << " " << res.up << " ";
     std::cout << getCorrectBits(res) << "\n";
     return 0;
 }

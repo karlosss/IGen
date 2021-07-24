@@ -63,8 +63,14 @@ static f64_I _ia_sqrt_f64(f64_I _op) {
 
 static f64_I log_pow(f64_I base, f64_I f64_exp) {
     int exp = (int) f64_exp.up;
+    bool rec = false;
+    if(exp < 0) {
+        exp = -exp;
+        rec = true;
+    }
     f64_I tmp = base;
-    f64_I res = _ia_set_f64(-1.0, 1.0);
+    f64_I one = _ia_set_f64(-1.0, 1.0);  // TODO move this to constants somewhere?
+    f64_I res = one;
     while(exp > 0) {
         if(exp & 1) {
             res = _ia_mul_f64(res, tmp);
@@ -72,15 +78,23 @@ static f64_I log_pow(f64_I base, f64_I f64_exp) {
         tmp = _ia_mul_f64(tmp, tmp);
         exp >>= 1;
     }
+    if(rec) res = _ia_div_f64(one, res);
     return res;
 }
 
 static f64_I lin_pow(f64_I base, f64_I f64_exp) {
     int exp = (int) f64_exp.up;
-    f64_I res = _ia_set_f64(-1.0, 1.0);
+    bool rec = false;
+    if(exp < 0) {
+        exp = -exp;
+        rec = true;
+    }
+    f64_I one = _ia_set_f64(-1.0, 1.0);  // TODO move this to constants somewhere?
+    f64_I res = one;
     for(int i = 0; i < exp; ++i) {
         res = _ia_mul_f64(res, base);
     }
+    if(rec) res = _ia_div_f64(one, res);
     return res;
 }
 

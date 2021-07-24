@@ -5,3 +5,4 @@ build/
 CMakeFiles/
 bin/
 venv/
+__pycache__

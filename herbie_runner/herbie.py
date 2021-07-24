@@ -16,6 +16,7 @@ HERBIED_EXPRESSIONS_PREFIX = "herbie_vals_out_prefix.txt"
 IR_SOURCE = "herbie_ir.txt"
 
 HERBIE_OPTS = "--disable generate:taylor"
+# HERBIE_OPTS = ""
 
 
 # extract seed
@@ -60,9 +61,11 @@ with open(HERBIED_EXPRESSIONS_PREFIX) as herbie_raw:
         i += 1
 
 
-# write results into igen prep file
+# write results into igen prep file as well as aside to be able to retrieve the original code
 with open(os.path.join(argv[1]), "w") as f:
-    f.write(herbie_ir)
+    with open("herbie_result.txt", "w") as f2:
+        f.write(herbie_ir)
+        f2.write(herbie_ir)
 
 
 os.remove(ORIG_EXPRESSIONS)

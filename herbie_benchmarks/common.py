@@ -1,7 +1,6 @@
 import os
 import random
 import subprocess
-import math
 import argparse
 import re
 
@@ -20,6 +19,13 @@ def init():
 
 
 def benchmark(*param_fns, iters=None):
+    def parse_accuracy_output(raw):
+        s = raw.split(" ")
+        acc = round(float(s[-1]), 4)
+        output = s[-3:-1]
+        params = s[:-3]
+        return acc, output, params
+
     args = init()
     iters = iters or DEFAULT_ITERS
 
@@ -28,14 +34,26 @@ def benchmark(*param_fns, iters=None):
     run_no_herbie = []
     run_herbie = []
 
+    print("Running benchmark")
+
     for i in range(iters):
         par = [x for fn in param_fns for x in fn()]
-        acc_no_herbie.append(float(_run_command(["bin/accuracy", *par])[:-1].split(" ")[-1]))
-        acc_herbie.append(float(_run_command(["bin/accuracy_{}".format(args.seed), *par])[:-1].split(" ")[-1]))
+
+        acc, out, p = parse_accuracy_output(_run_command(["bin/accuracy", *par]))
+        acc_no_herbie.append(acc)
+        print("no herbie {}: {} (acc {})".format(p, out, acc))
+
+        acc, out, p = parse_accuracy_output(_run_command(["bin/accuracy_{}".format(args.seed), *par]))
+        acc_herbie.append(acc)
+        print("herbie {}: {} (acc {})".format(p, out, acc))
+
         run_no_herbie.append(int(_run_command(["bin/runtime", *par])[:-1]))
         run_herbie.append(int(_run_command(["bin/runtime_{}".format(args.seed), *par])[:-1]))
 
-    print(acc_herbie, acc_no_herbie, run_herbie, run_no_herbie)
+    print("No herbie accuracy:\tmin {:<15}max {:<15}avg {:<15}med {:<15}".format(*stats(acc_no_herbie)))
+    print("Herbie accuracy:\tmin {:<15}max {:<15}avg {:<15}med {:<15}".format(*stats(acc_herbie)))
+    print("No herbie runtime:\tmin {:<15}max {:<15}avg {:<15}med {:<15}".format(*stats(run_no_herbie)))
+    print("Herbie runtime:\t\tmin {:<15}max {:<15}avg {:<15}med {:<15}".format(*stats(run_herbie)))
 
 
 def parse_arguments():
@@ -92,6 +110,7 @@ def parse_arguments():
 def create_fn_sources(seed):
     print("Generating function source with Herbie")
     _run_igen(seed, True)
+    os.remove("herbie_result.txt")
     print("Generating function source without Herbie")
     _run_igen(seed, False)
 
@@ -167,29 +186,52 @@ def _run_igen(seed, with_herbie):
         cmd += ["-R"]
     _run_command(cmd)
 
+    commented_lines = []
+    with open("herbie_result.txt" if with_herbie else "src.cpp") as f:
+        for line in f:
+            commented_lines.append("// " + line)
+    with open("bin/{}.cpp".format(seed if with_herbie else "no_herbie")) as f:
+        contents = f.read()
+    with open("bin/{}.cpp".format(seed if with_herbie else "no_herbie"), "w") as f:
+        f.write("// ORIGINAL CODE:\n" + "".join(commented_lines) + "\n" + contents)
+
 
 digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 
-def random_interval(wl, wu, dp, width=0):
-    res = str(random.randint(wl, wu))
-    res += "."
-    for _ in range(dp):
+def random_interval(integral_lo, integral_hi, decimal_places, exclude_zero=False, perc_width=0):
+    res = str(random.randint(integral_lo, integral_hi))
+    # if zero should be excluded, there is no decimal places, and a 0 got picked, repeat the pick
+    while decimal_places == 0 and exclude_zero and res == "0":
+        res = str(random.randint(integral_lo, integral_hi))
+    if decimal_places > 0:
+        res += "."
+    for _ in range(decimal_places):
         res += random.choice(digits)
-    if width == 0:
+    # if zero should be excluded and the number is zero, append a 1 to its decimal part
+    if exclude_zero and decimal_places > 0 and float(res) == 0:
+        res += "1"
+    if perc_width == 0:
         return [res, res]
-    return [res, str(float(res)*(1+width))] if not res.startswith("-") else [str(float(res)*(1+width)), res]
+    return [res, str(float(res)*(1+perc_width))] if not res.startswith("-") else [str(float(res)*(1+perc_width)), res]
 
 
-def random_sci_interval(wl, wu, dp, el, eu, width=0):
-    res = str(random.randint(wl, wu))
-    res += "."
-    for _ in range(dp):
+def random_sci_interval(integral_lo, integral_hi, decimal_places, exp_lo, exp_hi, exclude_zero=False, perc_width=0):
+    res = str(random.randint(integral_lo, integral_hi))
+    # if zero should be excluded, there is no decimal places, and a 0 got picked, repeat the pick
+    while decimal_places == 0 and exclude_zero and res == "0":
+        res = str(random.randint(integral_lo, integral_hi))
+    if decimal_places > 0:
+        res += "."
+    for _ in range(decimal_places):
         res += random.choice(digits)
-    res += "e" + str(random.randint(el, eu))
-    if width == 0:
+    # if zero should be excluded and the number is zero, append a 1 to its decimal part
+    if exclude_zero and decimal_places > 0 and float(res) == 0:
+        res += "1"
+    res += "e" + str(random.randint(exp_lo, exp_hi))
+    if perc_width == 0:
         return [res, res]
-    return [res, str(float(res)*(1+width))] if not res.startswith("-") else [str(float(res)*(1+width)), res]
+    return [res, str(float(res)*(1+perc_width))] if not res.startswith("-") else [str(float(res)*(1+perc_width)), res]
 
 
 def _run_command(cmd):
@@ -201,15 +243,19 @@ def _run_command(cmd):
     return stdout.decode("utf8")
 
 
-def avg(l):
-    s = 0
-    cnt = 0
-    for item in l:
-        if not math.isnan(item):
+def stats(l):
+    def avg(l):
+        s = 0
+        cnt = 0
+        for item in l:
             s += item
             cnt += 1
-    return round(s / cnt, 4)
+        return round(s / cnt, 4)
+
+    def med(l):
+        return l[len(l)//2]
+
+    return min(l), max(l), avg(l), med(l)
 
 
-def med(l):
-    return l[len(l)//2]
+
