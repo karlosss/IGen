@@ -14,6 +14,7 @@ ORIG_EXPRESSIONS = "herbie_vals.txt"
 ORIG_EXPRESSIONS_PREFIX = "herbie_vals_prefix.txt"
 HERBIED_EXPRESSIONS_PREFIX = "herbie_vals_out_prefix.txt"
 IR_SOURCE = "herbie_ir.txt"
+PARENTHESIS_CHECK = False
 
 HERBIE_OPTS = "--disable generate:taylor"
 # HERBIE_OPTS = ""
@@ -48,6 +49,8 @@ os.system("herbie improve --seed {} {} {} {}".format(
 
 i = 0
 herbie_ir = open(IR_SOURCE).read()
+if PARENTHESIS_CHECK:
+    par_herbie_ir = herbie_ir
 
 with open(HERBIED_EXPRESSIONS_PREFIX) as herbie_raw:
     for line in herbie_raw:
@@ -58,12 +61,28 @@ with open(HERBIED_EXPRESSIONS_PREFIX) as herbie_raw:
         simplify(ast)
         print("resulting line: {}".format(ast.to_infix()))
         herbie_ir = herbie_ir.replace("\"<{[HERBIE-"+ str(i+1) +"]}>\"", ast.to_infix())
+        if PARENTHESIS_CHECK:
+            print("resulting parenthesized line: {}".format(ast.to_par_infix()))
+            par_herbie_ir = par_herbie_ir.replace("\"<{[HERBIE-"+ str(i+1) +"]}>\"", ast.to_par_infix())
         i += 1
 
 
 # write results into igen prep file
 with open(out_filename, "w") as f:
     f.write(herbie_ir)
+
+if PARENTHESIS_CHECK:
+    with open("{}.par".format(out_filename), "w") as f:
+        f.write(par_herbie_ir)
+    cmd = ["python", "../../bin/igen.py", out_filename, "-o", "/tmp/no_par.cpp", "-R"]
+    cmd2 = ["python", "../../bin/igen.py", "{}.par".format(out_filename), "-o", "/tmp/par.cpp", "-R"]
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p.communicate()
+    p = subprocess.Popen(cmd2, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p.communicate()
+    # TODO
+
+
 
 
 os.remove(ORIG_EXPRESSIONS)

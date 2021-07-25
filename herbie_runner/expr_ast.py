@@ -8,6 +8,9 @@ class AST:
     def to_infix(self):
         return self.root.to_infix(par=False)
 
+    def to_par_infix(self):
+        return self.root.to_par_infix()
+
     def to_prefix(self):
         return self.root.to_prefix()
 
@@ -27,6 +30,9 @@ class ASTNode:
         raise NotImplementedError
 
     def to_prefix(self):
+        raise NotImplementedError
+
+    def to_par_infix(self):
         raise NotImplementedError
 
     def is_root(self):
@@ -49,6 +55,9 @@ class ConstNode(ASTNode):
     def to_infix(self, par=True):
         return str(self.val)
 
+    def to_par_infix(self):
+        return str(self.val)
+
     def to_prefix(self):
         return str(self.val)
 
@@ -60,6 +69,9 @@ class VarNode(ASTNode):
         self.children = []
 
     def to_infix(self, par=True):
+        return self.name
+
+    def to_par_infix(self):
         return self.name
 
     def to_prefix(self):
@@ -98,6 +110,11 @@ class BinaryOperatorNode(OperatorNode):
                                 self.children[1].to_infix(par=rhs_par))
         return res if not par else "({})".format(res)
 
+    def to_par_infix(self):
+        return "({}) {} ({})".format(self.children[0].to_par_infix(),
+                                     self.operator_name,
+                                     self.children[1].to_par_infix())
+
 
 class AndNode(BinaryOperatorNode):
     operator_name = "&&"
@@ -121,7 +138,6 @@ class AndNode(BinaryOperatorNode):
                                 self.operator_name,
                                 self.children[1].to_infix(par=rhs_par))
         return res if not par else "({})".format(res)
-
 
 
 class OrNode(BinaryOperatorNode):
@@ -239,6 +255,9 @@ class UnaryOperatorNode(OperatorNode):
     def to_prefix(self):
         return "({} {})".format(self.operator_name, self.children[0].to_prefix())
 
+    def to_par_infix(self):
+        return "{}({})".format(self.operator_name, self.children[0].to_par_infix())
+
 
 class NotNode(UnaryOperatorNode):
     operator_name = "!"
@@ -280,6 +299,12 @@ class TernaryOperatorNode(OperatorNode):
                                        self.children[2].to_infix(par=False),
                                        )
 
+    def to_par_infix(self):
+        return "(({}) ? ({}) : ({}))".format(self.children[0].to_par_infix(),
+                                             self.children[1].to_par_infix(),
+                                             self.children[2].to_par_infix(),
+                                             )
+
 
 class FunctionNode(ASTNode):
     fn_name = None
@@ -301,6 +326,9 @@ class FunctionNode(ASTNode):
         return "({} {})".format(self.fn_name, " ".join([x.to_prefix() for x in self.children]))
 
     def to_infix(self, par=True):
+        return "{}({})".format(self.fn_name, ", ".join([x.to_infix(par=False) for x in self.children]))
+
+    def to_par_infix(self):
         return "{}({})".format(self.fn_name, ", ".join([x.to_infix(par=False) for x in self.children]))
 
 
