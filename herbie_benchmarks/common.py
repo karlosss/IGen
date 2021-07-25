@@ -9,8 +9,10 @@ DEFAULT_ITERS = 100
 
 def init():
     args = parse_arguments()
+    if args.raw_fn_sources:
+        create_raw_fn_sources(args.seed)
     if args.recompile_igen:
-        create_fn_sources(args.seed)
+        create_igen_fn_sources(args.seed)
     if args.recompile_templates:
         create_template_sources(args.seed)
     if args.recompile_code:
@@ -45,7 +47,7 @@ def benchmark(*param_fns, iters=None):
 
         acc, out, p = parse_accuracy_output(_run_command(["bin/accuracy_{}".format(args.seed), *par]))
         acc_herbie.append(acc)
-        print("herbie {}: {} (acc {})".format(p, out, acc))
+        print("   herbie {}: {} (acc {})".format(p, out, acc))
 
         run_no_herbie.append(int(_run_command(["bin/runtime", *par])[:-1]))
         run_herbie.append(int(_run_command(["bin/runtime_{}".format(args.seed), *par])[:-1]))
@@ -63,11 +65,16 @@ def parse_arguments():
                         metavar="<seed>",
                         required=False,
                         help="Herbie seed to use")
+    parser.add_argument("-r",
+                        dest="raw_fn_sources",
+                        default=False,
+                        action="store_true",
+                        help="Generate new function sources")
     parser.add_argument("-i",
                         dest="recompile_igen",
                         default=False,
                         action="store_true",
-                        help="Generate new function sources")
+                        help="Recompile function sources with igen")
     parser.add_argument("-t",
                         dest="recompile_templates",
                         default=False,
@@ -83,6 +90,12 @@ def parse_arguments():
     if args.seed is None:  # always set the seed
         args.seed = random.randint(1, 2**31-1)
         print("Seed not set, choosing a random one: {}".format(args.seed))
+        args.raw_fn_sources = True
+
+    if not os.path.exists("bin/{}_raw.cpp".format(args.seed)) or not os.path.exists("bin/no_herbie_raw.cpp"):
+        args.raw_fn_sources = True
+
+    if args.raw_fn_sources:
         args.recompile_igen = True
 
     if not os.path.exists("bin/{}.cpp".format(args.seed)) or not os.path.exists("bin/no_herbie.cpp"):
@@ -107,12 +120,16 @@ def parse_arguments():
     return args
 
 
-def create_fn_sources(seed):
-    print("Generating function source with Herbie")
-    _run_igen(seed, True)
-    os.remove("herbie_result.txt")
-    print("Generating function source without Herbie")
-    _run_igen(seed, False)
+def create_raw_fn_sources(seed):
+    print("Generating raw function sources")
+    _run_igen_script(seed, "src.cpp", "bin/{}_raw.cpp".format(seed), True, False)
+    os.system("cp src.cpp bin/no_herbie_raw.cpp")
+
+
+def create_igen_fn_sources(seed):
+    print("Compiling raw sources with IGen")
+    _run_igen_script(seed, "bin/{}_raw.cpp".format(seed), "bin/{}.cpp".format(seed), False, True)
+    _run_igen_script(seed, "bin/no_herbie_raw.cpp", "bin/no_herbie.cpp".format(seed), False, True)
 
 
 def create_template_sources(seed):
@@ -177,23 +194,17 @@ def compile_template_sources(seed):
     _run_command(_build_cmd("runtime_{}".format(seed)))
 
 
-def _run_igen(seed, with_herbie):
+def _run_igen_script(seed, in_filename, out_filename, with_herbie, with_igen):
+    real_seed = str((hash(seed) % (2**31-2)) + 1) if not seed.isnumeric() else seed
+
     if not os.path.exists("bin"):
         os.mkdir("bin")
-    cmd = ["python", "../../bin/igen.py", "src.cpp", "-s", str(seed),
-           "-o", "bin/{}.cpp".format(seed if with_herbie else "no_herbie")]
+    cmd = ["python", "../../bin/igen.py", in_filename, "-s", real_seed, "-o", out_filename]
     if not with_herbie:
         cmd += ["-R"]
+    if not with_igen:
+        cmd += ["-G"]
     _run_command(cmd)
-
-    commented_lines = []
-    with open("herbie_result.txt" if with_herbie else "src.cpp") as f:
-        for line in f:
-            commented_lines.append("// " + line)
-    with open("bin/{}.cpp".format(seed if with_herbie else "no_herbie")) as f:
-        contents = f.read()
-    with open("bin/{}.cpp".format(seed if with_herbie else "no_herbie"), "w") as f:
-        f.write("// ORIGINAL CODE:\n" + "".join(commented_lines) + "\n" + contents)
 
 
 digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]

@@ -1,5 +1,6 @@
 import pyparsing
 import decimal
+import copy
 from expr_ast import *
 
 
@@ -68,6 +69,8 @@ class _UnaryOperatorHandler(_AstHandler):
 
 def infix_to_ast(input_string):
     print("<infix_to_ast> " + input_string.strip())
+    _VariableHandler.variable_map.clear()
+    _VariableHandler.reverse_variable_map.clear()
 
     real = pyparsing.Regex(r'[+-]?(?:\d+(?:[eE][+-]?\d+)|(?:\d+\.\d*|\.\d+)(?:[eE][+-]?\d+)?)')
     integer = pyparsing.Word(pyparsing.nums)
@@ -95,8 +98,8 @@ def infix_to_ast(input_string):
     )
 
     return (AST(expr.parseString(input_string)[0].ast()),
-            _VariableHandler.variable_map,
-            _VariableHandler.reverse_variable_map)
+            copy.deepcopy(_VariableHandler.variable_map),
+            copy.deepcopy(_VariableHandler.reverse_variable_map))
 
 
 def _build_ast_from_prefix(root, variable_map):

@@ -275,7 +275,11 @@ def run_herbie(args):
         redu_file = os.path.dirname(args.input_file) + '/' + polly_redu_file_name
 
     # Construct and run command
-    cmd = ["python", herbie_script, args.seed, herbie_bin, prep_file, '--', '-I' + clang_include_path, '-I' + igen_lib_path]
+    cmd = ["python", herbie_script, args.seed,
+           args.output_file if args.dont_run_igen else prep_file,
+           herbie_bin,
+           prep_file if not args.dont_run_igen else args.input_file,
+           '--', '-I' + clang_include_path, '-I' + igen_lib_path]
     if args.includes is not None:
         for i in args.includes:
             cmd += ['-I' + i]
@@ -283,8 +287,12 @@ def run_herbie(args):
         for i in args.defines:
             cmd += ['-D' + i]
     igen_out, igen_messages = run_command(cmd)
-    if args.verbose:
-        print(igen_out, igen_messages)
+    print(igen_out, igen_messages, file=sys.stderr)
+
+    if args.dont_run_igen:
+        os.remove(prep_file)
+        if os.path.isfile(redu_file):
+            os.remove(redu_file)
 
 
 def run_igen(args):
@@ -353,6 +361,9 @@ def parse_arguments():
     parser.add_argument('-R', dest='dont_run_herbie',
                         action='store_true', default=False,
                         help='Do not run Herbie')
+    parser.add_argument('-G', dest='dont_run_igen',
+                        action='store_true', default=False,
+                        help='Do not run IGen')
     parser.add_argument("-s", dest='seed', required=False, help="Herbie seed")
     parser.add_argument('-V', dest='verbose',
                         action='store_true', default=False,
@@ -385,6 +396,7 @@ def parse_arguments():
         print(args.prep_headers)
         print(args.only_preprocessor)
         print(args.dont_run_herbie)
+        print(args.dont_run_igen)
         print(args.seed)
 
     return args
@@ -398,7 +410,8 @@ if __name__ == "__main__":
         run_reduction_analysis(args)
         if not args.dont_run_herbie:
             run_herbie(args)
-        run_igen(args)
-        run_clang_format(args)
+        if not args.dont_run_igen:
+            run_igen(args)
+            run_clang_format(args)
 
     print('Done IGen')

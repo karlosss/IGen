@@ -1,5 +1,5 @@
 import os
-import random
+import copy
 import sys
 import pyparsing
 import subprocess
@@ -18,13 +18,13 @@ IR_SOURCE = "herbie_ir.txt"
 HERBIE_OPTS = "--disable generate:taylor"
 # HERBIE_OPTS = ""
 
-
 # extract seed
 herbie_seed = int(sys.argv[1])
-argv = sys.argv[2:]
+out_filename = sys.argv[2]
+argv = sys.argv[3:]
 
 # run the compiler
-print("running {}".format(argv))
+print("running {}".format(" ".join(argv)))
 p = subprocess.Popen(argv, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 stdout, stderr = p.communicate()
 print(stdout.decode("utf8"))
@@ -61,11 +61,9 @@ with open(HERBIED_EXPRESSIONS_PREFIX) as herbie_raw:
         i += 1
 
 
-# write results into igen prep file as well as aside to be able to retrieve the original code
-with open(os.path.join(argv[1]), "w") as f:
-    with open("herbie_result.txt", "w") as f2:
-        f.write(herbie_ir)
-        f2.write(herbie_ir)
+# write results into igen prep file
+with open(out_filename, "w") as f:
+    f.write(herbie_ir)
 
 
 os.remove(ORIG_EXPRESSIONS)
