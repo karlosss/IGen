@@ -88,7 +88,7 @@ def parse_arguments():
     args = parser.parse_args()
 
     if args.seed is None:  # always set the seed
-        args.seed = random.randint(1, 2**31-1)
+        args.seed = str(random.randint(1, 2**31-1))
         print("Seed not set, choosing a random one: {}".format(args.seed))
         args.raw_fn_sources = True
 
