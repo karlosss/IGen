@@ -378,7 +378,6 @@ static inline ddi_4 _igen_dd_transposed_mm256_add_pd(ddi_4 a, ddi_4 b) {
     fesetround(_fround);
 #endif
 
-//    dd_v  c0    = t0 + th0;
     dd_v c0_0 = t0_0 + s0_1;
     dd_v c0_2 = t0_2 + s0_3;
 
@@ -387,15 +386,12 @@ static inline ddi_4 _igen_dd_transposed_mm256_add_pd(ddi_4 a, ddi_4 b) {
     fesetround(FE_TONEAREST);
 #endif
 
-//    dd_v f2s0 = s0 + c0;
     dd_v f2s0_0 = s0_0 + c0_0;
     dd_v f2s0_2 = s0_2 + c0_2;
 
-//    dd_v f2z0 = f2s0 - s0;
     dd_v f2z0_0 = f2s0_0 - s0_0;
     dd_v f2z0_2 = f2s0_2 - s0_2;
 
-//    dd_v f2t0 = c0 - f2z0;
     dd_v f2t0_0 = c0_0 - f2z0_0;
     dd_v f2t0_2 = c0_2 - f2z0_2;
 
@@ -403,7 +399,6 @@ static inline ddi_4 _igen_dd_transposed_mm256_add_pd(ddi_4 a, ddi_4 b) {
     fesetround(_fround);
 #endif
 
-//    dd_v  w0    = tl0 + f2t0;
     dd_v  w0_0    = t0_1 + f2t0_0;
     dd_v  w0_2    = t0_3 + f2t0_2;
 
@@ -412,15 +407,12 @@ static inline ddi_4 _igen_dd_transposed_mm256_add_pd(ddi_4 a, ddi_4 b) {
     fesetround(FE_TONEAREST);
 #endif
 
-//    dd_v f3s0 = f2s0 + w0;
     dd_v f3s0_0 = f2s0_0 + w0_0;
     dd_v f3s0_2 = f2s0_2 + w0_2;
 
-//    dd_v f3z0 = f3s0 - f2s0;
     dd_v f3z0_0 = f3s0_0 - f2s0_0;
     dd_v f3z0_2 = f3s0_2 - f2s0_2;
 
-//    dd_v f3t0 = w0 - f3z0;
     dd_v f3t0_0 = w0_0 - f3z0_0;
     dd_v f3t0_2 = w0_2 - f3z0_2;
 
