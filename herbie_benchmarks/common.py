@@ -142,10 +142,7 @@ def create_template_sources(seed):
         return fn
 
     def _get_fn_decl(code):
-        lines = code.split("\n")
-        for line in lines:
-            if re.match(r'^f64_I f\(.*{.*$', line):
-                return line
+        return code.split("{")[0]
 
     def _get_num_args(fn_decl):
         return fn_decl.count("f64_I") - 1

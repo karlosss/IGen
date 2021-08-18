@@ -1,0 +1,1490 @@
+3.475 * [progress]: [Phase 1 of 3] Setting up.
+0.002 * * * [progress]: [1/2] Preparing points
+0.040 * * * [progress]: [2/2] Setting up program.
+0.047 * [progress]: [Phase 2 of 3] Improving.
+0.048 * [simplify]: Simplifying using  #<procedure:simplify-batch-egg> :
+   (sqrt (+ (* x x) 1.0))
+0.087 * * [simplify]: iteration  0 :  7  enodes  (cost  9 )
+0.088 * * [simplify]: iteration  1 :  7  enodes  (cost  9 )
+0.088 * [simplify]: Simplified to:
+   (sqrt (+ (* x x) 1.0))
+0.088 * * [progress]: iteration 1 / 4
+0.089 * * * [progress]: picking best candidate
+0.095 * * * * [pick]: Picked  #<alt (λ (x) (sqrt (+ (* x x) 1.0)))>
+0.095 * * * [progress]: localizing error
+0.105 * * * [progress]: generating rewritten candidates
+0.105 * * * * [progress]: [ 1 / 1 ] rewriting at (2)
+0.113 * * * [progress]: generating series expansions
+0.113 * * * * [progress]: [ 1 / 1 ] generating series at (2)
+0.115 * [approximate]: Taking taylor expansion of (sqrt (+ 1.0 (pow x 2))) in (x) around 0
+0.115 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (pow x 2))) in x
+0.115 * [taylor]: Taking taylor expansion of (+ 1.0 (pow x 2)) in x
+0.115 * [taylor]: Taking taylor expansion of 1.0 in x
+0.115 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.115 * [taylor]: Taking taylor expansion of x in x
+0.115 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (pow x 2))) in x
+0.116 * [taylor]: Taking taylor expansion of (+ 1.0 (pow x 2)) in x
+0.116 * [taylor]: Taking taylor expansion of 1.0 in x
+0.116 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.116 * [taylor]: Taking taylor expansion of x in x
+0.118 * [approximate]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in (x) around 0
+0.118 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in x
+0.118 * [taylor]: Taking taylor expansion of (+ 1.0 (/ 1 (pow x 2))) in x
+0.118 * [taylor]: Taking taylor expansion of 1.0 in x
+0.118 * [taylor]: Taking taylor expansion of (/ 1 (pow x 2)) in x
+0.118 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.118 * [taylor]: Taking taylor expansion of x in x
+0.118 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in x
+0.119 * [taylor]: Taking taylor expansion of (+ 1.0 (/ 1 (pow x 2))) in x
+0.119 * [taylor]: Taking taylor expansion of 1.0 in x
+0.119 * [taylor]: Taking taylor expansion of (/ 1 (pow x 2)) in x
+0.119 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.119 * [taylor]: Taking taylor expansion of x in x
+0.121 * [approximate]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in (x) around 0
+0.121 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in x
+0.121 * [taylor]: Taking taylor expansion of (+ 1.0 (/ 1 (pow x 2))) in x
+0.121 * [taylor]: Taking taylor expansion of 1.0 in x
+0.121 * [taylor]: Taking taylor expansion of (/ 1 (pow x 2)) in x
+0.121 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.121 * [taylor]: Taking taylor expansion of x in x
+0.121 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in x
+0.122 * [taylor]: Taking taylor expansion of (+ 1.0 (/ 1 (pow x 2))) in x
+0.122 * [taylor]: Taking taylor expansion of 1.0 in x
+0.122 * [taylor]: Taking taylor expansion of (/ 1 (pow x 2)) in x
+0.122 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.122 * [taylor]: Taking taylor expansion of x in x
+0.124 * * * [progress]: simplifying candidates
+0.125 * [simplify]: Simplifying using  #<procedure:simplify-batch-egg> :
+   (log (sqrt (+ (* x x) 1.0)))
+  (exp (sqrt (+ (* x x) 1.0)))
+  (* (cbrt (sqrt (+ (* x x) 1.0))) (cbrt (sqrt (+ (* x x) 1.0))))
+  (cbrt (sqrt (+ (* x x) 1.0)))
+  (* (* (sqrt (+ (* x x) 1.0)) (sqrt (+ (* x x) 1.0))) (sqrt (+ (* x x) 1.0)))
+  (sqrt (* (cbrt (+ (* x x) 1.0)) (cbrt (+ (* x x) 1.0))))
+  (sqrt (cbrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt 1)
+  (sqrt (+ (* x x) 1.0))
+  (sqrt (+ (pow (* x x) 3) (pow 1.0 3)))
+  (sqrt (+ (* (* x x) (* x x)) (- (* 1.0 1.0) (* (* x x) 1.0))))
+  (sqrt (- (* (* x x) (* x x)) (* 1.0 1.0)))
+  (sqrt (- (* x x) 1.0))
+  (/ 1 2)
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (- (+ (* 1/2 (/ (pow x 2) (sqrt 1.0))) (sqrt 1.0)) (* 1/8 (/ (pow x 4) (pow (sqrt 1.0) 3))))
+  (- (+ (* 0.5 (/ 1 x)) x) (* 0.125 (/ 1 (pow x 3))))
+  (- (* 0.125 (/ 1 (pow x 3))) (+ (* 0.5 (/ 1 x)) x))
+0.214 * * [simplify]: iteration  0 :  4977  enodes  (cost  258 )
+0.214 * * [simplify]: iteration  1 :  4977  enodes  (cost  258 )
+0.217 * [simplify]: Simplified to:
+   (log (sqrt (+ (* x x) 1.0)))
+  (exp (sqrt (+ (* x x) 1.0)))
+  (* (cbrt (sqrt (+ (* x x) 1.0))) (cbrt (sqrt (+ (* x x) 1.0))))
+  (cbrt (sqrt (+ (* x x) 1.0)))
+  (pow (sqrt (+ (* x x) 1.0)) 3)
+  (fabs (cbrt (+ (* x x) 1.0)))
+  (sqrt (cbrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  1
+  (sqrt (+ (* x x) 1.0))
+  (sqrt (+ (pow x 6) (pow 1.0 3)))
+  (sqrt (+ (pow x 4) (* 1.0 (- 1.0 (* x x)))))
+  (sqrt (- (pow x 4) (* 1.0 1.0)))
+  (sqrt (- (* x x) 1.0))
+  1/2
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (+ (sqrt 1.0) (* (/ (* x x) (sqrt 1.0)) (+ 1/2 (* (/ (* x x) 1.0) -1/8))))
+  (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))
+  (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))
+0.217 * * * [progress]: adding candidates to table
+0.289 * * [progress]: iteration 2 / 4
+0.289 * * * [progress]: picking best candidate
+0.310 * * * * [pick]: Picked  #<alt (λ (x) (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))))>
+0.310 * * * [progress]: localizing error
+0.325 * * * [progress]: generating rewritten candidates
+0.325 * * * * [progress]: [ 1 / 3 ] rewriting at (2 2 1)
+0.332 * * * * [progress]: [ 2 / 3 ] rewriting at (2 1 1)
+0.338 * * * * [progress]: [ 3 / 3 ] rewriting at (2)
+0.380 * * * [progress]: generating series expansions
+0.380 * * * * [progress]: [ 1 / 3 ] generating series at (2 2 1)
+0.381 * [approximate]: Taking taylor expansion of (sqrt (+ 1.0 (pow x 2))) in (x) around 0
+0.381 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (pow x 2))) in x
+0.381 * [taylor]: Taking taylor expansion of (+ 1.0 (pow x 2)) in x
+0.381 * [taylor]: Taking taylor expansion of 1.0 in x
+0.381 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.381 * [taylor]: Taking taylor expansion of x in x
+0.381 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (pow x 2))) in x
+0.381 * [taylor]: Taking taylor expansion of (+ 1.0 (pow x 2)) in x
+0.381 * [taylor]: Taking taylor expansion of 1.0 in x
+0.381 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.381 * [taylor]: Taking taylor expansion of x in x
+0.384 * [approximate]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in (x) around 0
+0.384 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in x
+0.384 * [taylor]: Taking taylor expansion of (+ 1.0 (/ 1 (pow x 2))) in x
+0.384 * [taylor]: Taking taylor expansion of 1.0 in x
+0.384 * [taylor]: Taking taylor expansion of (/ 1 (pow x 2)) in x
+0.384 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.384 * [taylor]: Taking taylor expansion of x in x
+0.384 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in x
+0.384 * [taylor]: Taking taylor expansion of (+ 1.0 (/ 1 (pow x 2))) in x
+0.384 * [taylor]: Taking taylor expansion of 1.0 in x
+0.384 * [taylor]: Taking taylor expansion of (/ 1 (pow x 2)) in x
+0.385 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.385 * [taylor]: Taking taylor expansion of x in x
+0.387 * [approximate]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in (x) around 0
+0.387 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in x
+0.387 * [taylor]: Taking taylor expansion of (+ 1.0 (/ 1 (pow x 2))) in x
+0.387 * [taylor]: Taking taylor expansion of 1.0 in x
+0.387 * [taylor]: Taking taylor expansion of (/ 1 (pow x 2)) in x
+0.387 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.387 * [taylor]: Taking taylor expansion of x in x
+0.387 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in x
+0.387 * [taylor]: Taking taylor expansion of (+ 1.0 (/ 1 (pow x 2))) in x
+0.387 * [taylor]: Taking taylor expansion of 1.0 in x
+0.387 * [taylor]: Taking taylor expansion of (/ 1 (pow x 2)) in x
+0.388 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.388 * [taylor]: Taking taylor expansion of x in x
+0.389 * * * * [progress]: [ 2 / 3 ] generating series at (2 1 1)
+0.390 * [approximate]: Taking taylor expansion of (sqrt (+ 1.0 (pow x 2))) in (x) around 0
+0.390 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (pow x 2))) in x
+0.390 * [taylor]: Taking taylor expansion of (+ 1.0 (pow x 2)) in x
+0.390 * [taylor]: Taking taylor expansion of 1.0 in x
+0.390 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.390 * [taylor]: Taking taylor expansion of x in x
+0.390 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (pow x 2))) in x
+0.390 * [taylor]: Taking taylor expansion of (+ 1.0 (pow x 2)) in x
+0.390 * [taylor]: Taking taylor expansion of 1.0 in x
+0.390 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.390 * [taylor]: Taking taylor expansion of x in x
+0.392 * [approximate]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in (x) around 0
+0.392 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in x
+0.393 * [taylor]: Taking taylor expansion of (+ 1.0 (/ 1 (pow x 2))) in x
+0.393 * [taylor]: Taking taylor expansion of 1.0 in x
+0.393 * [taylor]: Taking taylor expansion of (/ 1 (pow x 2)) in x
+0.393 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.393 * [taylor]: Taking taylor expansion of x in x
+0.393 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in x
+0.393 * [taylor]: Taking taylor expansion of (+ 1.0 (/ 1 (pow x 2))) in x
+0.393 * [taylor]: Taking taylor expansion of 1.0 in x
+0.393 * [taylor]: Taking taylor expansion of (/ 1 (pow x 2)) in x
+0.393 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.393 * [taylor]: Taking taylor expansion of x in x
+0.395 * [approximate]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in (x) around 0
+0.395 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in x
+0.395 * [taylor]: Taking taylor expansion of (+ 1.0 (/ 1 (pow x 2))) in x
+0.396 * [taylor]: Taking taylor expansion of 1.0 in x
+0.396 * [taylor]: Taking taylor expansion of (/ 1 (pow x 2)) in x
+0.396 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.396 * [taylor]: Taking taylor expansion of x in x
+0.396 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in x
+0.396 * [taylor]: Taking taylor expansion of (+ 1.0 (/ 1 (pow x 2))) in x
+0.396 * [taylor]: Taking taylor expansion of 1.0 in x
+0.396 * [taylor]: Taking taylor expansion of (/ 1 (pow x 2)) in x
+0.396 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.396 * [taylor]: Taking taylor expansion of x in x
+0.398 * * * * [progress]: [ 3 / 3 ] generating series at (2)
+0.398 * [approximate]: Taking taylor expansion of (sqrt (+ 1.0 (pow x 2))) in (x) around 0
+0.399 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (pow x 2))) in x
+0.399 * [taylor]: Taking taylor expansion of (+ 1.0 (pow x 2)) in x
+0.399 * [taylor]: Taking taylor expansion of 1.0 in x
+0.399 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.399 * [taylor]: Taking taylor expansion of x in x
+0.399 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (pow x 2))) in x
+0.399 * [taylor]: Taking taylor expansion of (+ 1.0 (pow x 2)) in x
+0.399 * [taylor]: Taking taylor expansion of 1.0 in x
+0.399 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.399 * [taylor]: Taking taylor expansion of x in x
+0.401 * [approximate]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in (x) around 0
+0.401 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in x
+0.401 * [taylor]: Taking taylor expansion of (+ 1.0 (/ 1 (pow x 2))) in x
+0.401 * [taylor]: Taking taylor expansion of 1.0 in x
+0.402 * [taylor]: Taking taylor expansion of (/ 1 (pow x 2)) in x
+0.402 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.402 * [taylor]: Taking taylor expansion of x in x
+0.403 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in x
+0.403 * [taylor]: Taking taylor expansion of (+ 1.0 (/ 1 (pow x 2))) in x
+0.403 * [taylor]: Taking taylor expansion of 1.0 in x
+0.403 * [taylor]: Taking taylor expansion of (/ 1 (pow x 2)) in x
+0.403 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.403 * [taylor]: Taking taylor expansion of x in x
+0.405 * [approximate]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in (x) around 0
+0.405 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in x
+0.405 * [taylor]: Taking taylor expansion of (+ 1.0 (/ 1 (pow x 2))) in x
+0.405 * [taylor]: Taking taylor expansion of 1.0 in x
+0.405 * [taylor]: Taking taylor expansion of (/ 1 (pow x 2)) in x
+0.405 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.405 * [taylor]: Taking taylor expansion of x in x
+0.406 * [taylor]: Taking taylor expansion of (sqrt (+ 1.0 (/ 1 (pow x 2)))) in x
+0.406 * [taylor]: Taking taylor expansion of (+ 1.0 (/ 1 (pow x 2))) in x
+0.406 * [taylor]: Taking taylor expansion of 1.0 in x
+0.406 * [taylor]: Taking taylor expansion of (/ 1 (pow x 2)) in x
+0.406 * [taylor]: Taking taylor expansion of (pow x 2) in x
+0.406 * [taylor]: Taking taylor expansion of x in x
+0.408 * * * [progress]: simplifying candidates
+0.412 * [simplify]: Simplifying using  #<procedure:simplify-batch-egg> :
+   (log (sqrt (+ (* x x) 1.0)))
+  (exp (sqrt (+ (* x x) 1.0)))
+  (* (cbrt (sqrt (+ (* x x) 1.0))) (cbrt (sqrt (+ (* x x) 1.0))))
+  (cbrt (sqrt (+ (* x x) 1.0)))
+  (* (* (sqrt (+ (* x x) 1.0)) (sqrt (+ (* x x) 1.0))) (sqrt (+ (* x x) 1.0)))
+  (sqrt (* (cbrt (+ (* x x) 1.0)) (cbrt (+ (* x x) 1.0))))
+  (sqrt (cbrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt 1)
+  (sqrt (+ (* x x) 1.0))
+  (sqrt (+ (pow (* x x) 3) (pow 1.0 3)))
+  (sqrt (+ (* (* x x) (* x x)) (- (* 1.0 1.0) (* (* x x) 1.0))))
+  (sqrt (- (* (* x x) (* x x)) (* 1.0 1.0)))
+  (sqrt (- (* x x) 1.0))
+  (/ 1 2)
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (log (sqrt (+ (* x x) 1.0)))
+  (exp (sqrt (+ (* x x) 1.0)))
+  (* (cbrt (sqrt (+ (* x x) 1.0))) (cbrt (sqrt (+ (* x x) 1.0))))
+  (cbrt (sqrt (+ (* x x) 1.0)))
+  (* (* (sqrt (+ (* x x) 1.0)) (sqrt (+ (* x x) 1.0))) (sqrt (+ (* x x) 1.0)))
+  (sqrt (* (cbrt (+ (* x x) 1.0)) (cbrt (+ (* x x) 1.0))))
+  (sqrt (cbrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt 1)
+  (sqrt (+ (* x x) 1.0))
+  (sqrt (+ (pow (* x x) 3) (pow 1.0 3)))
+  (sqrt (+ (* (* x x) (* x x)) (- (* 1.0 1.0) (* (* x x) 1.0))))
+  (sqrt (- (* (* x x) (* x x)) (* 1.0 1.0)))
+  (sqrt (- (* x x) 1.0))
+  (/ 1 2)
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (+ 1/2 1/2)
+  (+ 1/2 (/ 1 2))
+  (+ 1 1)
+  (+ (/ 1/2 2) (/ 1/2 2))
+  (+ (/ 1/2 2) (/ (/ 1 2) 2))
+  (+ (/ 1 2) 1/2)
+  (+ (/ 1 2) (/ 1 2))
+  (+ (/ (/ 1 2) 2) (/ 1/2 2))
+  (+ (/ (/ 1 2) 2) (/ (/ 1 2) 2))
+  (* (sqrt (+ (* x x) 1.0)) (sqrt (+ (* x x) 1.0)))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0))))
+  (* (+ (* x x) 1.0) (+ (* x x) 1.0))
+  (* (sqrt (+ (* x x) 1.0)) (sqrt (+ (* x x) 1.0)))
+  (* (+ (* x x) 1.0) (+ (* x x) 1.0))
+  (+ 1 1)
+  (+ (log (sqrt (sqrt (+ (* x x) 1.0)))) (log (sqrt (sqrt (+ (* x x) 1.0)))))
+  (log (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))))
+  (exp (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (* (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (+ (* x x) 1.0)))) (* (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (cbrt (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0))))) (cbrt (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0))))))
+  (cbrt (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (* (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))) (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0))))) (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (+ (* x x) 1.0)) (sqrt (+ (* x x) 1.0)))
+  (sqrt (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))))
+  (sqrt (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (+ (pow (* x x) 3) (pow 1.0 3)))) (sqrt (sqrt (+ (pow (* x x) 3) (pow 1.0 3)))))
+  (* (sqrt (sqrt (+ (* (* x x) (* x x)) (- (* 1.0 1.0) (* (* x x) 1.0))))) (sqrt (sqrt (+ (* (* x x) (* x x)) (- (* 1.0 1.0) (* (* x x) 1.0))))))
+  (* (sqrt (sqrt (+ (pow (* x x) 3) (pow 1.0 3)))) (sqrt (sqrt (- (* (* x x) (* x x)) (* 1.0 1.0)))))
+  (* (sqrt (sqrt (+ (* (* x x) (* x x)) (- (* 1.0 1.0) (* (* x x) 1.0))))) (sqrt (sqrt (- (* x x) 1.0))))
+  (* (sqrt (sqrt (- (* (* x x) (* x x)) (* 1.0 1.0)))) (sqrt (sqrt (+ (pow (* x x) 3) (pow 1.0 3)))))
+  (* (sqrt (sqrt (- (* x x) 1.0))) (sqrt (sqrt (+ (* (* x x) (* x x)) (- (* 1.0 1.0) (* (* x x) 1.0))))))
+  (* (sqrt (sqrt (- (* (* x x) (* x x)) (* 1.0 1.0)))) (sqrt (sqrt (- (* (* x x) (* x x)) (* 1.0 1.0)))))
+  (* (sqrt (sqrt (- (* x x) 1.0))) (sqrt (sqrt (- (* x x) 1.0))))
+  (* (* (cbrt (sqrt (sqrt (+ (* x x) 1.0)))) (cbrt (sqrt (sqrt (+ (* x x) 1.0))))) (* (cbrt (sqrt (sqrt (+ (* x x) 1.0)))) (cbrt (sqrt (sqrt (+ (* x x) 1.0))))))
+  (* (cbrt (sqrt (sqrt (+ (* x x) 1.0)))) (cbrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (* (cbrt (sqrt (+ (* x x) 1.0))) (cbrt (sqrt (+ (* x x) 1.0))))) (sqrt (* (cbrt (sqrt (+ (* x x) 1.0))) (cbrt (sqrt (+ (* x x) 1.0))))))
+  (* (sqrt (cbrt (sqrt (+ (* x x) 1.0)))) (sqrt (cbrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (* (cbrt (+ (* x x) 1.0)) (cbrt (+ (* x x) 1.0))))) (sqrt (sqrt (* (cbrt (+ (* x x) 1.0)) (cbrt (+ (* x x) 1.0))))))
+  (* (sqrt (sqrt (cbrt (+ (* x x) 1.0)))) (sqrt (sqrt (cbrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt 1)) (sqrt (sqrt 1)))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt 1) (sqrt 1))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* 1 1)
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* 2 1/2)
+  (* 2 1)
+  (* 2 (/ 1/2 2))
+  (* 2 (/ 1 2))
+  (* 2 (/ (/ 1 2) 2))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (* (cbrt (sqrt (sqrt (+ (* x x) 1.0)))) (cbrt (sqrt (sqrt (+ (* x x) 1.0))))))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (* (cbrt (sqrt (+ (* x x) 1.0))) (cbrt (sqrt (+ (* x x) 1.0))))))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (* (cbrt (+ (* x x) 1.0)) (cbrt (+ (* x x) 1.0))))))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt 1)))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt 1))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) 1)
+  (* (cbrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (+ (* x x) 1.0))))
+  (* (sqrt (cbrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (+ (* x x) 1.0))))
+  (* (sqrt (sqrt (cbrt (+ (* x x) 1.0)))) (sqrt (sqrt (+ (* x x) 1.0))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (+ (* x x) 1.0))))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (+ (* x x) 1.0))))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0))))
+  (* (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) (sqrt (sqrt (+ (* x x) 1.0))))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0))))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (pow (* x x) 3) (pow 1.0 3)))))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (- (* (* x x) (* x x)) (* 1.0 1.0)))))
+  (* (sqrt (sqrt (+ (pow (* x x) 3) (pow 1.0 3)))) (sqrt (sqrt (+ (* x x) 1.0))))
+  (* (sqrt (sqrt (- (* (* x x) (* x x)) (* 1.0 1.0)))) (sqrt (sqrt (+ (* x x) 1.0))))
+  (- (+ (* 1/2 (/ (pow x 2) (sqrt 1.0))) (sqrt 1.0)) (* 1/8 (/ (pow x 4) (pow (sqrt 1.0) 3))))
+  (- (+ (* 0.5 (/ 1 x)) x) (* 0.125 (/ 1 (pow x 3))))
+  (- (* 0.125 (/ 1 (pow x 3))) (+ (* 0.5 (/ 1 x)) x))
+  (- (+ (* 1/2 (/ (pow x 2) (sqrt 1.0))) (sqrt 1.0)) (* 1/8 (/ (pow x 4) (pow (sqrt 1.0) 3))))
+  (- (+ (* 0.5 (/ 1 x)) x) (* 0.125 (/ 1 (pow x 3))))
+  (- (* 0.125 (/ 1 (pow x 3))) (+ (* 0.5 (/ 1 x)) x))
+  (- (+ (* 1/2 (/ (pow x 2) (sqrt 1.0))) (sqrt 1.0)) (* 1/8 (/ (pow x 4) (pow (sqrt 1.0) 3))))
+  (- (+ (* 0.5 (/ 1 x)) x) (* 0.125 (/ 1 (pow x 3))))
+  (- (* 0.125 (/ 1 (pow x 3))) (+ (* 0.5 (/ 1 x)) x))
+0.546 * * [simplify]: iteration  0 :  4948  enodes  (cost  1820 )
+0.546 * * [simplify]: iteration  1 :  4948  enodes  (cost  1820 )
+0.556 * [simplify]: Simplified to:
+   (log (sqrt (+ (* x x) 1.0)))
+  (exp (sqrt (+ (* x x) 1.0)))
+  (pow (sqrt (cbrt (sqrt (+ (* x x) 1.0)))) 4)
+  (cbrt (sqrt (+ (* x x) 1.0)))
+  (pow (sqrt (+ (* x x) 1.0)) 3)
+  (fabs (cbrt (+ (* x x) 1.0)))
+  (sqrt (cbrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  1
+  (sqrt (+ (* x x) 1.0))
+  (sqrt (+ (pow x 6) (pow 1.0 3)))
+  (sqrt (+ (pow x 4) (* 1.0 (- 1.0 (* x x)))))
+  (sqrt (- (pow x 4) (* 1.0 1.0)))
+  (sqrt (- (* x x) 1.0))
+  1/2
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (log (sqrt (+ (* x x) 1.0)))
+  (exp (sqrt (+ (* x x) 1.0)))
+  (pow (sqrt (cbrt (sqrt (+ (* x x) 1.0)))) 4)
+  (cbrt (sqrt (+ (* x x) 1.0)))
+  (pow (sqrt (+ (* x x) 1.0)) 3)
+  (fabs (cbrt (+ (* x x) 1.0)))
+  (sqrt (cbrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  1
+  (sqrt (+ (* x x) 1.0))
+  (sqrt (+ (pow x 6) (pow 1.0 3)))
+  (sqrt (+ (pow x 4) (* 1.0 (- 1.0 (* x x)))))
+  (sqrt (- (pow x 4) (* 1.0 1.0)))
+  (sqrt (- (* x x) 1.0))
+  1/2
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  1
+  1
+  2
+  1/2
+  1/2
+  1
+  1
+  1/2
+  1/2
+  (+ (* x x) 1.0)
+  (sqrt (+ (* x x) 1.0))
+  (pow (sqrt (+ (* x x) 1.0)) 4)
+  (+ (* x x) 1.0)
+  (pow (sqrt (+ (* x x) 1.0)) 4)
+  2
+  (log (sqrt (+ (* x x) 1.0)))
+  (log (sqrt (+ (* x x) 1.0)))
+  (exp (sqrt (+ (* x x) 1.0)))
+  (pow (sqrt (+ (* x x) 1.0)) 3)
+  (pow (sqrt (cbrt (sqrt (+ (* x x) 1.0)))) 4)
+  (cbrt (sqrt (+ (* x x) 1.0)))
+  (pow (sqrt (+ (* x x) 1.0)) 3)
+  (+ (* x x) 1.0)
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (+ (pow x 6) (pow 1.0 3)))
+  (sqrt (+ (pow x 4) (* 1.0 (- 1.0 (* x x)))))
+  (* (sqrt (sqrt (+ (pow x 6) (pow 1.0 3)))) (sqrt (sqrt (- (pow x 4) (* 1.0 1.0)))))
+  (* (sqrt (sqrt (+ (pow x 4) (* 1.0 (- 1.0 (* x x)))))) (sqrt (sqrt (- (* x x) 1.0))))
+  (* (sqrt (sqrt (+ (pow x 6) (pow 1.0 3)))) (sqrt (sqrt (- (pow x 4) (* 1.0 1.0)))))
+  (* (sqrt (sqrt (+ (pow x 4) (* 1.0 (- 1.0 (* x x)))))) (sqrt (sqrt (- (* x x) 1.0))))
+  (sqrt (- (pow x 4) (* 1.0 1.0)))
+  (sqrt (- (* x x) 1.0))
+  (pow (cbrt (sqrt (sqrt (+ (* x x) 1.0)))) 4)
+  (pow (cbrt (sqrt (sqrt (+ (* x x) 1.0)))) 2)
+  (pow (sqrt (cbrt (sqrt (+ (* x x) 1.0)))) 4)
+  (cbrt (sqrt (+ (* x x) 1.0)))
+  (fabs (cbrt (+ (* x x) 1.0)))
+  (sqrt (cbrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  1
+  (sqrt (+ (* x x) 1.0))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  1
+  (sqrt (+ (* x x) 1.0))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  1
+  (sqrt (+ (* x x) 1.0))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  1
+  2
+  1/2
+  1
+  1/2
+  (pow (cbrt (sqrt (sqrt (+ (* x x) 1.0)))) 5)
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (fabs (cbrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (fabs (cbrt (+ (* x x) 1.0)))))
+  (pow (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) 3)
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (pow (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) 3)
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (pow (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) 3)
+  (sqrt (sqrt (+ (* x x) 1.0)))
+  (pow (cbrt (sqrt (sqrt (+ (* x x) 1.0)))) 4)
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (cbrt (sqrt (+ (* x x) 1.0)))))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (cbrt (+ (* x x) 1.0)))))
+  (pow (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) 3)
+  (sqrt (+ (* x x) 1.0))
+  (pow (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) 3)
+  (sqrt (+ (* x x) 1.0))
+  (pow (sqrt (sqrt (sqrt (+ (* x x) 1.0)))) 3)
+  (sqrt (+ (* x x) 1.0))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (pow x 6) (pow 1.0 3)))))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (- (pow x 4) (* 1.0 1.0)))))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (pow x 6) (pow 1.0 3)))))
+  (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (- (pow x 4) (* 1.0 1.0)))))
+  (+ (sqrt 1.0) (* (/ (* x x) (sqrt 1.0)) (+ 1/2 (* (/ (* x x) 1.0) -1/8))))
+  (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))
+  (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))
+  (+ (sqrt 1.0) (* (/ (* x x) (sqrt 1.0)) (+ 1/2 (* (/ (* x x) 1.0) -1/8))))
+  (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))
+  (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))
+  (+ (sqrt 1.0) (* (/ (* x x) (sqrt 1.0)) (+ 1/2 (* (/ (* x x) 1.0) -1/8))))
+  (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))
+  (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))
+0.557 * * * [progress]: adding candidates to table
+0.848 * * [progress]: iteration 3 / 4
+0.848 * * * [progress]: picking best candidate
+0.861 * * * * [pick]: Picked  #<alt (λ (x) (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))>
+0.861 * * * [progress]: localizing error
+0.875 * * * [progress]: generating rewritten candidates
+0.876 * * * * [progress]: [ 1 / 3 ] rewriting at (2 2)
+0.884 * * * * [progress]: [ 2 / 3 ] rewriting at (2)
+0.922 * * * * [progress]: [ 3 / 3 ] rewriting at (2 1)
+0.939 * * * [progress]: generating series expansions
+0.939 * * * * [progress]: [ 1 / 3 ] generating series at (2 2)
+0.939 * [approximate]: Taking taylor expansion of (/ 0.125 (pow x 3)) in (x) around 0
+0.939 * [taylor]: Taking taylor expansion of (/ 0.125 (pow x 3)) in x
+0.939 * [taylor]: Taking taylor expansion of 0.125 in x
+0.940 * [taylor]: Taking taylor expansion of (pow x 3) in x
+0.940 * [taylor]: Taking taylor expansion of x in x
+0.940 * [taylor]: Taking taylor expansion of (/ 0.125 (pow x 3)) in x
+0.940 * [taylor]: Taking taylor expansion of 0.125 in x
+0.940 * [taylor]: Taking taylor expansion of (pow x 3) in x
+0.940 * [taylor]: Taking taylor expansion of x in x
+0.942 * [approximate]: Taking taylor expansion of (* 0.125 (pow x 3)) in (x) around 0
+0.942 * [taylor]: Taking taylor expansion of (* 0.125 (pow x 3)) in x
+0.942 * [taylor]: Taking taylor expansion of 0.125 in x
+0.942 * [taylor]: Taking taylor expansion of (pow x 3) in x
+0.942 * [taylor]: Taking taylor expansion of x in x
+0.942 * [taylor]: Taking taylor expansion of (* 0.125 (pow x 3)) in x
+0.943 * [taylor]: Taking taylor expansion of 0.125 in x
+0.943 * [taylor]: Taking taylor expansion of (pow x 3) in x
+0.943 * [taylor]: Taking taylor expansion of x in x
+0.945 * [approximate]: Taking taylor expansion of (* -0.125 (pow x 3)) in (x) around 0
+0.945 * [taylor]: Taking taylor expansion of (* -0.125 (pow x 3)) in x
+0.945 * [taylor]: Taking taylor expansion of -0.125 in x
+0.945 * [taylor]: Taking taylor expansion of (pow x 3) in x
+0.945 * [taylor]: Taking taylor expansion of x in x
+0.945 * [taylor]: Taking taylor expansion of (* -0.125 (pow x 3)) in x
+0.945 * [taylor]: Taking taylor expansion of -0.125 in x
+0.945 * [taylor]: Taking taylor expansion of (pow x 3) in x
+0.945 * [taylor]: Taking taylor expansion of x in x
+0.947 * * * * [progress]: [ 2 / 3 ] generating series at (2)
+0.947 * [approximate]: Taking taylor expansion of (- (+ (* 0.5 (/ 1 x)) x) (* 0.125 (/ 1 (pow x 3)))) in (x) around 0
+0.947 * [taylor]: Taking taylor expansion of (- (+ (* 0.5 (/ 1 x)) x) (* 0.125 (/ 1 (pow x 3)))) in x
+0.948 * [taylor]: Taking taylor expansion of (+ (* 0.5 (/ 1 x)) x) in x
+0.948 * [taylor]: Taking taylor expansion of (* 0.5 (/ 1 x)) in x
+0.948 * [taylor]: Taking taylor expansion of 0.5 in x
+0.948 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+0.948 * [taylor]: Taking taylor expansion of x in x
+0.948 * [taylor]: Taking taylor expansion of x in x
+0.948 * [taylor]: Taking taylor expansion of (* 0.125 (/ 1 (pow x 3))) in x
+0.948 * [taylor]: Taking taylor expansion of 0.125 in x
+0.948 * [taylor]: Taking taylor expansion of (/ 1 (pow x 3)) in x
+0.948 * [taylor]: Taking taylor expansion of (pow x 3) in x
+0.948 * [taylor]: Taking taylor expansion of x in x
+0.948 * [taylor]: Taking taylor expansion of (- (+ (* 0.5 (/ 1 x)) x) (* 0.125 (/ 1 (pow x 3)))) in x
+0.948 * [taylor]: Taking taylor expansion of (+ (* 0.5 (/ 1 x)) x) in x
+0.948 * [taylor]: Taking taylor expansion of (* 0.5 (/ 1 x)) in x
+0.948 * [taylor]: Taking taylor expansion of 0.5 in x
+0.949 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+0.949 * [taylor]: Taking taylor expansion of x in x
+0.949 * [taylor]: Taking taylor expansion of x in x
+0.949 * [taylor]: Taking taylor expansion of (* 0.125 (/ 1 (pow x 3))) in x
+0.949 * [taylor]: Taking taylor expansion of 0.125 in x
+0.949 * [taylor]: Taking taylor expansion of (/ 1 (pow x 3)) in x
+0.949 * [taylor]: Taking taylor expansion of (pow x 3) in x
+0.949 * [taylor]: Taking taylor expansion of x in x
+0.951 * [approximate]: Taking taylor expansion of (- (+ (/ 1 x) (* 0.5 x)) (* 0.125 (pow x 3))) in (x) around 0
+0.952 * [taylor]: Taking taylor expansion of (- (+ (/ 1 x) (* 0.5 x)) (* 0.125 (pow x 3))) in x
+0.952 * [taylor]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in x
+0.952 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+0.952 * [taylor]: Taking taylor expansion of x in x
+0.952 * [taylor]: Taking taylor expansion of (* 0.5 x) in x
+0.952 * [taylor]: Taking taylor expansion of 0.5 in x
+0.952 * [taylor]: Taking taylor expansion of x in x
+0.952 * [taylor]: Taking taylor expansion of (* 0.125 (pow x 3)) in x
+0.952 * [taylor]: Taking taylor expansion of 0.125 in x
+0.952 * [taylor]: Taking taylor expansion of (pow x 3) in x
+0.952 * [taylor]: Taking taylor expansion of x in x
+0.952 * [taylor]: Taking taylor expansion of (- (+ (/ 1 x) (* 0.5 x)) (* 0.125 (pow x 3))) in x
+0.952 * [taylor]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in x
+0.952 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+0.953 * [taylor]: Taking taylor expansion of x in x
+0.953 * [taylor]: Taking taylor expansion of (* 0.5 x) in x
+0.953 * [taylor]: Taking taylor expansion of 0.5 in x
+0.953 * [taylor]: Taking taylor expansion of x in x
+0.953 * [taylor]: Taking taylor expansion of (* 0.125 (pow x 3)) in x
+0.953 * [taylor]: Taking taylor expansion of 0.125 in x
+0.953 * [taylor]: Taking taylor expansion of (pow x 3) in x
+0.953 * [taylor]: Taking taylor expansion of x in x
+0.955 * [approximate]: Taking taylor expansion of (- (* 0.125 (pow x 3)) (+ (/ 1 x) (* 0.5 x))) in (x) around 0
+0.955 * [taylor]: Taking taylor expansion of (- (* 0.125 (pow x 3)) (+ (/ 1 x) (* 0.5 x))) in x
+0.955 * [taylor]: Taking taylor expansion of (* 0.125 (pow x 3)) in x
+0.955 * [taylor]: Taking taylor expansion of 0.125 in x
+0.955 * [taylor]: Taking taylor expansion of (pow x 3) in x
+0.955 * [taylor]: Taking taylor expansion of x in x
+0.955 * [taylor]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in x
+0.955 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+0.955 * [taylor]: Taking taylor expansion of x in x
+0.956 * [taylor]: Taking taylor expansion of (* 0.5 x) in x
+0.956 * [taylor]: Taking taylor expansion of 0.5 in x
+0.956 * [taylor]: Taking taylor expansion of x in x
+0.956 * [taylor]: Taking taylor expansion of (- (* 0.125 (pow x 3)) (+ (/ 1 x) (* 0.5 x))) in x
+0.956 * [taylor]: Taking taylor expansion of (* 0.125 (pow x 3)) in x
+0.956 * [taylor]: Taking taylor expansion of 0.125 in x
+0.956 * [taylor]: Taking taylor expansion of (pow x 3) in x
+0.956 * [taylor]: Taking taylor expansion of x in x
+0.956 * [taylor]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in x
+0.956 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+0.956 * [taylor]: Taking taylor expansion of x in x
+0.956 * [taylor]: Taking taylor expansion of (* 0.5 x) in x
+0.956 * [taylor]: Taking taylor expansion of 0.5 in x
+0.956 * [taylor]: Taking taylor expansion of x in x
+0.958 * * * * [progress]: [ 3 / 3 ] generating series at (2 1)
+0.958 * [approximate]: Taking taylor expansion of (+ (* 0.5 (/ 1 x)) x) in (x) around 0
+0.958 * [taylor]: Taking taylor expansion of (+ (* 0.5 (/ 1 x)) x) in x
+0.958 * [taylor]: Taking taylor expansion of (* 0.5 (/ 1 x)) in x
+0.958 * [taylor]: Taking taylor expansion of 0.5 in x
+0.958 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+0.958 * [taylor]: Taking taylor expansion of x in x
+0.958 * [taylor]: Taking taylor expansion of x in x
+0.958 * [taylor]: Taking taylor expansion of (+ (* 0.5 (/ 1 x)) x) in x
+0.958 * [taylor]: Taking taylor expansion of (* 0.5 (/ 1 x)) in x
+0.958 * [taylor]: Taking taylor expansion of 0.5 in x
+0.958 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+0.958 * [taylor]: Taking taylor expansion of x in x
+0.959 * [taylor]: Taking taylor expansion of x in x
+0.961 * [approximate]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in (x) around 0
+0.961 * [taylor]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in x
+0.961 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+0.961 * [taylor]: Taking taylor expansion of x in x
+0.961 * [taylor]: Taking taylor expansion of (* 0.5 x) in x
+0.961 * [taylor]: Taking taylor expansion of 0.5 in x
+0.962 * [taylor]: Taking taylor expansion of x in x
+0.962 * [taylor]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in x
+0.962 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+0.962 * [taylor]: Taking taylor expansion of x in x
+0.962 * [taylor]: Taking taylor expansion of (* 0.5 x) in x
+0.962 * [taylor]: Taking taylor expansion of 0.5 in x
+0.962 * [taylor]: Taking taylor expansion of x in x
+0.964 * [approximate]: Taking taylor expansion of (neg (+ (/ 1 x) (* 0.5 x))) in (x) around 0
+0.964 * [taylor]: Taking taylor expansion of (neg (+ (/ 1 x) (* 0.5 x))) in x
+0.964 * [taylor]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in x
+0.965 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+0.965 * [taylor]: Taking taylor expansion of x in x
+0.965 * [taylor]: Taking taylor expansion of (* 0.5 x) in x
+0.965 * [taylor]: Taking taylor expansion of 0.5 in x
+0.965 * [taylor]: Taking taylor expansion of x in x
+0.965 * [taylor]: Taking taylor expansion of (neg (+ (/ 1 x) (* 0.5 x))) in x
+0.965 * [taylor]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in x
+0.965 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+0.965 * [taylor]: Taking taylor expansion of x in x
+0.965 * [taylor]: Taking taylor expansion of (* 0.5 x) in x
+0.965 * [taylor]: Taking taylor expansion of 0.5 in x
+0.965 * [taylor]: Taking taylor expansion of x in x
+0.968 * * * [progress]: simplifying candidates
+0.971 * [simplify]: Simplifying using  #<procedure:simplify-batch-egg> :
+   (- (log 0.125) (* (log x) 3))
+  (- (log 0.125) (* (log x) 3))
+  (- (log 0.125) (log (pow x 3)))
+  (log (/ 0.125 (pow x 3)))
+  (exp (/ 0.125 (pow x 3)))
+  (/ (* (* 0.125 0.125) 0.125) (* (* (pow x 3) (pow x 3)) (pow x 3)))
+  (* (cbrt (/ 0.125 (pow x 3))) (cbrt (/ 0.125 (pow x 3))))
+  (cbrt (/ 0.125 (pow x 3)))
+  (* (* (/ 0.125 (pow x 3)) (/ 0.125 (pow x 3))) (/ 0.125 (pow x 3)))
+  (sqrt (/ 0.125 (pow x 3)))
+  (sqrt (/ 0.125 (pow x 3)))
+  (neg 0.125)
+  (neg (pow x 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (pow (* (cbrt x) (cbrt x)) 3))
+  (/ (cbrt 0.125) (pow (cbrt x) 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (pow (sqrt x) 3))
+  (/ (cbrt 0.125) (pow (sqrt x) 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (pow 1 3))
+  (/ (cbrt 0.125) (pow x 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (* x x))
+  (/ (cbrt 0.125) x)
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (* (cbrt (pow x 3)) (cbrt (pow x 3))))
+  (/ (cbrt 0.125) (cbrt (pow x 3)))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (pow (* (cbrt x) (cbrt x)) 3))
+  (/ (cbrt 0.125) (pow (cbrt x) 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (pow (sqrt x) 3))
+  (/ (cbrt 0.125) (pow (sqrt x) 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (pow 1 3))
+  (/ (cbrt 0.125) (pow x 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) x)
+  (/ (cbrt 0.125) (* x x))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (sqrt (pow x 3)))
+  (/ (cbrt 0.125) (sqrt (pow x 3)))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) 1)
+  (/ (cbrt 0.125) (pow x 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (pow x (/ 3 2)))
+  (/ (cbrt 0.125) (pow x (/ 3 2)))
+  (/ (sqrt 0.125) (pow (* (cbrt x) (cbrt x)) 3))
+  (/ (sqrt 0.125) (pow (cbrt x) 3))
+  (/ (sqrt 0.125) (pow (sqrt x) 3))
+  (/ (sqrt 0.125) (pow (sqrt x) 3))
+  (/ (sqrt 0.125) (pow 1 3))
+  (/ (sqrt 0.125) (pow x 3))
+  (/ (sqrt 0.125) (* x x))
+  (/ (sqrt 0.125) x)
+  (/ (sqrt 0.125) (* (cbrt (pow x 3)) (cbrt (pow x 3))))
+  (/ (sqrt 0.125) (cbrt (pow x 3)))
+  (/ (sqrt 0.125) (pow (* (cbrt x) (cbrt x)) 3))
+  (/ (sqrt 0.125) (pow (cbrt x) 3))
+  (/ (sqrt 0.125) (pow (sqrt x) 3))
+  (/ (sqrt 0.125) (pow (sqrt x) 3))
+  (/ (sqrt 0.125) (pow 1 3))
+  (/ (sqrt 0.125) (pow x 3))
+  (/ (sqrt 0.125) x)
+  (/ (sqrt 0.125) (* x x))
+  (/ (sqrt 0.125) (sqrt (pow x 3)))
+  (/ (sqrt 0.125) (sqrt (pow x 3)))
+  (/ (sqrt 0.125) 1)
+  (/ (sqrt 0.125) (pow x 3))
+  (/ (sqrt 0.125) (pow x (/ 3 2)))
+  (/ (sqrt 0.125) (pow x (/ 3 2)))
+  (/ 1 (pow (* (cbrt x) (cbrt x)) 3))
+  (/ 0.125 (pow (cbrt x) 3))
+  (/ 1 (pow (sqrt x) 3))
+  (/ 0.125 (pow (sqrt x) 3))
+  (/ 1 (pow 1 3))
+  (/ 0.125 (pow x 3))
+  (/ 1 (* x x))
+  (/ 0.125 x)
+  (/ 1 (* (cbrt (pow x 3)) (cbrt (pow x 3))))
+  (/ 0.125 (cbrt (pow x 3)))
+  (/ 1 (pow (* (cbrt x) (cbrt x)) 3))
+  (/ 0.125 (pow (cbrt x) 3))
+  (/ 1 (pow (sqrt x) 3))
+  (/ 0.125 (pow (sqrt x) 3))
+  (/ 1 (pow 1 3))
+  (/ 0.125 (pow x 3))
+  (/ 1 x)
+  (/ 0.125 (* x x))
+  (/ 1 (sqrt (pow x 3)))
+  (/ 0.125 (sqrt (pow x 3)))
+  (/ 1 1)
+  (/ 0.125 (pow x 3))
+  (/ 1 (pow x (/ 3 2)))
+  (/ 0.125 (pow x (/ 3 2)))
+  (/ 1 (pow x 3))
+  (/ (pow x 3) 0.125)
+  (/ 0.125 (pow (* (cbrt x) (cbrt x)) 3))
+  (/ 0.125 (pow (sqrt x) 3))
+  (/ 0.125 (pow 1 3))
+  (/ 0.125 (* x x))
+  (/ 0.125 (* (cbrt (pow x 3)) (cbrt (pow x 3))))
+  (/ 0.125 (pow (* (cbrt x) (cbrt x)) 3))
+  (/ 0.125 (pow (sqrt x) 3))
+  (/ 0.125 (pow 1 3))
+  (/ 0.125 x)
+  (/ 0.125 (sqrt (pow x 3)))
+  (/ 0.125 1)
+  (/ 0.125 (pow x (/ 3 2)))
+  (/ (pow x 3) (cbrt 0.125))
+  (/ (pow x 3) (sqrt 0.125))
+  (/ (pow x 3) 0.125)
+  (/ (* (exp x) (exp (/ 0.5 x))) (exp (/ 0.125 (pow x 3))))
+  (/ (exp (+ x (/ 0.5 x))) (exp (/ 0.125 (pow x 3))))
+  (log (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))
+  (exp (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))
+  (* (cbrt (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))) (cbrt (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))))
+  (cbrt (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))
+  (* (* (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))) (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))) (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))
+  (sqrt (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))
+  (sqrt (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))
+  (- (* (+ (pow x 3) (pow (/ 0.5 x) 3)) (pow x 3)) (* (+ (* x x) (- (* (/ 0.5 x) (/ 0.5 x)) (* x (/ 0.5 x)))) 0.125))
+  (* (+ (* x x) (- (* (/ 0.5 x) (/ 0.5 x)) (* x (/ 0.5 x)))) (pow x 3))
+  (- (* (- (* x x) (* (/ 0.5 x) (/ 0.5 x))) (pow x 3)) (* (- x (/ 0.5 x)) 0.125))
+  (* (- x (/ 0.5 x)) (pow x 3))
+  (- (pow (+ x (/ 0.5 x)) 3) (pow (/ 0.125 (pow x 3)) 3))
+  (+ (* (+ x (/ 0.5 x)) (+ x (/ 0.5 x))) (+ (* (/ 0.125 (pow x 3)) (/ 0.125 (pow x 3))) (* (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))))
+  (neg (/ 0.125 (pow x 3)))
+  (- (* (+ x (/ 0.5 x)) (+ x (/ 0.5 x))) (* (/ 0.125 (pow x 3)) (/ 0.125 (pow x 3))))
+  (+ (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))
+  (+ (sqrt (+ x (/ 0.5 x))) (sqrt (/ 0.125 (pow x 3))))
+  (- (sqrt (+ x (/ 0.5 x))) (sqrt (/ 0.125 (pow x 3))))
+  (+ (sqrt (+ x (/ 0.5 x))) (/ (sqrt 0.125) (pow (sqrt x) 3)))
+  (- (sqrt (+ x (/ 0.5 x))) (/ (sqrt 0.125) (pow (sqrt x) 3)))
+  (+ (sqrt (+ x (/ 0.5 x))) (/ (sqrt 0.125) (pow (sqrt x) 3)))
+  (- (sqrt (+ x (/ 0.5 x))) (/ (sqrt 0.125) (pow (sqrt x) 3)))
+  (+ (sqrt (+ x (/ 0.5 x))) (/ (sqrt 0.125) (sqrt (pow x 3))))
+  (- (sqrt (+ x (/ 0.5 x))) (/ (sqrt 0.125) (sqrt (pow x 3))))
+  (+ (sqrt (+ x (/ 0.5 x))) (/ (sqrt 0.125) (pow x (/ 3 2))))
+  (- (sqrt (+ x (/ 0.5 x))) (/ (sqrt 0.125) (pow x (/ 3 2))))
+  (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))
+  (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))
+  (- (/ 0.5 x) (/ 0.125 (pow x 3)))
+  (* (exp x) (exp (/ 0.5 x)))
+  (log (+ x (/ 0.5 x)))
+  (exp (+ x (/ 0.5 x)))
+  (* (cbrt (+ x (/ 0.5 x))) (cbrt (+ x (/ 0.5 x))))
+  (cbrt (+ x (/ 0.5 x)))
+  (* (* (+ x (/ 0.5 x)) (+ x (/ 0.5 x))) (+ x (/ 0.5 x)))
+  (sqrt (+ x (/ 0.5 x)))
+  (sqrt (+ x (/ 0.5 x)))
+  (+ (pow x 3) (pow (/ 0.5 x) 3))
+  (+ (* x x) (- (* (/ 0.5 x) (/ 0.5 x)) (* x (/ 0.5 x))))
+  (- (* x x) (* (/ 0.5 x) (/ 0.5 x)))
+  (- x (/ 0.5 x))
+  (+ x (/ 0.5 x))
+  (/ 0.125 (pow x 3))
+  (/ 0.125 (pow x 3))
+  (/ 0.125 (pow x 3))
+  (- (+ (* 0.5 (/ 1 x)) x) (* 0.125 (/ 1 (pow x 3))))
+  (- (+ (* 0.5 (/ 1 x)) x) (* 0.125 (/ 1 (pow x 3))))
+  (- (+ (* 0.5 (/ 1 x)) x) (* 0.125 (/ 1 (pow x 3))))
+  (+ (* 0.5 (/ 1 x)) x)
+  (+ (* 0.5 (/ 1 x)) x)
+  (+ (* 0.5 (/ 1 x)) x)
+1.028 * * [simplify]: iteration  0 :  5098  enodes  (cost  1720 )
+1.038 * [simplify]: Simplified to:
+   (log (/ 0.125 (pow x 3)))
+  (log (/ 0.125 (pow x 3)))
+  (log (/ 0.125 (pow x 3)))
+  (log (/ 0.125 (pow x 3)))
+  (exp (/ 0.125 (pow x 3)))
+  (pow (/ 0.125 (pow x 3)) 3)
+  (* (cbrt (/ 0.125 (pow x 3))) (cbrt (/ 0.125 (pow x 3))))
+  (cbrt (/ 0.125 (pow x 3)))
+  (pow (/ 0.125 (pow x 3)) 3)
+  (sqrt (/ 0.125 (pow x 3)))
+  (sqrt (/ 0.125 (pow x 3)))
+  (neg 0.125)
+  (neg (pow x 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (* x x))
+  (/ (cbrt 0.125) x)
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (* x (sqrt x)))
+  (/ (cbrt 0.125) (* x (sqrt x)))
+  (* (cbrt 0.125) (cbrt 0.125))
+  (/ (cbrt 0.125) (pow x 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (* x x))
+  (/ (cbrt 0.125) x)
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (* x x))
+  (/ (cbrt 0.125) x)
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (* x x))
+  (/ (cbrt 0.125) x)
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (* x (sqrt x)))
+  (/ (cbrt 0.125) (* x (sqrt x)))
+  (* (cbrt 0.125) (cbrt 0.125))
+  (/ (cbrt 0.125) (pow x 3))
+  (* (cbrt 0.125) (/ (cbrt 0.125) x))
+  (/ (cbrt 0.125) (* x x))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (sqrt (pow x 3)))
+  (/ (cbrt 0.125) (sqrt (pow x 3)))
+  (* (cbrt 0.125) (cbrt 0.125))
+  (/ (cbrt 0.125) (pow x 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (pow x 3/2))
+  (/ (cbrt 0.125) (pow x 3/2))
+  (/ (sqrt 0.125) (* x x))
+  (/ (sqrt 0.125) x)
+  (/ (sqrt 0.125) (* x (sqrt x)))
+  (/ (sqrt 0.125) (* x (sqrt x)))
+  (sqrt 0.125)
+  (/ (sqrt 0.125) (pow x 3))
+  (/ (sqrt 0.125) (* x x))
+  (/ (sqrt 0.125) x)
+  (/ (sqrt 0.125) (* x x))
+  (/ (sqrt 0.125) x)
+  (/ (sqrt 0.125) (* x x))
+  (/ (sqrt 0.125) x)
+  (/ (sqrt 0.125) (* x (sqrt x)))
+  (/ (sqrt 0.125) (* x (sqrt x)))
+  (sqrt 0.125)
+  (/ (sqrt 0.125) (pow x 3))
+  (/ (sqrt 0.125) x)
+  (/ (sqrt 0.125) (* x x))
+  (/ (sqrt 0.125) (sqrt (pow x 3)))
+  (/ (sqrt 0.125) (sqrt (pow x 3)))
+  (sqrt 0.125)
+  (/ (sqrt 0.125) (pow x 3))
+  (/ (sqrt 0.125) (pow x 3/2))
+  (/ (sqrt 0.125) (pow x 3/2))
+  (/ 1 (* x x))
+  (/ 0.125 x)
+  (/ 1 (* x (sqrt x)))
+  (/ 0.125 (* x (sqrt x)))
+  1
+  (/ 0.125 (pow x 3))
+  (/ 1 (* x x))
+  (/ 0.125 x)
+  (/ 1 (* x x))
+  (/ 0.125 x)
+  (/ 1 (* x x))
+  (/ 0.125 x)
+  (/ 1 (* x (sqrt x)))
+  (/ 0.125 (* x (sqrt x)))
+  1
+  (/ 0.125 (pow x 3))
+  (/ 1 x)
+  (/ 0.125 (* x x))
+  (/ 1 (sqrt (pow x 3)))
+  (/ 0.125 (sqrt (pow x 3)))
+  1
+  (/ 0.125 (pow x 3))
+  (/ 1 (pow x 3/2))
+  (/ 0.125 (pow x 3/2))
+  (/ 1 (pow x 3))
+  (/ (pow x 3) 0.125)
+  (/ 0.125 (* x x))
+  (/ 0.125 (* x (sqrt x)))
+  0.125
+  (/ 0.125 (* x x))
+  (/ 0.125 (* x x))
+  (/ 0.125 (* x x))
+  (/ 0.125 (* x (sqrt x)))
+  0.125
+  (/ 0.125 x)
+  (/ 0.125 (sqrt (pow x 3)))
+  0.125
+  (/ 0.125 (pow x 3/2))
+  (/ (pow x 3) (cbrt 0.125))
+  (/ (pow x 3) (sqrt 0.125))
+  (/ (pow x 3) 0.125)
+  (exp (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))
+  (exp (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))
+  (log (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))
+  (exp (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))
+  (* (cbrt (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))) (cbrt (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))))
+  (cbrt (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))
+  (pow (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))) 3)
+  (sqrt (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))
+  (sqrt (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))
+  (- (* (pow x 3) (+ (pow x 3) (pow (/ 0.5 x) 3))) (* 0.125 (+ (* x x) (* (/ 0.5 x) (- (/ 0.5 x) x)))))
+  (* (pow x 3) (+ (* x x) (* (/ 0.5 x) (- (/ 0.5 x) x))))
+  (* (- x (/ 0.5 x)) (- (* (pow x 3) (+ x (/ 0.5 x))) 0.125))
+  (* (pow x 3) (- x (/ 0.5 x)))
+  (- (pow (+ x (/ 0.5 x)) 3) (pow (/ 0.125 (pow x 3)) 3))
+  (+ (/ (* 0.125 0.125) (pow x 6)) (* (+ x (/ 0.5 x)) (+ (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))))
+  (/ (neg 0.125) (pow x 3))
+  (- (* (+ x (/ 0.5 x)) (+ x (/ 0.5 x))) (/ (* 0.125 0.125) (pow x 6)))
+  (+ (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))
+  (+ (sqrt (/ 0.125 (pow x 3))) (sqrt (+ x (/ 0.5 x))))
+  (- (sqrt (+ x (/ 0.5 x))) (sqrt (/ 0.125 (pow x 3))))
+  (+ (/ (sqrt 0.125) (* x (sqrt x))) (sqrt (+ x (/ 0.5 x))))
+  (- (sqrt (+ x (/ 0.5 x))) (/ (sqrt 0.125) (* x (sqrt x))))
+  (+ (/ (sqrt 0.125) (* x (sqrt x))) (sqrt (+ x (/ 0.5 x))))
+  (- (sqrt (+ x (/ 0.5 x))) (/ (sqrt 0.125) (* x (sqrt x))))
+  (+ (/ (sqrt 0.125) (sqrt (pow x 3))) (sqrt (+ x (/ 0.5 x))))
+  (- (sqrt (+ x (/ 0.5 x))) (/ (sqrt 0.125) (sqrt (pow x 3))))
+  (+ (/ (sqrt 0.125) (pow x 3/2)) (sqrt (+ x (/ 0.5 x))))
+  (- (sqrt (+ x (/ 0.5 x))) (/ (sqrt 0.125) (pow x 3/2)))
+  (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))
+  (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))
+  (- (/ 0.5 x) (/ 0.125 (pow x 3)))
+  (exp (+ x (/ 0.5 x)))
+  (log (+ x (/ 0.5 x)))
+  (exp (+ x (/ 0.5 x)))
+  (* (cbrt (+ x (/ 0.5 x))) (cbrt (+ x (/ 0.5 x))))
+  (cbrt (+ x (/ 0.5 x)))
+  (pow (+ x (/ 0.5 x)) 3)
+  (sqrt (+ x (/ 0.5 x)))
+  (sqrt (+ x (/ 0.5 x)))
+  (+ (pow x 3) (pow (/ 0.5 x) 3))
+  (+ (* x x) (* (/ 0.5 x) (- (/ 0.5 x) x)))
+  (- (* x x) (* (/ 0.5 x) (/ 0.5 x)))
+  (- x (/ 0.5 x))
+  (+ x (/ 0.5 x))
+  (/ 0.125 (pow x 3))
+  (/ 0.125 (pow x 3))
+  (/ 0.125 (pow x 3))
+  (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))
+  (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))
+  (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))
+  (+ x (/ 0.5 x))
+  (+ x (/ 0.5 x))
+  (+ x (/ 0.5 x))
+1.039 * * * [progress]: adding candidates to table
+1.270 * * [progress]: iteration 4 / 4
+1.270 * * * [progress]: picking best candidate
+1.283 * * * * [pick]: Picked  #<alt (λ (x) (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))>
+1.283 * * * [progress]: localizing error
+1.302 * * * [progress]: generating rewritten candidates
+1.302 * * * * [progress]: [ 1 / 3 ] rewriting at (2 1)
+1.311 * * * * [progress]: [ 2 / 3 ] rewriting at (2)
+1.356 * * * * [progress]: [ 3 / 3 ] rewriting at (2 2)
+1.375 * * * [progress]: generating series expansions
+1.376 * * * * [progress]: [ 1 / 3 ] generating series at (2 1)
+1.376 * [approximate]: Taking taylor expansion of (/ 0.125 (pow x 3)) in (x) around 0
+1.376 * [taylor]: Taking taylor expansion of (/ 0.125 (pow x 3)) in x
+1.376 * [taylor]: Taking taylor expansion of 0.125 in x
+1.376 * [taylor]: Taking taylor expansion of (pow x 3) in x
+1.376 * [taylor]: Taking taylor expansion of x in x
+1.376 * [taylor]: Taking taylor expansion of (/ 0.125 (pow x 3)) in x
+1.376 * [taylor]: Taking taylor expansion of 0.125 in x
+1.376 * [taylor]: Taking taylor expansion of (pow x 3) in x
+1.376 * [taylor]: Taking taylor expansion of x in x
+1.379 * [approximate]: Taking taylor expansion of (* 0.125 (pow x 3)) in (x) around 0
+1.379 * [taylor]: Taking taylor expansion of (* 0.125 (pow x 3)) in x
+1.379 * [taylor]: Taking taylor expansion of 0.125 in x
+1.379 * [taylor]: Taking taylor expansion of (pow x 3) in x
+1.379 * [taylor]: Taking taylor expansion of x in x
+1.379 * [taylor]: Taking taylor expansion of (* 0.125 (pow x 3)) in x
+1.379 * [taylor]: Taking taylor expansion of 0.125 in x
+1.379 * [taylor]: Taking taylor expansion of (pow x 3) in x
+1.379 * [taylor]: Taking taylor expansion of x in x
+1.382 * [approximate]: Taking taylor expansion of (* -0.125 (pow x 3)) in (x) around 0
+1.382 * [taylor]: Taking taylor expansion of (* -0.125 (pow x 3)) in x
+1.382 * [taylor]: Taking taylor expansion of -0.125 in x
+1.382 * [taylor]: Taking taylor expansion of (pow x 3) in x
+1.382 * [taylor]: Taking taylor expansion of x in x
+1.382 * [taylor]: Taking taylor expansion of (* -0.125 (pow x 3)) in x
+1.382 * [taylor]: Taking taylor expansion of -0.125 in x
+1.382 * [taylor]: Taking taylor expansion of (pow x 3) in x
+1.382 * [taylor]: Taking taylor expansion of x in x
+1.385 * * * * [progress]: [ 2 / 3 ] generating series at (2)
+1.386 * [approximate]: Taking taylor expansion of (- (* 0.125 (/ 1 (pow x 3))) (+ (* 0.5 (/ 1 x)) x)) in (x) around 0
+1.386 * [taylor]: Taking taylor expansion of (- (* 0.125 (/ 1 (pow x 3))) (+ (* 0.5 (/ 1 x)) x)) in x
+1.386 * [taylor]: Taking taylor expansion of (* 0.125 (/ 1 (pow x 3))) in x
+1.386 * [taylor]: Taking taylor expansion of 0.125 in x
+1.386 * [taylor]: Taking taylor expansion of (/ 1 (pow x 3)) in x
+1.386 * [taylor]: Taking taylor expansion of (pow x 3) in x
+1.386 * [taylor]: Taking taylor expansion of x in x
+1.386 * [taylor]: Taking taylor expansion of (+ (* 0.5 (/ 1 x)) x) in x
+1.386 * [taylor]: Taking taylor expansion of (* 0.5 (/ 1 x)) in x
+1.386 * [taylor]: Taking taylor expansion of 0.5 in x
+1.387 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+1.387 * [taylor]: Taking taylor expansion of x in x
+1.387 * [taylor]: Taking taylor expansion of x in x
+1.387 * [taylor]: Taking taylor expansion of (- (* 0.125 (/ 1 (pow x 3))) (+ (* 0.5 (/ 1 x)) x)) in x
+1.387 * [taylor]: Taking taylor expansion of (* 0.125 (/ 1 (pow x 3))) in x
+1.387 * [taylor]: Taking taylor expansion of 0.125 in x
+1.387 * [taylor]: Taking taylor expansion of (/ 1 (pow x 3)) in x
+1.387 * [taylor]: Taking taylor expansion of (pow x 3) in x
+1.387 * [taylor]: Taking taylor expansion of x in x
+1.387 * [taylor]: Taking taylor expansion of (+ (* 0.5 (/ 1 x)) x) in x
+1.387 * [taylor]: Taking taylor expansion of (* 0.5 (/ 1 x)) in x
+1.387 * [taylor]: Taking taylor expansion of 0.5 in x
+1.387 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+1.387 * [taylor]: Taking taylor expansion of x in x
+1.387 * [taylor]: Taking taylor expansion of x in x
+1.390 * [approximate]: Taking taylor expansion of (- (* 0.125 (pow x 3)) (+ (/ 1 x) (* 0.5 x))) in (x) around 0
+1.390 * [taylor]: Taking taylor expansion of (- (* 0.125 (pow x 3)) (+ (/ 1 x) (* 0.5 x))) in x
+1.390 * [taylor]: Taking taylor expansion of (* 0.125 (pow x 3)) in x
+1.390 * [taylor]: Taking taylor expansion of 0.125 in x
+1.390 * [taylor]: Taking taylor expansion of (pow x 3) in x
+1.390 * [taylor]: Taking taylor expansion of x in x
+1.390 * [taylor]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in x
+1.390 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+1.390 * [taylor]: Taking taylor expansion of x in x
+1.390 * [taylor]: Taking taylor expansion of (* 0.5 x) in x
+1.390 * [taylor]: Taking taylor expansion of 0.5 in x
+1.390 * [taylor]: Taking taylor expansion of x in x
+1.390 * [taylor]: Taking taylor expansion of (- (* 0.125 (pow x 3)) (+ (/ 1 x) (* 0.5 x))) in x
+1.391 * [taylor]: Taking taylor expansion of (* 0.125 (pow x 3)) in x
+1.391 * [taylor]: Taking taylor expansion of 0.125 in x
+1.391 * [taylor]: Taking taylor expansion of (pow x 3) in x
+1.391 * [taylor]: Taking taylor expansion of x in x
+1.391 * [taylor]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in x
+1.391 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+1.391 * [taylor]: Taking taylor expansion of x in x
+1.391 * [taylor]: Taking taylor expansion of (* 0.5 x) in x
+1.391 * [taylor]: Taking taylor expansion of 0.5 in x
+1.391 * [taylor]: Taking taylor expansion of x in x
+1.393 * [approximate]: Taking taylor expansion of (- (+ (/ 1 x) (* 0.5 x)) (* 0.125 (pow x 3))) in (x) around 0
+1.393 * [taylor]: Taking taylor expansion of (- (+ (/ 1 x) (* 0.5 x)) (* 0.125 (pow x 3))) in x
+1.393 * [taylor]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in x
+1.393 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+1.393 * [taylor]: Taking taylor expansion of x in x
+1.393 * [taylor]: Taking taylor expansion of (* 0.5 x) in x
+1.393 * [taylor]: Taking taylor expansion of 0.5 in x
+1.393 * [taylor]: Taking taylor expansion of x in x
+1.393 * [taylor]: Taking taylor expansion of (* 0.125 (pow x 3)) in x
+1.394 * [taylor]: Taking taylor expansion of 0.125 in x
+1.394 * [taylor]: Taking taylor expansion of (pow x 3) in x
+1.394 * [taylor]: Taking taylor expansion of x in x
+1.394 * [taylor]: Taking taylor expansion of (- (+ (/ 1 x) (* 0.5 x)) (* 0.125 (pow x 3))) in x
+1.394 * [taylor]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in x
+1.394 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+1.394 * [taylor]: Taking taylor expansion of x in x
+1.394 * [taylor]: Taking taylor expansion of (* 0.5 x) in x
+1.394 * [taylor]: Taking taylor expansion of 0.5 in x
+1.394 * [taylor]: Taking taylor expansion of x in x
+1.394 * [taylor]: Taking taylor expansion of (* 0.125 (pow x 3)) in x
+1.394 * [taylor]: Taking taylor expansion of 0.125 in x
+1.394 * [taylor]: Taking taylor expansion of (pow x 3) in x
+1.394 * [taylor]: Taking taylor expansion of x in x
+1.396 * * * * [progress]: [ 3 / 3 ] generating series at (2 2)
+1.396 * [approximate]: Taking taylor expansion of (+ (* 0.5 (/ 1 x)) x) in (x) around 0
+1.396 * [taylor]: Taking taylor expansion of (+ (* 0.5 (/ 1 x)) x) in x
+1.396 * [taylor]: Taking taylor expansion of (* 0.5 (/ 1 x)) in x
+1.396 * [taylor]: Taking taylor expansion of 0.5 in x
+1.396 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+1.396 * [taylor]: Taking taylor expansion of x in x
+1.396 * [taylor]: Taking taylor expansion of x in x
+1.396 * [taylor]: Taking taylor expansion of (+ (* 0.5 (/ 1 x)) x) in x
+1.396 * [taylor]: Taking taylor expansion of (* 0.5 (/ 1 x)) in x
+1.396 * [taylor]: Taking taylor expansion of 0.5 in x
+1.396 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+1.396 * [taylor]: Taking taylor expansion of x in x
+1.396 * [taylor]: Taking taylor expansion of x in x
+1.400 * [approximate]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in (x) around 0
+1.400 * [taylor]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in x
+1.400 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+1.400 * [taylor]: Taking taylor expansion of x in x
+1.400 * [taylor]: Taking taylor expansion of (* 0.5 x) in x
+1.400 * [taylor]: Taking taylor expansion of 0.5 in x
+1.400 * [taylor]: Taking taylor expansion of x in x
+1.400 * [taylor]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in x
+1.400 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+1.400 * [taylor]: Taking taylor expansion of x in x
+1.400 * [taylor]: Taking taylor expansion of (* 0.5 x) in x
+1.400 * [taylor]: Taking taylor expansion of 0.5 in x
+1.400 * [taylor]: Taking taylor expansion of x in x
+1.403 * [approximate]: Taking taylor expansion of (neg (+ (/ 1 x) (* 0.5 x))) in (x) around 0
+1.403 * [taylor]: Taking taylor expansion of (neg (+ (/ 1 x) (* 0.5 x))) in x
+1.403 * [taylor]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in x
+1.403 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+1.403 * [taylor]: Taking taylor expansion of x in x
+1.403 * [taylor]: Taking taylor expansion of (* 0.5 x) in x
+1.403 * [taylor]: Taking taylor expansion of 0.5 in x
+1.403 * [taylor]: Taking taylor expansion of x in x
+1.403 * [taylor]: Taking taylor expansion of (neg (+ (/ 1 x) (* 0.5 x))) in x
+1.403 * [taylor]: Taking taylor expansion of (+ (/ 1 x) (* 0.5 x)) in x
+1.403 * [taylor]: Taking taylor expansion of (/ 1 x) in x
+1.403 * [taylor]: Taking taylor expansion of x in x
+1.404 * [taylor]: Taking taylor expansion of (* 0.5 x) in x
+1.404 * [taylor]: Taking taylor expansion of 0.5 in x
+1.404 * [taylor]: Taking taylor expansion of x in x
+1.406 * * * [progress]: simplifying candidates
+1.410 * [simplify]: Simplifying using  #<procedure:simplify-batch-egg> :
+   (- (log 0.125) (* (log x) 3))
+  (- (log 0.125) (* (log x) 3))
+  (- (log 0.125) (log (pow x 3)))
+  (log (/ 0.125 (pow x 3)))
+  (exp (/ 0.125 (pow x 3)))
+  (/ (* (* 0.125 0.125) 0.125) (* (* (pow x 3) (pow x 3)) (pow x 3)))
+  (* (cbrt (/ 0.125 (pow x 3))) (cbrt (/ 0.125 (pow x 3))))
+  (cbrt (/ 0.125 (pow x 3)))
+  (* (* (/ 0.125 (pow x 3)) (/ 0.125 (pow x 3))) (/ 0.125 (pow x 3)))
+  (sqrt (/ 0.125 (pow x 3)))
+  (sqrt (/ 0.125 (pow x 3)))
+  (neg 0.125)
+  (neg (pow x 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (pow (* (cbrt x) (cbrt x)) 3))
+  (/ (cbrt 0.125) (pow (cbrt x) 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (pow (sqrt x) 3))
+  (/ (cbrt 0.125) (pow (sqrt x) 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (pow 1 3))
+  (/ (cbrt 0.125) (pow x 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (* x x))
+  (/ (cbrt 0.125) x)
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (* (cbrt (pow x 3)) (cbrt (pow x 3))))
+  (/ (cbrt 0.125) (cbrt (pow x 3)))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (pow (* (cbrt x) (cbrt x)) 3))
+  (/ (cbrt 0.125) (pow (cbrt x) 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (pow (sqrt x) 3))
+  (/ (cbrt 0.125) (pow (sqrt x) 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (pow 1 3))
+  (/ (cbrt 0.125) (pow x 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) x)
+  (/ (cbrt 0.125) (* x x))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (sqrt (pow x 3)))
+  (/ (cbrt 0.125) (sqrt (pow x 3)))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) 1)
+  (/ (cbrt 0.125) (pow x 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (pow x (/ 3 2)))
+  (/ (cbrt 0.125) (pow x (/ 3 2)))
+  (/ (sqrt 0.125) (pow (* (cbrt x) (cbrt x)) 3))
+  (/ (sqrt 0.125) (pow (cbrt x) 3))
+  (/ (sqrt 0.125) (pow (sqrt x) 3))
+  (/ (sqrt 0.125) (pow (sqrt x) 3))
+  (/ (sqrt 0.125) (pow 1 3))
+  (/ (sqrt 0.125) (pow x 3))
+  (/ (sqrt 0.125) (* x x))
+  (/ (sqrt 0.125) x)
+  (/ (sqrt 0.125) (* (cbrt (pow x 3)) (cbrt (pow x 3))))
+  (/ (sqrt 0.125) (cbrt (pow x 3)))
+  (/ (sqrt 0.125) (pow (* (cbrt x) (cbrt x)) 3))
+  (/ (sqrt 0.125) (pow (cbrt x) 3))
+  (/ (sqrt 0.125) (pow (sqrt x) 3))
+  (/ (sqrt 0.125) (pow (sqrt x) 3))
+  (/ (sqrt 0.125) (pow 1 3))
+  (/ (sqrt 0.125) (pow x 3))
+  (/ (sqrt 0.125) x)
+  (/ (sqrt 0.125) (* x x))
+  (/ (sqrt 0.125) (sqrt (pow x 3)))
+  (/ (sqrt 0.125) (sqrt (pow x 3)))
+  (/ (sqrt 0.125) 1)
+  (/ (sqrt 0.125) (pow x 3))
+  (/ (sqrt 0.125) (pow x (/ 3 2)))
+  (/ (sqrt 0.125) (pow x (/ 3 2)))
+  (/ 1 (pow (* (cbrt x) (cbrt x)) 3))
+  (/ 0.125 (pow (cbrt x) 3))
+  (/ 1 (pow (sqrt x) 3))
+  (/ 0.125 (pow (sqrt x) 3))
+  (/ 1 (pow 1 3))
+  (/ 0.125 (pow x 3))
+  (/ 1 (* x x))
+  (/ 0.125 x)
+  (/ 1 (* (cbrt (pow x 3)) (cbrt (pow x 3))))
+  (/ 0.125 (cbrt (pow x 3)))
+  (/ 1 (pow (* (cbrt x) (cbrt x)) 3))
+  (/ 0.125 (pow (cbrt x) 3))
+  (/ 1 (pow (sqrt x) 3))
+  (/ 0.125 (pow (sqrt x) 3))
+  (/ 1 (pow 1 3))
+  (/ 0.125 (pow x 3))
+  (/ 1 x)
+  (/ 0.125 (* x x))
+  (/ 1 (sqrt (pow x 3)))
+  (/ 0.125 (sqrt (pow x 3)))
+  (/ 1 1)
+  (/ 0.125 (pow x 3))
+  (/ 1 (pow x (/ 3 2)))
+  (/ 0.125 (pow x (/ 3 2)))
+  (/ 1 (pow x 3))
+  (/ (pow x 3) 0.125)
+  (/ 0.125 (pow (* (cbrt x) (cbrt x)) 3))
+  (/ 0.125 (pow (sqrt x) 3))
+  (/ 0.125 (pow 1 3))
+  (/ 0.125 (* x x))
+  (/ 0.125 (* (cbrt (pow x 3)) (cbrt (pow x 3))))
+  (/ 0.125 (pow (* (cbrt x) (cbrt x)) 3))
+  (/ 0.125 (pow (sqrt x) 3))
+  (/ 0.125 (pow 1 3))
+  (/ 0.125 x)
+  (/ 0.125 (sqrt (pow x 3)))
+  (/ 0.125 1)
+  (/ 0.125 (pow x (/ 3 2)))
+  (/ (pow x 3) (cbrt 0.125))
+  (/ (pow x 3) (sqrt 0.125))
+  (/ (pow x 3) 0.125)
+  (/ (exp (/ 0.125 (pow x 3))) (* (exp x) (exp (/ 0.5 x))))
+  (/ (exp (/ 0.125 (pow x 3))) (exp (+ x (/ 0.5 x))))
+  (log (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))
+  (exp (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))
+  (* (cbrt (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))) (cbrt (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))))
+  (cbrt (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))
+  (* (* (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))) (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))) (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))
+  (sqrt (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))
+  (sqrt (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))
+  (- (* 0.125 (+ (* x x) (- (* (/ 0.5 x) (/ 0.5 x)) (* x (/ 0.5 x))))) (* (pow x 3) (+ (pow x 3) (pow (/ 0.5 x) 3))))
+  (* (pow x 3) (+ (* x x) (- (* (/ 0.5 x) (/ 0.5 x)) (* x (/ 0.5 x)))))
+  (- (* 0.125 (- x (/ 0.5 x))) (* (pow x 3) (- (* x x) (* (/ 0.5 x) (/ 0.5 x)))))
+  (* (pow x 3) (- x (/ 0.5 x)))
+  (- (pow (/ 0.125 (pow x 3)) 3) (pow (+ x (/ 0.5 x)) 3))
+  (+ (* (/ 0.125 (pow x 3)) (/ 0.125 (pow x 3))) (+ (* (+ x (/ 0.5 x)) (+ x (/ 0.5 x))) (* (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))))
+  (neg (+ x (/ 0.5 x)))
+  (- (* (/ 0.125 (pow x 3)) (/ 0.125 (pow x 3))) (* (+ x (/ 0.5 x)) (+ x (/ 0.5 x))))
+  (+ (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))
+  (+ (sqrt (/ 0.125 (pow x 3))) (sqrt (+ x (/ 0.5 x))))
+  (- (sqrt (/ 0.125 (pow x 3))) (sqrt (+ x (/ 0.5 x))))
+  (+ (/ (sqrt 0.125) (pow (sqrt x) 3)) (sqrt (+ x (/ 0.5 x))))
+  (- (/ (sqrt 0.125) (pow (sqrt x) 3)) (sqrt (+ x (/ 0.5 x))))
+  (+ (/ (sqrt 0.125) (pow (sqrt x) 3)) (sqrt (+ x (/ 0.5 x))))
+  (- (/ (sqrt 0.125) (pow (sqrt x) 3)) (sqrt (+ x (/ 0.5 x))))
+  (+ (/ (sqrt 0.125) (sqrt (pow x 3))) (sqrt (+ x (/ 0.5 x))))
+  (- (/ (sqrt 0.125) (sqrt (pow x 3))) (sqrt (+ x (/ 0.5 x))))
+  (+ (/ (sqrt 0.125) (pow x (/ 3 2))) (sqrt (+ x (/ 0.5 x))))
+  (- (/ (sqrt 0.125) (pow x (/ 3 2))) (sqrt (+ x (/ 0.5 x))))
+  (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))
+  (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))
+  (- (/ 0.125 (pow x 3)) x)
+  (* (exp x) (exp (/ 0.5 x)))
+  (log (+ x (/ 0.5 x)))
+  (exp (+ x (/ 0.5 x)))
+  (* (cbrt (+ x (/ 0.5 x))) (cbrt (+ x (/ 0.5 x))))
+  (cbrt (+ x (/ 0.5 x)))
+  (* (* (+ x (/ 0.5 x)) (+ x (/ 0.5 x))) (+ x (/ 0.5 x)))
+  (sqrt (+ x (/ 0.5 x)))
+  (sqrt (+ x (/ 0.5 x)))
+  (+ (pow x 3) (pow (/ 0.5 x) 3))
+  (+ (* x x) (- (* (/ 0.5 x) (/ 0.5 x)) (* x (/ 0.5 x))))
+  (- (* x x) (* (/ 0.5 x) (/ 0.5 x)))
+  (- x (/ 0.5 x))
+  (+ x (/ 0.5 x))
+  (/ 0.125 (pow x 3))
+  (/ 0.125 (pow x 3))
+  (/ 0.125 (pow x 3))
+  (- (* 0.125 (/ 1 (pow x 3))) (+ (* 0.5 (/ 1 x)) x))
+  (- (* 0.125 (/ 1 (pow x 3))) (+ (* 0.5 (/ 1 x)) x))
+  (- (* 0.125 (/ 1 (pow x 3))) (+ (* 0.5 (/ 1 x)) x))
+  (+ (* 0.5 (/ 1 x)) x)
+  (+ (* 0.5 (/ 1 x)) x)
+  (+ (* 0.5 (/ 1 x)) x)
+1.472 * * [simplify]: iteration  0 :  5419  enodes  (cost  1717 )
+1.482 * [simplify]: Simplified to:
+   (log (/ 0.125 (pow x 3)))
+  (log (/ 0.125 (pow x 3)))
+  (log (/ 0.125 (pow x 3)))
+  (log (/ 0.125 (pow x 3)))
+  (exp (/ 0.125 (pow x 3)))
+  (pow (/ 0.125 (pow x 3)) 3)
+  (* (cbrt (/ 0.125 (pow x 3))) (cbrt (/ 0.125 (pow x 3))))
+  (cbrt (/ 0.125 (pow x 3)))
+  (pow (/ 0.125 (pow x 3)) 3)
+  (sqrt (/ 0.125 (pow x 3)))
+  (sqrt (/ 0.125 (pow x 3)))
+  (neg 0.125)
+  (neg (pow x 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (* x x))
+  (/ (cbrt 0.125) x)
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (* x (sqrt x)))
+  (/ (cbrt 0.125) (* x (sqrt x)))
+  (* (cbrt 0.125) (cbrt 0.125))
+  (/ (cbrt 0.125) (pow x 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (* x x))
+  (/ (cbrt 0.125) x)
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (* x x))
+  (/ (cbrt 0.125) x)
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (* x x))
+  (/ (cbrt 0.125) x)
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (* x (sqrt x)))
+  (/ (cbrt 0.125) (* x (sqrt x)))
+  (* (cbrt 0.125) (cbrt 0.125))
+  (/ (cbrt 0.125) (pow x 3))
+  (* (cbrt 0.125) (/ (cbrt 0.125) x))
+  (/ (cbrt 0.125) (* x x))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (sqrt (pow x 3)))
+  (/ (cbrt 0.125) (sqrt (pow x 3)))
+  (* (cbrt 0.125) (cbrt 0.125))
+  (/ (cbrt 0.125) (pow x 3))
+  (/ (* (cbrt 0.125) (cbrt 0.125)) (pow x 3/2))
+  (/ (cbrt 0.125) (pow x 3/2))
+  (/ (sqrt 0.125) (* x x))
+  (/ (sqrt 0.125) x)
+  (/ (sqrt 0.125) (* x (sqrt x)))
+  (/ (sqrt 0.125) (* x (sqrt x)))
+  (sqrt 0.125)
+  (/ (sqrt 0.125) (pow x 3))
+  (/ (sqrt 0.125) (* x x))
+  (/ (sqrt 0.125) x)
+  (/ (sqrt 0.125) (* x x))
+  (/ (sqrt 0.125) x)
+  (/ (sqrt 0.125) (* x x))
+  (/ (sqrt 0.125) x)
+  (/ (sqrt 0.125) (* x (sqrt x)))
+  (/ (sqrt 0.125) (* x (sqrt x)))
+  (sqrt 0.125)
+  (/ (sqrt 0.125) (pow x 3))
+  (/ (sqrt 0.125) x)
+  (/ (sqrt 0.125) (* x x))
+  (/ (sqrt 0.125) (sqrt (pow x 3)))
+  (/ (sqrt 0.125) (sqrt (pow x 3)))
+  (sqrt 0.125)
+  (/ (sqrt 0.125) (pow x 3))
+  (/ (sqrt 0.125) (pow x 3/2))
+  (/ (sqrt 0.125) (pow x 3/2))
+  (/ 1 (* x x))
+  (/ 0.125 x)
+  (/ 1 (* x (sqrt x)))
+  (/ 0.125 (* x (sqrt x)))
+  1
+  (/ 0.125 (pow x 3))
+  (/ 1 (* x x))
+  (/ 0.125 x)
+  (/ 1 (* x x))
+  (/ 0.125 x)
+  (/ 1 (* x x))
+  (/ 0.125 x)
+  (/ 1 (* x (sqrt x)))
+  (/ 0.125 (* x (sqrt x)))
+  1
+  (/ 0.125 (pow x 3))
+  (/ 1 x)
+  (/ 0.125 (* x x))
+  (/ 1 (sqrt (pow x 3)))
+  (/ 0.125 (sqrt (pow x 3)))
+  1
+  (/ 0.125 (pow x 3))
+  (/ 1 (pow x 3/2))
+  (/ 0.125 (pow x 3/2))
+  (/ 1 (pow x 3))
+  (/ (pow x 3) 0.125)
+  (/ 0.125 (* x x))
+  (/ 0.125 (* x (sqrt x)))
+  0.125
+  (/ 0.125 (* x x))
+  (/ 0.125 (* x x))
+  (/ 0.125 (* x x))
+  (/ 0.125 (* x (sqrt x)))
+  0.125
+  (/ 0.125 x)
+  (/ 0.125 (sqrt (pow x 3)))
+  0.125
+  (/ 0.125 (pow x 3/2))
+  (/ (pow x 3) (cbrt 0.125))
+  (/ (pow x 3) (sqrt 0.125))
+  (/ (pow x 3) 0.125)
+  (exp (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))
+  (exp (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))
+  (log (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))
+  (exp (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))
+  (* (cbrt (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))) (cbrt (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))))
+  (cbrt (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))
+  (pow (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))) 3)
+  (sqrt (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))
+  (sqrt (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))
+  (- (* 0.125 (+ (* x x) (* (/ 0.5 x) (- (/ 0.5 x) x)))) (* (pow x 3) (+ (pow x 3) (pow (/ 0.5 x) 3))))
+  (* (pow x 3) (+ (* x x) (* (/ 0.5 x) (- (/ 0.5 x) x))))
+  (* (- x (/ 0.5 x)) (- 0.125 (* (pow x 3) (+ x (/ 0.5 x)))))
+  (* (pow x 3) (- x (/ 0.5 x)))
+  (- (pow (/ 0.125 (pow x 3)) 3) (pow (+ x (/ 0.5 x)) 3))
+  (+ (/ (* 0.125 0.125) (pow x 6)) (* (+ x (/ 0.5 x)) (+ (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))))
+  (neg (+ x (/ 0.5 x)))
+  (- (/ (* 0.125 0.125) (pow x 6)) (* (+ x (/ 0.5 x)) (+ x (/ 0.5 x))))
+  (+ (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))
+  (+ (sqrt (/ 0.125 (pow x 3))) (sqrt (+ x (/ 0.5 x))))
+  (- (sqrt (/ 0.125 (pow x 3))) (sqrt (+ x (/ 0.5 x))))
+  (+ (/ (sqrt 0.125) (* x (sqrt x))) (sqrt (+ x (/ 0.5 x))))
+  (- (/ (sqrt 0.125) (* x (sqrt x))) (sqrt (+ x (/ 0.5 x))))
+  (+ (/ (sqrt 0.125) (* x (sqrt x))) (sqrt (+ x (/ 0.5 x))))
+  (- (/ (sqrt 0.125) (* x (sqrt x))) (sqrt (+ x (/ 0.5 x))))
+  (+ (/ (sqrt 0.125) (sqrt (pow x 3))) (sqrt (+ x (/ 0.5 x))))
+  (- (/ (sqrt 0.125) (sqrt (pow x 3))) (sqrt (+ x (/ 0.5 x))))
+  (+ (/ (sqrt 0.125) (pow x 3/2)) (sqrt (+ x (/ 0.5 x))))
+  (- (/ (sqrt 0.125) (pow x 3/2)) (sqrt (+ x (/ 0.5 x))))
+  (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))
+  (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))
+  (- (/ 0.125 (pow x 3)) x)
+  (exp (+ x (/ 0.5 x)))
+  (log (+ x (/ 0.5 x)))
+  (exp (+ x (/ 0.5 x)))
+  (* (cbrt (+ x (/ 0.5 x))) (cbrt (+ x (/ 0.5 x))))
+  (cbrt (+ x (/ 0.5 x)))
+  (pow (+ x (/ 0.5 x)) 3)
+  (sqrt (+ x (/ 0.5 x)))
+  (sqrt (+ x (/ 0.5 x)))
+  (+ (pow x 3) (pow (/ 0.5 x) 3))
+  (+ (* x x) (* (/ 0.5 x) (- (/ 0.5 x) x)))
+  (- (* x x) (* (/ 0.5 x) (/ 0.5 x)))
+  (- x (/ 0.5 x))
+  (+ x (/ 0.5 x))
+  (/ 0.125 (pow x 3))
+  (/ 0.125 (pow x 3))
+  (/ 0.125 (pow x 3))
+  (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))
+  (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))
+  (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x)))
+  (+ x (/ 0.5 x))
+  (+ x (/ 0.5 x))
+  (+ x (/ 0.5 x))
+1.483 * * * [progress]: adding candidates to table
+1.714 * [progress]: [Phase 3 of 3] Extracting.
+1.715 * * [regime]: Finding splitpoints for: (#<alt (λ (x) (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))> #<alt (λ (x) (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))> #<alt (λ (x) (sqrt (+ (* x x) 1.0)))> #<alt (λ (x) (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))))>)
+1.715 * * * [regime-changes]: Trying 4 branch expressions: ((* x x) (+ (* x x) 1.0) (sqrt (+ (* x x) 1.0)) x)
+1.715 * * * * [regimes]: Trying to branch on (* x x) from (#<alt (λ (x) (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))> #<alt (λ (x) (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))> #<alt (λ (x) (sqrt (+ (* x x) 1.0)))> #<alt (λ (x) (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))))>)
+1.793 * * * * [regimes]: Trying to branch on (* x x) from (#<alt (λ (x) (sqrt (+ (* x x) 1.0)))> #<alt (λ (x) (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))))>)
+1.855 * * * * [regimes]: Trying to branch on (+ (* x x) 1.0) from (#<alt (λ (x) (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))> #<alt (λ (x) (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))> #<alt (λ (x) (sqrt (+ (* x x) 1.0)))> #<alt (λ (x) (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))))>)
+1.931 * * * * [regimes]: Trying to branch on (+ (* x x) 1.0) from (#<alt (λ (x) (sqrt (+ (* x x) 1.0)))> #<alt (λ (x) (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))))>)
+1.992 * * * * [regimes]: Trying to branch on (sqrt (+ (* x x) 1.0)) from (#<alt (λ (x) (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))> #<alt (λ (x) (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))> #<alt (λ (x) (sqrt (+ (* x x) 1.0)))> #<alt (λ (x) (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))))>)
+2.083 * * * * [regimes]: Trying to branch on (sqrt (+ (* x x) 1.0)) from (#<alt (λ (x) (sqrt (+ (* x x) 1.0)))> #<alt (λ (x) (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))))>)
+2.158 * * * * [regimes]: Trying to branch on x from (#<alt (λ (x) (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))> #<alt (λ (x) (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))> #<alt (λ (x) (sqrt (+ (* x x) 1.0)))> #<alt (λ (x) (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))))>)
+2.275 * * * [regime]: Found split indices: #<option (#s(si 1 35) #s(si 2 184) #s(si 0 255))>
+2.275 * [binary-search]: Improving bounds with binary search for x and (#<alt (λ (x) (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))> #<alt (λ (x) (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))> #<alt (λ (x) (sqrt (+ (* x x) 1.0)))> #<alt (λ (x) (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))))>)
+2.325 * [regimes]: Found splitpoints: (#s(sp 1 x -1.3366836797255362e+154) #s(sp 2 x 3835.827149827554) #s(sp 0 x +nan.0)) , with alts (#<alt (λ (x) (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3))))> #<alt (λ (x) (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))))> #<alt (λ (x) (sqrt (+ (* x x) 1.0)))> #<alt (λ (x) (* (sqrt (sqrt (+ (* x x) 1.0))) (sqrt (sqrt (+ (* x x) 1.0)))))>)
+2.325 * [simplify]: Simplifying using  #<procedure:simplify-batch-egg> :
+   (if (<= x -1.3366836797255362e+154) (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))) (if (<= x 3835.827149827554) (sqrt (+ (* x x) 1.0)) (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))))
+2.331 * * [simplify]: iteration  0 :  71  enodes  (cost  53 )
+2.331 * * [simplify]: iteration  1 :  71  enodes  (cost  53 )
+2.331 * [simplify]: Simplified to:
+   (if (<= x -1.3366836797255362e+154) (- (/ 0.125 (pow x 3)) (+ x (/ 0.5 x))) (if (<= x 3835.827149827554) (sqrt (+ (* x x) 1.0)) (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3)))))
+4.147 * [regime-testing]: End program error score: 0.003500437554694337

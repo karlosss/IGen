@@ -1,0 +1,57 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/><title>Result for (sqrt (+ (* x x) 1.0))</title><link rel="stylesheet" type="text/css" href="../report.css"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous"/><script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script><script src="../report.js"></script><script src="interactive.js"></script><script src="https://unpkg.com/mathjs@4.4.2/dist/math.min.js"></script></head><body><nav id="links"><div><a href="../results.html">Report</a><a href="debug.txt">Log</a><a href="timeline.html">Metrics</a></div><div><a href="#graphs">Error</a><a href="#try-it">Try it out!</a><a href="#history">Derivation</a><a href="#reproduce">Reproduce</a></div></nav><section id="large"><div>Average Error: <span class="number" title="Maximum error: 64.0 → 1.0">15.8 → 0.0</span></div><div>Time: <span class="number">4.1s</span></div><div>Precision: <span class="number"><kbd>binary64</kbd></span></div></section><section id="program"><select id="language"><option>Math</option><option>TeX</option><option>FPCore</option><option>C</option></select><div class="implementation" data-language="Math"><div class="program math">\[\sqrt{x \cdot x + 1}\]</div><div class="arrow">↓</div><div class="program math">\[\begin{array}{l}
+\mathbf{if}\;x \leq -1.3366836797255362 \cdot 10^{+154}:\\
+\;\;\;\;\frac{0.125}{{x}^{3}} - \left(x + \frac{0.5}{x}\right)\\
+
+\mathbf{elif}\;x \leq 3835.827149827554:\\
+\;\;\;\;\sqrt{x \cdot x + 1}\\
+
+\mathbf{else}:\\
+\;\;\;\;\left(x + \frac{0.5}{x}\right) - \frac{0.125}{{x}^{3}}\\
+
+\end{array}\]</div></div><div class="implementation" data-language="TeX"><pre class="program">\sqrt{x \cdot x + 1}</pre><div class="arrow">↓</div><pre class="program">\begin{array}{l}
+\mathbf{if}\;x \leq -1.3366836797255362 \cdot 10^{+154}:\\
+\;\;\;\;\frac{0.125}{{x}^{3}} - \left(x + \frac{0.5}{x}\right)\\
+
+\mathbf{elif}\;x \leq 3835.827149827554:\\
+\;\;\;\;\sqrt{x \cdot x + 1}\\
+
+\mathbf{else}:\\
+\;\;\;\;\left(x + \frac{0.5}{x}\right) - \frac{0.125}{{x}^{3}}\\
+
+\end{array}</pre></div><div class="implementation" data-language="FPCore"><pre class="program">(FPCore (x) :precision binary64 (sqrt (+ (* x x) 1.0)))</pre><div class="arrow">↓</div><pre class="program">(FPCore (x)
+ :precision binary64
+ (if (&lt;= x -1.3366836797255362e+154)
+   (- (/ 0.125 (pow x 3.0)) (+ x (/ 0.5 x)))
+   (if (&lt;= x 3835.827149827554)
+     (sqrt (+ (* x x) 1.0))
+     (- (+ x (/ 0.5 x)) (/ 0.125 (pow x 3.0))))))</pre></div><div class="implementation" data-language="C"><pre class="program">double code(double x) {
+	return sqrt((x * x) + 1.0);
+}
+</pre><div class="arrow">↓</div><pre class="program">double code(double x) {
+	double tmp;
+	if (x &lt;= -1.3366836797255362e+154) {
+		tmp = (0.125 / pow(x, 3.0)) - (x + (0.5 / x));
+	} else if (x &lt;= 3835.827149827554) {
+		tmp = sqrt((x * x) + 1.0);
+	} else {
+		tmp = (x + (0.5 / x)) - (0.125 / pow(x, 3.0));
+	}
+	return tmp;
+}
+</pre></div></section><section id="graphs"><h1>Error</h1><div><figure id="fig-0" class="default"><img width="800" height="300" title="The X axis uses an exponential scale" src="plot-0.png"/><img width="800" height="300" title="The X axis uses an exponential scale" data-name="Input" src="plot-0r.png"/><img width="800" height="300" title="The X axis uses an exponential scale" data-name="Result" src="plot-0b.png"/><figcaption><p>Bits error versus <var>x</var></p></figcaption></figure></div></section><section id="try-it"><h1>Try it out</h1><div id="try-inputs-wrapper"><form id="try-inputs"><p class="header">Your Program's Arguments</p><ol><li><label for="var-name-0">x</label><input type="text" class="input-submit" name="var-name-0" value="3.1708730627386988e+119"/></li></ol></form></div><div id="try-result" class="no-error"><p class="header">Results</p><table><tbody><tr><td><label for="try-original-output">In</label></td><td><output id="try-original-output"></output></td></tr><tr><td><label for="try-herbie-output">Out</label></td><td><output id="try-herbie-output"></output></td></tr></tbody></table><div id="try-error">Enter valid numbers for all inputs</div></div></section><section id="history"><h1>Derivation</h1><ol class="history"><li class="event">Split input into 3 regimes</li><li><h2><code>if <span class="condition"> x  &lt; -1.3366836797255362e154</span></code></h2><ol><li><p>Initial program <span class="error" title="Internally 64.0">Error: 64.0 bits</span></p><div class="math">\[\sqrt{x \cdot x + 1}\]</div></li><li><p>Taylor expanded around -inf <span class="error" title="Internally 0">Error: 0 bits</span></p><div class="math">\[\leadsto \color{blue}{0.125 \cdot \frac{1}{{x}^{3}} - \left(0.5 \cdot \frac{1}{x} + x\right)}\]</div></li><li><p>Simplified<span class="error" title="Internally 0">Error: 0 bits</span></p><div class="math">\[\leadsto \color{blue}{\frac{0.125}{{x}^{3}} - \left(x + \frac{0.5}{x}\right)}\]</div></li></ol><h2><code>if <span class="condition">-1.3366836797255362e154 &lt;  x  &lt; 3835.82714982755397</span></code></h2><ol><li><p>Initial program <span class="error" title="Internally 0.0">Error: 0.0 bits</span></p><div class="math">\[\sqrt{x \cdot x + 1}\]</div></li></ol><h2><code>if <span class="condition">3835.82714982755397 &lt;  x </span></code></h2><ol><li><p>Initial program <span class="error" title="Internally 37.9">Error: 32.5 bits</span></p><div class="math">\[\sqrt{x \cdot x + 1}\]</div></li><li><p>Taylor expanded around inf <span class="error" title="Internally 0">Error: 0.0 bits</span></p><div class="math">\[\leadsto \color{blue}{\left(0.5 \cdot \frac{1}{x} + x\right) - 0.125 \cdot \frac{1}{{x}^{3}}}\]</div></li><li><p>Simplified<span class="error" title="Internally 0">Error: 0.0 bits</span></p><div class="math">\[\leadsto \color{blue}{\left(x + \frac{0.5}{x}\right) - \frac{0.125}{{x}^{3}}}\]</div></li></ol></li><li class="event">Recombined 3 regimes into one program.</li><li><p>Final simplification<span class="error" title="Internally 0.0">Error: 0.0 bits</span></p><div class="math">\[\leadsto \begin{array}{l}
+\mathbf{if}\;x \leq -1.3366836797255362 \cdot 10^{+154}:\\
+\;\;\;\;\frac{0.125}{{x}^{3}} - \left(x + \frac{0.5}{x}\right)\\
+
+\mathbf{elif}\;x \leq 3835.827149827554:\\
+\;\;\;\;\sqrt{x \cdot x + 1}\\
+
+\mathbf{else}:\\
+\;\;\;\;\left(x + \frac{0.5}{x}\right) - \frac{0.125}{{x}^{3}}\\
+
+\end{array}\]</div></li></ol></section><section id="reproduce"><h1>Reproduce</h1><pre class="shell"><code>herbie shell --seed 1305710546 
+(FPCore (x)
+  :name "(sqrt (+ (* x x) 1.0))"
+  :precision binary64
+  (sqrt (+ (* x x) 1.0)))
+</code></pre></section></body></html>

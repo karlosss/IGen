@@ -430,7 +430,7 @@ static f64_I _ia_div_f64(f64_I x, f64_I y) {
 static bool_I _ia_cmplt_f64(f64_I x, f64_I y) {
     if ( x.up <  -y.lo ) { return TRUE_I;  }
     if (-x.lo >=  y.up ) { return FALSE_I; }
-    fprintf(stderr, "Error: Unknown state in _ia_cmplt_f64\n");
+//    fprintf(stderr, "Error: Unknown state in _ia_cmplt_f64\n");
     return UNKNOWN_I;
 }
 

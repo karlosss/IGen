@@ -2,6 +2,82 @@
 #include "igen_math.h"
 #include <fenv.h>
 #include <iostream>
+#include <mpfr.h>
+#include <cfloat>
+#include <cstring>
+#include <string>
+
+static const unsigned mpfr_high_precision = 500;
+
+static double getCorrectBits(mpfr_t& xl, mpfr_t& xu, unsigned precision) {
+    double r, incorrect_bits_d;
+    mpfr_t delta, ulp_xl, next_xl, delta_in_ulps, incorrect_bits;
+
+    /* Init variables */
+    mpfr_init2(delta, mpfr_high_precision);
+    mpfr_init2(ulp_xl, mpfr_high_precision);
+    mpfr_init2(next_xl, precision);
+    mpfr_init2(delta_in_ulps, mpfr_high_precision);
+    mpfr_init2(incorrect_bits, mpfr_high_precision);
+
+    /* Determine delta = xu - xl */
+    mpfr_sub(delta, xu, xl, MPFR_RNDU);
+
+    /* Determine ulp(xl) */
+    mpfr_set(next_xl, xl, MPFR_RNDU);
+    mpfr_nextabove(next_xl);
+    mpfr_sub(ulp_xl, next_xl, xl, MPFR_RNDU);
+
+    /* Determine how many ulp(x) are inside delta, i.e. delta / ulp(x) and based on this the number of
+     * incorrect bits */
+    mpfr_div(delta_in_ulps, delta, ulp_xl, MPFR_RNDU);
+//    std::cout << mpfr_get_d(delta_in_ulps, MPFR_RNDU) << "\n";
+    mpfr_add_d(delta_in_ulps, delta_in_ulps, 1.0, MPFR_RNDU);
+
+    mpfr_log2(incorrect_bits, delta_in_ulps, MPFR_RNDU);
+    incorrect_bits_d = mpfr_get_d(incorrect_bits, MPFR_RNDU);
+
+    /* Adjust to get number of correct bits instead */
+    r = precision - incorrect_bits_d;
+
+    if (mpfr_zero_p(delta)) {
+        r = precision;
+    }
+
+    mpfr_clears(delta, ulp_xl, next_xl, delta_in_ulps, incorrect_bits, (mpfr_ptr) nullptr);
+
+    return r;
+}
+
+
+static double getCorrectBits(f64_I _x) {
+    const double accuracy_double = 53;
+    double correct_bits;
+    u_f64i x = {.v = _x};
+    x.lo = -x.lo; // Restore lower bound to its real value
+
+    /* Relative error does not make much sense if interval contains zero */
+    if (x.lo <= 0 && 0 <= x.up) {
+        return 0;
+    }
+
+    /* If the exponents of the endpoints are very different then all bits are lost */
+    int exp_lo, exp_up;
+    frexp(x.lo, &exp_lo);
+    frexp(x.up, &exp_up);
+    if (exp_up - exp_lo > 1) {
+        return 0;
+    }
+
+    mpfr_t xl, xu;
+    mpfr_init2(xl, mpfr_high_precision);
+    mpfr_init2(xu, mpfr_high_precision);
+    mpfr_set_d(xl, x.lo, MPFR_RNDD);
+    mpfr_set_d(xu, x.up, MPFR_RNDU);
+    correct_bits = getCorrectBits(xl, xu, (unsigned) accuracy_double);
+
+    return correct_bits;
+}
 
 f64_I f(f64_I x) {
   f64_I _t1 = _ia_mul_f64(x, x);
@@ -13,15 +89,6 @@ f64_I f(f64_I x) {
 }
 
 f64_I f2(f64_I x) {
-  f64_I _t4 = _ia_set_f64(-324.44999999999993, 324.45000000000005);
-  if (_ia_cmple_f64(x, _t4)) {
-    f64_I _t5 = _ia_mul_f64(x, x);
-    f64_I _t6 = _ia_set_f64(-1.0, 1.0);
-    f64_I _t7 = _ia_add_f64(_t5, _t6);
-    f64_I _ret;
-    _ret = _ia_sqrt_f64(_t7);
-    return _ret;
-  }
   f64_I _t8 = _ia_set_f64(-0.5, 0.5);
   f64_I _t9 = _ia_div_f64(_t8, x);
   f64_I _t10 = _ia_mul_f64(x, x);
@@ -36,11 +103,13 @@ f64_I f2(f64_I x) {
 
 int main() {
     fesetround(FE_UPWARD);
-    std::cout.precision(30);
-    f64_I in = _ia_set_f64(-1e50, 1e50);
+    std::cout.precision(50);
+    f64_I in = _ia_set_f64(-1e170, 1e170);
     f64_I out = f(in);
     f64_I out2 = f2(in);
     std::cout << -out.lo << " " << out.up << std::endl;
     std::cout << -out2.lo << " " << out2.up << std::endl;
+    std::cout << getCorrectBits(out) << std::endl;
+    std::cout << getCorrectBits(out2) << std::endl;
     return 0;
 }
