@@ -54,5 +54,5 @@ void init() {
     }
 
     register_functions();
-    cout << functions.size() << " functions registered." << endl;
+//    cout << functions.size() << " functions registered." << endl;
 }

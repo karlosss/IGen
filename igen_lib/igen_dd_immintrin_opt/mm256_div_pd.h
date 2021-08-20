@@ -1,6 +1,6 @@
 #pragma once
 
-static inline ddi_4 _igen_dd_no_loop_mm256_div_pd(ddi_4 a, ddi_4 b) {
+static inline __attribute__((always_inline)) ddi_4 _igen_dd_no_loop_mm256_div_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dst.f[0] = _ia_div_dd(a.f[0], b.f[0]);
@@ -11,7 +11,7 @@ static inline ddi_4 _igen_dd_no_loop_mm256_div_pd(ddi_4 a, ddi_4 b) {
     return dst;
 }
 
-static inline ddi_4 _igen_dd_inline_fn_mm256_div_pd(ddi_4 a, ddi_4 b) {
+static inline __attribute__((always_inline)) ddi_4 _igen_dd_inline_fn_mm256_div_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dd_I one = _ia_set_dd(-1.0, -0.0, -1.0, -0.0);
@@ -75,7 +75,7 @@ static void print_m256d(__m256d x) {
 }
 
 
-static inline ddi_4 _igen_dd_transposed_mm256_div_pd(ddi_4 a, ddi_4 b) {
+static inline __attribute__((always_inline)) ddi_4 _igen_dd_transposed_mm256_div_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     ddi_4 trans_a = _vec_transpose(a);
@@ -208,7 +208,7 @@ static inline ddi_4 _igen_dd_transposed_mm256_div_pd(ddi_4 a, ddi_4 b) {
 }
 
 
-static inline ddi_4 _igen_dd_transposed_avx_cond_mm256_div_pd(ddi_4 a, ddi_4 b) {
+static inline __attribute__((always_inline)) ddi_4 _igen_dd_transposed_avx_cond_mm256_div_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     ddi_4 trans_a = _vec_transpose(a);
