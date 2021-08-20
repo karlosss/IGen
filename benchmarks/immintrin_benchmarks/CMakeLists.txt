@@ -93,8 +93,8 @@ set(CMAKE_C_FLAGS_DEBUG     "")
 set(CMAKE_CXX_FLAGS_DEBUG   "")
 
 # Define standard
-set(CMAKE_C_FLAGS   "-std=c11 -Wno-deprecated -g -fpermissive")
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wno-deprecated -g -fpermissive")
+set(CMAKE_C_FLAGS   "-std=c11 -Wno-deprecated -g -fpermissive -falign-functions=64")
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wno-deprecated -g -fpermissive -falign-functions=64")
 
 if (${CONFIG_DEBUG} STREQUAL "ON")
     # Debug flag

@@ -116,18 +116,18 @@ double benchFun(void (*fn)()) {
 }
 
 void benchmark() {
-    cout << "Running benchmarks." << endl;
+//    cout << "Running benchmarks." << endl;
 
     for(auto it = functions.begin(); it != functions.end(); ++it){
-        cout << "Benchmark " << it->first << endl;
+//        cout << "Benchmark " << it->first << endl;
 
         for(int i = 0; i < it->second.size(); ++i){
             set_globals();
 
-            cout << "    " << it->second[i].name << " latency: ";
-            cout << benchFun(it->second[i].latency_fn) / it->second[i].latency_ops / BENCHMARK_ITER << " cycles" << endl;
-            cout << "    " << it->second[i].name << " gap: ";
-            cout << benchFun(it->second[i].gap_fn) / it->second[i].gap_ops / BENCHMARK_ITER << " cycles" << endl;
+//            cout << "    " << it->second[i].name << " latency: ";
+            cout << benchFun(it->second[i].latency_fn) / it->second[i].latency_ops / BENCHMARK_ITER << /*" cycles" << */ endl;
+//            cout << "    " << it->second[i].name << " gap: ";
+            cout << benchFun(it->second[i].gap_fn) / it->second[i].gap_ops / BENCHMARK_ITER << /*" cycles" <<*/ endl;
         }
     }
 }
