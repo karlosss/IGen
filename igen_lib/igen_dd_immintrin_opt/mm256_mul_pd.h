@@ -1345,12 +1345,7 @@ static inline __attribute__((always_inline)) dd minus(dd a) {
     return (dd) {.h = -a.h, .l = -a.l};
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_case_distinction_no_simd_mm256_mul_pd(ddi_4 a, ddi_4 b) {
-    ddi_4 dst;
-
-    u_ddi a0 = {.v = a.f[0]};
-    u_ddi b0 = {.v = b.f[0]};
-
+static inline __attribute__((always_inline)) dd_I mul_case_dist(u_ddi a0, u_ddi b0) {
     dd a0l = {.h = a0.lh, .l = a0.ll};
     dd a0u = {.h = a0.uh, .l = a0.ul};
     dd b0l = {.h = b0.lh, .l = b0.ll};
@@ -1445,10 +1440,16 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_case_distinction_no_
     r0.ul = r0u.l;
     r0.uh = r0u.h;
 
-    dst.f[0] = r0.v;
-    dst.f[1] = _ia_mul_dd(a.f[1], b.f[1]);
-    dst.f[2] = _ia_mul_dd(a.f[2], b.f[2]);
-    dst.f[3] = _ia_mul_dd(a.f[3], b.f[3]);
+    return r0.v;
+}
+
+static inline __attribute__((always_inline)) ddi_4 _igen_dd_case_distinction_no_simd_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+    ddi_4 dst;
+
+    dst.f[0] = mul_case_dist({.v = a.f[0]}, {.v = b.f[0]});
+    dst.f[1] = mul_case_dist({.v = a.f[1]}, {.v = b.f[1]});
+    dst.f[2] = mul_case_dist({.v = a.f[2]}, {.v = b.f[2]});
+    dst.f[3] = mul_case_dist({.v = a.f[3]}, {.v = b.f[3]});
 
     return dst;
 }
