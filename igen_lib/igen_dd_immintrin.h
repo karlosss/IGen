@@ -805,132 +805,14 @@
 #define _igen_dd_mm512_sincos_ps           _igen_dd_fb_mm512_sincos_ps
 #define _igen_dd_mm512_mask_sincos_ps      _igen_dd_fb_mm512_mask_sincos_ps
 
-///
-/// Optimized intrinsics
-///
-
-// load
-#undef  _igen_dd_mm256_load_pd
-#define _igen_dd_mm256_load_pd             _igen_dd_op_mm256_load_pd
-#undef  _igen_dd_mm256_loadu_pd
-#define _igen_dd_mm256_loadu_pd            _igen_dd_op_mm256_loadu_pd
-#undef  _igen_dd_mm256_maskload_pd
-#define _igen_dd_mm256_maskload_pd         _igen_dd_op_mm256_maskload_pd
-#undef  _igen_dd_mm256_broadcast_sd
-#define _igen_dd_mm256_broadcast_sd        _igen_dd_op_mm256_broadcast_sd
-#undef  _igen_dd_mm256_broadcast_pd
-#define _igen_dd_mm256_broadcast_pd        _igen_dd_op_mm256_broadcast_pd
-#undef  _igen_dd_mm256_i64gather_pd
-#define _igen_dd_mm256_i64gather_pd        _igen_dd_op_mm256_i64gather_pd
-#undef  _igen_dd_mm256_set1_pd
-#define _igen_dd_mm256_set1_pd             _igen_dd_op_mm256_set1_pd
-#undef  _igen_dd_mm256_set_pd
-#define _igen_dd_mm256_set_pd              _igen_dd_op_mm256_set_pd
-#undef  _igen_dd_mm256_setr_pd
-#define _igen_dd_mm256_setr_pd             _igen_dd_op_mm256_setr_pd
-#undef  _igen_dd_mm256_setzero_pd
-#define _igen_dd_mm256_setzero_pd          _igen_dd_op_mm256_setzero_pd
-#undef  _igen_dd_mm256_set_m128d
-#define _igen_dd_mm256_set_m128d           _igen_dd_op_mm256_set_m128d
-
-// store
-#undef  _igen_dd_mm256_store_pd
-#define _igen_dd_mm256_store_pd            _igen_dd_op_mm256_store_pd
-#undef  _igen_dd_mm256_storeu_pd
-#define _igen_dd_mm256_storeu_pd           _igen_dd_op_mm256_storeu_pd
-#undef  _igen_dd_mm256_maskstore_pd
-#define _igen_dd_mm256_maskstore_pd        _igen_dd_op_mm256_maskstore_pd
-#undef  _igen_dd_mm256_storeu2_m128d
-#define _igen_dd_mm256_storeu2_m128d       _igen_dd_op_mm256_storeu2_m128d
-#undef  _igen_dd_mm256_stream_pd
-#define _igen_dd_mm256_stream_pd           _igen_dd_op_mm256_stream_pd
-
 // arithmetic
 #undef  _igen_dd_mm256_add_pd
 #define _igen_dd_mm256_add_pd              _igen_dd_op_mm256_add_pd
 #undef  _igen_dd_mm256_sub_pd
 #define _igen_dd_mm256_sub_pd              _igen_dd_op_mm256_sub_pd
-#undef  _igen_dd_mm256_addsub_pd
-#define _igen_dd_mm256_addsub_pd           _igen_dd_op_mm256_addsub_pd
-#undef  _igen_dd_mm256_hadd_pd
-#define _igen_dd_mm256_hadd_pd             _igen_dd_op_mm256_hadd_pd
-#undef  _igen_dd_mm256_hsub_pd
-#define _igen_dd_mm256_hsub_pd             _igen_dd_op_mm256_hsub_pd
 #undef  _igen_dd_mm256_mul_pd
 #define _igen_dd_mm256_mul_pd              _igen_dd_op_mm256_mul_pd
 #undef  _igen_dd_mm256_div_pd
 #define _igen_dd_mm256_div_pd              _igen_dd_op_mm256_div_pd
-#undef  _igen_dd_mm256_sqrt_pd
-#define _igen_dd_mm256_sqrt_pd             _igen_dd_op_mm256_sqrt_pd
-#undef  _igen_dd_mm256_max_pd
-#define _igen_dd_mm256_max_pd              _igen_dd_op_mm256_max_pd
-#undef  _igen_dd_mm256_min_pd
-#define _igen_dd_mm256_min_pd              _igen_dd_op_mm256_min_pd
-#undef  _igen_dd_mm256_ceil_pd
-#define _igen_dd_mm256_ceil_pd             _igen_dd_op_mm256_ceil_pd
-#undef  _igen_dd_mm256_floor_pd
-#define _igen_dd_mm256_floor_pd            _igen_dd_op_mm256_floor_pd
-#undef  _igen_dd_mm256_round_pd
-#define _igen_dd_mm256_round_pd            _igen_dd_op_mm256_round_pd
-#undef  _igen_dd_mm256_dp_ps
-#define _igen_dd_mm256_dp_ps               _igen_dd_op_mm256_dp_ps
 #undef  _igen_dd_mm256_fmadd_pd
 #define _igen_dd_mm256_fmadd_pd            _igen_dd_op_mm256_fmadd_pd
-#undef  _igen_dd_mm256_fmsub_pd
-#define _igen_dd_mm256_fmsub_pd            _igen_dd_op_mm256_fmsub_pd
-#undef  _igen_dd_mm256_fmaddsub_pd
-#define _igen_dd_mm256_fmaddsub_pd         _igen_dd_op_mm256_fmaddsub_pd
-
-// comparison
-//#undef  _igen_dd_mm256_cmp_pd
-//#define _igen_dd_mm256_cmp_pd              _igen_dd_op_mm256_cmp_pd
-
-// conversion
-#undef  _igen_dd_mm256_cvtepi32_pd
-#define _igen_dd_mm256_cvtepi32_pd         _igen_dd_op_mm256_cvtepi32_pd
-#undef  _igen_dd_mm256_cvtepi32_ps
-#define _igen_dd_mm256_cvtepi32_ps         _igen_dd_op_mm256_cvtepi32_ps
-#undef  _igen_dd_mm256_cvtpd_epi32
-#define _igen_dd_mm256_cvtpd_epi32         _igen_dd_op_mm256_cvtpd_epi32
-#undef  _igen_dd_mm256_cvtps_epi32
-#define _igen_dd_mm256_cvtps_epi32         _igen_dd_op_mm256_cvtps_epi32
-#undef  _igen_dd_mm256_cvtps_pd
-#define _igen_dd_mm256_cvtps_pd            _igen_dd_op_mm256_cvtps_pd
-#undef  _igen_dd_mm256_cvtpd_ps
-#define _igen_dd_mm256_cvtpd_ps            _igen_dd_op_mm256_cvtps_pd
-#undef  _igen_dd_mm256_cvttpd_epi32
-#define _igen_dd_mm256_cvttpd_epi32        _igen_dd_op_mm256_cvttpd_epi32
-#undef  _igen_dd_mm256_cvtsd_f64
-#define _igen_dd_mm256_cvtsd_f64           _igen_dd_op_mm256_cvtsd_f64
-#undef  _igen_dd_mm256_cvtss_f32
-#define _igen_dd_mm256_cvtss_f32           _igen_dd_op_mm256_cvtsd_f32
-#undef  _igen_dd_mm256_castpd128_pd256
-#define _igen_dd_mm256_castpd128_pd256     _igen_dd_op_mm256_castpd128_pd256
-#undef  _igen_dd_mm256_castpd256_pd128
-#define _igen_dd_mm256_castpd256_pd128     _igen_dd_op_mm256_castpd256_pd128
-
-// shuffle
-#undef  _igen_dd_mm256_unpackhi_pd
-#define _igen_dd_mm256_unpackhi_pd         _igen_dd_op_mm256_unpackhi_pd
-#undef  _igen_dd_mm256_unpacklo_pd
-#define _igen_dd_mm256_unpacklo_pd         _igen_dd_op_mm256_unpacklo_pd
-#undef  _igen_dd_mm256_movemask_pd
-#define _igen_dd_mm256_movemask_pd         _igen_dd_op_mm256_movemask_pd
-#undef  _igen_dd_mm256_movedup_pd
-#define _igen_dd_mm256_movedup_pd          _igen_dd_op_mm256_movedup_pd
-#undef  _igen_dd_mm256_blend_pd
-#define _igen_dd_mm256_blend_pd            _igen_dd_op_mm256_blend_pd
-#undef  _igen_dd_mm256_blendv_pd
-#define _igen_dd_mm256_blendv_pd           _igen_dd_op_mm256_blendv_pd
-#undef  _igen_dd_mm256_insertf128_pd
-#define _igen_dd_mm256_insertf128_pd       _igen_dd_op_mm256_insertf128_pd
-#undef  _igen_dd_mm256_extractf128_pd
-#define _igen_dd_mm256_extractf128_pd      _igen_dd_op_mm256_extractf128_pd
-#undef  _igen_dd_mm256_shuffle_pd
-#define _igen_dd_mm256_shuffle_pd          _igen_dd_op_mm256_shuffle_pd
-#undef  _igen_dd_mm256_permute_pd
-#define _igen_dd_mm256_permute_pd          _igen_dd_op_mm256_permute_pd
-#undef  _igen_dd_mm256_permute4x64_pd
-#define _igen_dd_mm256_permute4x64_pd      _igen_dd_op_mm256_permute4x64_pd
-#undef  _igen_dd_mm256_permute2f128_pd
-#define _igen_dd_mm256_permute2f128_pd     _igen_dd_op_mm256_permute2f128_pd

@@ -69,12 +69,6 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_inline_fn_mm256_div_
 }
 
 
-static void print_m256d(__m256d x) {
-    double* a = (double*) &x;
-    std::cout << a[3] << " " << a[2] << " " << a[1] << " " << a[0] << "\n";
-}
-
-
 static inline __attribute__((always_inline)) ddi_4 _igen_dd_transposed_mm256_div_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
@@ -348,3 +342,5 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_transposed_avx_cond_
 
     return dst;
 }
+
+#define _igen_dd_op_mm256_div_pd _igen_dd_transposed_avx_cond_mm256_div_pd
