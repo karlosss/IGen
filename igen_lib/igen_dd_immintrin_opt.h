@@ -267,12 +267,6 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_hsub_pd(ddi
     return dst.v;
 }
 
-#define _igen_dd_op_mm256_mul_pd _igen_dd_inlined_loop_mm256_mul_pd
-
-
-
-#define _igen_dd_op_mm256_div_pd _igen_dd_no_loop_mm256_div_pd
-
 static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_sqrt_pd(ddi_4 a) {
     ddi_4 dst;
 
