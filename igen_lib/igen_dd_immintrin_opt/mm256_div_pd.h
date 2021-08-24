@@ -93,8 +93,6 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_transposed_mm256_div
 
     dd_I inf = _ia_set_dd(INFINITY, -0.0, INFINITY, 0.0);
     __m256d zero_t = _mm256_setzero_pd();
-    __m256d neg_one_t = _mm256_set1_pd(-1.0);
-    __m256d neg_zero_t = _mm256_set1_pd(-0.0);
     __m256d one_t = _mm256_set1_pd(1.0);
 
     dd_v div_0 = 1.0 / b_0;
@@ -162,28 +160,14 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_transposed_mm256_div
     dd_v t07_0 = v05_0 - z07_0;
     dd_v t07_2 = v05_2 - z07_2;
 
-    dd_v s09_0 = neg_one_t * s07_0;
-    dd_v s09_1 = neg_zero_t * t07_0;
-    dd_v s09_2 = neg_one_t * s07_2;
-    dd_v s09_3 = neg_zero_t * t07_2;
+    dd_v  cl308_0 = -t07_0;
+    dd_v  cl308_2 = -t07_2;
 
-    dd_v t09_0  = _mm256_fmsub_pd(neg_one_t, s07_0, s09_0);
-    dd_v t09_2  = _mm256_fmsub_pd(neg_one_t, s07_2, s09_2);
+    dd_v s010_0 = cl308_0 - s07_0;
+    dd_v s010_2 = cl308_2 - s07_2;
 
-    dd_v  tl108_0 = _mm256_fmadd_pd(neg_one_t, t07_0, s09_1);
-    dd_v  tl108_2 = _mm256_fmadd_pd(neg_one_t, t07_2, s09_3);
-
-    dd_v  cl208_0 = _mm256_fmadd_pd(neg_zero_t,  s07_0, tl108_0);
-    dd_v  cl208_2 = _mm256_fmadd_pd(neg_zero_t,  s07_2, tl108_2);
-
-    dd_v  cl308_0 = t09_0 + cl208_0;
-    dd_v  cl308_2 = t09_2 + cl208_2;
-
-    dd_v s010_0 = s09_0 + cl308_0;
-    dd_v s010_2 = s09_2 + cl308_2;
-
-    dd_v z010_0 = s010_0 - s09_0;
-    dd_v z010_2 = s010_2 - s09_2;
+    dd_v z010_0 = s010_0 + s07_0;
+    dd_v z010_2 = s010_2 + s07_2;
 
     dd_v t010_0 = cl308_0 - z010_0;
     dd_v t010_2 = cl308_2 - z010_2;
@@ -226,7 +210,6 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_transposed_avx_cond_
 
     __m256d inf_t = _mm256_set1_pd(INFINITY);
     __m256d zero_t = _mm256_setzero_pd();
-    __m256d neg_one_t = _mm256_set1_pd(-1.0);
     __m256d neg_zero_t = _mm256_set1_pd(-0.0);
     __m256d one_t = _mm256_set1_pd(1.0);
 
@@ -295,28 +278,14 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_transposed_avx_cond_
     dd_v t07_0 = v05_0 - z07_0;
     dd_v t07_2 = v05_2 - z07_2;
 
-    dd_v s09_0 = neg_one_t * s07_0;
-    dd_v s09_1 = neg_zero_t * t07_0;
-    dd_v s09_2 = neg_one_t * s07_2;
-    dd_v s09_3 = neg_zero_t * t07_2;
+    dd_v  cl308_0 = -t07_0;
+    dd_v  cl308_2 = -t07_2;
 
-    dd_v t09_0  = _mm256_fmsub_pd(neg_one_t, s07_0, s09_0);
-    dd_v t09_2  = _mm256_fmsub_pd(neg_one_t, s07_2, s09_2);
+    dd_v s010_0 = cl308_0 - s07_0;
+    dd_v s010_2 = cl308_2 - s07_2;
 
-    dd_v  tl108_0 = _mm256_fmadd_pd(neg_one_t, t07_0, s09_1);
-    dd_v  tl108_2 = _mm256_fmadd_pd(neg_one_t, t07_2, s09_3);
-
-    dd_v  cl208_0 = _mm256_fmadd_pd(neg_zero_t,  s07_0, tl108_0);
-    dd_v  cl208_2 = _mm256_fmadd_pd(neg_zero_t,  s07_2, tl108_2);
-
-    dd_v  cl308_0 = t09_0 + cl208_0;
-    dd_v  cl308_2 = t09_2 + cl208_2;
-
-    dd_v s010_0 = s09_0 + cl308_0;
-    dd_v s010_2 = s09_2 + cl308_2;
-
-    dd_v z010_0 = s010_0 - s09_0;
-    dd_v z010_2 = s010_2 - s09_2;
+    dd_v z010_0 = s010_0 + s07_0;
+    dd_v z010_2 = s010_2 + s07_2;
 
     dd_v t010_0 = cl308_0 - z010_0;
     dd_v t010_2 = cl308_2 - z010_2;

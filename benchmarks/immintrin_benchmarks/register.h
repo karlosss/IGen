@@ -35,8 +35,8 @@ BENCHMARK(mm256_div_pd, transposed)
 BENCHMARK(mm256_div_pd, transposed_avx_cond)
 
 BENCHMARK(mm256_fmadd_pd, fb)
-BENCHMARK(mm256_fmadd_pd, sep)
-BENCHMARK(mm256_fmadd_pd, op)
+BENCHMARK(mm256_fmadd_pd, transposed)
+BENCHMARK(mm256_fmadd_pd, separated)
 
 static void register_functions() {
     // first one is the baseline function that is used to verify against
@@ -63,12 +63,12 @@ static void register_functions() {
 //    ADD_FUNC(mm256_add_pd, no_unused_vals, 16, 12)
 //    ADD_FUNC(mm256_add_pd, transposed, 16, 12)
 //
-//    ADD_FUNC(mm256_div_pd, fb, 16, 12)
-//    ADD_FUNC(mm256_div_pd, inline_fn, 16, 12)
-//    ADD_FUNC(mm256_div_pd, transposed, 16, 12)
-//    ADD_FUNC(mm256_div_pd, transposed_avx_cond, 16, 12)
+    ADD_FUNC(mm256_div_pd, fb, 16, 12)
+    ADD_FUNC(mm256_div_pd, inline_fn, 16, 12)
+    ADD_FUNC(mm256_div_pd, transposed, 16, 12)
+    ADD_FUNC(mm256_div_pd, transposed_avx_cond, 16, 12)
 
 //    ADD_FUNC(mm256_fmadd_pd, fb, 16, 12)
-//    ADD_FUNC(mm256_fmadd_pd, sep, 16, 12)
-//    ADD_FUNC(mm256_fmadd_pd, op, 16, 12)
+//    ADD_FUNC(mm256_fmadd_pd, separated, 16, 12)
+//    ADD_FUNC(mm256_fmadd_pd, transposed, 16, 12)
 }
