@@ -1,8 +1,8 @@
+import math
 import os
 import random
 import subprocess
 import argparse
-import re
 
 DEFAULT_ITERS = 100
 
@@ -24,6 +24,8 @@ def benchmark(*param_fns, iters=None):
     def parse_accuracy_output(raw):
         s = raw.split(" ")
         acc = round(float(s[-1]), 4)
+        if math.isnan(acc) or math.isinf(acc) or acc < 0:
+            acc = 0
         output = s[-3:-1]
         params = s[:-3]
         return acc, output, params
@@ -42,7 +44,7 @@ def benchmark(*param_fns, iters=None):
         par = [x for fn in param_fns for x in fn()]
 
         acc, out, p = parse_accuracy_output(_run_command(["bin/accuracy", *par]))
-        acc_no_herbie.append(acc)
+        acc_no_herbie.append(acc if acc >= 0 else 0.0)
         print("no herbie {}: {} (acc {})".format(p, out, acc))
 
         acc, out, p = parse_accuracy_output(_run_command(["bin/accuracy_{}".format(args.seed), *par]))
@@ -141,11 +143,8 @@ def create_template_sources(seed):
                     fn += line
         return fn
 
-    def _get_fn_decl(code):
-        return code.split("{")[0]
-
-    def _get_num_args(fn_decl):
-        return fn_decl.count("f64_I") - 1
+    def _get_num_args(code):
+        return code.split("f64_I f(")[1].split("{")[0].count("f64_I")
 
     def _make_code(template, fn):
         return template.replace("BOUNDS_DECL", interval_bounds)\
@@ -164,7 +163,7 @@ def create_template_sources(seed):
     interval_bounds = ""
     f64i_decls = ""
     call_args = ""
-    for i in range(_get_num_args(_get_fn_decl(herbie_fn))):
+    for i in range(_get_num_args(herbie_fn)):
         interval_bounds += "double x{i}up = std::stod(std::string(argv[{a1}]));\n" \
                            "double x{i}lo = neg(std::string(argv[{a}]));\n".format(i=i, a1=2*i+1, a=2*i+2)
         f64i_decls += "f64_I x{i} = _ia_set_f64(x{i}lo, x{i}up);\n".format(i=i)

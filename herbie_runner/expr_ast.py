@@ -266,17 +266,11 @@ class NotNode(UnaryOperatorNode):
         return "{}{}".format(self.operator_name, self.children[0].to_infix(par=True))
 
 
-class UnaryMinusNode(EvalConstMixin, UnaryOperatorNode):
+class UnaryMinusNode(UnaryOperatorNode):
     operator_name = "-"
 
     def to_infix(self, par=True):
         return "({}{})".format(self.operator_name, self.children[0].to_infix(par=True))
-
-    def eval_const(self):
-        if isinstance(self.children[0], ConstNode):
-            return ConstNode(-self.children[0].val)
-        else:
-            return None
 
 
 class TernaryOperatorNode(OperatorNode):

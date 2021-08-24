@@ -43,6 +43,7 @@ public:
         // a DeclGroupRef may have multiple Decls, so we iterate through each one
         for (DeclGroupRef::iterator i = DG.begin(), e = DG.end(); i != e; i++) {
             Decl *D = *i;
+            if(!D->hasBody()) continue;
             split_decl_and_def_visitor->TraverseDecl(D);
             rewriter.ReplaceText(D->getBody()->getSourceRange(), Utils::dump_to_string(D->getBody()));
             inline_visitor->TraverseDecl(D);
