@@ -424,3 +424,6 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_transposed_mm256_add
 
     return dst;
 }
+
+
+#define _igen_dd_op_mm256_add_pd _igen_dd_no_unused_vals_mm256_add_pd
