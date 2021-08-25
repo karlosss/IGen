@@ -52,8 +52,7 @@ static void register_functions() {
 //    ADD_FUNC(mm256_mul_pd, mul_fn, 16, 12)
 //    ADD_FUNC(mm256_mul_pd, interleaved, 16, 12)
 //    ADD_FUNC(mm256_mul_pd, transposed, 16, 12)
-//    ADD_FUNC(mm256_mul_pd, case_distinction_no_simd, 16, 12)
-
+    ADD_FUNC(mm256_mul_pd, case_distinction_no_simd, 16, 12)
 //
 //    ADD_FUNC(mm256_add_pd, fb, 16, 12)
 //    ADD_FUNC(mm256_add_pd, forloop, 16, 12)

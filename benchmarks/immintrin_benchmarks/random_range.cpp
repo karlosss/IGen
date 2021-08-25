@@ -5,6 +5,7 @@
 #include <igen_dd_types.h>
 #include <cfloat>
 #include <igen_dd_lib.h>
+#include <iostream>
 
 static unsigned int seed;
 static std::default_random_engine gen;
@@ -40,7 +41,6 @@ static double getRandomDouble(int min_exp, int dyn_range, size_t neg = 0) {
     if (coin < neg) {
         r_num = -r_num;
     }
-
     return r_num;
 }
 
@@ -63,8 +63,17 @@ static int getRandomInt(int from, int to) {
 static dd_I getRandomDDI() {
     int rm = fegetround();
 
-    double a = getRandomDouble(-3, 8, 50);
+    double a = getRandomDouble(-3, 8, 50) ;
+    double a2 = getRandomDouble(-3, 8, 50) ;
+    double a3 = getRandomDouble(-3, 8, 50) ;
+    double a4 = getRandomDouble(-3, 8, 50) ;
     double b = getRandomDouble(0, 0, 0);
+
+//    a += 10;
+//    b += 10;
+//
+//    a = 1/a;
+//    b = 1/b;
 
     fesetround(FE_DOWNWARD);
     double s_lo  = a * b;
@@ -74,7 +83,8 @@ static dd_I getRandomDDI() {
     double s_up  = a * b;
     double t_up  = (a * b - s_up) + DBL_MIN;
 
-    dd_I c = _ia_set_dd(-s_lo, -t_lo, s_up, t_up);
+    dd_I c = _ia_set_dd(-a, -a2, a3, a4);
+//    dd_I c = _ia_set_dd(-s_lo, -t_lo, s_up, t_up);
 
     fesetround(rm);
     return c;

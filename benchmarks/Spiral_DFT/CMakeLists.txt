@@ -17,7 +17,7 @@ set(CONFIG_COMPILER "GNU")           # GNU, Clang or Intel
 set(CONFIG_DEBUG "OFF")              # ON or OFF
 set(CONFIG_GENERATE_ASSEMBLY "OFF")  # ON or OFF
 set(CMAKE_VERBOSE_MAKEFILE "OFF")    # ON or OFF
-set(CONFIG_FLAGS "-O3 -march=skylake -frounding-math")
+set(CONFIG_FLAGS "-O3 -march=skylake -frounding-math -fpermissive")
 #set(CONFIG_LIBRARIES mpfi mpfr yalaa prim m gaol gdtoa crlibm)    # Used libraries, e.g. crlibm, mpfr
 set(CONFIG_LIBRARIES mpfi mpfr m crlibm)    # Used libraries, e.g. crlibm, mpfr
 
@@ -113,8 +113,8 @@ set(SOURCE_FILES
 
         # IGen files
         ${IGEN_COMMON}/util.cpp
-        ${IGEN_LIB}/igen_dd_immintrin_fallback.c
-        ${IGEN_LIB}/igen_immintrin_fallback.c
+        ${IGEN_LIB}/igen_dd_immintrin_fallback.h
+        ${IGEN_LIB}/igen_immintrin_fallback.h
         )
 
 
@@ -162,8 +162,8 @@ set(CMAKE_CXX_FLAGS "-std=c++11 -Wno-deprecated")
 
 if (${CONFIG_DEBUG} STREQUAL "ON")
     # Debug flag
-    set(CMAKE_C_FLAGS     "${CMAKE_C_FLAGS} -O0 -g -march=native -frounding-math --coverage")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -march=native -frounding-math --coverage")
+    set(CMAKE_C_FLAGS     "${CMAKE_C_FLAGS} -O0 -g -march=native -frounding-math -fpermissive --coverage")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -march=native -frounding-math -fpermissive --coverage")
 else()
     # Set compiler flags
     set(CMAKE_C_FLAGS      "${CMAKE_C_FLAGS} ${CONFIG_FLAGS}")
