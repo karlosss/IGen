@@ -1455,4 +1455,6 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_case_distinction_no_
 }
 
 
-#define _igen_dd_op_mm256_mul_pd _igen_dd_case_distinction_no_simd_mm256_mul_pd
+//#define _igen_dd_op_mm256_mul_pd _igen_dd_case_distinction_no_simd_mm256_mul_pd
+#define _igen_dd_op_mm256_mul_pd _igen_dd_transposed_mm256_mul_pd
+//#define _igen_dd_op_mm256_mul_pd _igen_dd_fb_mm256_mul_pd

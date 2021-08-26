@@ -117,3 +117,4 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_transposed_mm256_sub
 }
 
 #define _igen_dd_op_mm256_sub_pd _igen_dd_permute_no_unused_vals_mm256_sub_pd
+//#define _igen_dd_op_mm256_sub_pd _igen_dd_fb_mm256_sub_pd
