@@ -3,8 +3,9 @@ import os
 import random
 import subprocess
 import argparse
+import numpy as np
 
-DEFAULT_ITERS = 100
+DEFAULT_ITERS = 10000
 
 
 def init():
@@ -239,6 +240,33 @@ def random_sci_interval(integral_lo, integral_hi, decimal_places, exp_lo, exp_hi
     if perc_width == 0:
         return [res, res]
     return [res, str(float(res)*(1+perc_width))] if not res.startswith("-") else [str(float(res)*(1+perc_width)), res]
+
+
+def interval(exp_mean, exp_sd, prec, neg=0.5, width=0):
+    exp = [str(round(x)) for x in np.random.normal(exp_mean, exp_sd, 1)][0]
+
+    sign = ("-" if random.random() < neg else "")
+    integral = str(random.randint(1, 9))
+    dec = ("0" if prec == 0 else "".join([str(random.randint(1, 9)) for _ in range(prec)]))
+    e = exp
+
+    if width == 0:
+        return [
+            sign + integral + "." + dec + "e" + e,
+            sign + integral + "." + dec + "e" + e
+        ]
+    else:
+        up = str(round(float(integral + "." + dec)*(1+width), prec))
+        lo = integral + "." + dec
+        if sign == "-":
+            up, lo = lo, up
+        return [
+            sign + lo + "e" + e,
+            sign + up + "e" + e
+        ]
+
+    return res
+
 
 
 def _run_command(cmd):

@@ -2,4 +2,11 @@ import sys
 sys.path.append("..")
 from common import *
 
-benchmark(lambda: random_sci_interval(-10, 10, 3, -50, 50))
+benchmark(
+    lambda: interval(0, 20, 4),
+)
+
+# benchmark(
+#     lambda: interval(0, 20, 4, width=0.05),
+#     lambda: interval(0, 20, 4, width=0.05),
+# )
