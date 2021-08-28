@@ -1,6 +1,6 @@
 #pragma once
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_inlined_loop_mm256_add_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_inlined_loop_mm256_add_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dst.f[0] = _ia_add_dd(a.f[0], b.f[0]);
@@ -11,7 +11,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_inlined_loop_mm256_a
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_forloop_mm256_add_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_forloop_mm256_add_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
     for(int i = 0; i < 4; ++i){
         dst.f[i] = _ia_add_dd(a.f[i], b.f[i]);
@@ -19,7 +19,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_forloop_mm256_add_pd
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_one_inlined_fn_mm256_add_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_one_inlined_fn_mm256_add_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
 #ifdef ROUND_TO_NEAREST
@@ -79,7 +79,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_one_inlined_fn_mm256
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_interleaved_mm256_add_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_interleaved_mm256_add_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
 #ifdef ROUND_TO_NEAREST
@@ -206,7 +206,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_interleaved_mm256_ad
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_no_unused_vals_mm256_add_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_no_unused_vals_mm256_add_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
 #ifdef ROUND_TO_NEAREST
@@ -320,7 +320,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_no_unused_vals_mm256
 }
 
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_transposed_mm256_add_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_transposed_mm256_add_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
 #ifdef ROUND_TO_NEAREST

@@ -11,7 +11,7 @@
 
 // ================ LOAD ======================
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_loadu_pd(const dd_I *mem_addr) {
+static ddi_4 _igen_dd_op_mm256_loadu_pd(const dd_I *mem_addr) {
     ddi_4 dst;
 
     dd_I a1 = _mm256_load_pd((const double*) mem_addr);
@@ -27,11 +27,11 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_loadu_pd(co
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_load_pd(const dd_I *mem_addr) {
+static ddi_4 _igen_dd_op_mm256_load_pd(const dd_I *mem_addr) {
     return _igen_dd_op_mm256_loadu_pd(mem_addr);
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_maskload_pd(const dd_I *mem_addr, __m256i _mask) {
+static ddi_4 _igen_dd_op_mm256_maskload_pd(const dd_I *mem_addr, __m256i _mask) {
     vec256i mask;
     mask.v = _mask;
     ddi_4 dst;
@@ -50,7 +50,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_maskload_pd
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_broadcast_sd(const dd_I *mem_addr) {
+static ddi_4 _igen_dd_op_mm256_broadcast_sd(const dd_I *mem_addr) {
     ddi_4 dst;
 
     dd_I val = _mm256_load_pd( (const double*) mem_addr );
@@ -63,7 +63,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_broadcast_s
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_broadcast_pd(ddi_2 *_mem_addr) {
+static ddi_4 _igen_dd_op_mm256_broadcast_pd(ddi_2 *_mem_addr) {
     vec128d *mem_addr = (vec128d *)_mem_addr;
     vec256d dst;
     vec128d tmp;
@@ -80,7 +80,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_broadcast_p
     return dst.v;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_i64gather_pd(const dd_I *base_addr, __m256i _vindex, int scale) {
+static ddi_4 _igen_dd_op_mm256_i64gather_pd(const dd_I *base_addr, __m256i _vindex, int scale) {
     vec256i vindex;
     vindex.v = _vindex;
     vec256d dst;
@@ -100,7 +100,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_i64gather_p
     return dst.v;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_set1_pd(dd_I a) {
+static ddi_4 _igen_dd_op_mm256_set1_pd(dd_I a) {
     ddi_4 dst;
 
     _mm256_store_pd((double*) dst.f, a);
@@ -111,7 +111,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_set1_pd(dd_
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_set_pd(dd_I e3, dd_I e2, dd_I e1, dd_I e0) {
+static ddi_4 _igen_dd_op_mm256_set_pd(dd_I e3, dd_I e2, dd_I e1, dd_I e0) {
     ddi_4 dst;
 
     _mm256_store_pd((double*) dst.f, e0);
@@ -122,7 +122,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_set_pd(dd_I
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_setr_pd(dd_I e3, dd_I e2, dd_I e1, dd_I e0) {
+static ddi_4 _igen_dd_op_mm256_setr_pd(dd_I e3, dd_I e2, dd_I e1, dd_I e0) {
     ddi_4 dst;
 
     _mm256_store_pd((double*) dst.f, e3);
@@ -133,7 +133,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_setr_pd(dd_
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_setzero_pd() {
+static ddi_4 _igen_dd_op_mm256_setzero_pd() {
     ddi_4 dst;
     dst.f[0] = _ia_set_pointed_dd(0.0,0.0);
     dst.f[1] = _ia_set_pointed_dd(0.0,0.0);
@@ -142,7 +142,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_setzero_pd(
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_set_m128d(ddi_2 _hi, ddi_2 _lo) {
+static ddi_4 _igen_dd_op_mm256_set_m128d(ddi_2 _hi, ddi_2 _lo) {
     vec128d hi;
     hi.v = _hi;
     vec128d lo;
@@ -160,7 +160,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_set_m128d(d
 
 // ================ STORE ======================
 
-static inline __attribute__((always_inline)) void _igen_dd_op_mm256_storeu_pd(dd_I *mem_addr, ddi_4 a) {
+static void _igen_dd_op_mm256_storeu_pd(dd_I *mem_addr, ddi_4 a) {
     dd_I a1 = _mm256_load_pd((const double*) a.f);
     dd_I a2 = _mm256_load_pd((const double*) (a.f+1));
     dd_I a3 = _mm256_load_pd((const double*) (a.f+2));
@@ -172,11 +172,11 @@ static inline __attribute__((always_inline)) void _igen_dd_op_mm256_storeu_pd(dd
     _mm256_store_pd((double*) (mem_addr+3), a4);
 }
 
-static inline __attribute__((always_inline)) void _igen_dd_op_mm256_store_pd(dd_I *mem_addr, ddi_4 a) {
+static void _igen_dd_op_mm256_store_pd(dd_I *mem_addr, ddi_4 a) {
     _igen_dd_op_mm256_storeu_pd(mem_addr, a);
 }
 
-static inline __attribute__((always_inline)) void _igen_dd_op_mm256_maskstore_pd(dd_I *mem_addr, __m256i _mask, ddi_4 _a) {
+static void _igen_dd_op_mm256_maskstore_pd(dd_I *mem_addr, __m256i _mask, ddi_4 _a) {
     vec256i mask;
     mask.v = _mask;
     vec256d a;
@@ -192,7 +192,7 @@ static inline __attribute__((always_inline)) void _igen_dd_op_mm256_maskstore_pd
     }
 }
 
-static inline __attribute__((always_inline)) void _igen_dd_op_mm256_storeu2_m128d(dd_I *hiaddr, dd_I *loaddr, ddi_4 _a) {
+static void _igen_dd_op_mm256_storeu2_m128d(dd_I *hiaddr, dd_I *loaddr, ddi_4 _a) {
     vec256d a;
     a.v = _a;
 
@@ -203,7 +203,7 @@ static inline __attribute__((always_inline)) void _igen_dd_op_mm256_storeu2_m128
     *(hiaddr + 1) = a.f[3];
 }
 
-static inline __attribute__((always_inline)) void _igen_dd_op_mm256_stream_pd(dd_I *mem_addr, ddi_4 _a) {
+static void _igen_dd_op_mm256_stream_pd(dd_I *mem_addr, ddi_4 _a) {
     vec256d a;
     a.v = _a;
 
@@ -220,7 +220,7 @@ static inline __attribute__((always_inline)) void _igen_dd_op_mm256_stream_pd(dd
 #include "igen_dd_immintrin_opt/mm256_mul_pd.h"
 #include "igen_dd_immintrin_opt/mm256_div_pd.h"
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_addsub_pd(ddi_4 _a, ddi_4 _b) {
+static ddi_4 _igen_dd_op_mm256_addsub_pd(ddi_4 _a, ddi_4 _b) {
     vec256d a;
     a.v = _a;
     vec256d b;
@@ -241,7 +241,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_addsub_pd(d
     return dst.v;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_hadd_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_op_mm256_hadd_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dst.f[0] = _ia_add_dd(a.f[1], a.f[0]);
@@ -252,7 +252,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_hadd_pd(ddi
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_hsub_pd(ddi_4 _a, ddi_4 _b) {
+static ddi_4 _igen_dd_op_mm256_hsub_pd(ddi_4 _a, ddi_4 _b) {
     vec256d a;
     a.v = _a;
     vec256d b;
@@ -267,7 +267,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_hsub_pd(ddi
     return dst.v;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_sqrt_pd(ddi_4 a) {
+static ddi_4 _igen_dd_op_mm256_sqrt_pd(ddi_4 a) {
     ddi_4 dst;
 
     dst.f[0] = _ia_sqrt_dd(a.f[0]);
@@ -278,7 +278,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_sqrt_pd(ddi
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_max_pd(ddi_4 _a, ddi_4 _b) {
+static ddi_4 _igen_dd_op_mm256_max_pd(ddi_4 _a, ddi_4 _b) {
     vec256d a;
     a.v = _a;
     vec256d b;
@@ -295,7 +295,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_max_pd(ddi_
     return dst.v;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_min_pd(ddi_4 _a, ddi_4 _b) {
+static ddi_4 _igen_dd_op_mm256_min_pd(ddi_4 _a, ddi_4 _b) {
     vec256d a;
     a.v = _a;
     vec256d b;
@@ -312,7 +312,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_min_pd(ddi_
     return dst.v;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_ceil_pd(ddi_4 _a) {
+static ddi_4 _igen_dd_op_mm256_ceil_pd(ddi_4 _a) {
     vec256d a;
     a.v = _a;
     vec256d dst;
@@ -327,7 +327,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_ceil_pd(ddi
     return dst.v;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_floor_pd(ddi_4 _a) {
+static ddi_4 _igen_dd_op_mm256_floor_pd(ddi_4 _a) {
     vec256d a;
     a.v = _a;
     vec256d dst;
@@ -342,7 +342,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_floor_pd(dd
     return dst.v;
 }
 
-static inline __attribute__((always_inline)) ddi_8 _igen_dd_op_mm256_dp_ps(ddi_8 _a, ddi_8 _b, int imm8) {
+static ddi_8 _igen_dd_op_mm256_dp_ps(ddi_8 _a, ddi_8 _b, int imm8) {
     vec256s a;
     a.v = _a;
     vec256s b;
@@ -362,7 +362,7 @@ static inline __attribute__((always_inline)) ddi_8 _igen_dd_op_mm256_dp_ps(ddi_8
     return dst.v;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_round_pd(ddi_4 _a, int rounding) {
+static ddi_4 _igen_dd_op_mm256_round_pd(ddi_4 _a, int rounding) {
     vec256d a;
     a.v = _a;
     vec256d dst;
@@ -379,7 +379,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_round_pd(dd
 
 #include "igen_dd_immintrin_opt/mm256_fmadd_pd.h"
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_fmsub_pd(ddi_4 _a, ddi_4 _b, ddi_4 _c) {
+static ddi_4 _igen_dd_op_mm256_fmsub_pd(ddi_4 _a, ddi_4 _b, ddi_4 _c) {
     vec256d a;
     a.v = _a;
     vec256d b;
@@ -399,7 +399,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_fmsub_pd(dd
     return dst.v;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_fmaddsub_pd(ddi_4 _a, ddi_4 _b, ddi_4 _c) {
+static ddi_4 _igen_dd_op_mm256_fmaddsub_pd(ddi_4 _a, ddi_4 _b, ddi_4 _c) {
     vec256d a;
     a.v = _a;
     vec256d b;
@@ -426,7 +426,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_fmaddsub_pd
 
 // ================ COMPARISON ======================
 /*
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_cmp_pd(ddi_4 _a, ddi_4 _b, int imm8) {
+static ddi_4 _igen_dd_op_mm256_cmp_pd(ddi_4 _a, ddi_4 _b, int imm8) {
     vec256d a;
     a.v = _a;
     vec256d b;
@@ -545,7 +545,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_cmp_pd(ddi_
 */
 // ================ CONVERSION ======================
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_cvtepi32_pd(__m128i _a) {
+static ddi_4 _igen_dd_op_mm256_cvtepi32_pd(__m128i _a) {
     vec128i a;
     a.v = _a;
     vec256d dst;
@@ -562,7 +562,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_cvtepi32_pd
     return dst.v;
 }
 
-static inline __attribute__((always_inline)) ddi_8 _igen_dd_op_mm256_cvtepi32_ps(__m256i _a) {
+static ddi_8 _igen_dd_op_mm256_cvtepi32_ps(__m256i _a) {
     vec256i a;
     a.v = _a;
     vec256s dst;
@@ -577,7 +577,7 @@ static inline __attribute__((always_inline)) ddi_8 _igen_dd_op_mm256_cvtepi32_ps
     return dst.v;
 }
 
-static inline __attribute__((always_inline)) __m128i _igen_dd_op_mm256_cvtpd_epi32(ddi_4 _a) {
+static __m128i _igen_dd_op_mm256_cvtpd_epi32(ddi_4 _a) {
     vec256d a;
     a.v = _a;
     vec128i dst;
@@ -596,7 +596,7 @@ static inline __attribute__((always_inline)) __m128i _igen_dd_op_mm256_cvtpd_epi
     return _ret;
 }
 
-static inline __attribute__((always_inline)) __m256i _igen_dd_op_mm256_cvtps_epi32(ddi_8 _a) {
+static __m256i _igen_dd_op_mm256_cvtps_epi32(ddi_8 _a) {
     vec256s a;
     a.v = _a;
     vec256i dst;
@@ -613,7 +613,7 @@ static inline __attribute__((always_inline)) __m256i _igen_dd_op_mm256_cvtps_epi
     return _ret;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_cvtps_pd(ddi_4 _a) {
+static ddi_4 _igen_dd_op_mm256_cvtps_pd(ddi_4 _a) {
     vec128s a;
     a.v = _a;
     vec256d dst;
@@ -630,7 +630,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_cvtps_pd(dd
     return dst.v;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_cvtpd_ps(ddi_4 _a) {
+static ddi_4 _igen_dd_op_mm256_cvtpd_ps(ddi_4 _a) {
     vec256d a;
     a.v = _a;
     vec128s dst;
@@ -647,7 +647,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_cvtpd_ps(dd
     return dst.v;
 }
 
-static inline __attribute__((always_inline)) __m128i _igen_dd_op_mm256_cvttpd_epi32(ddi_4 _a) {
+static __m128i _igen_dd_op_mm256_cvttpd_epi32(ddi_4 _a) {
     vec256d a;
     a.v = _a;
     vec128i dst;
@@ -666,7 +666,7 @@ static inline __attribute__((always_inline)) __m128i _igen_dd_op_mm256_cvttpd_ep
     return _ret;
 }
 
-static inline __attribute__((always_inline)) dd_I _igen_dd_op_mm256_cvtsd_f64(ddi_4 _a) {
+static dd_I _igen_dd_op_mm256_cvtsd_f64(ddi_4 _a) {
     vec256d a;
     a.v = _a;
     dd_I dst;
@@ -675,7 +675,7 @@ static inline __attribute__((always_inline)) dd_I _igen_dd_op_mm256_cvtsd_f64(dd
     return dst;
 }
 
-static inline __attribute__((always_inline)) dd_I _igen_dd_op_mm256_cvtss_f32(ddi_8 _a) {
+static dd_I _igen_dd_op_mm256_cvtss_f32(ddi_8 _a) {
     vec256s a;
     a.v = _a;
     dd_I dst;
@@ -684,14 +684,14 @@ static inline __attribute__((always_inline)) dd_I _igen_dd_op_mm256_cvtss_f32(dd
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_castpd128_pd256(ddi_2 a) {
+static ddi_4 _igen_dd_op_mm256_castpd128_pd256(ddi_2 a) {
     ddi_4 dst;
     dst.f[0] = a.f[0];
     dst.f[1] = a.f[1];
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_2 _igen_dd_op_mm256_castpd256_pd128(ddi_4 a) {
+static ddi_2 _igen_dd_op_mm256_castpd256_pd128(ddi_4 a) {
     ddi_2 dst;
     dst.f[0] = a.f[0];
     dst.f[1] = a.f[1];
@@ -700,7 +700,7 @@ static inline __attribute__((always_inline)) ddi_2 _igen_dd_op_mm256_castpd256_p
 
 // ================ SHUFFLE ======================
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_unpackhi_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_op_mm256_unpackhi_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dd_I a1 = _mm256_load_pd( (const double*) (a.f+1) );
@@ -716,7 +716,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_unpackhi_pd
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_unpacklo_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_op_mm256_unpacklo_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dd_I a1 = _mm256_load_pd( (const double*) a.f );
@@ -733,7 +733,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_unpacklo_pd
 }
 
 // not supported
-static inline __attribute__((always_inline)) int _igen_dd_op_mm256_movemask_pd(ddi_4 _a) {
+static int _igen_dd_op_mm256_movemask_pd(ddi_4 _a) {
     vec256d a;
     a.v = _a;
     int dst;
@@ -754,7 +754,7 @@ static inline __attribute__((always_inline)) int _igen_dd_op_mm256_movemask_pd(d
     return _ret;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_movedup_pd(ddi_4 a) {
+static ddi_4 _igen_dd_op_mm256_movedup_pd(ddi_4 a) {
     ddi_4 dst;
 
     dd_I a0 = _mm256_load_pd( (const double*) a.f );
@@ -768,7 +768,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_movedup_pd(
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_blend_pd(ddi_4 a, ddi_4 b, int imm8) {
+static ddi_4 _igen_dd_op_mm256_blend_pd(ddi_4 a, ddi_4 b, int imm8) {
     ddi_4 dst;
 
     dst.f[0] = (imm8 & 1) == 0 ? a.f[0] : b.f[0];
@@ -780,7 +780,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_blend_pd(dd
 }
 
 // not supported
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_blendv_pd(ddi_4 _a, ddi_4 _b, ddi_4 _mask) {
+static ddi_4 _igen_dd_op_mm256_blendv_pd(ddi_4 _a, ddi_4 _b, ddi_4 _mask) {
     vec256d a;
     a.v = _a;
     vec256d b;
@@ -804,7 +804,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_blendv_pd(d
 }
 
 // TODO benchmark fn
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_insertf128_pd(ddi_4 a, ddi_2 b, int imm8) {
+static ddi_4 _igen_dd_op_mm256_insertf128_pd(ddi_4 a, ddi_2 b, int imm8) {
     ddi_4 dst;
 
     dst.f[0] = imm8 & 1 ? a.f[0] : b.f[0];
@@ -816,7 +816,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_insertf128_
 }
 
 // TODO benchmark fn
-static inline __attribute__((always_inline)) ddi_2 _igen_dd_op_mm256_extractf128_pd(ddi_4 a, int imm8) {
+static ddi_2 _igen_dd_op_mm256_extractf128_pd(ddi_4 a, int imm8) {
     ddi_2 dst;
 
     dst.f[0] = imm8 & 1 ? a.f[2] : a.f[0];
@@ -826,7 +826,7 @@ static inline __attribute__((always_inline)) ddi_2 _igen_dd_op_mm256_extractf128
 }
 
 // TODO benchmark fn
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_shuffle_pd(ddi_4 a, ddi_4 b, int imm8) {
+static ddi_4 _igen_dd_op_mm256_shuffle_pd(ddi_4 a, ddi_4 b, int imm8) {
     ddi_4 dst;
     dst.f[0] = a.f[imm8 & 1];
     dst.f[2] = a.f[2+((imm8 & 4) > 0)];
@@ -835,7 +835,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_shuffle_pd(
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_permute_pd(ddi_4 _a, int imm8) {
+static ddi_4 _igen_dd_op_mm256_permute_pd(ddi_4 _a, int imm8) {
     vec256d a;
     a.v = _a;
     vec256d dst;
@@ -868,7 +868,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_permute_pd(
     return dst.v;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_permute4x64_pd(ddi_4 _a, int imm8) {
+static ddi_4 _igen_dd_op_mm256_permute4x64_pd(ddi_4 _a, int imm8) {
     vec256d a;
     a.v = _a;
     vec256d dst;
@@ -881,7 +881,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_permute4x64
     return dst.v;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_permute2f128_pd(ddi_4 a, ddi_4 b, int imm8) {
+static ddi_4 _igen_dd_op_mm256_permute2f128_pd(ddi_4 a, ddi_4 b, int imm8) {
     ddi_4 dst;
 
     if (imm8 & 8) {

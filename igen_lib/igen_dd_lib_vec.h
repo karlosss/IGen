@@ -23,7 +23,7 @@ typedef struct {
 ///
 /// Error-free transformations
 ///
-static inline __attribute__((always_inline)) dd2_v fastTwoSum(dd_v a, dd_v b) {
+static dd2_v fastTwoSum(dd_v a, dd_v b) {
 #ifdef ROUND_TO_NEAREST
     int _fround = fegetround();
     fesetround(FE_TONEAREST);
@@ -43,7 +43,7 @@ static inline __attribute__((always_inline)) dd2_v fastTwoSum(dd_v a, dd_v b) {
     return r;
 }
 
-static inline __attribute__((always_inline)) dd2_v twoSum(dd_v a, dd_v b) {
+static dd2_v twoSum(dd_v a, dd_v b) {
 #ifdef ROUND_TO_NEAREST
     int _fround = fegetround();
     fesetround(FE_TONEAREST);
@@ -66,7 +66,7 @@ static inline __attribute__((always_inline)) dd2_v twoSum(dd_v a, dd_v b) {
     return r;
 }
 
-static inline __attribute__((always_inline)) dd2_v twoMul(dd_v a, dd_v b) {
+static dd2_v twoMul(dd_v a, dd_v b) {
 #ifdef ROUND_TO_NEAREST
     int _fround = fegetround();
     fesetround(FE_TONEAREST);
@@ -88,7 +88,7 @@ static inline __attribute__((always_inline)) dd2_v twoMul(dd_v a, dd_v b) {
 ///
 /// Vector operations on double-doubles
 ///
-static inline __attribute__((always_inline)) dd_v _vec_addh_dd(dd_v a, dd_v b) {
+static dd_v _vec_addh_dd(dd_v a, dd_v b) {
     dd2_v s  = twoSum(a, b);
     dd_v _a  = _mm256_permute_pd(a, 0b0101);
     dd_v  v  = _a + s.l;
@@ -97,7 +97,7 @@ static inline __attribute__((always_inline)) dd_v _vec_addh_dd(dd_v a, dd_v b) {
     return z_hl;
 }
 
-static inline __attribute__((always_inline)) dd_v _vec_add_dd(dd_v a, dd_v b) {
+static dd_v _vec_add_dd(dd_v a, dd_v b) {
     dd2_v s_t  = twoSum(a, b);
     dd_v  th   = _mm256_permute_pd(s_t.h, 0b0101);
     dd_v  tl   = _mm256_permute_pd(s_t.l, 0b0101);
@@ -110,7 +110,7 @@ static inline __attribute__((always_inline)) dd_v _vec_add_dd(dd_v a, dd_v b) {
 }
 
 /// Addition double-double with double
-static inline __attribute__((always_inline)) dd_v _vec_add_dd_d(dd_v a, dd_v b) {
+static dd_v _vec_add_dd_d(dd_v a, dd_v b) {
     dd2_v s_t  = twoSum(a, b);
     dd_v  al   = _mm256_permute_pd(a, 0b0101);
     dd_v  c    = s_t.l + al;
@@ -119,7 +119,7 @@ static inline __attribute__((always_inline)) dd_v _vec_add_dd_d(dd_v a, dd_v b) 
     return z_hl;
 }
 
-static inline __attribute__((always_inline)) dd_ddavx_I _vec_add2_dd(dd_v a1, dd_v b1, dd_v a2, dd_v b2) {
+static dd_ddavx_I _vec_add2_dd(dd_v a1, dd_v b1, dd_v a2, dd_v b2) {
     dd_v  ah = _mm256_unpacklo_pd(a1, a2);
     dd_v  al = _mm256_unpackhi_pd(a1, a2);
     dd_v  bh = _mm256_unpacklo_pd(b1, b2);
@@ -138,7 +138,7 @@ static inline __attribute__((always_inline)) dd_ddavx_I _vec_add2_dd(dd_v a1, dd
     return r;
 }
 
-static inline __attribute__((always_inline)) dd_v _vec_mulh_dd (dd_v a, dd_v b) {
+static dd_v _vec_mulh_dd (dd_v a, dd_v b) {
     dd2_v c    = twoMul(a, b);
     dd_v _a    = _mm256_permute_pd(a, 0b0101);
     dd_v cl2   = _mm256_fmadd_pd(_a, b, c.l);
@@ -147,7 +147,7 @@ static inline __attribute__((always_inline)) dd_v _vec_mulh_dd (dd_v a, dd_v b) 
     return z_hl;
 }
 
-static inline __attribute__((always_inline)) dd_v _vec_mul_dd(dd_v a, dd_v b) {
+static dd_v _vec_mul_dd(dd_v a, dd_v b) {
     dd2_v c   = twoMul(a, b);
     dd_v  tl0 = _mm256_permute_pd(c.h, 0b0101);
     dd_v _a   = _mm256_permute_pd(a,   0b0101);
@@ -160,7 +160,7 @@ static inline __attribute__((always_inline)) dd_v _vec_mul_dd(dd_v a, dd_v b) {
     return z_hl;
 }
 
-static inline __attribute__((always_inline)) dd_ddavx_I _vec_mul2_dd(dd_v a1, dd_v b1, dd_v a2, dd_v b2) {
+static dd_ddavx_I _vec_mul2_dd(dd_v a1, dd_v b1, dd_v a2, dd_v b2) {
     dd_v  ah = _mm256_unpacklo_pd(a1, a2);
     dd_v  al = _mm256_unpackhi_pd(a1, a2);
     dd_v  bh = _mm256_unpacklo_pd(b1, b2);
@@ -180,7 +180,7 @@ static inline __attribute__((always_inline)) dd_ddavx_I _vec_mul2_dd(dd_v a1, dd
     return r;
 }
 
-static inline __attribute__((always_inline)) dd2_v _vec_mul2_dd_2(dd_v ah, dd_v al, dd_v bh, dd_v bl) {
+static dd2_v _vec_mul2_dd_2(dd_v ah, dd_v al, dd_v bh, dd_v bl) {
     dd2_v c   = twoMul(ah, bh);
     dd_v  tl0 = al * bl;
     dd_v  tl1 = _mm256_fmadd_pd(ah, bl, tl0);
@@ -190,7 +190,7 @@ static inline __attribute__((always_inline)) dd2_v _vec_mul2_dd_2(dd_v ah, dd_v 
     return z;
 }
 
-static inline __attribute__((always_inline)) dd_v _vec_reciprocal_dd(dd_v b) {
+static dd_v _vec_reciprocal_dd(dd_v b) {
     dd_v  oz   = _mm256_set_pd(0.0, 1.0, 0.0, 1.0);
     dd_v  th   = _mm256_permute_pd(1.0 / b, 0b0000);
     dd_v  r    = _mm256_fnmadd_pd(b, th, oz);
@@ -202,13 +202,13 @@ static inline __attribute__((always_inline)) dd_v _vec_reciprocal_dd(dd_v b) {
     return m;
 }
 
-static inline __attribute__((always_inline)) dd_v _vec_div_dd(dd_v a, dd_v b) {
+static dd_v _vec_div_dd(dd_v a, dd_v b) {
     dd_v  m  = _vec_reciprocal_dd(b);
     dd_v  z  = _vec_mul_dd(a, m);
     return z;
 }
 
-static inline __attribute__((always_inline)) dd_v _vec_max_dd(dd_v a, dd_v b) {
+static dd_v _vec_max_dd(dd_v a, dd_v b) {
 
     dd_v minf, mask1, mask2, _a, _b, c;
 
@@ -232,36 +232,36 @@ static inline __attribute__((always_inline)) dd_v _vec_max_dd(dd_v a, dd_v b) {
 ///
 /// Auxiliary comparison functions
 ///
-static inline __attribute__((always_inline)) int dd_cmpgt(double ah, double al, double bh, double bl) {
+static int dd_cmpgt(double ah, double al, double bh, double bl) {
     return bh - ah < al - bl;
 }
 
-static inline __attribute__((always_inline)) int dd_cmpgeq(double ah, double al, double bh, double bl) {
+static int dd_cmpgeq(double ah, double al, double bh, double bl) {
     /* todo: check if this works */
     return bh - ah <= al - bl;
 }
 
-static inline __attribute__((always_inline)) int dd_cmpeq(double ah, double al, double bh, double bl) {
+static int dd_cmpeq(double ah, double al, double bh, double bl) {
     return !dd_cmpgt(ah, al, bh, bl) && !dd_cmpgt(bh, bl, ah, al);
 }
 
 ///
 /// Basic operations on intervals double-double
 ///
-static inline __attribute__((always_inline)) dd_I _ia_set_dd(double loh, double lol, double uph, double upl) {
+static dd_I _ia_set_dd(double loh, double lol, double uph, double upl) {
     return _mm256_set_pd(upl, uph, lol, loh);
 }
 
-static inline __attribute__((always_inline)) dd_I _ia_add_dd(dd_I a, dd_I b) {
+static dd_I _ia_add_dd(dd_I a, dd_I b) {
     return _vec_add_dd(a, b);
 }
 
-static inline __attribute__((always_inline)) dd_I _ia_sub_dd(dd_I a, dd_I b) {
+static dd_I _ia_sub_dd(dd_I a, dd_I b) {
     dd_I _b = _mm256_permute4x64_pd(b, 0b01001110);
     return _vec_add_dd(a,_b);
 }
 
-static inline __attribute__((always_inline)) dd_I _ia_mul_dd(dd_I a, dd_I b) {
+static dd_I _ia_mul_dd(dd_I a, dd_I b) {
     dd_I _b = _mm256_permute4x64_pd(b, 0b01001110);
 
     dd_ddavx_I _r_up = _vec_mul2_dd(a,  b, a, -_b);
@@ -278,7 +278,7 @@ static inline __attribute__((always_inline)) dd_I _ia_mul_dd(dd_I a, dd_I b) {
     return c;
 }
 
-static inline __attribute__((always_inline)) dd_I _ia_div_dd(dd_I a, dd_I b) {
+static dd_I _ia_div_dd(dd_I a, dd_I b) {
     dd_I res;
     u_ddi _b = { .v = b};
     int bNoZero = (_b.uh < 0.0 || (_b.uh == 0.0 && _b.ul <  0.0)) || (_b.lh < 0.0 || (_b.lh == 0.0 && _b.ll <  0.0));
@@ -296,15 +296,15 @@ static inline __attribute__((always_inline)) dd_I _ia_div_dd(dd_I a, dd_I b) {
     return res;
 }
 
-static inline __attribute__((always_inline)) dd_I _ia_neg_dd(dd_I a) {
+static dd_I _ia_neg_dd(dd_I a) {
     return _mm256_permute4x64_pd(a, 0b01001110);
 }
 
-static inline __attribute__((always_inline)) dd_I _ia_cvt_i2dd(int x) {
+static dd_I _ia_cvt_i2dd(int x) {
     return _ia_set_dd(-x, 0, x, 0);
 }
 
-static inline __attribute__((always_inline)) bool_I _ia_cmpgt_dd(dd_I a, dd_I b) {
+static bool_I _ia_cmpgt_dd(dd_I a, dd_I b) {
 
     /* Todo: Check if this is faster using purely intrinsics */
     u_ddi _a = { .v = a };
@@ -316,11 +316,11 @@ static inline __attribute__((always_inline)) bool_I _ia_cmpgt_dd(dd_I a, dd_I b)
     return UNKNOWN_I;
 }
 
-static inline __attribute__((always_inline)) bool_I _ia_cmplt_dd(dd_I a, dd_I b) {
+static bool_I _ia_cmplt_dd(dd_I a, dd_I b) {
     return _ia_cmpgt_dd(b, a);
 }
 
-static inline __attribute__((always_inline)) bool_I _ia_cmpgeq_dd(dd_I a, dd_I b) {
+static bool_I _ia_cmpgeq_dd(dd_I a, dd_I b) {
     u_ddi _a = { .v = a };
     u_ddi _b = { .v = b };
 
@@ -330,11 +330,11 @@ static inline __attribute__((always_inline)) bool_I _ia_cmpgeq_dd(dd_I a, dd_I b
     return UNKNOWN_I;
 }
 
-static inline __attribute__((always_inline)) bool_I _ia_cmpleq_dd(dd_I a, dd_I b) {
+static bool_I _ia_cmpleq_dd(dd_I a, dd_I b) {
     return _ia_cmpgeq_dd(b, a);
 }
 
-static inline __attribute__((always_inline)) bool_I _ia_cmpneq_dd(dd_I a, dd_I b) {
+static bool_I _ia_cmpneq_dd(dd_I a, dd_I b) {
     /* Ideally, intervals should not be compared for equality */
     u_ddi _a = { .v = a };
     u_ddi _b = { .v = b };
@@ -352,7 +352,7 @@ static inline __attribute__((always_inline)) bool_I _ia_cmpneq_dd(dd_I a, dd_I b
     return UNKNOWN_I;
 }
 
-static inline __attribute__((always_inline)) bool_I _ia_cmpeq_dd(dd_I a, dd_I b) {
+static bool_I _ia_cmpeq_dd(dd_I a, dd_I b) {
     /* Ideally, intervals should not be compared for equality */
     u_ddi _a = { .v = a };
     u_ddi _b = { .v = b };
@@ -373,31 +373,31 @@ static inline __attribute__((always_inline)) bool_I _ia_cmpeq_dd(dd_I a, dd_I b)
 ///
 /// Other special functions
 ///
-static inline __attribute__((always_inline)) dd_I _ia_add_dd_f64i(dd_I a, f64_I b) {
+static dd_I _ia_add_dd_f64i(dd_I a, f64_I b) {
     u_f64i* _b = (u_f64i*) &b;
     dd_I t1 = _ia_set_dd(_b->lo, -0.0, _b->up, 0.0);
     return _vec_add_dd_d(a, t1);
 }
 
-static inline __attribute__((always_inline)) double _ia_get_lo_dd(dd_I a) {
+static double _ia_get_lo_dd(dd_I a) {
     u_ddi _a = { .v = a };
     return -_a.lh;
 }
 
-static inline __attribute__((always_inline)) double _ia_get_up_dd(dd_I a) {
+static double _ia_get_up_dd(dd_I a) {
     u_ddi _a = { .v = a };
     return _a.uh;
 }
 
-static inline __attribute__((always_inline)) dd_I _ia_set_pointed_dd(double h, double l) {
+static dd_I _ia_set_pointed_dd(double h, double l) {
     return _ia_set_dd(-h,-l,h,l);
 }
 
-static inline __attribute__((always_inline)) dd_I _ia_set_pointed_h_dd(double h) {
+static dd_I _ia_set_pointed_h_dd(double h) {
     return _ia_set_dd(-h,-0.0,h,0.0);
 }
 
-static inline __attribute__((always_inline)) dd_I _ia_set_epsilon_dd(double h, double l) {
+static dd_I _ia_set_epsilon_dd(double h, double l) {
     if (l != 0.0) {
         return _ia_set_dd(-h,-l,h,l+DBL_MIN);
     }
@@ -407,10 +407,10 @@ static inline __attribute__((always_inline)) dd_I _ia_set_epsilon_dd(double h, d
     }
 }
 
-static inline __attribute__((always_inline)) dd_I _ia_zero_dd() {
+static dd_I _ia_zero_dd() {
     return _ia_set_dd(-0.0,-0.0,0.0,0.0);
 }
 
-static inline __attribute__((always_inline)) dd_I _ia_one_dd() {
+static dd_I _ia_one_dd() {
     return _ia_set_dd(-1.0,-0.0,1.0,0.0);
 }

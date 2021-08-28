@@ -1,7 +1,7 @@
 #pragma once
 #include <cmath>
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_inlined_loop_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_inlined_loop_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dst.f[0] = _ia_mul_dd(a.f[0], b.f[0]);
@@ -12,7 +12,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_inlined_loop_mm256_m
     return dst;
 }
 
-static inline __attribute__((always_inline)) dd_v mul(dd_I af0, dd_I bf0) {
+static dd_v mul(dd_I af0, dd_I bf0) {
     dd_I _b = _mm256_permute4x64_pd(bf0, 0b01001110);
 
     dd_v  ah = _mm256_unpacklo_pd(af0, af0);
@@ -174,7 +174,7 @@ static inline __attribute__((always_inline)) dd_v mul(dd_I af0, dd_I bf0) {
     return c_9;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_mul_fn_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_mul_fn_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dst.f[0] = mul(a.f[0], b.f[0]);
@@ -185,7 +185,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_mul_fn_mm256_mul_pd(
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_one_inlined_fn_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_one_inlined_fn_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dd_I af0 = a.f[0];
@@ -360,7 +360,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_one_inlined_fn_mm256
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_no_interleave_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_no_interleave_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dd_I af0_0_ = a.f[0];
@@ -825,7 +825,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_no_interleave_mm256_
 }
 
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_interleaved_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_interleaved_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dd_I af0_0 = a.f[0];
@@ -1130,7 +1130,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_interleaved_mm256_mu
     return dst;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _transposed_mul(dd_I a_0, dd_I a_1, dd_I a_2, dd_I a_3, dd_I b_0, dd_I b_1, dd_I b_2, dd_I b_3) {
+static ddi_4 _transposed_mul(dd_I a_0, dd_I a_1, dd_I a_2, dd_I a_3, dd_I b_0, dd_I b_1, dd_I b_2, dd_I b_3) {
     __m256d neg_b_0 = -b_0;
     __m256d neg_b_1 = -b_1;
     __m256d neg_b_2 = -b_2;
@@ -1291,7 +1291,7 @@ static inline __attribute__((always_inline)) ddi_4 _transposed_mul(dd_I a_0, dd_
     return (ddi_4) {.f = {res_0, res_1, res_2, res_3}};
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_transposed_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_transposed_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     ddi_4 trans_a = _vec_transpose(a);
@@ -1315,19 +1315,19 @@ typedef struct {
     double l;
 } dd;
 
-static inline __attribute__((always_inline)) bool dd_gt(dd a, dd b) {
+static bool dd_gt(dd a, dd b) {
     if(a.h > b.h) return true;
     if(a.h < b.h) return false;
     return a.l > b.l;
 }
 
-static inline __attribute__((always_inline)) bool dd_gt_0(dd a) {
+static bool dd_gt_0(dd a) {
     if(a.h > 0) return true;
     if(a.h < 0) return false;
     return a.l > 0;
 }
 
-static inline __attribute__((always_inline)) dd dd_mult(dd a, dd b) {
+static dd dd_mult(dd a, dd b) {
     double ch = a.h * b.h;
     double cl1 = fma(a.h, b.h, -ch);
     double tl0 = a.l * b.l;
@@ -1341,11 +1341,11 @@ static inline __attribute__((always_inline)) dd dd_mult(dd a, dd b) {
     return (dd) {.h = s, .l = t};
 }
 
-static inline __attribute__((always_inline)) dd minus(dd a) {
+static dd minus(dd a) {
     return (dd) {.h = -a.h, .l = -a.l};
 }
 
-static inline __attribute__((always_inline)) dd_I mul_case_dist(u_ddi a0, u_ddi b0) {
+static dd_I mul_case_dist(u_ddi a0, u_ddi b0) {
     dd a0l = {.h = a0.lh, .l = a0.ll};
     dd a0u = {.h = a0.uh, .l = a0.ul};
     dd b0l = {.h = b0.lh, .l = b0.ll};
@@ -1443,7 +1443,7 @@ static inline __attribute__((always_inline)) dd_I mul_case_dist(u_ddi a0, u_ddi 
     return r0.v;
 }
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_case_distinction_no_simd_mm256_mul_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_case_distinction_no_simd_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
     dst.f[0] = mul_case_dist({.v = a.f[0]}, {.v = b.f[0]});
