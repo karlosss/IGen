@@ -1,6 +1,6 @@
 #pragma once
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_permute_no_unused_vals_mm256_sub_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_permute_no_unused_vals_mm256_sub_pd(ddi_4 a, ddi_4 b) {
     ddi_4 _b;
     _b.f[0] = _mm256_permute4x64_pd(b.f[0], 0b01001110);
     _b.f[1] = _mm256_permute4x64_pd(b.f[1], 0b01001110);
@@ -11,7 +11,7 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_permute_no_unused_va
 }
 
 
-static inline __attribute__((always_inline)) ddi_4 _igen_dd_transposed_mm256_sub_pd(ddi_4 a, ddi_4 b) {
+static ddi_4 _igen_dd_transposed_mm256_sub_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
 #ifdef ROUND_TO_NEAREST
