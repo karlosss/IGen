@@ -18,8 +18,8 @@ static ddi_4 _igen_dd_transposed_mm256_sub_pd(ddi_4 a, ddi_4 b) {
     int _fround = fegetround();
     fesetround(FE_TONEAREST);
 #endif
-    ddi_4 trans_a = _vec_transpose(a);
-    ddi_4 trans_b = _vec_transpose(b);
+    ddi_4 trans_a = _vec_transpose_ddi4(a);
+    ddi_4 trans_b = _vec_transpose_ddi4(b);
 
     dd_v a_0 = trans_a.f[0];
     dd_v a_1 = trans_a.f[1];
@@ -111,7 +111,7 @@ static ddi_4 _igen_dd_transposed_mm256_sub_pd(ddi_4 a, ddi_4 b) {
     fesetround(_fround);
 #endif
 
-    dst = _vec_transpose(f3s0_0, f3t0_0, f3s0_2, f3t0_2);
+    dst = _vec_transpose_m256d(f3s0_0, f3t0_0, f3s0_2, f3t0_2);
 
     return dst;
 }

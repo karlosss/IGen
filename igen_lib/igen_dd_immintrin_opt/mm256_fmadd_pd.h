@@ -3,9 +3,9 @@
 static ddi_4 _igen_dd_transposed_mm256_fmadd_pd(ddi_4 a, ddi_4 b, ddi_4 c) {
     ddi_4 dst;
 
-    ddi_4 trans_a = _vec_transpose(a);
-    ddi_4 trans_b = _vec_transpose(b);
-    ddi_4 trans_c = _vec_transpose(c);
+    ddi_4 trans_a = _vec_transpose_ddi4(a);
+    ddi_4 trans_b = _vec_transpose_ddi4(b);
+    ddi_4 trans_c = _vec_transpose_ddi4(c);
 
     dd_v a_0 = trans_a.f[0];
     dd_v a_1 = trans_a.f[1];
@@ -260,12 +260,12 @@ static ddi_4 _igen_dd_transposed_mm256_fmadd_pd(ddi_4 a, ddi_4 b, ddi_4 c) {
 #ifdef ROUND_TO_NEAREST
     fesetround(_fround);
 #endif
-    dst = _vec_transpose(f3s0_0, f3t0_0, f3s0_2, f3t0_2);
+    dst = _vec_transpose_m256d(f3s0_0, f3t0_0, f3s0_2, f3t0_2);
     return dst;
 }
 
 static ddi_4 _igen_dd_separated_mm256_fmadd_pd(ddi_4 a, ddi_4 b, ddi_4 c) {
-    auto tmp = _igen_dd_transposed_mm256_mul_pd(a, b);
+    ddi_4 tmp = _igen_dd_transposed_mm256_mul_pd(a, b);
     return _igen_dd_no_unused_vals_mm256_add_pd(tmp, c);
 }
 

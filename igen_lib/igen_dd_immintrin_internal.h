@@ -686,7 +686,7 @@ static dd_I _error_dd (dd_I a) {
 #define RoundToNearestEven_s _error_dd
 
 
-static ddi_4 _vec_transpose(ddi_4 a) {
+static ddi_4 _vec_transpose_ddi4(ddi_4 a) {
     ddi_4 dst;
 
     __m256d af0 = a.f[0];
@@ -711,7 +711,7 @@ static ddi_4 _vec_transpose(ddi_4 a) {
     return dst;
 }
 
-static ddi_4 _vec_transpose(__m256d a, __m256d b, __m256d c, __m256d d) {
+static ddi_4 _vec_transpose_m256d(__m256d a, __m256d b, __m256d c, __m256d d) {
     ddi_4 dst;
 
     __m256d tmpa0 = _mm256_shuffle_pd(a, b, 0x0);

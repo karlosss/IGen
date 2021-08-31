@@ -1,5 +1,8 @@
 #pragma once
-#include <cmath>
+#include <math.h>
+#define bool int
+#define true 1
+#define false 0
 
 static ddi_4 _igen_dd_inlined_loop_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
@@ -1294,8 +1297,8 @@ static ddi_4 _transposed_mul(dd_I a_0, dd_I a_1, dd_I a_2, dd_I a_3, dd_I b_0, d
 static ddi_4 _igen_dd_transposed_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
-    ddi_4 trans_a = _vec_transpose(a);
-    ddi_4 trans_b = _vec_transpose(b);
+    ddi_4 trans_a = _vec_transpose_ddi4(a);
+    ddi_4 trans_b = _vec_transpose_ddi4(b);
     __m256d a_0 = trans_a.f[0];
     __m256d a_1 = trans_a.f[1];
     __m256d a_2 = trans_a.f[2];
@@ -1306,7 +1309,7 @@ static ddi_4 _igen_dd_transposed_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     __m256d b_3 = trans_b.f[3];
 
     ddi_4 res = _transposed_mul(a_0, a_1, a_2, a_3, b_0, b_1, b_2, b_3);
-    dst = _vec_transpose(res);
+    dst = _vec_transpose_ddi4(res);
     return dst;
 }
 
@@ -1377,8 +1380,10 @@ static dd_I mul_case_dist(u_ddi a0, u_ddi b0) {
                     r0u = dd_mult(a0u, b0u);
                 }
                 else {
-                    r0l = {.h = 0, .l = 0};
-                    r0u = {.h = 0, .l = 0};
+                    r0l.h = 0;
+                    r0l.l = 0;
+                    r0u.h = 0;
+                    r0u.l = 0;
                 }
             }
         }
@@ -1399,8 +1404,10 @@ static dd_I mul_case_dist(u_ddi a0, u_ddi b0) {
                     r0u = minus(dd_mult(a0u, b0l));
                 }
                 else {
-                    r0l = {.h = 0, .l = 0};
-                    r0u = {.h = 0, .l = 0};
+                    r0l.h = 0;
+                    r0l.l = 0;
+                    r0u.h = 0;
+                    r0u.l = 0;
                 }
             }
         }
@@ -1423,14 +1430,18 @@ static dd_I mul_case_dist(u_ddi a0, u_ddi b0) {
                     r0u = dd_mult(a0u, b0u);
                 }
                 else {
-                    r0l = {.h = 0, .l = 0};
-                    r0u = {.h = 0, .l = 0};
+                    r0l.h = 0;
+                    r0l.l = 0;
+                    r0u.h = 0;
+                    r0u.l = 0;
                 }
             }
         }
         else {
-            r0l = {.h = 0, .l = 0};
-            r0u = {.h = 0, .l = 0};
+            r0l.h = 0;
+            r0l.l = 0;
+            r0u.h = 0;
+            r0u.l = 0;
         }
     }
 
@@ -1446,10 +1457,27 @@ static dd_I mul_case_dist(u_ddi a0, u_ddi b0) {
 static ddi_4 _igen_dd_case_distinction_no_simd_mm256_mul_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
-    dst.f[0] = mul_case_dist({.v = a.f[0]}, {.v = b.f[0]});
-    dst.f[1] = mul_case_dist({.v = a.f[1]}, {.v = b.f[1]});
-    dst.f[2] = mul_case_dist({.v = a.f[2]}, {.v = b.f[2]});
-    dst.f[3] = mul_case_dist({.v = a.f[3]}, {.v = b.f[3]});
+    u_ddi af0;
+    u_ddi af1;
+    u_ddi af2;
+    u_ddi af3;
+    u_ddi bf0;
+    u_ddi bf1;
+    u_ddi bf2;
+    u_ddi bf3;
+    af0.v = a.f[0];
+    af1.v = a.f[1];
+    af2.v = a.f[2];
+    af3.v = a.f[3];
+    bf0.v = b.f[0];
+    bf1.v = b.f[1];
+    bf2.v = b.f[2];
+    bf3.v = b.f[3];
+
+    dst.f[0] = mul_case_dist(af0, bf0);
+    dst.f[1] = mul_case_dist(af1, bf1);
+    dst.f[2] = mul_case_dist(af2, bf2);
+    dst.f[3] = mul_case_dist(af3, bf3);
 
     return dst;
 }

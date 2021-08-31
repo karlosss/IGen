@@ -72,8 +72,8 @@ static ddi_4 _igen_dd_inline_fn_mm256_div_pd(ddi_4 a, ddi_4 b) {
 static ddi_4 _igen_dd_transposed_mm256_div_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
-    ddi_4 trans_a = _vec_transpose(a);
-    ddi_4 trans_b = _vec_transpose(b);
+    ddi_4 trans_a = _vec_transpose_ddi4(a);
+    ddi_4 trans_b = _vec_transpose_ddi4(b);
 
     __m256d a_0 = trans_a.f[0];
     __m256d a_1 = trans_a.f[1];
@@ -167,7 +167,7 @@ static ddi_4 _igen_dd_transposed_mm256_div_pd(ddi_4 a, ddi_4 b) {
     dd_v t010_2 = cl308_2 - z010_2;
 
     ddi_4 res = _transposed_mul(a_0, a_1, a_2, a_3, s010_2, t010_2, s010_0, t010_0);
-    dst = _vec_transpose(res);
+    dst = _vec_transpose_ddi4(res);
 
     u_ddi _b0 = { .v = b.f[0]};
     u_ddi _b1 = { .v = b.f[1]};
@@ -189,8 +189,8 @@ static ddi_4 _igen_dd_transposed_mm256_div_pd(ddi_4 a, ddi_4 b) {
 static ddi_4 _igen_dd_transposed_avx_cond_mm256_div_pd(ddi_4 a, ddi_4 b) {
     ddi_4 dst;
 
-    ddi_4 trans_a = _vec_transpose(a);
-    ddi_4 trans_b = _vec_transpose(b);
+    ddi_4 trans_a = _vec_transpose_ddi4(a);
+    ddi_4 trans_b = _vec_transpose_ddi4(b);
 
     __m256d a_0 = trans_a.f[0];
     __m256d a_1 = trans_a.f[1];
@@ -307,7 +307,7 @@ static ddi_4 _igen_dd_transposed_avx_cond_mm256_div_pd(ddi_4 a, ddi_4 b) {
     dd_v b_res_2 = _mm256_blendv_pd(inf_t, res_2, b_no_zero);
     dd_v b_res_3 = _mm256_blendv_pd(zero_t, res_3, b_no_zero);
 
-    dst = _vec_transpose(b_res_0, b_res_1, b_res_2, b_res_3);
+    dst = _vec_transpose_m256d(b_res_0, b_res_1, b_res_2, b_res_3);
 
     return dst;
 }
