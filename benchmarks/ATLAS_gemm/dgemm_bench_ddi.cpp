@@ -21,7 +21,7 @@ void benchmark_dgemm_ddi() {
     for (int i = 56*1; i <= 56*11; i+=56*2) {
         runtime_stat = getCycles(cblas_dgemm, i);
         perf1        = runtime_stat.flops / runtime_stat.avrg;
-        cout << i << " " << perf1 << endl;
+        cout << i << " " << runtime_stat.media << " " << endl; //perf1 << endl;
 
         /* Calculate real performance */
         double cost_add = 40.0;
