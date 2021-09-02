@@ -6024,7 +6024,9 @@ static ddi_2 _igen_dd_fb_mm256_castpd256_pd128(ddi_4 _a) {
     vec256d a;
     a.v = _a;
     vec128d dst;
-    fprintf(stderr, "Error: Intrinsic not supported\n");
+    dst.f[0] = a.f[0];
+    dst.f[1] = a.f[1];
+//    fprintf(stderr, "Error: Intrinsic not supported\n");
     return dst.v;
 }
 

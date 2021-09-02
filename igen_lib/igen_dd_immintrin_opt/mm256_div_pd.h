@@ -312,6 +312,6 @@ static ddi_4 _igen_dd_transposed_avx_cond_mm256_div_pd(ddi_4 a, ddi_4 b) {
     return dst;
 }
 
-//#define _igen_dd_op_mm256_div_pd _igen_dd_transposed_avx_cond_mm256_div_pd
+//#define _igen_dd_op_mm256_div_pd _igen_dd_inline_fn_mm256_div_pd
 //#define _igen_dd_op_mm256_div_pd _igen_dd_fb_mm256_div_pd
-#define _igen_dd_op_mm256_div_pd _igen_dd_inline_fn_mm256_div_pd
+#define _igen_dd_op_mm256_div_pd _igen_dd_transposed_avx_cond_mm256_div_pd

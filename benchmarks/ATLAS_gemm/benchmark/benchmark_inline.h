@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <cmath>
+#include <algorithm>
 #include "tsc.h"
 #include "helpers.h"
 
@@ -23,12 +24,12 @@ public:
     stats_t() : avrg(0), min(0), max(0), media(0) {}
     ~stats_t() = default;
 
-    void createStats(std::list<double> values, double fps) {
+    void createStats(std::vector<double> values, double fps) {
         flops = fps;
         /* Determine min and max */
-        values.sort();
-        max = values.front();
-        min = values.back();
+        sort(values.begin(), values.end());
+        max = values.back();
+        min = values.front();
 
         /* Calculate average */
         double sum = 0.0;
@@ -36,6 +37,7 @@ public:
             sum += val;
         }
         avrg = sum / values.size();
+        media = values[values.size()/2];
     }
 
 };
@@ -101,7 +103,7 @@ static stats_t getCycles(funPtr fun, size_t size) {
     myInt64 start, end, overhead;
     size_t num_runs;
     double cycles;
-    list< double > cyclesList;
+    vector< double > cyclesList;
 
     /* Before starting validate that the timing is ok */
     bool error = validate_runtime_environment();
