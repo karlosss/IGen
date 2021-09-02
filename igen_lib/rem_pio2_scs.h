@@ -48,7 +48,7 @@ extern "C" {
 #define MAX_INT_QUADRANT  3373259424.0         /* floor(MAX_INT * PIO2) */
 #define MAX_LONG_QUADRANT 14148475504056880.0  /* floor(2^53 * PIO2) */
 
-static const int two_over_pi[]=
+static inline __attribute__((always_inline)) const int two_over_pi[]=
         {0x28be60db, 0x24e44152, 0x27f09d5f, 0x11f534dd,
          0x3036d8a5, 0x1993c439, 0x0107f945, 0x23abdebb,
          0x31586dc9, 0x06e3a424, 0x374b8019, 0x092eea09,
@@ -63,7 +63,7 @@ static const int two_over_pi[]=
          0x3986c219, 0x199855f1, 0x1281a102, 0x0dffd880};
 
 /* Todo: properly add licence of code respective to this which was taken from scs */
-static int rem_pio2_scs(const scs_ptr x){
+static inline __attribute__((always_inline)) int rem_pio2_scs(const scs_ptr x){
     uint64_t r[SCS_NB_WORDS+3], tmp;
     unsigned int N;
     /* result r[0],...,r[10] could store till 300 bits of precision */
@@ -167,7 +167,7 @@ static int rem_pio2_scs(const scs_ptr x){
     return x->sign*N;
 }
 
-static unsigned int trig_quadrant (double x) {
+static inline __attribute__((always_inline)) unsigned int trig_quadrant (double x) {
     unsigned  int q;
     /* negate to simulate rounding mode towards -inf  */
     double neg_x = -fabs(x);

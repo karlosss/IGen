@@ -10,7 +10,7 @@ typedef struct {
 } acc_ddi_t;
 
 /// Accumulate
-static void _isum_accumulate_dd(acc_ddi_t* acc, dd_I a) {
+static inline __attribute__((always_inline)) void _isum_accumulate_dd(acc_ddi_t* acc, dd_I a) {
     u_ddi* _a = (u_ddi*) &a;
     insert(&acc->up, _a->uh);
     insert(&acc->up, _a->ul);
@@ -19,7 +19,7 @@ static void _isum_accumulate_dd(acc_ddi_t* acc, dd_I a) {
 }
 
 /// Init the accumulator
-static void _isum_init_dd(acc_ddi_t* acc, dd_I a) {
+static inline __attribute__((always_inline)) void _isum_init_dd(acc_ddi_t* acc, dd_I a) {
     /* Here we clean the buffers and init first value */
     init(&acc->up);
     init(&acc->lo);
@@ -27,7 +27,7 @@ static void _isum_init_dd(acc_ddi_t* acc, dd_I a) {
 }
 
 /// Final reduction
-static dd_I _isum_reduce_dd(acc_ddi_t* acc) {
+static inline __attribute__((always_inline)) dd_I _isum_reduce_dd(acc_ddi_t* acc) {
     dd_I sum = _ia_set_pointed_dd(0.0, 0.0);
     dd_I t1, t2, t3;
 

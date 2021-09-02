@@ -187,7 +187,7 @@ typedef union {
 } u_m128s;
 
 /* Bitwise logical operations */
-static u32_I _ia_and_u32(u32_I a, u32_I b){
+static inline __attribute__((always_inline)) u32_I _ia_and_u32(u32_I a, u32_I b){
     u32_I dst;
     // dst.lo = ((a.lo & b.lo) & 0x7FFFFFFF) | ((a.lo | b.lo) & 0x80000000);
     dst.lo = a.lo & b.lo;
@@ -196,7 +196,7 @@ static u32_I _ia_and_u32(u32_I a, u32_I b){
     return dst;
 }
 
-static u64_I _ia_and_u64(u64_I a, u64_I b){
+static inline __attribute__((always_inline)) u64_I _ia_and_u64(u64_I a, u64_I b){
     u64_I dst;
     // dst.lo = ((a.lo & b.lo) & 0x7FFFFFFFFFFFFFFF) | ((a.lo | b.lo) & 0x8000000000000000);
     dst.lo = a.lo & b.lo;
@@ -205,7 +205,7 @@ static u64_I _ia_and_u64(u64_I a, u64_I b){
     return dst;
 }
 
-static u32_I _ia_or_u32(u32_I a, u32_I b){
+static inline __attribute__((always_inline)) u32_I _ia_or_u32(u32_I a, u32_I b){
     u32_I dst;
     //dst.lo = ((a.lo | b.lo) & 0x7FFFFFFF) | ((a.lo & b.lo) & 0x80000000);
     dst.lo = a.lo | b.lo;
@@ -214,7 +214,7 @@ static u32_I _ia_or_u32(u32_I a, u32_I b){
     return dst;
 }
 
-static u64_I _ia_or_u64(u64_I a, u64_I b){
+static inline __attribute__((always_inline)) u64_I _ia_or_u64(u64_I a, u64_I b){
     u64_I dst;
     //dst.lo = ((a.lo | b.lo) & 0x7FFFFFFFFFFFFFFF) | ((a.lo & b.lo) & 0x8000000000000000);
     dst.lo = a.lo | b.lo;
@@ -223,7 +223,7 @@ static u64_I _ia_or_u64(u64_I a, u64_I b){
     return dst;
 }
 
-static u64 toogleBit(u64 a, unsigned int bit){
+static inline __attribute__((always_inline)) u64 toogleBit(u64 a, unsigned int bit){
     // bypass
     u64 dst;
     // dst = a ^ (1UL << bit);
@@ -232,7 +232,7 @@ static u64 toogleBit(u64 a, unsigned int bit){
 }
 
 /* isnan for intervals */
-static int _igen_isnan_s(f32_I a) {
+static inline __attribute__((always_inline)) int _igen_isnan_s(f32_I a) {
     if (isnan(a.lo)) {
         return _TRUE;
     }
@@ -242,7 +242,7 @@ static int _igen_isnan_s(f32_I a) {
     return _FALSE;
 }
 
-static int _igen_isnan_d(f64_I _a) {
+static inline __attribute__((always_inline)) int _igen_isnan_d(f64_I _a) {
     u_f64i* a = (u_f64i*) &_a;
     if (isnan(a->lo)) {
         return _TRUE;
@@ -254,31 +254,31 @@ static int _igen_isnan_d(f64_I _a) {
 }
 
 /* Comparison functions */
-static int _cmp_ord(f64_I a, f64_I b) {
+static inline __attribute__((always_inline)) int _cmp_ord(f64_I a, f64_I b) {
     return _igen_isnan_d(a) || _igen_isnan_d(b);
 }
 
-static int _cmp_unord(f64_I a, f64_I b) {
+static inline __attribute__((always_inline)) int _cmp_unord(f64_I a, f64_I b) {
     return !_cmp_ord(a,b);
 }
 
-static int _cmp_true(f64_I a, f64_I b) {
+static inline __attribute__((always_inline)) int _cmp_true(f64_I a, f64_I b) {
     return _TRUE;
 }
 
-static int _cmp_false(f64_I a, f64_I b) {
+static inline __attribute__((always_inline)) int _cmp_false(f64_I a, f64_I b) {
     return _FALSE;
 }
 
 /* Bit access functions to vector type */
-static u32 vecBitAccess_i(u32 * vec, u32 bit) {
+static inline __attribute__((always_inline)) u32 vecBitAccess_i(u32 * vec, u32 bit) {
     int i = bit / 32;
     int b = bit % 32;
     u32 elem = vec[i];
     return (elem >> b) & 0x1u;
 }
 
-static u32 vecBitAccess_s(u32_I* vec, u32 bit) {
+static inline __attribute__((always_inline)) u32 vecBitAccess_s(u32_I* vec, u32 bit) {
     int i = bit / 32;
     int b = bit % 32;
     u32_I elem = vec[i];
@@ -304,7 +304,7 @@ static u32 vecBitAccess_s(u32_I* vec, u32 bit) {
     return b_up;
 }
 
-static u32 vecBitAccess_d(u64_I* vec, u32 bit) {
+static inline __attribute__((always_inline)) u32 vecBitAccess_d(u64_I* vec, u32 bit) {
     int i = bit / 64;
     int b = bit % 64;
     u64_I elem = vec[i];
@@ -330,7 +330,7 @@ static u32 vecBitAccess_d(u64_I* vec, u32 bit) {
     return b_up;
 }
 
-static u32 vecBitsAccess_i(u32* vec, u32 upBit, u32 loBit) {
+static inline __attribute__((always_inline)) u32 vecBitsAccess_i(u32* vec, u32 upBit, u32 loBit) {
     int i = upBit / 32;
 
     if (i != loBit / 32 || upBit < loBit) {
@@ -347,45 +347,45 @@ static u32 vecBitsAccess_i(u32* vec, u32 upBit, u32 loBit) {
     return (elem >> b_lo) & mask;
 }
 
-static u32 vecBitsAccess_s(u32_I* vec, u32 upBit, u32 loBit) {
+static inline __attribute__((always_inline)) u32 vecBitsAccess_s(u32_I* vec, u32 upBit, u32 loBit) {
     fprintf(stderr, "Error: vecBitsAccess_s not supported yet\n");
     return 0;
 }
 
-static u32 vecBitsAccess_d(u64_I* vec, u32 upBit, u32 loBit) {
+static inline __attribute__((always_inline)) u32 vecBitsAccess_d(u64_I* vec, u32 upBit, u32 loBit) {
     fprintf(stderr, "Error: vecBitsAccess_d not supported yet\n");
     return 0;
 }
 
-static void vecBitAssign_i(u32* vec, u32 bit, u32 val) {
+static inline __attribute__((always_inline)) void vecBitAssign_i(u32* vec, u32 bit, u32 val) {
     fprintf(stderr, "Error: vecBitAssign_i not supported yet\n");
 }
 
-static void vecBitAssign_s(u32_I* vec, u32 bit, u32 val) {
+static inline __attribute__((always_inline)) void vecBitAssign_s(u32_I* vec, u32 bit, u32 val) {
     fprintf(stderr, "Error: vecBitAssign_s not supported yet\n");
 }
 
-static void vecBitAssign_d(u64_I* vec, u32 bit, u32 val) {
+static inline __attribute__((always_inline)) void vecBitAssign_d(u64_I* vec, u32 bit, u32 val) {
     fprintf(stderr, "Error: vecBitAssign_d not supported yet\n");
 }
 
-static void vecBitsAssign_i(u32* vec, u32 upBit, u32 loBit, u32 val) {
+static inline __attribute__((always_inline)) void vecBitsAssign_i(u32* vec, u32 upBit, u32 loBit, u32 val) {
     fprintf(stderr, "Error: vecBitsAssign_i not supported yet\n");
 }
 
-static void vecBitsAssign_s(u32_I* vec, u32 upBit, u32 loBit, u32 val) {
+static inline __attribute__((always_inline)) void vecBitsAssign_s(u32_I* vec, u32 upBit, u32 loBit, u32 val) {
     fprintf(stderr, "Error: vecBitsAssign_s not supported yet\n");
 }
 
-static void vecBitsAssign_d(u64_I* vec, u32 upBit, u32 loBit, u32 val) {
+static inline __attribute__((always_inline)) void vecBitsAssign_d(u64_I* vec, u32 upBit, u32 loBit, u32 val) {
     fprintf(stderr, "Error: function not supported yet\n");
 }
 
-static f64_I zerod = {0,0};
-static f32_I zerof = {0,0};
+static inline __attribute__((always_inline)) f64_I zerod = {0,0};
+static inline __attribute__((always_inline)) f32_I zerof = {0,0};
 
 /* Auxiliary functions */
-static void DP_ddi(f64_I* dst, f64_I* a, f64_I* b, int imm8) {
+static inline __attribute__((always_inline)) void DP_ddi(f64_I* dst, f64_I* a, f64_I* b, int imm8) {
     /// DEFINE DP(a[127:0], b[127:0], imm8[7:0]) {
     ///   FOR j := 0 to 1
     ///     i := j*64
@@ -432,7 +432,7 @@ static void DP_ddi(f64_I* dst, f64_I* a, f64_I* b, int imm8) {
     }
  }
 
-static void DP_ssi(f32_I* dst, f32_I* a, f32_I* b, int imm8) {
+static inline __attribute__((always_inline)) void DP_ssi(f32_I* dst, f32_I* a, f32_I* b, int imm8) {
     /// DEFINE DP(a[127:0], b[127:0], imm8[7:0]) {
     ///   FOR j := 0 to 3
     ///     i := j*32
@@ -481,7 +481,7 @@ static void DP_ssi(f32_I* dst, f32_I* a, f32_I* b, int imm8) {
     }
 }
 
-static f64_I MAX_dd(f64_I _a, f64_I _b) {
+static inline __attribute__((always_inline)) f64_I MAX_dd(f64_I _a, f64_I _b) {
     f64_I _c;
     u_f64i* a = (u_f64i*) &_a;
     u_f64i* b = (u_f64i*) &_b;
@@ -493,7 +493,7 @@ static f64_I MAX_dd(f64_I _a, f64_I _b) {
     return _c;
 }
 
-static f64_I MIN_dd(f64_I _a, f64_I _b) {
+static inline __attribute__((always_inline)) f64_I MIN_dd(f64_I _a, f64_I _b) {
     f64_I _c;
     u_f64i* a = (u_f64i*) &_a;
     u_f64i* b = (u_f64i*) &_b;
@@ -505,7 +505,7 @@ static f64_I MIN_dd(f64_I _a, f64_I _b) {
     return _c;
 }
 
-static f32_I  MAX_ss(f32_I a,  f32_I b)  {
+static inline __attribute__((always_inline)) f32_I  MAX_ss(f32_I a,  f32_I b)  {
     f32_I c;
 
     c.up = a.up > b.up ? a.up : b.up;
@@ -514,7 +514,7 @@ static f32_I  MAX_ss(f32_I a,  f32_I b)  {
     return c;
 }
 
-static f32_I  MIN_ss(f32_I a,  f32_I b) {
+static inline __attribute__((always_inline)) f32_I  MIN_ss(f32_I a,  f32_I b) {
     f32_I c;
 
     c.up = a.up < b.up ? a.up : b.up;
@@ -523,7 +523,7 @@ static f32_I  MIN_ss(f32_I a,  f32_I b) {
     return c;
 }
 
-static void SELECT4_ssi(f32_I* dst, f32_I* src1, f32_I* src2, int control) {
+static inline __attribute__((always_inline)) void SELECT4_ssi(f32_I* dst, f32_I* src1, f32_I* src2, int control) {
     /** DEFINE SELECT4(src1, src2, control) {
      *    CASE(control[1:0]) OF
      *    0: tmp[127:0] := src1[127:0]
@@ -573,7 +573,7 @@ static void SELECT4_ssi(f32_I* dst, f32_I* src1, f32_I* src2, int control) {
      }
 }
 
-static void SELECT4_ddi(f64_I* dst, f64_I* src1, f64_I* src2, int control) {
+static inline __attribute__((always_inline)) void SELECT4_ddi(f64_I* dst, f64_I* src1, f64_I* src2, int control) {
     /** DEFINE SELECT4(src1, src2, control) {
      *    CASE(control[1:0]) OF
      *    0: tmp[127:0] := src1[127:0]
@@ -612,7 +612,7 @@ static void SELECT4_ddi(f64_I* dst, f64_I* src1, f64_I* src2, int control) {
     }
 }
 
-static f32_I SELECT4_si(f32_I* src, int control) {
+static inline __attribute__((always_inline)) f32_I SELECT4_si(f32_I* src, int control) {
     /** DEFINE SELECT4(src, control) {
      *   CASE(control[1:0]) OF
      *       0: tmp[31:0] := src[31:0]
@@ -643,7 +643,7 @@ static f32_I SELECT4_si(f32_I* src, int control) {
     return dst;
 }
 
-static f64_I SELECT4_di(f64_I* src, int control) {
+static inline __attribute__((always_inline)) f64_I SELECT4_di(f64_I* src, int control) {
     /** DEFINE SELECT4(src, control) {
      *    CASE(control[1:0]) OF
      *    0: tmp[63:0] := src[63:0]
@@ -674,7 +674,7 @@ static f64_I SELECT4_di(f64_I* src, int control) {
     return dst;
 }
 
-static void INTERLEAVE_HIGH_QWORDS_dd(f64_I* dst, f64_I* src1, f64_I* src2) {
+static inline __attribute__((always_inline)) void INTERLEAVE_HIGH_QWORDS_dd(f64_I* dst, f64_I* src1, f64_I* src2) {
     /** DEFINE INTERLEAVE_HIGH_QWORDS(src1[127:0], src2[127:0]) {
      *   dst[63:0] := src1[127:64]
      *   dst[127:64] := src2[127:64]
@@ -685,7 +685,7 @@ static void INTERLEAVE_HIGH_QWORDS_dd(f64_I* dst, f64_I* src1, f64_I* src2) {
     dst[1] = src2[1];
 }
 
-static void INTERLEAVE_HIGH_DWORDS_ss(f32_I* dst, f32_I* src1, f32_I* src2) {
+static inline __attribute__((always_inline)) void INTERLEAVE_HIGH_DWORDS_ss(f32_I* dst, f32_I* src1, f32_I* src2) {
     /** DEFINE INTERLEAVE_HIGH_DWORDS(src1[127:0], src2[127:0]) {
      *   dst[31:0] := src1[95:64]
      *   dst[63:32] := src2[95:64]
@@ -700,7 +700,7 @@ static void INTERLEAVE_HIGH_DWORDS_ss(f32_I* dst, f32_I* src1, f32_I* src2) {
     dst[3] = src2[3];
 }
 
-static void INTERLEAVE_QWORDS_dd(f64_I* dst, f64_I* src1, f64_I* src2) {
+static inline __attribute__((always_inline)) void INTERLEAVE_QWORDS_dd(f64_I* dst, f64_I* src1, f64_I* src2) {
     /** DEFINE INTERLEAVE_QWORDS(src1[127:0], src2[127:0]) {
      *   dst[63:0] := src1[63:0]
      *   dst[127:64] := src2[63:0]
@@ -711,7 +711,7 @@ static void INTERLEAVE_QWORDS_dd(f64_I* dst, f64_I* src1, f64_I* src2) {
      dst[1] = src2[0];
 }
 
-static void INTERLEAVE_DWORDS_ss(f32_I* dst, f32_I* src1, f32_I* src2) {
+static inline __attribute__((always_inline)) void INTERLEAVE_DWORDS_ss(f32_I* dst, f32_I* src1, f32_I* src2) {
     /** DEFINE INTERLEAVE_DWORDS(src1[127:0], src2[127:0]) {
      *   dst[31:0] := src1[31:0]
      *   dst[63:32] := src2[31:0]
@@ -727,7 +727,7 @@ static void INTERLEAVE_DWORDS_ss(f32_I* dst, f32_I* src1, f32_I* src2) {
 }
 
 /* Basic math functions */
-static f64_I ROUND_di(f64_I _a, int rounding) {
+static inline __attribute__((always_inline)) f64_I ROUND_di(f64_I _a, int rounding) {
     /// (_MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC) // round to nearest (ties to even), and suppress exceptions
     /// (_MM_FROUND_TO_NEG_INF |_MM_FROUND_NO_EXC)     // round down, and suppress exceptions
     /// (_MM_FROUND_TO_POS_INF |_MM_FROUND_NO_EXC)     // round up, and suppress exceptions
@@ -755,7 +755,7 @@ static f64_I ROUND_di(f64_I _a, int rounding) {
     return dst.f;
 }
 
-static f32_I ROUND_si(f32_I a, int rounding) {
+static inline __attribute__((always_inline)) f32_I ROUND_si(f32_I a, int rounding) {
     /// (_MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC) // round to nearest (ties to even), and suppress exceptions
     /// (_MM_FROUND_TO_NEG_INF |_MM_FROUND_NO_EXC)     // round down, and suppress exceptions
     /// (_MM_FROUND_TO_POS_INF |_MM_FROUND_NO_EXC)     // round up, and suppress exceptions
@@ -781,46 +781,46 @@ static f32_I ROUND_si(f32_I a, int rounding) {
     return dst.f[0];
 }
 
-static i32 SignExtend_i(u32 a) {
+static inline __attribute__((always_inline)) i32 SignExtend_i(u32 a) {
     return a;
 }
 
 /* Convert functions */
-static f64_I Convert_Int32_To_FP64_i(int a) {
+static inline __attribute__((always_inline)) f64_I Convert_Int32_To_FP64_i(int a) {
     f64_I dst = _ia_set_f64(-a, a);
     return dst;
 }
 
-static f32_I Convert_Int16_To_FP32_i(short int a) {
+static inline __attribute__((always_inline)) f32_I Convert_Int16_To_FP32_i(short int a) {
     f32_I dst;
     dst.lo = -a;
     dst.up = a;
     return dst;
 }
 
-static f32_I Convert_Int32_To_FP32_i(int a) {
+static inline __attribute__((always_inline)) f32_I Convert_Int32_To_FP32_i(int a) {
     f32_I dst;
     dst.lo = -a;
     dst.up = a;
     return dst;
 }
 
-static i32 Convert_FP32_To_Int32_s(f32_I a) {
+static inline __attribute__((always_inline)) i32 Convert_FP32_To_Int32_s(f32_I a) {
     fprintf(stderr, "Error: Conversion from interval to integer not supported.\n");
     return 0;
 }
 
-static f64_I Convert_FP32_To_FP64_s(f32_I a) {
+static inline __attribute__((always_inline)) f64_I Convert_FP32_To_FP64_s(f32_I a) {
     f64_I dst = _ia_set_f64(a.lo, a.up);
     return dst;
 }
 
-static i32 Convert_FP32_To_Int32_Truncate_s(f32_I a) {
+static inline __attribute__((always_inline)) i32 Convert_FP32_To_Int32_Truncate_s(f32_I a) {
     fprintf(stderr, "Error: Conversion from interval to integer not supported.\n");
     return 0;
 }
 
-static f32_I Convert_FP64_To_FP32_d(f64_I _a){
+static inline __attribute__((always_inline)) f32_I Convert_FP64_To_FP32_d(f64_I _a){
     f32_I dst;
     u_f64i* a = (u_f64i*) &_a;
     dst.lo = a->lo;
@@ -828,114 +828,114 @@ static f32_I Convert_FP64_To_FP32_d(f64_I _a){
     return dst;
 }
 
-static i32 Convert_FP64_To_Int32_Truncate_d(f64_I a) {
+static inline __attribute__((always_inline)) i32 Convert_FP64_To_Int32_Truncate_d(f64_I a) {
     fprintf(stderr, "Error: Conversion from interval to integer not supported.\n");
     return 0;
 }
 
-static i32 Convert_FP64_To_Int32_d(f64_I a) {
+static inline __attribute__((always_inline)) i32 Convert_FP64_To_Int32_d(f64_I a) {
     fprintf(stderr, "Error: Conversion from interval to integer not supported.\n");
     return 0;
 }
 
-static i64 Convert_FP64_To_Int64_Truncate_d(f64_I a) {
+static inline __attribute__((always_inline)) i64 Convert_FP64_To_Int64_Truncate_d(f64_I a) {
     fprintf(stderr, "Error: Conversion from interval to integer not supported.\n");
     return 0;
 }
 
-static i64 Convert_FP64_To_Int64_d(f64_I a) {
+static inline __attribute__((always_inline)) i64 Convert_FP64_To_Int64_d(f64_I a) {
     fprintf(stderr, "Error: Conversion from interval to integer not supported.\n");
     return 0;
 }
 
-static f64_I Convert_Int64_To_FP64_l(i64 a) {
+static inline __attribute__((always_inline)) f64_I Convert_Int64_To_FP64_l(i64 a) {
     f64_I dst = _ia_set_f64(-a, a);
     return dst;
 }
 
-static f32_I Convert_Int64_To_FP32_l(i64 a) {
+static inline __attribute__((always_inline)) f32_I Convert_Int64_To_FP32_l(i64 a) {
     f32_I dst;
     dst.lo = -a;
     dst.up = a;
     return dst;
 }
 
-static f32_I Convert_UnsignedInt16_To_FP32_i(u16 a) {
+static inline __attribute__((always_inline)) f32_I Convert_UnsignedInt16_To_FP32_i(u16 a) {
     f32_I dst;
     dst.lo = -a;
     dst.up = a;
     return dst;
 }
 
-static f32_I Convert_UnsignedInt8_To_FP32_i(u8 a) {
+static inline __attribute__((always_inline)) f32_I Convert_UnsignedInt8_To_FP32_i(u8 a) {
     f32_I dst;
     dst.lo = -a;
     dst.up = a;
     return dst;
 }
 
-static f32_I  Convert_Int8_To_FP32_i(i8 a) {
+static inline __attribute__((always_inline)) f32_I  Convert_Int8_To_FP32_i(i8 a) {
     f32_I dst;
     dst.lo = -a;
     dst.up = a;
     return dst;
 }
 
-static i64 Convert_FP32_To_Int64_s(f32_I a) {
+static inline __attribute__((always_inline)) i64 Convert_FP32_To_Int64_s(f32_I a) {
     fprintf(stderr, "Error: Conversion from interval to integer not supported.\n");
     return 0;
 }
 
-static i32 Convert_FP64_To_Int32_Truncate_s(f32_I a) {
+static inline __attribute__((always_inline)) i32 Convert_FP64_To_Int32_Truncate_s(f32_I a) {
     fprintf(stderr, "Error: Conversion from interval to integer not supported.\n");
     return 0;
 }
 
-static u16 Convert_FP32_To_FP16_s(f32_I a) {
+static inline __attribute__((always_inline)) u16 Convert_FP32_To_FP16_s(f32_I a) {
     fprintf(stderr, "Error: Conversion from interval to integer not supported.\n");
     return 0;
 }
 
-static f32_I Convert_FP16_To_FP32_u16(u16 a) {
+static inline __attribute__((always_inline)) f32_I Convert_FP16_To_FP32_u16(u16 a) {
     f32_I dst;
     dst.lo = -a;
     dst.up = a;
     return dst;
 }
 
-static f32_I Convert_FP16_To_FP32_i(i16 a) {
+static inline __attribute__((always_inline)) f32_I Convert_FP16_To_FP32_i(i16 a) {
     f32_I dst;
     dst.lo = -a;
     dst.up = a;
     return dst;
 }
 
-static i16 Convert_FP32_To_Int16_s(f32_I a) {
+static inline __attribute__((always_inline)) i16 Convert_FP32_To_Int16_s(f32_I a) {
     fprintf(stderr, "Error: Conversion from interval to integer not supported.\n");
     return 0;
 }
 
-static i8 Convert_FP32_To_Int8_s(f32_I a) {
+static inline __attribute__((always_inline)) i8 Convert_FP32_To_Int8_s(f32_I a) {
     fprintf(stderr, "Error: Conversion from interval to integer not supported.\n");
     return 0;
 }
 
-static f64_I pow_d (f64_I a, f64_I b) {
+static inline __attribute__((always_inline)) f64_I pow_d (f64_I a, f64_I b) {
     fprintf(stderr, "Error: Math function not supported yet\n");
     return zerod;
 }
 
-static f32_I pow_s (f32_I a, f32_I b) {
+static inline __attribute__((always_inline)) f32_I pow_s (f32_I a, f32_I b) {
     fprintf(stderr, "Error: Math function not supported yet\n");
     return zerof;
 }
 
-static f64_I _error_d (f64_I a) {
+static inline __attribute__((always_inline)) f64_I _error_d (f64_I a) {
     fprintf(stderr, "Error: Math function not supported yet\n");
     return zerod;
 }
 
-static f32_I _error_s (f32_I a) {
+static inline __attribute__((always_inline)) f32_I _error_s (f32_I a) {
     fprintf(stderr, "Error: Math function not supported yet\n");
     return zerof;
 }

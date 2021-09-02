@@ -8,21 +8,21 @@ typedef union {
     double d;
 } bitDouble;
 
-static unsigned get_exp(double a) {
+static inline __attribute__((always_inline)) unsigned get_exp(double a) {
     bitDouble _a;
     _a.d = a;
     _a.u = (_a.u & 0x7FFFFFFFFFFFFFFFu);
     return _a.u >> 52u;
 }
 
-static unsigned is_even (double a) {
+static inline __attribute__((always_inline)) unsigned is_even (double a) {
     bitDouble _a;
     _a.d = a;
     _a.u = (_a.u & 0x01u);
     return _a.u;
 }
 
-static unsigned get_lsb (double a) {
+static inline __attribute__((always_inline)) unsigned get_lsb (double a) {
     bitDouble _a;
     _a.d = a;
     _a.u = (_a.u & 0x01u);

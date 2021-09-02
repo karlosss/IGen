@@ -13,11 +13,11 @@
 #define igen_print_error(msg)
 #endif
 
-static const u_ddi NAN_ddi = {NAN, NAN, NAN, NAN};
+static inline __attribute__((always_inline)) const u_ddi NAN_ddi = {NAN, NAN, NAN, NAN};
 
 /// Using MPFR for double-double math libraries
 
-static dd_I _ia_sqrt_dd(dd_I _op) {
+static inline __attribute__((always_inline)) dd_I _ia_sqrt_dd(dd_I _op) {
     u_ddi* op = (u_ddi*) &_op;
 
     /* Check that operand is in allowed range */
@@ -65,32 +65,32 @@ static dd_I _ia_sqrt_dd(dd_I _op) {
     return res.v;
 }
 
-static dd_I _ia_abs_dd(dd_I op) {
+static inline __attribute__((always_inline)) dd_I _ia_abs_dd(dd_I op) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }
 
-static dd_I _ia_floor_dd(dd_I op) {
+static inline __attribute__((always_inline)) dd_I _ia_floor_dd(dd_I op) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }
 
-static dd_I _ia_max_dd(dd_I a, dd_I b) {
+static inline __attribute__((always_inline)) dd_I _ia_max_dd(dd_I a, dd_I b) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }
 
-static dd_I _ia_min_dd(dd_I a, dd_I b) {
+static inline __attribute__((always_inline)) dd_I _ia_min_dd(dd_I a, dd_I b) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }
 
-static dd_I _ia_ceil_dd(dd_I op) {
+static inline __attribute__((always_inline)) dd_I _ia_ceil_dd(dd_I op) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }
 
-static dd_I _ia_exp_dd(dd_I _op) {
+static inline __attribute__((always_inline)) dd_I _ia_exp_dd(dd_I _op) {
     u_ddi* op = (u_ddi*) &_op;
 
     /* Exp is monotonic. Apply function directly to lower and upper bounds. */
@@ -132,67 +132,67 @@ static dd_I _ia_exp_dd(dd_I _op) {
     return res.v;
 }
 
-static dd_I _ia_expm1_dd(dd_I op) {
+static inline __attribute__((always_inline)) dd_I _ia_expm1_dd(dd_I op) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }
 
-static dd_I _ia_log_dd(dd_I op) {
+static inline __attribute__((always_inline)) dd_I _ia_log_dd(dd_I op) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }
 
-static dd_I _ia_log2_dd(dd_I op) {
+static inline __attribute__((always_inline)) dd_I _ia_log2_dd(dd_I op) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }
 
-static dd_I _ia_log10_dd(dd_I op) {
+static inline __attribute__((always_inline)) dd_I _ia_log10_dd(dd_I op) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }
 
-static dd_I _ia_log1p_dd(dd_I op) {
+static inline __attribute__((always_inline)) dd_I _ia_log1p_dd(dd_I op) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }
 
-static dd_I _ia_sin_dd(dd_I op) {
+static inline __attribute__((always_inline)) dd_I _ia_sin_dd(dd_I op) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }
 
-static dd_I _ia_cos_dd(dd_I op) {
+static inline __attribute__((always_inline)) dd_I _ia_cos_dd(dd_I op) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }
 
-static dd_I _ia_tan_dd(dd_I op) {
+static inline __attribute__((always_inline)) dd_I _ia_tan_dd(dd_I op) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }
 
-static dd_I _ia_asin_dd(dd_I op) {
+static inline __attribute__((always_inline)) dd_I _ia_asin_dd(dd_I op) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }
 
-static dd_I _ia_acos_dd(dd_I op) {
+static inline __attribute__((always_inline)) dd_I _ia_acos_dd(dd_I op) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }
 
-static dd_I _ia_atan_dd(dd_I op) {
+static inline __attribute__((always_inline)) dd_I _ia_atan_dd(dd_I op) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }
 
-static dd_I _ia_sinh_dd(dd_I op) {
+static inline __attribute__((always_inline)) dd_I _ia_sinh_dd(dd_I op) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }
 
-static dd_I _ia_cosh_dd(dd_I op) {
+static inline __attribute__((always_inline)) dd_I _ia_cosh_dd(dd_I op) {
     fprintf(stderr, "Error: Operation not supported.\n");
     return NAN_ddi.v;
 }

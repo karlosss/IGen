@@ -12,28 +12,28 @@
 ///
 /// Basic operations
 ///
-static f32_I _ia_neg_f32(f32_I x) {
+static inline __attribute__((always_inline)) f32_I _ia_neg_f32(f32_I x) {
     f32_I  r;
     r.up = x.lo;
     r.lo = x.up;
     return r;
 }
 
-static f64_I _ia_neg_f64(f64_I x) {
+static inline __attribute__((always_inline)) f64_I _ia_neg_f64(f64_I x) {
     f64_I  r;
     r.up = x.lo;
     r.lo = x.up;
     return r;
 }
 
-static f32_I _ia_add_f32(f32_I x, f32_I y) {
+static inline __attribute__((always_inline)) f32_I _ia_add_f32(f32_I x, f32_I y) {
     f32_I  r;
     r.up = x.up + y.up;
     r.lo = x.lo + y.lo;
     return r;
 }
 
-static f64_I _ia_add_f64(f64_I x, f64_I y) {
+static inline __attribute__((always_inline)) f64_I _ia_add_f64(f64_I x, f64_I y) {
     f64_I  r;
     r.up = x.up + y.up;
     r.lo = x.lo + y.lo;
@@ -46,14 +46,14 @@ static f64_I _ia_add_f64(f64_I x, f64_I y) {
     return r;
 }
 
-static f32_I _ia_sub_f32(f32_I x, f32_I y) {
+static inline __attribute__((always_inline)) f32_I _ia_sub_f32(f32_I x, f32_I y) {
     f32_I  r;
     r.up = x.up + y.lo;
     r.lo = x.lo + y.up;
     return r;
 }
 
-static f64_I _ia_sub_f64(f64_I x, f64_I y) {
+static inline __attribute__((always_inline)) f64_I _ia_sub_f64(f64_I x, f64_I y) {
     f64_I  r;
     r.up = x.up + y.lo;
     r.lo = x.lo + y.up;
@@ -66,7 +66,7 @@ static f64_I _ia_sub_f64(f64_I x, f64_I y) {
     return r;
 }
 
-static f32_I _ia_mul_f32(f32_I x, f32_I y) {
+static inline __attribute__((always_inline)) f32_I _ia_mul_f32(f32_I x, f32_I y) {
     f32_I  r;
     if (x.lo > 0) {
         if (x.up > 0) {
@@ -139,7 +139,7 @@ static f32_I _ia_mul_f32(f32_I x, f32_I y) {
     return r;
 }
 
-static f64_I _ia_mul_f64_v1(f64_I x, f64_I y) {
+static inline __attribute__((always_inline)) f64_I _ia_mul_f64_v1(f64_I x, f64_I y) {
     f64_I  r;
 
     double u1 =   x.up * y.up;
@@ -164,9 +164,9 @@ static f64_I _ia_mul_f64_v1(f64_I x, f64_I y) {
     return r;
 }
 
-static f64_I _ia_mul_f64_v2(f64_I x, f64_I y) {
+static inline __attribute__((always_inline)) f64_I _ia_mul_f64_v2(f64_I x, f64_I y) {
     f64_I r;
-    static const f64_I NaN_I = { NAN, NAN };
+    static inline __attribute__((always_inline)) const f64_I NaN_I = { NAN, NAN };
 
     if (x.lo <= 0) {                  // x >= 0
         if (y.lo <= 0.0) {            // y >= 0
@@ -226,7 +226,7 @@ static f64_I _ia_mul_f64_v2(f64_I x, f64_I y) {
             double t1, t2;
             /* Check for NaNs */
             if (isnan(x.up) || isnan(x.lo) || isnan(y.up) || isnan(y.lo)) {
-                static const f64_I NaN_I = { NAN, NAN };
+                static inline __attribute__((always_inline)) const f64_I NaN_I = { NAN, NAN };
                 return NaN_I;
             }
 
@@ -242,12 +242,12 @@ static f64_I _ia_mul_f64_v2(f64_I x, f64_I y) {
     return r;
 }
 
-static f64_I _ia_mul_f64_v3(f64_I x, f64_I y) {
+static inline __attribute__((always_inline)) f64_I _ia_mul_f64_v3(f64_I x, f64_I y) {
     f64_I  r;
 
     /* Check for NaNs */
     if (isnan(x.up) || isnan(x.lo) || isnan(y.up) || isnan(y.lo)) {
-        static const f64_I NaN_I = { NAN, NAN };
+        static inline __attribute__((always_inline)) const f64_I NaN_I = { NAN, NAN };
         return NaN_I;
     }
 
@@ -327,11 +327,11 @@ static f64_I _ia_mul_f64_v3(f64_I x, f64_I y) {
     return r;
 }
 
-static f64_I _ia_mul_f64(f64_I x, f64_I y) {
+static inline __attribute__((always_inline)) f64_I _ia_mul_f64(f64_I x, f64_I y) {
     return _ia_mul_f64_v1(x, y);
 }
 
-static f32_I _ia_div_f32(f32_I x, f32_I y) {
+static inline __attribute__((always_inline)) f32_I _ia_div_f32(f32_I x, f32_I y) {
 
     f32_I inv_y;
     if (y.up < 0.f || -y.lo > 0.f) {
@@ -372,10 +372,10 @@ static f32_I _ia_div_f32(f32_I x, f32_I y) {
     return _ia_mul_f32(x, inv_y);
 }
 
-static f64_I _ia_div_f64(f64_I x, f64_I y) {
+static inline __attribute__((always_inline)) f64_I _ia_div_f64(f64_I x, f64_I y) {
 
     /* Check for NaNs */
-    static const f64_I NaN_I = { NAN, NAN };
+    static inline __attribute__((always_inline)) const f64_I NaN_I = { NAN, NAN };
     if (isnan(x.up) || isnan(x.lo) || isnan(y.up) || isnan(y.lo)) {
         return NaN_I;
     }
@@ -427,84 +427,84 @@ static f64_I _ia_div_f64(f64_I x, f64_I y) {
 ///
 /// Comparison on intervals
 ///
-static bool_I _ia_cmplt_f64(f64_I x, f64_I y) {
+static inline __attribute__((always_inline)) bool_I _ia_cmplt_f64(f64_I x, f64_I y) {
     if ( x.up <  -y.lo ) { return TRUE_I;  }
     if (-x.lo >=  y.up ) { return FALSE_I; }
     fprintf(stderr, "Error: Unknown state in _ia_cmplt_f64\n");
     return UNKNOWN_I;
 }
 
-static bool_I _ia_cmple_f64(f64_I x, f64_I y) {
+static inline __attribute__((always_inline)) bool_I _ia_cmple_f64(f64_I x, f64_I y) {
     if ( x.up <= -y.lo ) { return TRUE_I;  }
     if (-x.lo >   y.up ) { return FALSE_I; }
     fprintf(stderr, "Error: Unknown state in _ia_cmple_f64\n");
     return UNKNOWN_I;
 }
 
-static bool_I _ia_cmpeq_f64(f64_I x, f64_I y) {
+static inline __attribute__((always_inline)) bool_I _ia_cmpeq_f64(f64_I x, f64_I y) {
     if (-x.lo == x.up &&  x.up == y.up && y.up == -y.lo) { return TRUE_I; }
     if ( x.up < -y.lo || -x.lo > y.up) { return FALSE_I; }
     fprintf(stderr, "Error: Unknown state in _ia_cmpeq_f64\n");
     return UNKNOWN_I;
 }
 
-static bool_I _ia_cmpneq_f64(f64_I x, f64_I y) {
+static inline __attribute__((always_inline)) bool_I _ia_cmpneq_f64(f64_I x, f64_I y) {
     if (-x.lo == x.up && x.up == y.up && y.up == -y.lo) { return FALSE_I; }
     if ( x.up < -y.lo || -x.lo > y.up) { return TRUE_I; }
     fprintf(stderr, "Error: Unknown state in _ia_cmpneq_f64\n");
     return UNKNOWN_I;
 }
 
-static bool_I _ia_cmpgt_f64(f64_I x, f64_I y){
+static inline __attribute__((always_inline)) bool_I _ia_cmpgt_f64(f64_I x, f64_I y){
     if ( y.up <  -x.lo ) { return TRUE_I;  }
     if (-y.lo >=  x.up ) { return FALSE_I; }
     fprintf(stderr, "Error: Unknown state in _ia_cmpgt_f64\n");
     return UNKNOWN_I;
 }
 
-static bool_I _ia_cmpge_f64(f64_I x, f64_I y){
+static inline __attribute__((always_inline)) bool_I _ia_cmpge_f64(f64_I x, f64_I y){
     if ( y.up <= -x.lo ) { return TRUE_I;  }
     if (-y.lo >   x.up ) { return FALSE_I; }
     fprintf(stderr, "Error: Unknown state in _ia_cmpge_f64\n");
     return UNKNOWN_I;
 }
 
-static bool_I _ia_cmplt_f32(f32_I x, f32_I y) {
+static inline __attribute__((always_inline)) bool_I _ia_cmplt_f32(f32_I x, f32_I y) {
     if ( x.up <  -y.lo ) { return TRUE_I;  }
     if (-x.lo >=  y.up ) { return FALSE_I; }
     fprintf(stderr, "Error: Unknown state in _ia_cmplt_f32\n");
     return UNKNOWN_I;
 }
 
-static bool_I _ia_cmple_f32(f32_I x, f32_I y) {
+static inline __attribute__((always_inline)) bool_I _ia_cmple_f32(f32_I x, f32_I y) {
     if ( x.up <= -y.lo ) { return TRUE_I;  }
     if (-x.lo >   y.up ) { return FALSE_I; }
     fprintf(stderr, "Error: Unknown state in _ia_cmple_f32\n");
     return UNKNOWN_I;
 }
 
-static bool_I _ia_cmpeq_f32(f32_I x, f32_I y) {
+static inline __attribute__((always_inline)) bool_I _ia_cmpeq_f32(f32_I x, f32_I y) {
     if (-x.lo == x.up &&  x.up == y.up && y.up == -y.lo) { return TRUE_I; }
     if ( x.up < -y.lo || -x.lo > y.up) { return FALSE_I; }
     fprintf(stderr, "Error: Unknown state in _ia_cmpeq_f32\n");
     return UNKNOWN_I;
 }
 
-static bool_I _ia_cmpneq_f32(f32_I x, f32_I y) {
+static inline __attribute__((always_inline)) bool_I _ia_cmpneq_f32(f32_I x, f32_I y) {
     if (-x.lo == x.up && x.up == y.up && y.up == -y.lo) { return FALSE_I; }
     if ( x.up < -y.lo || -x.lo > y.up) { return TRUE_I; }
     fprintf(stderr, "Error: Unknown state in _ia_cmpneq_f32\n");
     return UNKNOWN_I;
 }
 
-static bool_I _ia_cmpgt_f32(f32_I x, f32_I y){
+static inline __attribute__((always_inline)) bool_I _ia_cmpgt_f32(f32_I x, f32_I y){
     if ( y.up <  -x.lo ) { return TRUE_I;  }
     if (-y.lo >=  x.up ) { return FALSE_I; }
     fprintf(stderr, "Error: Unknown state in _ia_cmpgt_f32\n");
     return UNKNOWN_I;
 }
 
-static bool_I _ia_cmpge_f32(f32_I x, f32_I y){
+static inline __attribute__((always_inline)) bool_I _ia_cmpge_f32(f32_I x, f32_I y){
     if ( y.up <= -x.lo ) { return TRUE_I;  }
     if (-y.lo >   x.up ) { return FALSE_I; }
     fprintf(stderr, "Error: Unknown state in _ia_cmpge_f32\n");
@@ -514,35 +514,35 @@ static bool_I _ia_cmpge_f32(f32_I x, f32_I y){
 ///
 /// Cast operations
 ///
-static f64_I _ia_cvt_i2d(int x) {
+static inline __attribute__((always_inline)) f64_I _ia_cvt_i2d(int x) {
     f64_I r;
     r.lo = -x;
     r.up =  x;
     return r;
 }
 
-static f64_I _ia_cvt_l2d(long x) {
+static inline __attribute__((always_inline)) f64_I _ia_cvt_l2d(long x) {
     f64_I r;
     r.lo = -x;
     r.up =  x;
     return r;
 }
 
-static f32_I _ia_cvt_i2f(int x) {
+static inline __attribute__((always_inline)) f32_I _ia_cvt_i2f(int x) {
     f32_I r;
     r.lo = -x;
     r.up =  x;
     return r;
 }
 
-static f32_I _ia_cvt_l2f(long x) {
+static inline __attribute__((always_inline)) f32_I _ia_cvt_l2f(long x) {
     f32_I r;
     r.lo = -x;
     r.up =  x;
     return r;
 }
 
-static f64_I _ia_cvt_u2d(unsigned int x) {
+static inline __attribute__((always_inline)) f64_I _ia_cvt_u2d(unsigned int x) {
     f64_I r;
     r.lo = -((double)x);
     r.up =  x;
@@ -550,7 +550,7 @@ static f64_I _ia_cvt_u2d(unsigned int x) {
     return r;
 }
 
-static long _ia_cvt_d2l(f64_I x) {
+static inline __attribute__((always_inline)) long _ia_cvt_d2l(f64_I x) {
     /* This is not properly supported. What is the right way to handle
      * casts from interval to scalar? */
     fprintf(stderr, "Cast from interval to scalar. Upper bound returned.\n");
@@ -561,7 +561,7 @@ static long _ia_cvt_d2l(f64_I x) {
 /// Returns a float in the interval d. If more than one
 /// float is found it will print an error.
 ///
-static float _ia_reduce_d2f(f64_I d, double res) {
+static inline __attribute__((always_inline)) float _ia_reduce_d2f(f64_I d, double res) {
     /* First negate to force the rounding to be in the other direction. */
     float lo = (float) (-d.lo);
     float up = (float) (-d.up);
@@ -576,28 +576,28 @@ static float _ia_reduce_d2f(f64_I d, double res) {
 ///
 /// Set operations
 ///
-static f64_I _ia_set_f64(double lo, double up) {
+static inline __attribute__((always_inline)) f64_I _ia_set_f64(double lo, double up) {
     f64_I r;
     r.lo = lo;
     r.up = up;
     return r;
 }
 
-static f32_I _ia_set_f32(float lo, float up) {
+static inline __attribute__((always_inline)) f32_I _ia_set_f32(float lo, float up) {
     f32_I r;
     r.lo = lo;
     r.up = up;
     return r;
 }
 
-static f64_I _ia_set_pointed_f64(double d) {
+static inline __attribute__((always_inline)) f64_I _ia_set_pointed_f64(double d) {
     f64_I r;
     r.lo = -d;
     r.up =  d;
     return r;
 }
 
-static f64_I _ia_set_epsilon_f64(double d) {
+static inline __attribute__((always_inline)) f64_I _ia_set_epsilon_f64(double d) {
     f64_I r;
     r.lo = -d;
     r.up =  d + DBL_MIN;
@@ -607,7 +607,7 @@ static f64_I _ia_set_epsilon_f64(double d) {
 ///
 /// Special functions
 ///
-static f64_I _ia_sqr_f64(f64_I a) {
+static inline __attribute__((always_inline)) f64_I _ia_sqr_f64(f64_I a) {
     f64_I res = _ia_mul_f64(a, a);
     if (res.lo > 0) {
         /* Lower bound is negative */
@@ -616,12 +616,12 @@ static f64_I _ia_sqr_f64(f64_I a) {
     return res;
 }
 
-static f64_I _ia_fma_f64(f64_I x, f64_I y, f64_I z) {
+static inline __attribute__((always_inline)) f64_I _ia_fma_f64(f64_I x, f64_I y, f64_I z) {
     f64_I  r;
 
     /* Check for NaNs */
     if (isnan(x.up) || isnan(x.lo) || isnan(y.up) || isnan(y.lo)) {
-        static const f64_I NaN_I = { NAN, NAN };
+        static inline __attribute__((always_inline)) const f64_I NaN_I = { NAN, NAN };
         return NaN_I;
     }
 
@@ -704,19 +704,19 @@ static f64_I _ia_fma_f64(f64_I x, f64_I y, f64_I z) {
     return r;
 }
 
-static f64_I _ia_join_f64(f64_I x, f64_I y) {
+static inline __attribute__((always_inline)) f64_I _ia_join_f64(f64_I x, f64_I y) {
     f64_I  r;
     r.up = x.up > y.up ? x.up : y.up;
     r.lo = x.lo > y.lo ? x.lo : y.lo;
     return r;
 }
 
-static f64_I _ia_zero_f64() {
+static inline __attribute__((always_inline)) f64_I _ia_zero_f64() {
     f64_I r = {-0.0, 0.0};
     return r;
 }
 
-static f64_I _ia_one_f64() {
+static inline __attribute__((always_inline)) f64_I _ia_one_f64() {
     f64_I r = {-1.0, 1.0};
     return r;
 }
@@ -724,10 +724,10 @@ static f64_I _ia_one_f64() {
 ///
 /// Auxiliary functions
 ///
-static double _ia_get_lo_f64(f64_I a) {
+static inline __attribute__((always_inline)) double _ia_get_lo_f64(f64_I a) {
     return -a.lo;
 }
 
-static double _ia_get_up_f64(f64_I a) {
+static inline __attribute__((always_inline)) double _ia_get_up_f64(f64_I a) {
     return a.up;
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-static ddi_4 _igen_dd_transposed_mm256_fmadd_pd(ddi_4 a, ddi_4 b, ddi_4 c) {
+static inline __attribute__((always_inline)) ddi_4 _igen_dd_transposed_mm256_fmadd_pd(ddi_4 a, ddi_4 b, ddi_4 c) {
     ddi_4 dst;
 
     ddi_4 trans_a = _vec_transpose_ddi4(a);
@@ -264,11 +264,11 @@ static ddi_4 _igen_dd_transposed_mm256_fmadd_pd(ddi_4 a, ddi_4 b, ddi_4 c) {
     return dst;
 }
 
-static ddi_4 _igen_dd_separated_mm256_fmadd_pd(ddi_4 a, ddi_4 b, ddi_4 c) {
+static inline __attribute__((always_inline)) ddi_4 _igen_dd_separated_mm256_fmadd_pd(ddi_4 a, ddi_4 b, ddi_4 c) {
     ddi_4 tmp = _igen_dd_transposed_mm256_mul_pd(a, b);
     return _igen_dd_no_unused_vals_mm256_add_pd(tmp, c);
 }
 
 
-#define _igen_dd_op_mm256_fmadd_pd _igen_dd_transposed_mm256_fmadd_pd
-//#define _igen_dd_op_mm256_fmadd_pd _igen_dd_fb_mm256_fmadd_pd
+//#define _igen_dd_op_mm256_fmadd_pd _igen_dd_transposed_mm256_fmadd_pd
+#define _igen_dd_op_mm256_fmadd_pd _igen_dd_fb_mm256_fmadd_pd

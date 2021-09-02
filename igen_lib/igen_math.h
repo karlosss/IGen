@@ -14,7 +14,7 @@ static const f64_I NaN_I = { NAN, NAN };
 
 /// Specialized vectorized function
 #if defined(IGEN_LIB_VECTORIZED)
-static f64_I _ia_sqrt_f64(f64_I op) {
+static inline __attribute__((always_inline)) f64_I _ia_sqrt_f64(f64_I op) {
     static __m128d lo_neg = {-1.0, 1.0};
     static __m128d lo_eps = {DBL_MIN, 0.0};
     op = op * lo_neg;
@@ -24,7 +24,7 @@ static f64_I _ia_sqrt_f64(f64_I op) {
     return res;
 }
 #else
-static f64_I _ia_sqrt_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_sqrt_f64(f64_I _op) {
 #ifdef IGEN_COUNTERS
     counter_div_sc++; //hectorr
 #endif
@@ -61,7 +61,7 @@ static f64_I _ia_sqrt_f64(f64_I _op) {
 }
 #endif
 
-static f64_I _ia_abs_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_abs_f64(f64_I _op) {
     u_f64i* op = (u_f64i*) &_op;
     f64_I _r;
     u_f64i* r = (u_f64i*) &_r;
@@ -88,7 +88,7 @@ static f64_I _ia_abs_f64(f64_I _op) {
     return _r;
 }
 
-static f64_I _ia_floor_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_floor_f64(f64_I _op) {
     u_f64i* op = (u_f64i*) &_op;
 
     /* Floor is monotonic */
@@ -100,7 +100,7 @@ static f64_I _ia_floor_f64(f64_I _op) {
     return _res;
 }
 
-static f64_I _ia_max_f64(f64_I _a, f64_I _b) {
+static inline __attribute__((always_inline)) f64_I _ia_max_f64(f64_I _a, f64_I _b) {
     u_f64i* a = (u_f64i*) &_a;
     u_f64i* b = (u_f64i*) &_b;
 
@@ -112,7 +112,7 @@ static f64_I _ia_max_f64(f64_I _a, f64_I _b) {
     return _res;
 }
 
-static f64_I _ia_min_f64(f64_I _a, f64_I _b) {
+static inline __attribute__((always_inline)) f64_I _ia_min_f64(f64_I _a, f64_I _b) {
     u_f64i* a = (u_f64i*) &_a;
     u_f64i* b = (u_f64i*) &_b;
 
@@ -124,7 +124,7 @@ static f64_I _ia_min_f64(f64_I _a, f64_I _b) {
     return _res;
 }
 
-static f64_I _ia_ceil_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_ceil_f64(f64_I _op) {
     u_f64i* op = (u_f64i*) &_op;
 
     /* Ceil is monotonic */
@@ -136,7 +136,7 @@ static f64_I _ia_ceil_f64(f64_I _op) {
     return _res;
 }
 
-static f64_I _ia_exp_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_exp_f64(f64_I _op) {
 #pragma STDC FENV_ACCESS ON
     fesetround(FE_TONEAREST);
 
@@ -151,7 +151,7 @@ static f64_I _ia_exp_f64(f64_I _op) {
     return _res;
 }
 
-static f64_I _ia_expm1_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_expm1_f64(f64_I _op) {
 #pragma STDC FENV_ACCESS ON
     fesetround(FE_TONEAREST);
 
@@ -166,7 +166,7 @@ static f64_I _ia_expm1_f64(f64_I _op) {
     return _res;
 }
 
-static f64_I _ia_log_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_log_f64(f64_I _op) {
     f64_I _res;
     u_f64i* op = (u_f64i*) &_op;
     u_f64i* res = (u_f64i*) &_res;
@@ -200,7 +200,7 @@ static f64_I _ia_log_f64(f64_I _op) {
     return _res;
 }
 
-static f64_I _ia_log2_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_log2_f64(f64_I _op) {
     f64_I _res;
     u_f64i* op = (u_f64i*) &_op;
     u_f64i* res = (u_f64i*) &_res;
@@ -227,7 +227,7 @@ static f64_I _ia_log2_f64(f64_I _op) {
     return _res;
 }
 
-static f64_I _ia_log10_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_log10_f64(f64_I _op) {
     f64_I _res;
     u_f64i* op = (u_f64i*) &_op;
     u_f64i* res = (u_f64i*) &_res;
@@ -254,7 +254,7 @@ static f64_I _ia_log10_f64(f64_I _op) {
     return _res;
 }
 
-static f64_I _ia_log1p_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_log1p_f64(f64_I _op) {
     f64_I _res;
     u_f64i* op = (u_f64i*) &_op;
     u_f64i* res = (u_f64i*) &_res;
@@ -281,7 +281,7 @@ static f64_I _ia_log1p_f64(f64_I _op) {
     return _res;
 }
 
-static f64_I _ia_sin_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_sin_f64(f64_I _op) {
     u_f64i* op = (u_f64i*) &_op;
 
     /* Check for NaNs */
@@ -435,7 +435,7 @@ static f64_I _ia_sin_f64(f64_I _op) {
     return _r;
 }
 
-static f64_I _ia_cos_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_cos_f64(f64_I _op) {
     u_f64i* op = (u_f64i*) &_op;
 
     /* Check for NaNs */
@@ -593,7 +593,7 @@ static f64_I _ia_cos_f64(f64_I _op) {
     return _r;
 }
 
-static f64_I _ia_tan_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_tan_f64(f64_I _op) {
     f64_I _r;
     u_f64i* op = (u_f64i*) &_op;
     u_f64i* r = (u_f64i*) &_r;
@@ -633,7 +633,7 @@ static f64_I _ia_tan_f64(f64_I _op) {
     return _r;
 }
 
-static f64_I _ia_asin_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_asin_f64(f64_I _op) {
     f64_I _r;
     u_f64i* op = (u_f64i*) &_op;
     u_f64i* r = (u_f64i*) &_r;
@@ -661,12 +661,12 @@ static f64_I _ia_asin_f64(f64_I _op) {
     return _r;
 }
 
-static f64_I _ia_acos_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_acos_f64(f64_I _op) {
     fprintf(stderr, "Error: _ia_acos_f64 not supported yet.\n");
     return _op;
 }
 
-static f64_I _ia_atan_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_atan_f64(f64_I _op) {
     f64_I _r;
     u_f64i* op = (u_f64i*) &_op;
     u_f64i* r = (u_f64i*) &_r;
@@ -686,7 +686,7 @@ static f64_I _ia_atan_f64(f64_I _op) {
     return _r;
 }
 
-static f64_I _ia_sinh_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_sinh_f64(f64_I _op) {
     #pragma STDC FENV_ACCESS ON
     fesetround(FE_TONEAREST);
 
@@ -701,7 +701,7 @@ static f64_I _ia_sinh_f64(f64_I _op) {
     return _res;
 }
 
-static f64_I _ia_cosh_f64(f64_I _op) {
+static inline __attribute__((always_inline)) f64_I _ia_cosh_f64(f64_I _op) {
     #pragma STDC FENV_ACCESS ON
     fesetround(FE_TONEAREST);
 
@@ -740,7 +740,7 @@ static f64_I _ia_cosh_f64(f64_I _op) {
 ///
 /// Single-precision intervals
 ///
-static f32_I _ia_sqrt_f32(f32_I op) {
+static inline __attribute__((always_inline)) f32_I _ia_sqrt_f32(f32_I op) {
 
     /* Check that operand is in allowed range */
     if (op.lo > 0 || op.up < 0) {
@@ -766,7 +766,7 @@ static f32_I _ia_sqrt_f32(f32_I op) {
     return res;
 }
 
-static f32_I _ia_abs_f32(f32_I op) {
+static inline __attribute__((always_inline)) f32_I _ia_abs_f32(f32_I op) {
 
     f32_I r;
     if (-op.lo >= 0) {
@@ -787,7 +787,7 @@ static f32_I _ia_abs_f32(f32_I op) {
     return r;
 }
 
-static f32_I _ia_floor_f32(f32_I op) {
+static inline __attribute__((always_inline)) f32_I _ia_floor_f32(f32_I op) {
 
     /* Floor is monotonic */
     f32_I res;
@@ -797,7 +797,7 @@ static f32_I _ia_floor_f32(f32_I op) {
     return res;
 }
 
-static f32_I _ia_ceil_f32(f32_I op) {
+static inline __attribute__((always_inline)) f32_I _ia_ceil_f32(f32_I op) {
 
     /* Ceil is monotonic */
     f32_I res;
@@ -807,42 +807,42 @@ static f32_I _ia_ceil_f32(f32_I op) {
     return res;
 }
 
-static f32_I _ia_exp_f32(f32_I op) {
+static inline __attribute__((always_inline)) f32_I _ia_exp_f32(f32_I op) {
     fprintf(stderr, "Error: _ia_exp_f32 not supported yet.\n");
     return op;
 }
 
-static f32_I _ia_log_f32(f32_I op) {
+static inline __attribute__((always_inline)) f32_I _ia_log_f32(f32_I op) {
     fprintf(stderr, "Error: _ia_log_f32 not supported yet.\n");
     return op;
 }
 
-static f32_I _ia_sin_f32(f32_I op) {
+static inline __attribute__((always_inline)) f32_I _ia_sin_f32(f32_I op) {
     fprintf(stderr, "Error: _ia_sin_f32 not supported yet.\n");
     return op;
 }
 
-static f32_I _ia_cos_f32(f32_I op) {
+static inline __attribute__((always_inline)) f32_I _ia_cos_f32(f32_I op) {
     fprintf(stderr, "Error: _ia_cos_f32 not supported yet.\n");
     return op;
 }
 
-static f32_I _ia_tan_f32(f32_I op) {
+static inline __attribute__((always_inline)) f32_I _ia_tan_f32(f32_I op) {
     fprintf(stderr, "Error: _ia_tan_f32 not supported yet.\n");
     return op;
 }
 
-static f32_I _ia_asin_f32(f32_I op) {
+static inline __attribute__((always_inline)) f32_I _ia_asin_f32(f32_I op) {
     fprintf(stderr, "Error: _ia_asin_f32 not supported yet.\n");
     return op;
 }
 
-static f32_I _ia_acos_f32(f32_I op) {
+static inline __attribute__((always_inline)) f32_I _ia_acos_f32(f32_I op) {
     fprintf(stderr, "Error: _ia_acos_f32 not supported yet.\n");
     return op;
 }
 
-static f32_I _ia_atan_f32(f32_I op) {
+static inline __attribute__((always_inline)) f32_I _ia_atan_f32(f32_I op) {
     fprintf(stderr, "Error: _ia_atan_f32 not supported yet.\n");
     return op;
 }

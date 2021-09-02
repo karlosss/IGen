@@ -13,8 +13,8 @@
 ///
 /// Error-free transformations
 ///
-static dd_t veltkampSplit(double x) {
-    static unsigned long C = (1UL << SHIFT_POW) + 1;
+static inline __attribute__((always_inline)) dd_t veltkampSplit(double x) {
+    static inline __attribute__((always_inline)) unsigned long C = (1UL << SHIFT_POW) + 1;
     double gamma = C * x;
     double delta = x - gamma;
     dd_t r;
@@ -23,7 +23,7 @@ static dd_t veltkampSplit(double x) {
     return r;
 }
 
-static dd_t fastTwoSum(double a, double b) {
+static inline __attribute__((always_inline)) dd_t fastTwoSum(double a, double b) {
 #ifdef USE_ROUND_TO_NEAREST
     int _fround = fegetround();
     fesetround(FE_TONEAREST);
@@ -44,7 +44,7 @@ static dd_t fastTwoSum(double a, double b) {
     return r;
 }
 
-static dd_t twoSum(double a, double b) {
+static inline __attribute__((always_inline)) dd_t twoSum(double a, double b) {
 #ifdef USE_ROUND_TO_NEAREST
     int _fround = fegetround();
     fesetround(FE_TONEAREST);
@@ -68,7 +68,7 @@ static dd_t twoSum(double a, double b) {
 }
 
 /// twoMul. Flops = 3 when FMA is available. Otherwise 17.
-static dd_t twoMul(double _a, double _b) {
+static inline __attribute__((always_inline)) dd_t twoMul(double _a, double _b) {
 #ifdef USE_ROUND_TO_NEAREST
     int _fround = fegetround();
     fesetround(FE_TONEAREST);
@@ -99,28 +99,28 @@ static dd_t twoMul(double _a, double _b) {
 ///
 /// Auxiliary comparison functions
 ///
-static int dd_cmpgt(dd_t a, dd_t b) {
+static inline __attribute__((always_inline)) int dd_cmpgt(dd_t a, dd_t b) {
     return b.h - a.h < a.l - b.l;
 }
 
-static int dd_cmpgeq(dd_t a, dd_t b) {
+static inline __attribute__((always_inline)) int dd_cmpgeq(dd_t a, dd_t b) {
     return b.h - a.h <= a.l - b.l;
 }
 
-static int dd_cmpeq(dd_t a, dd_t b) {
+static inline __attribute__((always_inline)) int dd_cmpeq(dd_t a, dd_t b) {
     return dd_cmpgeq(a, b) && dd_cmpgeq(b, a);
 }
 
-static int dd_cmpgt_(double ah, double al, double bh, double bl) {
+static inline __attribute__((always_inline)) int dd_cmpgt_(double ah, double al, double bh, double bl) {
     return bh - ah < al - bl;
 }
 
-static int dd_cmpgeq_(double ah, double al, double bh, double bl) {
+static inline __attribute__((always_inline)) int dd_cmpgeq_(double ah, double al, double bh, double bl) {
     /* todo: check if this works */
     return bh - ah <= al - bl;
 }
 
-static int dd_cmpeq_(double ah, double al, double bh, double bl) {
+static inline __attribute__((always_inline)) int dd_cmpeq_(double ah, double al, double bh, double bl) {
     return !dd_cmpgt_(ah, al, bh, bl) && !dd_cmpgt_(bh, bl, ah, al);
 }
 
@@ -132,7 +132,7 @@ static int dd_cmpeq_(double ah, double al, double bh, double bl) {
 /// w ← RN(tl + vl)
 /// (zh, zl) ← Fast2Sum(vh, w)
 /// return (zh, zl)
-static dd_t dd_add(dd_t a, dd_t b) {
+static inline __attribute__((always_inline)) dd_t dd_add(dd_t a, dd_t b) {
     dd_t s   = twoSum(a.h, b.h);
     dd_t t   = twoSum(a.l, b.l);
     double c = s.l + t.h;
@@ -151,7 +151,7 @@ static dd_t dd_add(dd_t a, dd_t b) {
 /// 6: (zh, zl) ← Fast2Sum(ch,c3)
 /// 7: return (zh, zl)
 /// FLOPS: 24
-static dd_t dd_mul(dd_t a, dd_t b) {
+static inline __attribute__((always_inline)) dd_t dd_mul(dd_t a, dd_t b) {
     dd_t c    = twoMul(a.h, b.h);
     double t1 = a.h * b.l;
     double t2 = a.l * b.h;
@@ -169,7 +169,7 @@ static dd_t dd_mul(dd_t a, dd_t b) {
 /// 5: (δh, δl) ← DWTimesFP(eh, el, th)
 /// 6: (mh, ml) ← DWPlusFP(δh, δl, th)
 /// return (mh, ml)
-static dd_t dd_reciprocal(dd_t y) {
+static inline __attribute__((always_inline)) dd_t dd_reciprocal(dd_t y) {
     double yh = y.h;
     double yl = y.l;
 #ifdef __FMA__
@@ -187,25 +187,25 @@ static dd_t dd_reciprocal(dd_t y) {
 #endif
 }
 
-static dd_t dd_neg(dd_t a) {
+static inline __attribute__((always_inline)) dd_t dd_neg(dd_t a) {
     dd_t r;
     r.h = -a.h;
     r.l = -a.l;
     return r;
 }
 
-static dd_t dd_max(dd_t a, dd_t b) {
+static inline __attribute__((always_inline)) dd_t dd_max(dd_t a, dd_t b) {
     return dd_cmpgt(a, b) ? a : b;
 }
 
-static dd_t dd_max4(dd_t a1, dd_t a2, dd_t a3, dd_t a4) {
+static inline __attribute__((always_inline)) dd_t dd_max4(dd_t a1, dd_t a2, dd_t a3, dd_t a4) {
     dd_t t1 = dd_max(a1, a2);
     dd_t t2 = dd_max(a3, a4);
     dd_t r  = dd_max(t1, t2);
     return r;
 }
 
-static dd_t dd_set(double h, double l) {
+static inline __attribute__((always_inline)) dd_t dd_set(double h, double l) {
     dd_t t;
     t.h = h;
     t.l = l;
@@ -215,7 +215,7 @@ static dd_t dd_set(double h, double l) {
 ///
 /// Basic operations on intervals double-double
 ///
-static dd_I _ia_set_dd(double loh, double lol, double uph, double upl) {
+static inline __attribute__((always_inline)) dd_I _ia_set_dd(double loh, double lol, double uph, double upl) {
     dd_I a;
     a.lo.h = loh;
     a.lo.l = lol;
@@ -224,21 +224,21 @@ static dd_I _ia_set_dd(double loh, double lol, double uph, double upl) {
     return a;
 }
 
-static dd_I _ia_add_dd(dd_I a, dd_I b) {
+static inline __attribute__((always_inline)) dd_I _ia_add_dd(dd_I a, dd_I b) {
     dd_I r;
     r.up = dd_add(a.up, b.up);
     r.lo = dd_add(a.lo, b.lo);
     return r;
 }
 
-static dd_I _ia_sub_dd(dd_I a, dd_I b) {
+static inline __attribute__((always_inline)) dd_I _ia_sub_dd(dd_I a, dd_I b) {
     dd_I r;
     r.up = dd_add(a.up, b.lo);
     r.lo = dd_add(a.lo, b.up);
     return r;
 }
 
-static dd_I _ia_mul_dd(dd_I a, dd_I b) {
+static inline __attribute__((always_inline)) dd_I _ia_mul_dd(dd_I a, dd_I b) {
     dd_I r;
     dd_t _a_up = dd_neg(a.up);
     dd_t _a_lo = dd_neg(a.lo);
@@ -260,7 +260,7 @@ static dd_I _ia_mul_dd(dd_I a, dd_I b) {
     return r;
 }
 
-static dd_I _ia_div_dd(dd_I a, dd_I b) {
+static inline __attribute__((always_inline)) dd_I _ia_div_dd(dd_I a, dd_I b) {
     dd_I res;
     int bNoZero = (b.up.h < 0.0 || (b.up.h == 0.0 && b.up.l < 0.0)) || (b.lo.h < 0.0 || (b.lo.h == 0.0 && b.lo.l <  0.0));
 
@@ -277,18 +277,18 @@ static dd_I _ia_div_dd(dd_I a, dd_I b) {
     return res;
 }
 
-static dd_I _ia_neg_dd(dd_I a) {
+static inline __attribute__((always_inline)) dd_I _ia_neg_dd(dd_I a) {
     dd_I r;
     r.up = a.lo;
     r.lo = a.up;
     return r;
 }
 
-static dd_I _ia_cvt_i2dd(int x) {
+static inline __attribute__((always_inline)) dd_I _ia_cvt_i2dd(int x) {
     return _ia_set_dd(-x, 0, x, 0);
 }
 
-static bool_I _ia_cmpgt_dd(dd_I a, dd_I b) {
+static inline __attribute__((always_inline)) bool_I _ia_cmpgt_dd(dd_I a, dd_I b) {
     /* Todo: Check if it is faster using purely intrinsics */
     u_ddi _a = { .v = a };
     u_ddi _b = { .v = b };
@@ -299,11 +299,11 @@ static bool_I _ia_cmpgt_dd(dd_I a, dd_I b) {
     return UNKNOWN_I;
 }
 
-static bool_I _ia_cmplt_dd(dd_I a, dd_I b) {
+static inline __attribute__((always_inline)) bool_I _ia_cmplt_dd(dd_I a, dd_I b) {
     return _ia_cmpgt_dd(b, a);
 }
 
-static bool_I _ia_cmpgeq_dd(dd_I a, dd_I b) {
+static inline __attribute__((always_inline)) bool_I _ia_cmpgeq_dd(dd_I a, dd_I b) {
     u_ddi _a = { .v = a };
     u_ddi _b = { .v = b };
 
@@ -313,11 +313,11 @@ static bool_I _ia_cmpgeq_dd(dd_I a, dd_I b) {
     return UNKNOWN_I;
 }
 
-static bool_I _ia_cmpleq_dd(dd_I a, dd_I b) {
+static inline __attribute__((always_inline)) bool_I _ia_cmpleq_dd(dd_I a, dd_I b) {
     return _ia_cmpgeq_dd(b, a);
 }
 
-static bool_I _ia_cmpneq_dd(dd_I a, dd_I b) {
+static inline __attribute__((always_inline)) bool_I _ia_cmpneq_dd(dd_I a, dd_I b) {
     /* Ideally, intervals should not be compared for equality */
     u_ddi _a = { .v = a };
     u_ddi _b = { .v = b };
@@ -335,7 +335,7 @@ static bool_I _ia_cmpneq_dd(dd_I a, dd_I b) {
     return UNKNOWN_I;
 }
 
-static bool_I _ia_cmpeq_dd(dd_I a, dd_I b) {
+static inline __attribute__((always_inline)) bool_I _ia_cmpeq_dd(dd_I a, dd_I b) {
     /* Ideally, intervals should not be compared for equality */
     u_ddi _a = { .v = a };
     u_ddi _b = { .v = b };
@@ -356,39 +356,39 @@ static bool_I _ia_cmpeq_dd(dd_I a, dd_I b) {
 ///
 /// Other special functions
 ///
-static dd_I _ia_add_dd_f64i(dd_I a, f64_I b) {
+static inline __attribute__((always_inline)) dd_I _ia_add_dd_f64i(dd_I a, f64_I b) {
     u_f64i* _b = (u_f64i*) &b;
     dd_I t1 = _ia_set_dd(_b->lo, -0.0, _b->up, 0.0);
     return _ia_add_dd(a, t1);
 }
 
-static dd_I _ia_set_pointed_dd(double h, double l) {
+static inline __attribute__((always_inline)) dd_I _ia_set_pointed_dd(double h, double l) {
     return _ia_set_dd(-h,-l,h,l);
 }
 
-static dd_I _ia_set_pointed_h_dd(double h) {
+static inline __attribute__((always_inline)) dd_I _ia_set_pointed_h_dd(double h) {
     return _ia_set_dd(-h,-0.0,h,0.0);
 }
 
-static dd_I _ia_set_epsilon_dd(double h, double l) {
+static inline __attribute__((always_inline)) dd_I _ia_set_epsilon_dd(double h, double l) {
     return _ia_set_dd(-h,-l,h,l+DBL_MIN);
 }
 
-static dd_I _ia_zero_dd() {
+static inline __attribute__((always_inline)) dd_I _ia_zero_dd() {
     return _ia_set_dd(-0.0,-0.0,0.0,0.0);
 }
 
-static dd_I _ia_one_dd() {
+static inline __attribute__((always_inline)) dd_I _ia_one_dd() {
     return _ia_set_dd(-01.0,-0.0,1.0,0.0);
 }
 
-static double _ia_get_lo_dd(dd_I a) {
+static inline __attribute__((always_inline)) double _ia_get_lo_dd(dd_I a) {
     /* Normalize first */
     dd_t r = twoSum(a.lh, a.ll);
     return -r.h;
 }
 
-static double _ia_get_up_dd(dd_I a) {
+static inline __attribute__((always_inline)) double _ia_get_up_dd(dd_I a) {
     /* Normalize first */
     dd_t r = twoSum(a.uh, a.ul);
     return r.h;

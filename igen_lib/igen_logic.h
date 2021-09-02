@@ -7,17 +7,17 @@ typedef enum {
 } bool_I;
 
 /// Tribool logic operations
-static bool_I _ia_or_tb (bool_I a, bool_I b) {
+static inline __attribute__((always_inline)) bool_I _ia_or_tb (bool_I a, bool_I b) {
     /* todo: change this to correct tribool evaluation */
     return (bool_I) ((int) a || (int) b);
 }
 
-static bool_I _ia_and_tb (bool_I a, bool_I b) {
+static inline __attribute__((always_inline)) bool_I _ia_and_tb (bool_I a, bool_I b) {
     /* todo: change this to correct tribool evaluation */
     return (bool_I) ((int) a && (int) b);
 }
 
-static bool_I _ia_cvt2tb (int a) {
+static inline __attribute__((always_inline)) bool_I _ia_cvt2tb (int a) {
     /* todo: change this to correct tribool evaluation */
     if (a) {
         return TRUE_I;

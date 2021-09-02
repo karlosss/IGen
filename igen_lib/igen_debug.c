@@ -20,7 +20,7 @@ void _debug_around_zero_f64(f64_I a) {
     }
 }
 
-static long getCorrectBits(f64_I x) {
+static inline __attribute__((always_inline)) long getCorrectBits(f64_I x) {
 #define MPFR_HIGH_PRECISION 250
     mpfr_t xl, xu, delta;
     mpfr_init2(xl,    MPFR_HIGH_PRECISION);
@@ -50,7 +50,7 @@ long _debug_get_lost_bits(f64_I x) {
 }
 
 int _debug_lost_precision_f64(f64_I a) {
-    static int curr_bits_lost = 2;
+    static inline __attribute__((always_inline)) int curr_bits_lost = 2;
     int bits_lost = _debug_get_lost_bits(a);
     if (bits_lost > curr_bits_lost) {
         curr_bits_lost = bits_lost;
