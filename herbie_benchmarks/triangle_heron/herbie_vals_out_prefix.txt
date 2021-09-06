@@ -1,0 +1,4 @@
+;; seed: 201167825
+
+;; Error in (sqrt (* (* (* (/ (+ (+ x0 x1) x2) 2) (- (/ (+ (+ x0 x1) x2) 2) x0)) (- (/ (+ (+ x0 x1) x2) 2) x1)) (- (/ (+ (+ x0 x1) x2) 2) x2)))
+(FPCore (x0 x1 x2) :herbie-status error :herbie-time 4508.171142578125 :herbie-error-input ((256 #f) (8000 #f)) :herbie-error-output ((256 #f) (8000 #f)) :name "(sqrt (* (* (* (/ (+ (+ x0 x1) x2) 2) (- (/ (+ (+ x0 x1) x2) 2) x0)) (- (/ (+ (+ x0 x1) x2) 2) x1)) (- (/ (+ (+ x0 x1) x2) 2) x2)))" :precision binary64 #f)

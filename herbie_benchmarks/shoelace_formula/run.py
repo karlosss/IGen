@@ -2,24 +2,17 @@ import sys
 sys.path.append("..")
 from common import *
 
-# benchmark(
-#     lambda: interval(0, 20, 4),
-#     lambda: interval(0, 20, 4),
-#     lambda: interval(0, 20, 4),
-#     lambda: interval(0, 20, 4),
-#     lambda: interval(0, 20, 4),
-#     lambda: interval(0, 20, 4),
-#     lambda: interval(0, 20, 4),
-#     lambda: interval(0, 20, 4),
-# )
-
 benchmark(
-    lambda: interval(0, 20, 4, width=0.05),
-    lambda: interval(0, 20, 4, width=0.05),
-    lambda: interval(0, 20, 4, width=0.05),
-    lambda: interval(0, 20, 4, width=0.05),
-    lambda: interval(0, 20, 4, width=0.05),
-    lambda: interval(0, 20, 4, width=0.05),
-    lambda: interval(0, 20, 4, width=0.05),
-    lambda: interval(0, 20, 4, width=0.05),
+    lambda: intervals(
+        numbers=[
+            (r(-308, 308), r(-308, 308), 0.5),
+            (r(-308, 308), r(-308, 308), 0.5),
+            (r(-308, 308), r(-308, 308), 0.5),
+            (r(-308, 308), r(-308, 308), 0.5),
+            (r(-308, 308), r(-308, 308), 0.5),
+            (r(-308, 308), r(-308, 308), 0.5),
+            (r(-308, 308), r(-308, 308), 0.5),
+            (r(-308, 308), r(-308, 308), 0.5),
+        ],
+    )
 )

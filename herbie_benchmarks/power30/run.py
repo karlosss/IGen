@@ -3,9 +3,10 @@ sys.path.append("..")
 from common import *
 
 benchmark(
-    lambda: interval(0, 10, 4),
+    lambda: intervals(
+        numbers=[
+            (r(-10, 10), r(-10, 10), 0.5),
+        ],
+        width=0.05
+    )
 )
-
-# benchmark(
-#     lambda: interval(0, 10, 4, width=0.05),
-# )

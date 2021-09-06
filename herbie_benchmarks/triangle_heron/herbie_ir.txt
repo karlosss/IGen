@@ -1,0 +1,7 @@
+double sqrt(double);
+
+double f(double a, double b, double c) {
+    double s;
+    return "<{[HERBIE-1]}>";
+}
+

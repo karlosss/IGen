@@ -5,7 +5,7 @@ import subprocess
 import argparse
 import numpy as np
 
-DEFAULT_ITERS = 10000
+DEFAULT_ITERS = 100
 
 
 def init():
@@ -21,7 +21,7 @@ def init():
     return args
 
 
-def benchmark(*param_fns, iters=None):
+def benchmark(intervals_fn, iters=None):
     def parse_accuracy_output(raw):
         s = raw.split(" ")
         acc = round(float(s[-1]), 4)
@@ -41,19 +41,31 @@ def benchmark(*param_fns, iters=None):
 
     print("Running benchmark")
 
-    for i in range(iters):
-        par = [x for fn in param_fns for x in fn()]
+    i = 0
+    while i < iters:
+        par = intervals_fn()
 
-        acc, out, p = parse_accuracy_output(_run_command(["bin/accuracy", *par]))
+        out1, err1 = _run_command(["bin/accuracy", *par])
+        out2, err2 = _run_command(["bin/accuracy_{}".format(args.seed), *par])
+        out3, err3 = _run_command(["bin/runtime", *par])
+        out4, err4 = _run_command(["bin/runtime_{}".format(args.seed), *par])
+
+        if any([err1, err2, err3, err4]):
+            continue
+
+        acc, out, p = parse_accuracy_output(out1)
         acc_no_herbie.append(acc if acc >= 0 else 0.0)
         print("no herbie {}: {} (acc {})".format(p, out, acc))
 
-        acc, out, p = parse_accuracy_output(_run_command(["bin/accuracy_{}".format(args.seed), *par]))
+        acc, out, p = parse_accuracy_output(out2)
         acc_herbie.append(acc)
         print("   herbie {}: {} (acc {})".format(p, out, acc))
 
-        run_no_herbie.append(int(_run_command(["bin/runtime", *par])[:-1]))
-        run_herbie.append(int(_run_command(["bin/runtime_{}".format(args.seed), *par])[:-1]))
+        run_no_herbie.append(int(out3[:-1]))
+        run_herbie.append(int(out4[:-1]))
+        i += 1
+        if i % 100 == 0:
+            print("progress: {}/{}".format(i, iters))
 
     print("No herbie accuracy:\tmin {:<15}max {:<15}avg {:<15}med {:<15}".format(*stats(acc_no_herbie)))
     print("Herbie accuracy:\tmin {:<15}max {:<15}avg {:<15}med {:<15}".format(*stats(acc_herbie)))
@@ -242,6 +254,42 @@ def random_sci_interval(integral_lo, integral_hi, decimal_places, exp_lo, exp_hi
     return [res, str(float(res)*(1+perc_width))] if not res.startswith("-") else [str(float(res)*(1+perc_width)), res]
 
 
+def r(lo, hi):
+    return list(range(lo, hi + 1))
+
+
+def intervals(numbers, conditions=(), precision=4, width=0):
+    while True:
+        generated = [None for _ in range(len(numbers))]
+        other = [None for _ in range(len(numbers))]
+
+        for i in range(len(numbers)):
+            sign = ("-" if random.random() < numbers[i][2] else "")
+            if sign == "-":
+                exp = random.choice(numbers[i][1])
+            else:
+                exp = random.choice(numbers[i][0])
+            integral = str(random.randint(1, 9))
+            dec = ("0" if precision == 0 else "".join([str(random.randint(1, 9)) for _ in range(precision)]))
+            generated[i] = sign + integral + "." + dec + "e" + str(exp)
+            if width == 0:
+                other[i] = generated[i]
+            else:
+                other[i] = str(round(float(sign + integral + "." + dec)*(1+width), precision)) + "e" + str(exp)
+                if other[i].startswith("-"):
+                    generated[i], other[i] = other[i], generated[i]
+
+        for condition in conditions:
+            if not condition(*[float(x) for x in generated]):
+                print("rejected")
+                break
+        else:
+            break
+
+    res = list(zip(generated, other))
+    return [item for sublist in res for item in sublist]
+
+
 def interval(exp_mean, exp_sd, prec, neg=0.5, width=0):
     exp = [str(round(x)) for x in np.random.normal(exp_mean, exp_sd, 1)][0]
 
@@ -265,7 +313,7 @@ def interval(exp_mean, exp_sd, prec, neg=0.5, width=0):
             sign + up + "e" + e
         ]
 
-    return res
+
 
 
 
@@ -273,9 +321,9 @@ def _run_command(cmd):
     # print("Running command: {}".format(" ".join(cmd)))
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = p.communicate()
-    if stderr:
-        print(stderr.decode("utf8"))
-    return stdout.decode("utf8")
+    # if stderr:
+    #     print(stderr.decode("utf8"))
+    return stdout.decode("utf8"), stderr.decode("utf8")
 
 
 def stats(l):
