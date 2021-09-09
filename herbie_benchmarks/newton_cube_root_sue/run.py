@@ -3,6 +3,11 @@ sys.path.append("..")
 from common import *
 
 benchmark(
-    lambda: random_interval(3, 3, 0),
-    lambda: random_interval(10, 20, 1, exclude_zero=True),
+    lambda: intervals(
+        numbers=[
+            (r(-308, 308), r(-308, 308), 0.5),
+            (r(-308, 308), r(-308, 308), 0.5),
+        ],
+        width=0.05
+    )
 )

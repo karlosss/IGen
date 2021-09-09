@@ -5,7 +5,7 @@ import subprocess
 import argparse
 import numpy as np
 
-DEFAULT_ITERS = 100
+DEFAULT_ITERS = 10000
 
 
 def init():
