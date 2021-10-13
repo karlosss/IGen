@@ -1,8 +1,9 @@
 # Test directory not added to repository
-test
 _results
 build/
 CMakeFiles/
 bin/
 cmake_install.cmake
 Makefile
+venv
+__pycache__
