@@ -215,10 +215,256 @@ static inline __attribute__((always_inline)) void _igen_dd_op_mm256_stream_pd(dd
 
 // ================ ARITHMETIC ======================
 
-#include "igen_dd_immintrin_opt/mm256_add_pd.h"
-#include "igen_dd_immintrin_opt/mm256_sub_pd.h"
 #include "igen_dd_immintrin_opt/mm256_mul_pd.h"
-#include "igen_dd_immintrin_opt/mm256_div_pd.h"
+
+static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_add_pd(ddi_4 a, ddi_4 b) {
+    ddi_4 dst;
+
+#ifdef ROUND_TO_NEAREST
+    int _fround = fegetround();
+    fesetround(FE_TONEAREST);
+#endif
+    dd_v af0 = a.f[0];
+    dd_v af1 = a.f[1];
+    dd_v af2 = a.f[2];
+    dd_v af3 = a.f[3];
+
+    dd_v bf0 = b.f[0];
+    dd_v bf1 = b.f[1];
+    dd_v bf2 = b.f[2];
+    dd_v bf3 = b.f[3];
+
+    dd_v s0  = af0 + bf0;
+    dd_v s1  = af1 + bf1;
+    dd_v s2  = af2 + bf2;
+    dd_v s3  = af3 + bf3;
+
+    dd_v a_0 = s0 - bf0;
+    dd_v a_1 = s1 - bf1;
+    dd_v a_2 = s2 - bf2;
+    dd_v a_3 = s3 - bf3;
+
+    dd_v b_0 = s0 - a_0;
+    dd_v b_1 = s1 - a_1;
+    dd_v b_2 = s2 - a_2;
+    dd_v b_3 = s3 - a_3;
+
+    dd_v da0 = af0 - a_0;
+    dd_v da1 = af1 - a_1;
+    dd_v da2 = af2 - a_2;
+    dd_v da3 = af3 - a_3;
+
+    dd_v db0 = bf0 - b_0;
+    dd_v db1 = bf1 - b_1;
+    dd_v db2 = bf2 - b_2;
+    dd_v db3 = bf3 - b_3;
+
+    dd_v t0  = da0 + db0;
+    dd_v t1  = da1 + db1;
+    dd_v t2  = da2 + db2;
+    dd_v t3  = da3 + db3;
+
+#ifdef ROUND_TO_NEAREST
+    fesetround(_fround);
+#endif
+
+    dd_v thA = _mm256_unpackhi_pd(s0, s1);
+    dd_v thB = _mm256_unpackhi_pd(s2, s3);
+
+    dd_v tlA = _mm256_unpackhi_pd(t0, t1);
+    dd_v tlB = _mm256_unpackhi_pd(t2, t3);
+
+    dd_v sloA = _mm256_unpacklo_pd(s0, s1);
+    dd_v sloB = _mm256_unpacklo_pd(s2, s3);
+
+    dd_v tloA = _mm256_unpacklo_pd(t0, t1);
+    dd_v tloB = _mm256_unpacklo_pd(t2, t3);
+
+    dd_v cA = tloA + thA;
+    dd_v cB = tloB + thB;
+
+#ifdef ROUND_TO_NEAREST
+    int _fround = fegetround();
+    fesetround(FE_TONEAREST);
+#endif
+
+    dd_v f2sA = sloA + cA;
+    dd_v f2sB = sloB + cB;
+
+    dd_v f2zA = f2sA - sloA;
+    dd_v f2zB = f2sB - sloB;
+
+    dd_v f2tA = cA - f2zA;
+    dd_v f2tB = cB - f2zB;
+
+#ifdef ROUND_TO_NEAREST
+    fesetround(_fround);
+#endif
+
+    dd_v  wA = tlA + f2tA;
+    dd_v  wB = tlB + f2tB;
+
+#ifdef ROUND_TO_NEAREST
+    int _fround = fegetround();
+    fesetround(FE_TONEAREST);
+#endif
+
+    dd_v f3sA = f2sA + wA;
+    dd_v f3sB = f2sB + wB;
+
+    dd_v f3zA = f3sA - f2sA;
+    dd_v f3zB = f3sB - f2sB;
+
+    dd_v f3tA = wA - f3zA;
+    dd_v f3tB = wB - f3zB;
+
+#ifdef ROUND_TO_NEAREST
+    fesetround(_fround);
+#endif
+
+    dst.f[0] = _mm256_unpacklo_pd(f3sA, f3tA);
+    dst.f[1] = _mm256_unpackhi_pd(f3sA, f3tA);
+    dst.f[2] = _mm256_unpacklo_pd(f3sB, f3tB);
+    dst.f[3] = _mm256_unpackhi_pd(f3sB, f3tB);
+
+    return dst;
+}
+
+static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_sub_pd(ddi_4 a, ddi_4 b) {
+    ddi_4 _b;
+    _b.f[0] = _mm256_permute4x64_pd(b.f[0], 0b01001110);
+    _b.f[1] = _mm256_permute4x64_pd(b.f[1], 0b01001110);
+    _b.f[2] = _mm256_permute4x64_pd(b.f[2], 0b01001110);
+    _b.f[3] = _mm256_permute4x64_pd(b.f[3], 0b01001110);
+
+    return _igen_dd_op_mm256_add_pd(a, _b);
+}
+
+static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_div_pd(ddi_4 a, ddi_4 b) {
+    ddi_4 dst;
+
+    ddi_4 trans_a = _vec_transpose_ddi4(a);
+    ddi_4 trans_b = _vec_transpose_ddi4(b);
+
+    __m256d a_0 = trans_a.f[0];
+    __m256d a_1 = trans_a.f[1];
+    __m256d a_2 = trans_a.f[2];
+    __m256d a_3 = trans_a.f[3];
+
+    __m256d b_0 = trans_b.f[0];
+    __m256d b_1 = trans_b.f[1];
+    __m256d b_2 = trans_b.f[2];
+    __m256d b_3 = trans_b.f[3];
+
+    __m256d inf_t = _mm256_set1_pd(INFINITY);
+    __m256d zero_t = _mm256_setzero_pd();
+    __m256d neg_zero_t = _mm256_set1_pd(-0.0);
+    __m256d one_t = _mm256_set1_pd(1.0);
+
+    dd_v div_0 = 1.0 / b_0;
+    dd_v div_2 = 1.0 / b_2;
+
+    dd_v r0_0 = _mm256_fnmadd_pd(b_0, div_0, one_t);
+    dd_v r0_1 = _mm256_fnmadd_pd(b_1, div_0, zero_t);
+    dd_v r0_2 = _mm256_fnmadd_pd(b_2, div_2, one_t);
+    dd_v r0_3 = _mm256_fnmadd_pd(b_3, div_2, zero_t);
+
+    dd_v s01_0 = r0_0 + r0_1;
+    dd_v s01_2 = r0_2 + r0_3;
+
+    dd_v z0_0 = s01_0 - r0_0;
+    dd_v z0_2 = s01_2 - r0_2;
+
+    dd_v t0_0 = r0_1 - z0_0;
+    dd_v t0_2 = r0_3 - z0_2;
+
+    dd_v s03_0  = s01_0 * div_0;
+    dd_v s03_2  = s01_2 * div_2;
+
+    dd_v t03_0  = _mm256_fmsub_pd(s01_0, div_0, s03_0);
+    dd_v t03_2  = _mm256_fmsub_pd(s01_2, div_2, s03_2);
+
+    dd_v cl202_0   = _mm256_fmadd_pd(t0_0, div_0, t03_0);
+    dd_v cl202_2   = _mm256_fmadd_pd(t0_2, div_2, t03_2);
+
+    dd_v s04_0 = s03_0 + cl202_0;
+    dd_v s04_2 = s03_2 + cl202_2;
+
+    dd_v z04_0 = s04_0 - s03_0;
+    dd_v z04_2 = s04_2 - s03_2;
+
+    dd_v t04_0 = cl202_0 - z04_0;
+    dd_v t04_2 = cl202_2 - z04_2;
+
+    dd_v s06_0  = s04_0 + div_0;
+    dd_v s06_2  = s04_2 + div_2;
+
+    dd_v a_06_0 = s06_0 - div_0;
+    dd_v a_06_2 = s06_2 - div_2;
+
+    dd_v b_06_0 = s06_0 - a_06_0;
+    dd_v b_06_2 = s06_2 - a_06_2;
+
+    dd_v da06_0 = s04_0 - a_06_0;
+    dd_v da06_2 = s04_2 - a_06_2;
+
+    dd_v db06_0 = div_0 - b_06_0;
+    dd_v db06_2 = div_2 - b_06_2;
+
+    dd_v t06_0  = da06_0 + db06_0;
+    dd_v t06_2  = da06_2 + db06_2;
+
+    dd_v  v05_0  = t04_0 + t06_0;
+    dd_v  v05_2  = t04_2 + t06_2;
+
+    dd_v s07_0 = s06_0 + v05_0;
+    dd_v s07_2 = s06_2 + v05_2;
+
+    dd_v z07_0 = s07_0 - s06_0;
+    dd_v z07_2 = s07_2 - s06_2;
+
+    dd_v t07_0 = v05_0 - z07_0;
+    dd_v t07_2 = v05_2 - z07_2;
+
+    dd_v  cl308_0 = -t07_0;
+    dd_v  cl308_2 = -t07_2;
+
+    dd_v s010_0 = cl308_0 - s07_0;
+    dd_v s010_2 = cl308_2 - s07_2;
+
+    dd_v z010_0 = s010_0 + s07_0;
+    dd_v z010_2 = s010_2 + s07_2;
+
+    dd_v t010_0 = cl308_0 - z010_0;
+    dd_v t010_2 = cl308_2 - z010_2;
+
+    ddi_4 res = _transposed_mul(a_0, a_1, a_2, a_3, s010_2, t010_2, s010_0, t010_0);
+    dd_v res_0 = res.f[0];
+    dd_v res_1 = res.f[1];
+    dd_v res_2 = res.f[2];
+    dd_v res_3 = res.f[3];
+
+    __m256d b0uh_lt_0 = _mm256_cmp_pd(b_2, zero_t, _CMP_LT_OQ);
+    __m256d b0uh_eq_0 = _mm256_cmp_pd(b_2, zero_t, _CMP_EQ_OQ);
+    __m256d b0ul_lt_0 = _mm256_cmp_pd(b_3, zero_t, _CMP_LT_OQ);
+    __m256d b0lh_lt_0 = _mm256_cmp_pd(b_0, zero_t, _CMP_LT_OQ);
+    __m256d b0lh_eq_0 = _mm256_cmp_pd(b_0, zero_t, _CMP_EQ_OQ);
+    __m256d b0ll_lt_0 = _mm256_cmp_pd(b_1, zero_t, _CMP_LT_OQ);
+    __m256d and0 = _mm256_and_pd(b0uh_eq_0, b0ul_lt_0);
+    __m256d and1 = _mm256_and_pd(b0lh_eq_0, b0ll_lt_0);
+    __m256d or0 = _mm256_or_pd(b0uh_lt_0, and0);
+    __m256d or1 = _mm256_or_pd(b0lh_lt_0, and1);
+    __m256d b_no_zero = _mm256_or_pd(or0, or1);
+
+    dd_v b_res_0 = _mm256_blendv_pd(inf_t, res_0, b_no_zero);
+    dd_v b_res_1 = _mm256_blendv_pd(neg_zero_t, res_1, b_no_zero);
+    dd_v b_res_2 = _mm256_blendv_pd(inf_t, res_2, b_no_zero);
+    dd_v b_res_3 = _mm256_blendv_pd(zero_t, res_3, b_no_zero);
+
+    dst = _vec_transpose_m256d(b_res_0, b_res_1, b_res_2, b_res_3);
+
+    return dst;
+}
 
 static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_addsub_pd(ddi_4 _a, ddi_4 _b) {
     vec256d a;
@@ -377,7 +623,269 @@ static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_round_pd(dd
     return dst.v;
 }
 
-#include "igen_dd_immintrin_opt/mm256_fmadd_pd.h"
+static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_fmadd_pd(ddi_4 a, ddi_4 b, ddi_4 c) {
+    ddi_4 dst;
+
+    ddi_4 trans_a = _vec_transpose_ddi4(a);
+    ddi_4 trans_b = _vec_transpose_ddi4(b);
+    ddi_4 trans_c = _vec_transpose_ddi4(c);
+
+    dd_v a_0 = trans_a.f[0];
+    dd_v a_1 = trans_a.f[1];
+    dd_v a_2 = trans_a.f[2];
+    dd_v a_3 = trans_a.f[3];
+    dd_v b_0 = trans_b.f[0];
+    dd_v b_1 = trans_b.f[1];
+    dd_v b_2 = trans_b.f[2];
+    dd_v b_3 = trans_b.f[3];
+    dd_v c_0 = trans_c.f[0];
+    dd_v c_1 = trans_c.f[1];
+    dd_v c_2 = trans_c.f[2];
+    dd_v c_3 = trans_c.f[3];
+
+    __m256d neg_b_0 = -b_0;
+    __m256d neg_b_1 = -b_1;
+    __m256d neg_b_2 = -b_2;
+    __m256d neg_b_3 = -b_3;
+
+    __m256d s_3_0 = a_0 * b_0;
+    __m256d s_3_1 = a_0 * neg_b_2;
+    __m256d s_3_2 = a_2 * b_2;
+    __m256d s_3_3 = a_2 * neg_b_0;
+
+    __m256d t_3_0 = _mm256_fmsub_pd(a_0, b_0, s_3_0);
+    __m256d t_3_1 = _mm256_fmsub_pd(a_0, neg_b_2, s_3_1);
+    __m256d t_3_2 = _mm256_fmsub_pd(a_2, b_2, s_3_2);
+    __m256d t_3_3 = _mm256_fmsub_pd(a_2, neg_b_0, s_3_3);
+
+    __m256d tl0_0 = a_1 * b_1;
+    __m256d tl0_1 = a_1 * neg_b_3;
+    __m256d tl0_2 = a_3 * b_3;
+    __m256d tl0_3 = a_3 * neg_b_1;
+
+    __m256d tl1_0 = _mm256_fmadd_pd(a_0, b_1, tl0_0);
+    __m256d tl1_1 = _mm256_fmadd_pd(a_0, neg_b_3, tl0_1);
+    __m256d tl1_2 = _mm256_fmadd_pd(a_2, b_3, tl0_2);
+    __m256d tl1_3 = _mm256_fmadd_pd(a_2, neg_b_1, tl0_3);
+
+    __m256d cl2_0 = _mm256_fmadd_pd(a_1, b_0, tl1_0);
+    __m256d cl2_1 = _mm256_fmadd_pd(a_1, neg_b_2, tl1_1);
+    __m256d cl2_2 = _mm256_fmadd_pd(a_3, b_2, tl1_2);
+    __m256d cl2_3 = _mm256_fmadd_pd(a_3, neg_b_0, tl1_3);
+
+    __m256d cl3_0 = t_3_0 + cl2_0;
+    __m256d cl3_1 = t_3_1 + cl2_1;
+    __m256d cl3_2 = t_3_2 + cl2_2;
+    __m256d cl3_3 = t_3_3 + cl2_3;
+
+    __m256d s_4_0 = s_3_0 + cl3_0;
+    __m256d s_4_1 = s_3_1 + cl3_1;
+    __m256d s_4_2 = s_3_2 + cl3_2;
+    __m256d s_4_3 = s_3_3 + cl3_3;
+
+    __m256d z_4_0 = s_4_0 - s_3_0;
+    __m256d z_4_1 = s_4_1 - s_3_1;
+    __m256d z_4_2 = s_4_2 - s_3_2;
+    __m256d z_4_3 = s_4_3 - s_3_3;
+
+    __m256d t_4_0 = cl3_0 - z_4_0;
+    __m256d t_4_1 = cl3_1 - z_4_1;
+    __m256d t_4_2 = cl3_2 - z_4_2;
+    __m256d t_4_3 = cl3_3 - z_4_3;
+
+    __m256d s_5_0 = a_0 * neg_b_0;
+    __m256d s_5_1 = a_0 * b_2;
+    __m256d s_5_2 = a_2 * neg_b_2;
+    __m256d s_5_3 = a_2 * b_0;
+
+    __m256d t_5_0 = _mm256_fmsub_pd(a_0, neg_b_0, s_5_0);
+    __m256d t_5_1 = _mm256_fmsub_pd(a_0, b_2, s_5_1);
+    __m256d t_5_2 = _mm256_fmsub_pd(a_2, neg_b_2, s_5_2);
+    __m256d t_5_3 = _mm256_fmsub_pd(a_2, b_0, s_5_3);
+
+    __m256d tl0_2_0 = a_1 * neg_b_1;
+    __m256d tl0_2_1 = a_1 * b_3;
+    __m256d tl0_2_2 = a_3 * neg_b_3;
+    __m256d tl0_2_3 = a_3 * b_1;
+
+    __m256d tl1_2_0 = _mm256_fmadd_pd(a_0, neg_b_1, tl0_2_0);
+    __m256d tl1_2_1 = _mm256_fmadd_pd(a_0, b_3, tl0_2_1);
+    __m256d tl1_2_2 = _mm256_fmadd_pd(a_2, neg_b_3, tl0_2_2);
+    __m256d tl1_2_3 = _mm256_fmadd_pd(a_2, b_1, tl0_2_3);
+
+    __m256d cl2_2_0 = _mm256_fmadd_pd(a_1, neg_b_0, tl1_2_0);
+    __m256d cl2_2_1 = _mm256_fmadd_pd(a_1, b_2, tl1_2_1);
+    __m256d cl2_2_2 = _mm256_fmadd_pd(a_3, neg_b_2, tl1_2_2);
+    __m256d cl2_2_3 = _mm256_fmadd_pd(a_3, b_0, tl1_2_3);
+
+    __m256d cl3_2_0 = t_5_0 + cl2_2_0;
+    __m256d cl3_2_1 = t_5_1 + cl2_2_1;
+    __m256d cl3_2_2 = t_5_2 + cl2_2_2;
+    __m256d cl3_2_3 = t_5_3 + cl2_2_3;
+
+    __m256d s_6_0 = s_5_0 + cl3_2_0;
+    __m256d s_6_1 = s_5_1 + cl3_2_1;
+    __m256d s_6_2 = s_5_2 + cl3_2_2;
+    __m256d s_6_3 = s_5_3 + cl3_2_3;
+
+    __m256d z_6_0 = s_6_0 - s_5_0;
+    __m256d z_6_1 = s_6_1 - s_5_1;
+    __m256d z_6_2 = s_6_2 - s_5_2;
+    __m256d z_6_3 = s_6_3 - s_5_3;
+
+    __m256d t_6_0 = cl3_2_0 - z_6_0;
+    __m256d t_6_1 = cl3_2_1 - z_6_1;
+    __m256d t_6_2 = cl3_2_2 - z_6_2;
+    __m256d t_6_3 = cl3_2_3 - z_6_3;
+
+    __m256d minf = _mm256_set1_pd(-1.0/0.0);
+
+    __m256d mask17_01 = _mm256_cmp_pd(s_4_0, s_4_1, _CMP_GE_OQ);
+    __m256d mask17_23 = _mm256_cmp_pd(s_4_2, s_4_3, _CMP_GE_OQ);
+    __m256d mask27_01 = _mm256_cmp_pd(s_4_0, s_4_1, _CMP_LE_OQ);
+    __m256d mask27_23 = _mm256_cmp_pd(s_4_2, s_4_3, _CMP_LE_OQ);
+
+    __m256d a7_0 = _mm256_blendv_pd(minf, s_4_0, mask17_01);
+    __m256d a7_1 = _mm256_blendv_pd(minf, t_4_0, mask17_01);
+    __m256d a7_2 = _mm256_blendv_pd(minf, s_4_2, mask17_23);
+    __m256d a7_3 = _mm256_blendv_pd(minf, t_4_2, mask17_23);
+
+    __m256d b7_0 = _mm256_blendv_pd(minf, s_4_1, mask27_01);
+    __m256d b7_1 = _mm256_blendv_pd(minf, t_4_1, mask27_01);
+    __m256d b7_2 = _mm256_blendv_pd(minf, s_4_3, mask27_23);
+    __m256d b7_3 = _mm256_blendv_pd(minf, t_4_3, mask27_23);
+
+    __m256d rup_0 = _mm256_max_pd(a7_0, b7_0);
+    __m256d rup_1 = _mm256_max_pd(a7_1, b7_1);
+    __m256d rup_2 = _mm256_max_pd(a7_2, b7_2);
+    __m256d rup_3 = _mm256_max_pd(a7_3, b7_3);
+
+    __m256d mask18_01 = _mm256_cmp_pd(s_6_0, s_6_1, _CMP_GE_OQ);
+    __m256d mask18_23 = _mm256_cmp_pd(s_6_2, s_6_3, _CMP_GE_OQ);
+    __m256d mask28_01 = _mm256_cmp_pd(s_6_0, s_6_1, _CMP_LE_OQ);
+    __m256d mask28_23 = _mm256_cmp_pd(s_6_2, s_6_3, _CMP_LE_OQ);
+
+    __m256d a8_0 = _mm256_blendv_pd(minf, s_6_0, mask18_01);
+    __m256d a8_1 = _mm256_blendv_pd(minf, t_6_0, mask18_01);
+    __m256d a8_2 = _mm256_blendv_pd(minf, s_6_2, mask18_23);
+    __m256d a8_3 = _mm256_blendv_pd(minf, t_6_2, mask18_23);
+
+    __m256d b8_0 = _mm256_blendv_pd(minf, s_6_1, mask28_01);
+    __m256d b8_1 = _mm256_blendv_pd(minf, t_6_1, mask28_01);
+    __m256d b8_2 = _mm256_blendv_pd(minf, s_6_3, mask28_23);
+    __m256d b8_3 = _mm256_blendv_pd(minf, t_6_3, mask28_23);
+
+    __m256d rlo_0 = _mm256_max_pd(a8_0, b8_0);
+    __m256d rlo_1 = _mm256_max_pd(a8_1, b8_1);
+    __m256d rlo_2 = _mm256_max_pd(a8_2, b8_2);
+    __m256d rlo_3 = _mm256_max_pd(a8_3, b8_3);
+
+    __m256d mask19_01 = _mm256_cmp_pd(rlo_0, rlo_2, _CMP_GE_OQ);
+    __m256d mask19_23 = _mm256_cmp_pd(rup_0, rup_2, _CMP_GE_OQ);
+    __m256d mask29_01 = _mm256_cmp_pd(rlo_0, rlo_2, _CMP_LE_OQ);
+    __m256d mask29_23 = _mm256_cmp_pd(rup_0, rup_2, _CMP_LE_OQ);
+
+    __m256d a9_0 = _mm256_blendv_pd(minf, rlo_0, mask19_01);
+    __m256d a9_1 = _mm256_blendv_pd(minf, rlo_1, mask19_01);
+    __m256d a9_2 = _mm256_blendv_pd(minf, rup_0, mask19_23);
+    __m256d a9_3 = _mm256_blendv_pd(minf, rup_1, mask19_23);
+
+    __m256d b9_0 = _mm256_blendv_pd(minf, rlo_2, mask29_01);
+    __m256d b9_1 = _mm256_blendv_pd(minf, rlo_3, mask29_01);
+    __m256d b9_2 = _mm256_blendv_pd(minf, rup_2, mask29_23);
+    __m256d b9_3 = _mm256_blendv_pd(minf, rup_3, mask29_23);
+
+    __m256d res_0 = _mm256_max_pd(a9_0, b9_0);
+    __m256d res_1 = _mm256_max_pd(a9_1, b9_1);
+    __m256d res_2 = _mm256_max_pd(a9_2, b9_2);
+    __m256d res_3 = _mm256_max_pd(a9_3, b9_3);
+
+    dd_v s0_0  = res_0 + c_0;
+    dd_v s0_1  = res_1 + c_1;
+    dd_v s0_2  = res_2 + c_2;
+    dd_v s0_3  = res_3 + c_3;
+
+    dd_v a0_0 = s0_0 - c_0;
+    dd_v a0_1 = s0_1 - c_1;
+    dd_v a0_2 = s0_2 - c_2;
+    dd_v a0_3 = s0_3 - c_3;
+
+    dd_v b0_0 = s0_0 - a0_0;
+    dd_v b0_1 = s0_1 - a0_1;
+    dd_v b0_2 = s0_2 - a0_2;
+    dd_v b0_3 = s0_3 - a0_3;
+
+    dd_v da0_0 = res_0 - a0_0;
+    dd_v da0_1 = res_1 - a0_1;
+    dd_v da0_2 = res_2 - a0_2;
+    dd_v da0_3 = res_3 - a0_3;
+
+    dd_v db0_0 = c_0 - b0_0;
+    dd_v db0_1 = c_1 - b0_1;
+    dd_v db0_2 = c_2 - b0_2;
+    dd_v db0_3 = c_3 - b0_3;
+
+    dd_v t0_0 = da0_0 + db0_0;
+    dd_v t0_1 = da0_1 + db0_1;
+    dd_v t0_2 = da0_2 + db0_2;
+    dd_v t0_3 = da0_3 + db0_3;
+
+#ifdef ROUND_TO_NEAREST
+    fesetround(_fround);
+#endif
+
+//    dd_v  c0    = t0 + th0;
+    dd_v c0_0 = t0_0 + s0_1;
+    dd_v c0_2 = t0_2 + s0_3;
+
+#ifdef ROUND_TO_NEAREST
+    int _fround = fegetround();
+    fesetround(FE_TONEAREST);
+#endif
+
+//    dd_v f2s0 = s0 + c0;
+    dd_v f2s0_0 = s0_0 + c0_0;
+    dd_v f2s0_2 = s0_2 + c0_2;
+
+//    dd_v f2z0 = f2s0 - s0;
+    dd_v f2z0_0 = f2s0_0 - s0_0;
+    dd_v f2z0_2 = f2s0_2 - s0_2;
+
+//    dd_v f2t0 = c0 - f2z0;
+    dd_v f2t0_0 = c0_0 - f2z0_0;
+    dd_v f2t0_2 = c0_2 - f2z0_2;
+
+#ifdef ROUND_TO_NEAREST
+    fesetround(_fround);
+#endif
+
+//    dd_v  w0    = tl0 + f2t0;
+    dd_v  w0_0    = t0_1 + f2t0_0;
+    dd_v  w0_2    = t0_3 + f2t0_2;
+
+#ifdef ROUND_TO_NEAREST
+    int _fround = fegetround();
+    fesetround(FE_TONEAREST);
+#endif
+
+//    dd_v f3s0 = f2s0 + w0;
+    dd_v f3s0_0 = f2s0_0 + w0_0;
+    dd_v f3s0_2 = f2s0_2 + w0_2;
+
+//    dd_v f3z0 = f3s0 - f2s0;
+    dd_v f3z0_0 = f3s0_0 - f2s0_0;
+    dd_v f3z0_2 = f3s0_2 - f2s0_2;
+
+//    dd_v f3t0 = w0 - f3z0;
+    dd_v f3t0_0 = w0_0 - f3z0_0;
+    dd_v f3t0_2 = w0_2 - f3z0_2;
+
+#ifdef ROUND_TO_NEAREST
+    fesetround(_fround);
+#endif
+    dst = _vec_transpose_m256d(f3s0_0, f3t0_0, f3s0_2, f3t0_2);
+    return dst;
+}
 
 static inline __attribute__((always_inline)) ddi_4 _igen_dd_op_mm256_fmsub_pd(ddi_4 _a, ddi_4 _b, ddi_4 _c) {
     vec256d a;
